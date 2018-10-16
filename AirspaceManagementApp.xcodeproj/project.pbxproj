@@ -1,0 +1,428 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0455209A217548F50033D33B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04552099217548F50033D33B /* AppDelegate.swift */; };
+		0455209C217548F50033D33B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455209B217548F50033D33B /* ViewController.swift */; };
+		0455209F217548F50033D33B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0455209D217548F50033D33B /* Main.storyboard */; };
+		045520A1217548F60033D33B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 045520A0217548F60033D33B /* Assets.xcassets */; };
+		045520A4217548F60033D33B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045520A2217548F60033D33B /* LaunchScreen.storyboard */; };
+		045520AC217549310033D33B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 045520AB217549310033D33B /* GoogleService-Info.plist */; };
+		045520AE217550C90033D33B /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045520AD217550C90033D33B /* LoginVC.swift */; };
+		045520B02175589E0033D33B /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045520AF2175589E0033D33B /* HomeTabBarController.swift */; };
+		045520B221755A2B0033D33B /* ServiceRequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045520B121755A2B0033D33B /* ServiceRequestVC.swift */; };
+		F87A05D304A682B44682A1E3 /* Pods_AirspaceManagementApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 656D2D1C7F3AAF0303853BEC /* Pods_AirspaceManagementApp.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		04552096217548F50033D33B /* AirspaceManagementApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirspaceManagementApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04552099217548F50033D33B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0455209B217548F50033D33B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0455209E217548F50033D33B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		045520A0217548F60033D33B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		045520A3217548F60033D33B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		045520A5217548F60033D33B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		045520AB217549310033D33B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		045520AD217550C90033D33B /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		045520AF2175589E0033D33B /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
+		045520B121755A2B0033D33B /* ServiceRequestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequestVC.swift; sourceTree = "<group>"; };
+		5E480989A434A67B50C0463B /* Pods-AirspaceManagementApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirspaceManagementApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp.debug.xcconfig"; sourceTree = "<group>"; };
+		656D2D1C7F3AAF0303853BEC /* Pods_AirspaceManagementApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirspaceManagementApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAE9B2D98373D08D679AE48C /* Pods-AirspaceManagementApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirspaceManagementApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		04552093217548F50033D33B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F87A05D304A682B44682A1E3 /* Pods_AirspaceManagementApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0455208D217548F50033D33B = {
+			isa = PBXGroup;
+			children = (
+				04552098217548F50033D33B /* AirspaceManagementApp */,
+				04552097217548F50033D33B /* Products */,
+				EEABBB4845E16664B11CBDFB /* Pods */,
+				39E411A42304779E5373AB58 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		04552097217548F50033D33B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04552096217548F50033D33B /* AirspaceManagementApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		04552098217548F50033D33B /* AirspaceManagementApp */ = {
+			isa = PBXGroup;
+			children = (
+				04552099217548F50033D33B /* AppDelegate.swift */,
+				0455209B217548F50033D33B /* ViewController.swift */,
+				045520AD217550C90033D33B /* LoginVC.swift */,
+				045520AF2175589E0033D33B /* HomeTabBarController.swift */,
+				045520B121755A2B0033D33B /* ServiceRequestVC.swift */,
+				0455209D217548F50033D33B /* Main.storyboard */,
+				045520A0217548F60033D33B /* Assets.xcassets */,
+				045520A2217548F60033D33B /* LaunchScreen.storyboard */,
+				045520A5217548F60033D33B /* Info.plist */,
+				045520AB217549310033D33B /* GoogleService-Info.plist */,
+			);
+			path = AirspaceManagementApp;
+			sourceTree = "<group>";
+		};
+		39E411A42304779E5373AB58 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				656D2D1C7F3AAF0303853BEC /* Pods_AirspaceManagementApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EEABBB4845E16664B11CBDFB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5E480989A434A67B50C0463B /* Pods-AirspaceManagementApp.debug.xcconfig */,
+				CAE9B2D98373D08D679AE48C /* Pods-AirspaceManagementApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04552095217548F50033D33B /* AirspaceManagementApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 045520A8217548F60033D33B /* Build configuration list for PBXNativeTarget "AirspaceManagementApp" */;
+			buildPhases = (
+				67442D5D80C9D02369F80FFB /* [CP] Check Pods Manifest.lock */,
+				04552092217548F50033D33B /* Sources */,
+				04552093217548F50033D33B /* Frameworks */,
+				04552094217548F50033D33B /* Resources */,
+				B5ACD57054FD4E56CD04D847 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AirspaceManagementApp;
+			productName = AirspaceManagementApp;
+			productReference = 04552096217548F50033D33B /* AirspaceManagementApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0455208E217548F50033D33B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1000;
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = "Aditya Gunda";
+				TargetAttributes = {
+					04552095217548F50033D33B = {
+						CreatedOnToolsVersion = 10.0;
+					};
+				};
+			};
+			buildConfigurationList = 04552091217548F50033D33B /* Build configuration list for PBXProject "AirspaceManagementApp" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0455208D217548F50033D33B;
+			productRefGroup = 04552097217548F50033D33B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04552095217548F50033D33B /* AirspaceManagementApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		04552094217548F50033D33B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				045520A4217548F60033D33B /* LaunchScreen.storyboard in Resources */,
+				045520AC217549310033D33B /* GoogleService-Info.plist in Resources */,
+				045520A1217548F60033D33B /* Assets.xcassets in Resources */,
+				0455209F217548F50033D33B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		67442D5D80C9D02369F80FFB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AirspaceManagementApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B5ACD57054FD4E56CD04D847 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		04552092217548F50033D33B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				045520B221755A2B0033D33B /* ServiceRequestVC.swift in Sources */,
+				0455209C217548F50033D33B /* ViewController.swift in Sources */,
+				0455209A217548F50033D33B /* AppDelegate.swift in Sources */,
+				045520B02175589E0033D33B /* HomeTabBarController.swift in Sources */,
+				045520AE217550C90033D33B /* LoginVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0455209D217548F50033D33B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0455209E217548F50033D33B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		045520A2217548F60033D33B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				045520A3217548F60033D33B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		045520A6217548F60033D33B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		045520A7217548F60033D33B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		045520A9217548F60033D33B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E480989A434A67B50C0463B /* Pods-AirspaceManagementApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JQ4K8EE77P;
+				INFOPLIST_FILE = AirspaceManagementApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = AG.AirspaceManagementApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		045520AA217548F60033D33B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CAE9B2D98373D08D679AE48C /* Pods-AirspaceManagementApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JQ4K8EE77P;
+				INFOPLIST_FILE = AirspaceManagementApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = AG.AirspaceManagementApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		04552091217548F50033D33B /* Build configuration list for PBXProject "AirspaceManagementApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				045520A6217548F60033D33B /* Debug */,
+				045520A7217548F60033D33B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		045520A8217548F60033D33B /* Build configuration list for PBXNativeTarget "AirspaceManagementApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				045520A9217548F60033D33B /* Debug */,
+				045520AA217548F60033D33B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0455208E217548F50033D33B /* Project object */;
+}

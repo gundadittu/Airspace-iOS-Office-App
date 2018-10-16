@@ -1,0 +1,6 @@
+framework module Pods_AirspaceManagementApp {
+  umbrella header "Pods-AirspaceManagementApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
