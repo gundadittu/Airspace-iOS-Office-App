@@ -1,18 +1,18 @@
 //
-//  ServiceRequestVC.swift
+//  ProfileVC.swift
 //  AirspaceManagementApp
 //
-//  Created by Aditya Gunda on 10/15/18.
+//  Created by Aditya Gunda on 10/21/18.
 //  Copyright © 2018 Aditya Gunda. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class ServiceRequestVC: UIViewController {
+class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
-        self.title = "Service Requests"
+        super.viewDidLoad()
+        self.title = "My Stuff"
     }
-    
 }

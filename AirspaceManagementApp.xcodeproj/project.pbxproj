@@ -7,30 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		043EB1D5217CF69E00B40154 /* SubmitTicketField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EB1D4217CF69E00B40154 /* SubmitTicketField.swift */; };
+		043EB1D7217D00C400B40154 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EB1D6217D00C400B40154 /* MainCollectionViewCell.swift */; };
 		0455209A217548F50033D33B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04552099217548F50033D33B /* AppDelegate.swift */; };
-		0455209C217548F50033D33B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455209B217548F50033D33B /* ViewController.swift */; };
 		0455209F217548F50033D33B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0455209D217548F50033D33B /* Main.storyboard */; };
 		045520A1217548F60033D33B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 045520A0217548F60033D33B /* Assets.xcassets */; };
 		045520A4217548F60033D33B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045520A2217548F60033D33B /* LaunchScreen.storyboard */; };
-		045520AC217549310033D33B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 045520AB217549310033D33B /* GoogleService-Info.plist */; };
 		045520AE217550C90033D33B /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045520AD217550C90033D33B /* LoginVC.swift */; };
 		045520B02175589E0033D33B /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045520AF2175589E0033D33B /* HomeTabBarController.swift */; };
 		045520B221755A2B0033D33B /* ServiceRequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045520B121755A2B0033D33B /* ServiceRequestVC.swift */; };
+		045520B42177C07B0033D33B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 045520B32177C07B0033D33B /* GoogleService-Info.plist */; };
+		045520B82177C1300033D33B /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045520B72177C1300033D33B /* MainVC.swift */; };
+		045520BA2177C24A0033D33B /* MainOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045520B92177C24A0033D33B /* MainOptions.swift */; };
+		045520BC2177C5EB0033D33B /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045520BB2177C5EB0033D33B /* MainTableViewCell.swift */; };
+		045C28E0217CD7A70017C121 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C28DF217CD7A70017C121 /* ProfileVC.swift */; };
+		045C28E6217CD8F40017C121 /* NavControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C28E5217CD8F40017C121 /* NavControllers.swift */; };
+		045C28E8217CE6C00017C121 /* SubmitTicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C28E7217CE6C00017C121 /* SubmitTicketTableViewCell.swift */; };
 		F87A05D304A682B44682A1E3 /* Pods_AirspaceManagementApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 656D2D1C7F3AAF0303853BEC /* Pods_AirspaceManagementApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		043EB1D4217CF69E00B40154 /* SubmitTicketField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitTicketField.swift; sourceTree = "<group>"; };
+		043EB1D6217D00C400B40154 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		04552096217548F50033D33B /* AirspaceManagementApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirspaceManagementApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04552099217548F50033D33B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0455209B217548F50033D33B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0455209E217548F50033D33B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		045520A0217548F60033D33B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		045520A3217548F60033D33B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		045520A5217548F60033D33B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		045520AB217549310033D33B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		045520AD217550C90033D33B /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		045520AF2175589E0033D33B /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		045520B121755A2B0033D33B /* ServiceRequestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequestVC.swift; sourceTree = "<group>"; };
+		045520B32177C07B0033D33B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		045520B72177C1300033D33B /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		045520B92177C24A0033D33B /* MainOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainOptions.swift; sourceTree = "<group>"; };
+		045520BB2177C5EB0033D33B /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		045C28DF217CD7A70017C121 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		045C28E5217CD8F40017C121 /* NavControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavControllers.swift; sourceTree = "<group>"; };
+		045C28E7217CE6C00017C121 /* SubmitTicketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitTicketTableViewCell.swift; sourceTree = "<group>"; };
 		5E480989A434A67B50C0463B /* Pods-AirspaceManagementApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirspaceManagementApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp.debug.xcconfig"; sourceTree = "<group>"; };
 		656D2D1C7F3AAF0303853BEC /* Pods_AirspaceManagementApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirspaceManagementApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAE9B2D98373D08D679AE48C /* Pods-AirspaceManagementApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirspaceManagementApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -69,18 +83,57 @@
 		04552098217548F50033D33B /* AirspaceManagementApp */ = {
 			isa = PBXGroup;
 			children = (
-				04552099217548F50033D33B /* AppDelegate.swift */,
-				0455209B217548F50033D33B /* ViewController.swift */,
-				045520AD217550C90033D33B /* LoginVC.swift */,
+				045C28E4217CD8DB0017C121 /* Navigation Components */,
+				045C28E3217CD7D60017C121 /* UI Components */,
+				045C28E2217CD7C70017C121 /* Models */,
+				045C28E1217CD7AD0017C121 /* View Controllers */,
 				045520AF2175589E0033D33B /* HomeTabBarController.swift */,
-				045520B121755A2B0033D33B /* ServiceRequestVC.swift */,
+				04552099217548F50033D33B /* AppDelegate.swift */,
 				0455209D217548F50033D33B /* Main.storyboard */,
 				045520A0217548F60033D33B /* Assets.xcassets */,
 				045520A2217548F60033D33B /* LaunchScreen.storyboard */,
 				045520A5217548F60033D33B /* Info.plist */,
-				045520AB217549310033D33B /* GoogleService-Info.plist */,
+				045520B32177C07B0033D33B /* GoogleService-Info.plist */,
 			);
 			path = AirspaceManagementApp;
+			sourceTree = "<group>";
+		};
+		045C28E1217CD7AD0017C121 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				045520B72177C1300033D33B /* MainVC.swift */,
+				045520B121755A2B0033D33B /* ServiceRequestVC.swift */,
+				045520AD217550C90033D33B /* LoginVC.swift */,
+				045C28DF217CD7A70017C121 /* ProfileVC.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		045C28E2217CD7C70017C121 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				045520B92177C24A0033D33B /* MainOptions.swift */,
+				043EB1D4217CF69E00B40154 /* SubmitTicketField.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		045C28E3217CD7D60017C121 /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				045520BB2177C5EB0033D33B /* MainTableViewCell.swift */,
+				045C28E7217CE6C00017C121 /* SubmitTicketTableViewCell.swift */,
+				043EB1D6217D00C400B40154 /* MainCollectionViewCell.swift */,
+			);
+			path = "UI Components";
+			sourceTree = "<group>";
+		};
+		045C28E4217CD8DB0017C121 /* Navigation Components */ = {
+			isa = PBXGroup;
+			children = (
+				045C28E5217CD8F40017C121 /* NavControllers.swift */,
+			);
+			path = "Navigation Components";
 			sourceTree = "<group>";
 		};
 		39E411A42304779E5373AB58 /* Frameworks */ = {
@@ -161,7 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				045520A4217548F60033D33B /* LaunchScreen.storyboard in Resources */,
-				045520AC217549310033D33B /* GoogleService-Info.plist in Resources */,
+				045520B42177C07B0033D33B /* GoogleService-Info.plist in Resources */,
 				045520A1217548F60033D33B /* Assets.xcassets in Resources */,
 				0455209F217548F50033D33B /* Main.storyboard in Resources */,
 			);
@@ -195,12 +248,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -218,10 +273,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				045520B221755A2B0033D33B /* ServiceRequestVC.swift in Sources */,
-				0455209C217548F50033D33B /* ViewController.swift in Sources */,
+				043EB1D5217CF69E00B40154 /* SubmitTicketField.swift in Sources */,
+				045520B82177C1300033D33B /* MainVC.swift in Sources */,
+				045520BC2177C5EB0033D33B /* MainTableViewCell.swift in Sources */,
+				045C28E0217CD7A70017C121 /* ProfileVC.swift in Sources */,
+				045520BA2177C24A0033D33B /* MainOptions.swift in Sources */,
 				0455209A217548F50033D33B /* AppDelegate.swift in Sources */,
+				043EB1D7217D00C400B40154 /* MainCollectionViewCell.swift in Sources */,
+				045C28E6217CD8F40017C121 /* NavControllers.swift in Sources */,
 				045520B02175589E0033D33B /* HomeTabBarController.swift in Sources */,
 				045520AE217550C90033D33B /* LoginVC.swift in Sources */,
+				045C28E8217CE6C00017C121 /* SubmitTicketTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
