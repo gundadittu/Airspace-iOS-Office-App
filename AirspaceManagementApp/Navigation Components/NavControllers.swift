@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import ChameleonFramework
 
 class BaseNavController: UINavigationController {
     override func viewDidLoad() {
@@ -15,6 +16,7 @@ class BaseNavController: UINavigationController {
         self.navigationBar.prefersLargeTitles = true
         self.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationBar.shadowImage = UIImage()
+        self.navigationBar.tintColor = FlatPink()
     }
 }
 
@@ -22,7 +24,11 @@ class HomeNavController: BaseNavController {
 
 }
 
-class ProfileNavController: BaseNavController{
+class ProfileNavController: BaseNavController {
+    
+}
+
+class NotificationNavController: BaseNavController {
     
 }
 
