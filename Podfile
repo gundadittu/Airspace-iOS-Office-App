@@ -12,5 +12,6 @@ target 'AirspaceManagementApp' do
   pod 'Alamofire', '~> 4.7'
   pod 'JVFloatLabeledTextField'
   pod 'SwiftyButton'
+  pod 'Kingfisher', '~> 4.0'
 
 end

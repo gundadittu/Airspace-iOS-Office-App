@@ -11,16 +11,22 @@ import Alamofire
 
 class YelpDataController {
     
-//    class func getLocalRestaurauntObjects() -> [CarouselCVCellItem] {
-//        YelpDataController.getLocalRestaurauntsFromYelpAPI { (result) in
-//            if let result = result {
-//                var resultArr = [CarouselCVCell]()
-//                for item in result {
-//                    
-//                }
-//            }
-//        }
-//    }
+    class func getLocalRestaurauntCarouselObjects(completionHandler: @escaping ([CarouselCVCellItem]?) -> Void) {
+        YelpDataController.getLocalRestaurauntsFromYelpAPI { (result) in
+            var resultArr = [CarouselCVCellItem]()
+            if let result = result {
+                for item in result {
+                    if let name = item["name"] as? String,
+                        let imageURLString = item["image_url"] as? String {
+                        let carouselItem = CarouselCVCellItem(title: name, subtitle: "", image: nil, imageURL: URL(string: imageURLString))
+                        resultArr.append(carouselItem)
+                    }
+                }
+                completionHandler(resultArr)
+            }
+            completionHandler(nil)
+        }
+    }
     
     class func getLocalRestaurauntsFromYelpAPI(completionHandler: @escaping ([[String:Any]]?) -> Void) {
         var returnArray = [[String: Any]]()

@@ -13,7 +13,7 @@ import ChameleonFramework
 class HomeTabBarController : UITabBarController {
     
     override func viewDidLoad() {
-        self.tabBar.tintColor = FlatPink()
+        self.tabBar.tintColor = globalColor
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let mainNav = mainStoryboard.instantiateViewController(withIdentifier: "mainNav") as! HomeNavController
         mainNav.tabBarItem =  UITabBarItem(title: "Home", image: UIImage(named: "home-icon"), selectedImage: nil)

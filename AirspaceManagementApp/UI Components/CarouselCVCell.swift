@@ -7,16 +7,19 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CarouselCVCellItem: NSObject {
     var title: String?
     var subtitle: String?
     var bannerImage: UIImage?
+    var bannerURL: URL?
     
-    public init(title: String, subtitle: String, image: UIImage) {
+    public init(title: String, subtitle: String, image: UIImage? = nil, imageURL: URL? = nil) {
         self.title = title
         self.subtitle = subtitle
         self.bannerImage = image
+        self.bannerURL = imageURL
     }
 }
 
@@ -34,6 +37,10 @@ class CarouselCVCell: UICollectionViewCell {
     func configureInfo(with object: CarouselCVCellItem) {
         self.titleLabel.text = object.title
         self.subtitleLabel.text = object.subtitle
-        self.bannerImage.image = object.bannerImage
+        if let image = object.bannerImage {
+            self.bannerImage.image = image
+        } else if let url = object.bannerURL {
+            self.bannerImage.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+        }
     }
 }

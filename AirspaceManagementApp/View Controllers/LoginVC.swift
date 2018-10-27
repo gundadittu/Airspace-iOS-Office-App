@@ -33,7 +33,7 @@ class LoginVC : UIViewController {
         passwordTextField.isSecureTextEntry = true
         signInButton.color = globalColor
         signInButton.cornerRadius = 25
-        signInButton.highlightedColor = FlatPink()
+        signInButton.highlightedColor = globalColor
 //        self.setStatusBarStyle(UIStatusBarStyleContrast)
 
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem, queue: .main) { _ in

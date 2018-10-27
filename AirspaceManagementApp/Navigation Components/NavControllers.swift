@@ -16,7 +16,7 @@ class BaseNavController: UINavigationController {
         self.navigationBar.prefersLargeTitles = true
         self.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationBar.shadowImage = UIImage()
-        self.navigationBar.tintColor = FlatPink()
+        self.navigationBar.tintColor = globalColor
     }
 }
 

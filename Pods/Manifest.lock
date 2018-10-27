@@ -58,6 +58,7 @@ PODS:
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.0)
   - JVFloatLabeledTextField (1.2.1)
+  - Kingfisher (4.10.0)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
@@ -71,6 +72,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - JVFloatLabeledTextField
+  - Kingfisher (~> 4.0)
   - SwiftyButton
 
 SPEC REPOS:
@@ -86,6 +88,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - JVFloatLabeledTextField
+    - Kingfisher
     - nanopb
     - SwiftyButton
 
@@ -111,9 +114,10 @@ SPEC CHECKSUMS:
   GoogleUtilities: abb092d2c12e817fa3e0e7b274987dd72fb86ec3
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   JVFloatLabeledTextField: cfc44e3c4d493b2ed92ede8035e8e89c2912ba64
+  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   SwiftyButton: 5b0ef314e9cf61cf8a83e456ddd1ea1f53f30598
 
-PODFILE CHECKSUM: e03da9aa2d1c277fef2871d30b7716aaef0b9d7e
+PODFILE CHECKSUM: a4ad873e00e5a1a68e38da57e1f71d4c000e5d44
 
 COCOAPODS: 1.5.3

@@ -13,6 +13,7 @@ import ChameleonFramework
 class MainVC: UIViewController {
     
     var options = [MainOptions]()
+    var yelpRestaurants = [CarouselCVCellItem]()
     let tvCellID = "mainTVCell"
 
     let cellSpacing = CGFloat(10)
@@ -25,8 +26,14 @@ class MainVC: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
-        
-//        YelpDataController.getLocalRestaurauntsFromYelpAPI()
+        self.tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
+
+        YelpDataController.getLocalRestaurauntCarouselObjects() { list in
+            if let list = list {
+                self.yelpRestaurants = list
+                self.tableView.reloadData()
+            }
+        }
         
         options = [MainOptions(title: "Reserve a room", subtitle:"Find a conference room or desk.", icon:"reserve-icon", color: FlatBlue(), type: MainOptionsType.reserveRoom),
                    MainOptions(title: "Submit a ticket", subtitle:"Let us know when the coffee's gone.", icon:"serv-req-icon", color: FlatRed(), type: MainOptionsType.submitTicket),
@@ -61,49 +68,60 @@ extension MainVC: UITableViewDelegate {
 
 extension MainVC: UITableViewDataSource {
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return options.count
-//    }
-//
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return options.count
-    }
-
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return cellSpacing
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = UIView()
-//        header.backgroundColor = .clear
-//        return header
-//    }
-
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return cellSpacing * 4
-//    }
-
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return options.count
-//    }
-//
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: tvCellID) as? MainTableViewCell else {
-            return UITableViewCell()
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Quick Actions"
+        } else if section == 1 {
+            return "Nearby Yelp Favorites"
         }
-        let option = options[indexPath.row]
-        cell.titleLabel.text = option.title
-        cell.subtitleLabel.text = option.subtitle
-        cell.iconImg.image = option.icon
-        cell.accessoryType = .disclosureIndicator
-        
-//        cell.backgroundColor = option.color
-//        cell.titleLabel.textColor =FlatWhiteDark
-//        cell.subtitleLabel.textColor = FlatWhiteDark()
-//        cell.layer.borderColor = option.color?.cgColor
-//        cell.layer.borderWidth = CGFloat(2)
-        return cell
+        return ""
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.white
+    }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return options.count
+        } else if section == 1 {
+            return 1
+        }
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0 {
+            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: tvCellID) as? MainTableViewCell else {
+                return UITableViewCell()
+            }
+            let option = options[indexPath.row]
+            cell.titleLabel.text = option.title
+            cell.subtitleLabel.text = option.subtitle
+            cell.iconImg.image = option.icon
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        } else if indexPath.section == 1 {
+            var cell = CarouselTVCell()
+            if let tvCell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as? CarouselTVCell  {
+                cell = tvCell
+            } else {
+                tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
+                cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
+            }
+            cell.setCarouselItems(with: self.yelpRestaurants)
+            return cell
+        }
+        return UITableViewCell()
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return (indexPath.section == 0) ? CGFloat(75) : CGFloat(300)
+    }
 }
