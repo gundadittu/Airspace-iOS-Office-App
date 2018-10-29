@@ -37,6 +37,10 @@
 		04D8D6952183E68B0079380F /* Yelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8D6942183E68B0079380F /* Yelp.swift */; };
 		04D8D69C2183F7380079380F /* BioTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8D69A2183F7380079380F /* BioTVCell.swift */; };
 		04D8D69D2183F7380079380F /* BioTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D8D69B2183F7380079380F /* BioTVCell.xib */; };
+		04E7FEDB2185540800AD4E79 /* ReserveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7FEDA2185540800AD4E79 /* ReserveVC.swift */; };
+		04E7FEDE2185578100AD4E79 /* QuickReserveCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7FEDC2185578100AD4E79 /* QuickReserveCVCell.swift */; };
+		04E7FEDF2185578100AD4E79 /* QuickReserveCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E7FEDD2185578100AD4E79 /* QuickReserveCVCell.xib */; };
+		04E7FEE12186A17C00AD4E79 /* ReserveSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7FEE02186A17C00AD4E79 /* ReserveSection.swift */; };
 		F87A05D304A682B44682A1E3 /* Pods_AirspaceManagementApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 656D2D1C7F3AAF0303853BEC /* Pods_AirspaceManagementApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +77,10 @@
 		04D8D6942183E68B0079380F /* Yelp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yelp.swift; sourceTree = "<group>"; };
 		04D8D69A2183F7380079380F /* BioTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioTVCell.swift; sourceTree = "<group>"; };
 		04D8D69B2183F7380079380F /* BioTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BioTVCell.xib; sourceTree = "<group>"; };
+		04E7FEDA2185540800AD4E79 /* ReserveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveVC.swift; sourceTree = "<group>"; };
+		04E7FEDC2185578100AD4E79 /* QuickReserveCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickReserveCVCell.swift; sourceTree = "<group>"; };
+		04E7FEDD2185578100AD4E79 /* QuickReserveCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuickReserveCVCell.xib; sourceTree = "<group>"; };
+		04E7FEE02186A17C00AD4E79 /* ReserveSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveSection.swift; sourceTree = "<group>"; };
 		5E480989A434A67B50C0463B /* Pods-AirspaceManagementApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirspaceManagementApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp.debug.xcconfig"; sourceTree = "<group>"; };
 		656D2D1C7F3AAF0303853BEC /* Pods_AirspaceManagementApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirspaceManagementApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAE9B2D98373D08D679AE48C /* Pods-AirspaceManagementApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirspaceManagementApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -134,6 +142,7 @@
 			children = (
 				045520B72177C1300033D33B /* MainVC.swift */,
 				045520B121755A2B0033D33B /* ServiceRequestVC.swift */,
+				04E7FEDA2185540800AD4E79 /* ReserveVC.swift */,
 				045520AD217550C90033D33B /* LoginVC.swift */,
 				045C28DF217CD7A70017C121 /* ProfileVC.swift */,
 				043CA236217E87C6008703FC /* NotificationsVC.swift */,
@@ -148,6 +157,7 @@
 				043EB1D4217CF69E00B40154 /* SubmitTicketField.swift */,
 				043CA238217E8897008703FC /* UserNotification.swift */,
 				043CA244217FEC8B008703FC /* ProfileSections.swift */,
+				04E7FEE02186A17C00AD4E79 /* ReserveSection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -166,6 +176,8 @@
 				043CA24F217FF236008703FC /* CarouselCVCell.xib */,
 				04D8D69A2183F7380079380F /* BioTVCell.swift */,
 				04D8D69B2183F7380079380F /* BioTVCell.xib */,
+				04E7FEDC2185578100AD4E79 /* QuickReserveCVCell.swift */,
+				04E7FEDD2185578100AD4E79 /* QuickReserveCVCell.xib */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -270,6 +282,7 @@
 				043CA251217FF236008703FC /* CarouselCVCell.xib in Resources */,
 				045520B42177C07B0033D33B /* GoogleService-Info.plist in Resources */,
 				043CA24B217FF0F7008703FC /* CarouselTVCell.xib in Resources */,
+				04E7FEDF2185578100AD4E79 /* QuickReserveCVCell.xib in Resources */,
 				045520A1217548F60033D33B /* Assets.xcassets in Resources */,
 				0455209F217548F50033D33B /* Main.storyboard in Resources */,
 			);
@@ -343,11 +356,13 @@
 				043CA237217E87C6008703FC /* NotificationsVC.swift in Sources */,
 				045520BC2177C5EB0033D33B /* MainTableViewCell.swift in Sources */,
 				045C28E0217CD7A70017C121 /* ProfileVC.swift in Sources */,
+				04E7FEE12186A17C00AD4E79 /* ReserveSection.swift in Sources */,
 				045520BA2177C24A0033D33B /* MainOptions.swift in Sources */,
 				0455209A217548F50033D33B /* AppDelegate.swift in Sources */,
 				04D8D6952183E68B0079380F /* Yelp.swift in Sources */,
 				043CA245217FEC8C008703FC /* ProfileSections.swift in Sources */,
 				043EB1D7217D00C400B40154 /* MainCollectionViewCell.swift in Sources */,
+				04E7FEDB2185540800AD4E79 /* ReserveVC.swift in Sources */,
 				045C28E6217CD8F40017C121 /* NavControllers.swift in Sources */,
 				043CA242217E8B65008703FC /* NotificationTVCell.swift in Sources */,
 				04D8D69C2183F7380079380F /* BioTVCell.swift in Sources */,
@@ -356,6 +371,7 @@
 				045520AE217550C90033D33B /* LoginVC.swift in Sources */,
 				043CA250217FF236008703FC /* CarouselCVCell.swift in Sources */,
 				045C28E8217CE6C00017C121 /* SubmitTicketTableViewCell.swift in Sources */,
+				04E7FEDE2185578100AD4E79 /* QuickReserveCVCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

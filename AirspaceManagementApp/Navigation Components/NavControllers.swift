@@ -32,3 +32,7 @@ class NotificationNavController: BaseNavController {
     
 }
 
+class ReserveNavController: BaseNavController {
+    
+}
+

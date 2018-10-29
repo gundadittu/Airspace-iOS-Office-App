@@ -19,13 +19,13 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="geO-RL-3xh">
-                        <rect key="frame" x="0.0" y="0.0" width="377" height="90"/>
+                        <rect key="frame" x="0.0" y="0.0" width="377" height="150"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="90" id="ZN2-6b-eQV"/>
+                            <constraint firstAttribute="height" constant="150" id="ZN2-6b-eQV"/>
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="hoi-xc-FAU">
-                        <rect key="frame" x="15" y="98" width="347" height="65"/>
+                        <rect key="frame" x="15" y="158" width="347" height="65"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGa-3Y-0fs">
                                 <rect key="frame" x="0.0" y="0.0" width="63" height="34.5"/>

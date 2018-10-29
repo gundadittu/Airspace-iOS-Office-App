@@ -35,7 +35,7 @@ class MainVC: UIViewController {
             }
         }
         
-        options = [MainOptions(title: "Reserve a room", subtitle:"Find a conference room or desk.", icon:"reserve-icon", color: FlatBlue(), type: MainOptionsType.reserveRoom),
+        options = [MainOptions(title: "Reserve a room or desk", subtitle:"Find a space to get working.", icon:"reserve-icon", color: FlatBlue(), type: MainOptionsType.reserveRoom),
                    MainOptions(title: "Submit a ticket", subtitle:"Let us know when the coffee's gone.", icon:"serv-req-icon", color: FlatRed(), type: MainOptionsType.submitTicket),
                    MainOptions(title: "Register a guest", subtitle:"We'll send your guest over when they arrive.", icon:"register-guest-icon", color: FlatMint(), type: MainOptionsType.registerGuest),
                     MainOptions(title: "View events", subtitle:"See what's going on in your building.", icon:"events-icon", color: FlatPurple(), type: MainOptionsType.viewEvents),
@@ -73,7 +73,7 @@ extension MainVC: UITableViewDataSource {
             return "Quick Actions"
         } else if section == 1 {
             return "Nearby Yelp Favorites"
-        }
+        } 
         return ""
     }
     

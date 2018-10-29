@@ -14,13 +14,20 @@ class CarouselCVCellItem: NSObject {
     var subtitle: String?
     var bannerImage: UIImage?
     var bannerURL: URL?
+    var type: CarouselCVCellItemType?
     
-    public init(title: String, subtitle: String, image: UIImage? = nil, imageURL: URL? = nil) {
+    public init(title: String, subtitle: String?, image: UIImage? = nil, imageURL: URL? = nil, type: CarouselCVCellItemType? = nil) {
         self.title = title
         self.subtitle = subtitle
         self.bannerImage = image
         self.bannerURL = imageURL
+        self.type = type ?? .regular
     }
+}
+
+enum CarouselCVCellItemType {
+    case regular
+    case quickReserve
 }
 
 class CarouselCVCell: UICollectionViewCell {
