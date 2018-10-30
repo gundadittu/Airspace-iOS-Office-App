@@ -84,9 +84,9 @@ extension ProfileVC: UITableViewDataSource {
                 tableView.register(UINib(nibName: "BioTVCell", bundle: nil), forCellReuseIdentifier: "BioTVCell")
                 cell = tableView.dequeueReusableCell(withIdentifier: "BioTVCell", for: indexPath) as! BioTVCell
             }
-            cell.profileImg.image = UIImage(named: "chairs")
-            cell.mainLbl.text = "Name"
-            cell.subtitleLbl.text = "emailaddress@company.com"
+            cell.profileImg.image = UIImage(named: "profile-image")
+            cell.mainLbl.text = "John Snow"
+            cell.subtitleLbl.text = "johnsnow@winterfell.com"
             return cell
         case .myRoomReservations?:
             var cell = CarouselTVCell()
@@ -96,7 +96,7 @@ extension ProfileVC: UITableViewDataSource {
                 tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
                 cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
             }
-            cell.setCarouselItems(with: [CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "chairs")!), CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "chairs")!)])
+            cell.setCarouselItems(with: [CarouselCVCellItem(title: "King's Landing", subtitle: "Today 5 PM to 7 PM", image: UIImage(named: "room-5")!), CarouselCVCellItem(title: "Braavos", subtitle: "Friday 10 AM to 11:30 AM", image: UIImage(named: "room-3")!)])
             return cell
         case .myRegisteredGuests?:
             var cell = CarouselTVCell()
@@ -106,7 +106,7 @@ extension ProfileVC: UITableViewDataSource {
                 tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
                 cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
             }
-            cell.setCarouselItems(with: [CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "chairs")!), CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "chairs")!)])
+            cell.setCarouselItems(with: [CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "room-1")!), CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "room-2")!)])
             return cell
         case .myDeskReservations?:
             var cell = CarouselTVCell()
@@ -116,7 +116,7 @@ extension ProfileVC: UITableViewDataSource {
                 tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
                 cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
             }
-            cell.setCarouselItems(with: [CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "chairs")!), CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "chairs")!)])
+            cell.setCarouselItems(with: [CarouselCVCellItem(title: "HotDesk-7", subtitle: "Today 9 AM to 10 AM", image: UIImage(named: "room-4")!), CarouselCVCellItem(title: "HotDesk-3", subtitle: "Today 2 PM to 5 PM", image: UIImage(named: "room-1")!)])
             return cell
         case .myServiceRequests?:
             var cell = CarouselTVCell()
@@ -126,7 +126,7 @@ extension ProfileVC: UITableViewDataSource {
                 tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
                 cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
             }
-            cell.setCarouselItems(with: [CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "chairs")!), CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "chairs")!)])
+            cell.setCarouselItems(with: [CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "room-2")!), CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "room-4")!)])
             return cell
         case .none:
             break

@@ -25,21 +25,27 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="hoi-xc-FAU">
-                        <rect key="frame" x="15" y="158" width="347" height="65"/>
+                        <rect key="frame" x="15" y="158" width="347" height="47.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGa-3Y-0fs">
-                                <rect key="frame" x="0.0" y="0.0" width="63" height="34.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="25"/>
+                                <rect key="frame" x="0.0" y="0.0" width="347" height="25"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cP4-zI-IQh">
-                                <rect key="frame" x="0.0" y="37.5" width="50.5" height="27.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cP4-zI-IQh">
+                                <rect key="frame" x="0.0" y="28" width="347" height="19.5"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="cP4-zI-IQh" firstAttribute="leading" secondItem="hoi-xc-FAU" secondAttribute="leading" id="Ck7-VR-VAJ"/>
+                            <constraint firstAttribute="trailing" secondItem="rGa-3Y-0fs" secondAttribute="trailing" id="Dx7-an-Ah4"/>
+                            <constraint firstAttribute="trailing" secondItem="cP4-zI-IQh" secondAttribute="trailing" id="Hsg-Oy-GIl"/>
+                            <constraint firstItem="rGa-3Y-0fs" firstAttribute="leading" secondItem="hoi-xc-FAU" secondAttribute="leading" id="o1Y-y9-GLs"/>
+                        </constraints>
                     </stackView>
                 </subviews>
             </view>

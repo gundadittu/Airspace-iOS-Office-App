@@ -103,7 +103,7 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
                 tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
                 cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
             }
-            cell.setCarouselItems(with: [CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "chairs")!), CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "chairs")!)])
+            cell.setCarouselItems(with: [CarouselCVCellItem(title: "King's Landing", subtitle: "Seats 10 | Apple TV • Whiteboard • Video Conf.", image: UIImage(named: "room-1")!), CarouselCVCellItem(title: "Braavos", subtitle: "Seats 25 | Apple TV • Whiteboard • Video Conf.", image: UIImage(named: "room-2")!)])
             return cell
         } else if section == .onYourFloor {
             var cell = CarouselTVCell()
@@ -113,7 +113,7 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
                 tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
                 cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
             }
-            cell.setCarouselItems(with: [CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "chairs")!), CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "chairs")!)])
+            cell.setCarouselItems(with: [CarouselCVCellItem(title: "Volantis", subtitle: "Seats 8 | Apple TV • Whiteboard • Video Conf.", image: UIImage(named: "room-3")!), CarouselCVCellItem(title: "Bay of Dragons", subtitle: "Seats 15 | Apple TV • Whiteboard • Video Conf.", image: UIImage(named: "room-4")!)])
             return cell
         }
         return UITableViewCell()

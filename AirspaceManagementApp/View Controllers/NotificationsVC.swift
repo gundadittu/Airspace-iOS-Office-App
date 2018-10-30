@@ -17,12 +17,12 @@ class NotificationsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Alerts"
-        self.notifications = [UserNotification(title: "Test Title", body: "Test Body", type: .buildingAnnouncement),
-                              UserNotification(title: "Test Title", body: "Test Body", type: .buildingAnnouncement)]
+        self.notifications = [UserNotification(title: "Building Announcement", body: "This Friday the Braavos conference room will be closed for repairs.", type: .buildingAnnouncement),
+                              UserNotification(title: "Service Request Update", body: "Your request was completed", type: .servReqStatusChange)]
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
-        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.rowHeight = CGFloat(100)
         self.tableView.estimatedRowHeight = UITableView.automaticDimension
         
         tableView.register(UINib(nibName: "NotificationTVCell", bundle: nil), forCellReuseIdentifier: reuseID)

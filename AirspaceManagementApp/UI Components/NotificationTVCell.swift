@@ -19,7 +19,26 @@ class NotificationTVCell: UITableViewCell {
         self.titleLabel.text = notification.title
         self.bodyLabel.text = notification.body
         self.timeLabel.text = "3h ago"
-        self.cellImage.image = UIImage(named: "events-icon")
+        var image: UIImage?
+        switch notification.type {
+        case .buildingAnnouncement?:
+            image = UIImage(named: "announcement-icon")!
+        case .guestArrival?:
+            break
+        case .servReqStatusChange?:
+            image = UIImage(named: "serv-req-icon")!
+        case .serReqAssigned?:
+            break
+        case .newEvent?:
+            break
+        case .upcomingEvent?:
+            break
+        case .unknown?:
+            break
+        case .none:
+            break
+        }
+        self.cellImage.image = image
         
         self.accessoryType = .disclosureIndicator
     }
