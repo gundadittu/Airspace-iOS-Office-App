@@ -33,7 +33,7 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let currSection = sections[section]
         if currSection == .quickReserve {
-            return "Find a room or desk today for"
+            return "Find a room or desk today for:"
         } else if currSection == .reserve {
             return ""
         } else if currSection == .recentReservations {

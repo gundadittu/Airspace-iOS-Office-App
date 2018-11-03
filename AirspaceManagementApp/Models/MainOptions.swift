@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import ChameleonFramework
 
 
 enum MainOptionsType {
@@ -27,11 +26,11 @@ class MainOptions: NSObject {
     var color: UIColor?
     var type: MainOptionsType
     
-    public init(title: String, subtitle: String, icon: String, color: UIColor, type: MainOptionsType?) {
+    public init(title: String, subtitle: String, icon: String, color: UIColor?, type: MainOptionsType?) {
         self.title = title
         self.subtitle = subtitle
         self.icon = UIImage(named: icon)
-        self.color = color
+        self.color = color ?? .black
         self.type = type ?? MainOptionsType.none
     }
 }

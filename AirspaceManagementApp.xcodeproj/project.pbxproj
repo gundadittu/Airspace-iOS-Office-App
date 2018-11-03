@@ -20,6 +20,7 @@
 		043CA251217FF236008703FC /* CarouselCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043CA24F217FF236008703FC /* CarouselCVCell.xib */; };
 		043EB1D5217CF69E00B40154 /* SubmitTicketField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EB1D4217CF69E00B40154 /* SubmitTicketField.swift */; };
 		043EB1D7217D00C400B40154 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EB1D6217D00C400B40154 /* MainCollectionViewCell.swift */; };
+		044F8E62218BF26000E84B0F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F8E61218BF26000E84B0F /* AuthManager.swift */; };
 		0455209A217548F50033D33B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04552099217548F50033D33B /* AppDelegate.swift */; };
 		0455209F217548F50033D33B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0455209D217548F50033D33B /* Main.storyboard */; };
 		045520A1217548F60033D33B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 045520A0217548F60033D33B /* Assets.xcassets */; };
@@ -58,6 +59,7 @@
 		043CA24F217FF236008703FC /* CarouselCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselCVCell.xib; sourceTree = "<group>"; };
 		043EB1D4217CF69E00B40154 /* SubmitTicketField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitTicketField.swift; sourceTree = "<group>"; };
 		043EB1D6217D00C400B40154 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		044F8E61218BF26000E84B0F /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		04552096217548F50033D33B /* AirspaceManagementApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirspaceManagementApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04552099217548F50033D33B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0455209E217548F50033D33B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				045520A5217548F60033D33B /* Info.plist */,
 				045520B32177C07B0033D33B /* GoogleService-Info.plist */,
 				0407E0502184190500C516BC /* GlobalConstants.swift */,
+				044F8E61218BF26000E84B0F /* AuthManager.swift */,
 			);
 			path = AirspaceManagementApp;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				043CA250217FF236008703FC /* CarouselCVCell.swift in Sources */,
 				045C28E8217CE6C00017C121 /* SubmitTicketTableViewCell.swift in Sources */,
 				04E7FEDE2185578100AD4E79 /* QuickReserveCVCell.swift in Sources */,
+				044F8E62218BF26000E84B0F /* AuthManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

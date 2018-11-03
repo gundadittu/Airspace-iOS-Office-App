@@ -13,5 +13,6 @@ target 'AirspaceManagementApp' do
   pod 'JVFloatLabeledTextField'
   pod 'SwiftyButton'
   pod 'Kingfisher', '~> 4.0'
+  pod 'Firebase/Functions'
 
 end

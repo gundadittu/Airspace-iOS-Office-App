@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ChameleonFramework
+import UIKit
 
 class MainCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var iconImage: UIImageView!

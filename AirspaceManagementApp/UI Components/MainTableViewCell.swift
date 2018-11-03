@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import ChameleonFramework
 
 class MainTableViewCell: UITableViewCell {
     
@@ -19,8 +18,8 @@ class MainTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 //        self.layer.cornerRadius = CGFloat(5)
-        self.titleLabel.textColor = FlatBlack()
-        self.subtitleLabel.textColor = FlatWhiteDark()
+        self.titleLabel.textColor = .black
+        self.subtitleLabel.textColor = .gray
 //        self.layer.borderColor = FlatBlack().cgColor
 //        self.layer.borderWidth = CGFloat(1)
     }

@@ -8,5 +8,6 @@
 
 import Foundation
 import UIKit
+import ChameleonFramework
 
 let globalColor = UIColor(hexString: "F07C94")!

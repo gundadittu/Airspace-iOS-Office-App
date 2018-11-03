@@ -11,7 +11,6 @@ import UIKit
 import FirebaseAuth
 import AVFoundation
 import JVFloatLabeledTextField
-import ChameleonFramework
 import SwiftyButton
 
 class LoginVC : UIViewController {
@@ -46,18 +45,17 @@ class LoginVC : UIViewController {
     @IBAction func signInButtonClicked(_ sender: Any) {
         
         // Add logic to make sure fields are not blank, etc.
-        
         guard let email = usernameTextField.text,
             let password = passwordTextField.text else {
+                // Add error alert
                 return
         }
         
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-            if error != nil || user == nil {
-                // add error handling
-                print("fail log in")
-                return
+        UserAuth.shared.signInUser(email: email, password: password) { (user, error) in
+            if user == nil || error != nil {
+                // add error alert otherwise
             }
+            // user will be taken to appropriate page automatically (listener active in App Delegate)
         }
     }
     

@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import ChameleonFramework
 
 class SubmitTicketTableViewCell: UITableViewCell {
     
@@ -18,7 +17,7 @@ class SubmitTicketTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        mainButton.tintColor = FlatBlack()
+        mainButton.tintColor = .black
     }
     
     func setMainButtonText(string: String) {

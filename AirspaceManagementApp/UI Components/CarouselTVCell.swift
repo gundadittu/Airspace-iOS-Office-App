@@ -54,7 +54,7 @@ extension CarouselTVCell: UICollectionViewDelegate, UICollectionViewDelegateFlow
             let cellSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing
             let cellSize = (collectionViewLayout as! UICollectionViewFlowLayout).itemSize.width
             let cellCount = CGFloat(collectionView.numberOfItems(inSection: section))
-            var inset = (collectionView.bounds.width - (cellCount * cellSize) - ((cellCount-1) * cellSpacing)) * 0.5
+            var inset = (collectionView.bounds.width - (cellCount * cellSize) - ((cellCount-2) * cellSpacing)) * 0.5
             inset = max(inset, 0.0)
             return UIEdgeInsets(top: 0.0, left: inset, bottom: 0.0, right: 0.0)
         }
