@@ -57,19 +57,4 @@ class UserAuth {
             completionHandler(user, nil)
         }
     }
-    
-    func createUser(email: String, type: UserType, completionHandler: @escaping (NSError?) -> Void) {
-        functions.httpsCallable("createUser").call(["email": email, "type": type.rawValue]) { (result, error) in
-            if let error = error as NSError? {
-                if error.domain == FunctionsErrorDomain {
-//                    let code = FunctionsErrorCode(rawValue: error.code)
-//                    let message = error.localizedDescription
-//                    let details = error.userInfo[FunctionsErrorDetailsKey]
-                    completionHandler(error)
-                } else {
-                    completionHandler(nil)
-                }
-            }
-        }
-    }
 }

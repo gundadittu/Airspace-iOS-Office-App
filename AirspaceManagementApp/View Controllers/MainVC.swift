@@ -54,6 +54,7 @@ extension MainVC: UITableViewDelegate {
             self.performSegue(withIdentifier: "mainToSubmitTicket", sender: nil)
             break
         case MainOptionsType.registerGuest:
+            self.performSegue(withIdentifier: "MainVCtoRegisterGuestVC", sender: nil)
             break
         case MainOptionsType.viewEvents:
             break

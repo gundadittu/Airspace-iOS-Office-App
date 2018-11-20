@@ -14,5 +14,6 @@ target 'AirspaceManagementApp' do
   pod 'SwiftyButton'
   pod 'Kingfisher', '~> 4.0'
   pod 'Firebase/Functions'
+  pod 'Eureka'
 
 end

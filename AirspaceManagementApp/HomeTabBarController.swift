@@ -21,11 +21,7 @@ class HomeTabBarController : UITabBarController {
     
         switch UserAuth.shared.currUserType {
         case .admin?:
-            let mainNav = mainStoryboard.instantiateViewController(withIdentifier: "mainNav") as! HomeNavController
-            mainNav.tabBarItem =  UITabBarItem(title: "Home", image: UIImage(named: "home-icon"), selectedImage: nil)
-
-            let array: [UIViewController] = []
-            self.setViewControllers(array, animated: true)
+           // need to return error
             break
         case .receptionist?:
             break

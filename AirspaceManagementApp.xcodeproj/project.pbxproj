@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		0407E04F21840BE100C516BC /* background-video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0407E04E21840BE000C516BC /* background-video.mp4 */; };
 		0407E0512184190500C516BC /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0407E0502184190500C516BC /* GlobalConstants.swift */; };
+		040E988A21A38C3C00143CA5 /* RegisterGuestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E988921A38C3C00143CA5 /* RegisterGuestVC.swift */; };
+		040E988E21A3A7D400143CA5 /* FormTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E988C21A3A7D400143CA5 /* FormTVCell.swift */; };
+		040E988F21A3A7D400143CA5 /* FormTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040E988D21A3A7D400143CA5 /* FormTVCell.xib */; };
+		040E989121A3AF1300143CA5 /* PageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E989021A3AF1300143CA5 /* PageSection.swift */; };
+		040E989421A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E989321A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift */; };
 		043CA237217E87C6008703FC /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043CA236217E87C6008703FC /* NotificationsVC.swift */; };
 		043CA239217E8897008703FC /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043CA238217E8897008703FC /* UserNotification.swift */; };
 		043CA242217E8B65008703FC /* NotificationTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043CA240217E8B65008703FC /* NotificationTVCell.swift */; };
@@ -48,6 +53,11 @@
 /* Begin PBXFileReference section */
 		0407E04E21840BE000C516BC /* background-video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-video.mp4"; sourceTree = "<group>"; };
 		0407E0502184190500C516BC /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
+		040E988921A38C3C00143CA5 /* RegisterGuestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGuestVC.swift; sourceTree = "<group>"; };
+		040E988C21A3A7D400143CA5 /* FormTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTVCell.swift; sourceTree = "<group>"; };
+		040E988D21A3A7D400143CA5 /* FormTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FormTVCell.xib; sourceTree = "<group>"; };
+		040E989021A3AF1300143CA5 /* PageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageSection.swift; sourceTree = "<group>"; };
+		040E989321A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGuestTVCDataController.swift; sourceTree = "<group>"; };
 		043CA236217E87C6008703FC /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
 		043CA238217E8897008703FC /* UserNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotification.swift; sourceTree = "<group>"; };
 		043CA240217E8B65008703FC /* NotificationTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTVCell.swift; sourceTree = "<group>"; };
@@ -100,6 +110,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		040E989221A3B1EB00143CA5 /* DataControllers */ = {
+			isa = PBXGroup;
+			children = (
+				040E989321A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift */,
+			);
+			path = DataControllers;
+			sourceTree = "<group>";
+		};
 		0455208D217548F50033D33B = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +139,7 @@
 		04552098217548F50033D33B /* AirspaceManagementApp */ = {
 			isa = PBXGroup;
 			children = (
+				040E989221A3B1EB00143CA5 /* DataControllers */,
 				0407E04E21840BE000C516BC /* background-video.mp4 */,
 				04D8D6932183E6750079380F /* DataSources */,
 				045C28E4217CD8DB0017C121 /* Navigation Components */,
@@ -149,6 +168,7 @@
 				045520AD217550C90033D33B /* LoginVC.swift */,
 				045C28DF217CD7A70017C121 /* ProfileVC.swift */,
 				043CA236217E87C6008703FC /* NotificationsVC.swift */,
+				040E988921A38C3C00143CA5 /* RegisterGuestVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -161,6 +181,7 @@
 				043CA238217E8897008703FC /* UserNotification.swift */,
 				043CA244217FEC8B008703FC /* ProfileSections.swift */,
 				04E7FEE02186A17C00AD4E79 /* ReserveSection.swift */,
+				040E989021A3AF1300143CA5 /* PageSection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -181,6 +202,8 @@
 				04D8D69B2183F7380079380F /* BioTVCell.xib */,
 				04E7FEDC2185578100AD4E79 /* QuickReserveCVCell.swift */,
 				04E7FEDD2185578100AD4E79 /* QuickReserveCVCell.xib */,
+				040E988C21A3A7D400143CA5 /* FormTVCell.swift */,
+				040E988D21A3A7D400143CA5 /* FormTVCell.xib */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -279,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0407E04F21840BE100C516BC /* background-video.mp4 in Resources */,
+				040E988F21A3A7D400143CA5 /* FormTVCell.xib in Resources */,
 				043CA243217E8B65008703FC /* NotificationTVCell.xib in Resources */,
 				045520A4217548F60033D33B /* LaunchScreen.storyboard in Resources */,
 				04D8D69D2183F7380079380F /* BioTVCell.xib in Resources */,
@@ -321,6 +345,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/JVFloatLabeledTextField/JVFloatLabeledTextField.framework",
@@ -332,6 +357,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVFloatLabeledTextField.framework",
@@ -361,12 +387,15 @@
 				045C28E0217CD7A70017C121 /* ProfileVC.swift in Sources */,
 				04E7FEE12186A17C00AD4E79 /* ReserveSection.swift in Sources */,
 				045520BA2177C24A0033D33B /* MainOptions.swift in Sources */,
+				040E989421A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift in Sources */,
 				0455209A217548F50033D33B /* AppDelegate.swift in Sources */,
 				04D8D6952183E68B0079380F /* Yelp.swift in Sources */,
 				043CA245217FEC8C008703FC /* ProfileSections.swift in Sources */,
 				043EB1D7217D00C400B40154 /* MainCollectionViewCell.swift in Sources */,
 				04E7FEDB2185540800AD4E79 /* ReserveVC.swift in Sources */,
 				045C28E6217CD8F40017C121 /* NavControllers.swift in Sources */,
+				040E988E21A3A7D400143CA5 /* FormTVCell.swift in Sources */,
+				040E988A21A38C3C00143CA5 /* RegisterGuestVC.swift in Sources */,
 				043CA242217E8B65008703FC /* NotificationTVCell.swift in Sources */,
 				04D8D69C2183F7380079380F /* BioTVCell.swift in Sources */,
 				045520B02175589E0033D33B /* HomeTabBarController.swift in Sources */,
@@ -375,6 +404,7 @@
 				043CA250217FF236008703FC /* CarouselCVCell.swift in Sources */,
 				045C28E8217CE6C00017C121 /* SubmitTicketTableViewCell.swift in Sources */,
 				04E7FEDE2185578100AD4E79 /* QuickReserveCVCell.swift in Sources */,
+				040E989121A3AF1300143CA5 /* PageSection.swift in Sources */,
 				044F8E62218BF26000E84B0F /* AuthManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

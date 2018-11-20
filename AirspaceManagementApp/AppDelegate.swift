@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set up Firebase for app
         FirebaseApp.configure()
 
-        
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             var viewController: UIViewController? = nil

@@ -3,6 +3,7 @@ PODS:
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
+  - Eureka (4.3.0)
   - Firebase/Auth (5.11.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.0.4)
@@ -75,6 +76,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
+  - Eureka
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Functions
@@ -85,6 +87,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Eureka
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -112,6 +115,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  Eureka: 6d711cb30ca333b4bc893110285a722ae3840114
   Firebase: b48f9e653da971ecce5b8c749684bc8bb2d26bd3
   FirebaseAnalytics: 63202d2665de4e6adcbdce189135255d8b5962ba
   FirebaseAuth: 504b198ceb3472dca5c65bb95544ea44cfc9439e
@@ -127,6 +131,6 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   SwiftyButton: 5b0ef314e9cf61cf8a83e456ddd1ea1f53f30598
 
-PODFILE CHECKSUM: a69ea79e10ccabd664b6696ac1ff0f1d2e2922a6
+PODFILE CHECKSUM: 000ed1f09a355695ed0df9a667e6034161175123
 
 COCOAPODS: 1.5.3
