@@ -199,17 +199,17 @@
                                                             </constraints>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="l0l-6m-Bzn">
-                                                            <rect key="frame" x="48" y="4" width="267" height="39.5"/>
+                                                            <rect key="frame" x="48" y="2.5" width="267" height="42.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aDl-QR-TPJ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="267" height="27.5"/>
-                                                                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="267" height="26"/>
+                                                                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="19"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzv-27-BtT">
-                                                                    <rect key="frame" x="0.0" y="27.5" width="267" height="12"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                    <rect key="frame" x="0.0" y="26" width="267" height="16.5"/>
+                                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="12"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -277,6 +277,9 @@
                             <outlet property="delegate" destination="JoJ-U4-jB8" id="vsA-oc-sfQ"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="mPb-M9-6s1" kind="show" identifier="RegisterGuestVCtoChooseTVC" id="yyO-NO-yVQ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wrn-ed-qo1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -340,7 +343,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PpF-f4-RYN"/>
                     </view>
-                    <navigationItem key="navigationItem" id="cQV-NO-rs8"/>
+                    <navigationItem key="navigationItem" id="cQV-NO-rs8">
+                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="No5-nI-yMC">
+                            <connections>
+                                <action selector="didTapSignOutBtn:" destination="Gek-MS-mh2" id="JHX-C3-BNW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="csc-7C-Ucb" id="0u2-Kl-AjU"/>
                     </connections>
@@ -481,6 +490,34 @@
                 </tableViewCell>
             </objects>
             <point key="canvasLocation" x="3341.5999999999999" y="1861.6191904047978"/>
+        </scene>
+        <!--ChooseTVC-->
+        <scene sceneID="WsG-zS-NNj">
+            <objects>
+                <tableViewController id="mPb-M9-6s1" customClass="ChooseTVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hmK-yR-DAf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="iYg-we-o9s">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iYg-we-o9s" id="wvW-Yk-Rjv">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="mPb-M9-6s1" id="lcx-Tg-lMR"/>
+                            <outlet property="delegate" destination="mPb-M9-6s1" id="uJk-gw-H3f"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KTq-To-7lC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4951" y="2159"/>
         </scene>
         <!--NotificationsVC-->
         <scene sceneID="koG-Qa-Ocn">

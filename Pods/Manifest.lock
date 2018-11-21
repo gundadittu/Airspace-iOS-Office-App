@@ -1,9 +1,15 @@
 PODS:
   - Alamofire (4.7.3)
+  - BoringSSL (10.0.6):
+    - BoringSSL/Implementation (= 10.0.6)
+    - BoringSSL/Interface (= 10.0.6)
+  - BoringSSL/Implementation (10.0.6):
+    - BoringSSL/Interface (= 10.0.6)
+  - BoringSSL/Interface (10.0.6)
+  - CFAlertViewController (3.1)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
-  - Eureka (4.3.0)
   - Firebase/Auth (5.11.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.0.4)
@@ -12,6 +18,9 @@ PODS:
     - FirebaseAnalytics (= 5.3.0)
   - Firebase/CoreOnly (5.11.0):
     - FirebaseCore (= 5.1.6)
+  - Firebase/Firestore (5.11.0):
+    - Firebase/CoreOnly
+    - FirebaseFirestore (= 0.13.6)
   - Firebase/Functions (5.11.0):
     - Firebase/CoreOnly
     - FirebaseFunctions (= 2.1.1)
@@ -32,6 +41,23 @@ PODS:
   - FirebaseAuthInterop (1.0.0)
   - FirebaseCore (5.1.6):
     - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseFirestore (0.13.6):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 5.1)
+    - FirebaseFirestore/abseil-cpp (= 0.13.6)
+    - "gRPC-C++ (~> 0.0.3)"
+    - gRPC-ProtoRPC (~> 1.0)
+    - leveldb-library (~> 1.20)
+    - nanopb (~> 0.3.8)
+    - Protobuf (~> 3.1)
+  - FirebaseFirestore/abseil-cpp (0.13.6):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 5.1)
+    - "gRPC-C++ (~> 0.0.3)"
+    - gRPC-ProtoRPC (~> 1.0)
+    - leveldb-library (~> 1.20)
+    - nanopb (~> 0.3.8)
+    - Protobuf (~> 3.1)
   - FirebaseFunctions (2.1.1):
     - FirebaseCore (~> 5.0)
     - GTMSessionFetcher/Core (~> 1.1)
@@ -63,44 +89,108 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (5.3.4):
     - GoogleUtilities/Logger
+  - gRPC (1.14.0):
+    - gRPC-RxLibrary (= 1.14.0)
+    - gRPC/Main (= 1.14.0)
+  - "gRPC-C++ (0.0.3)":
+    - "gRPC-C++/Implementation (= 0.0.3)"
+    - "gRPC-C++/Interface (= 0.0.3)"
+  - "gRPC-C++/Implementation (0.0.3)":
+    - "gRPC-C++/Interface (= 0.0.3)"
+    - gRPC-Core (= 1.14.0)
+    - nanopb (~> 0.3)
+  - "gRPC-C++/Interface (0.0.3)"
+  - gRPC-Core (1.14.0):
+    - gRPC-Core/Implementation (= 1.14.0)
+    - gRPC-Core/Interface (= 1.14.0)
+  - gRPC-Core/Implementation (1.14.0):
+    - BoringSSL (~> 10.0)
+    - gRPC-Core/Interface (= 1.14.0)
+    - nanopb (~> 0.3)
+  - gRPC-Core/Interface (1.14.0)
+  - gRPC-ProtoRPC (1.14.0):
+    - gRPC-ProtoRPC/Main (= 1.14.0)
+  - gRPC-ProtoRPC/Main (1.14.0):
+    - gRPC (= 1.14.0)
+    - gRPC-RxLibrary (= 1.14.0)
+    - Protobuf (~> 3.0)
+  - gRPC-RxLibrary (1.14.0)
+  - gRPC/Main (1.14.0):
+    - gRPC-Core (= 1.14.0)
+    - gRPC-RxLibrary (= 1.14.0)
   - GTMSessionFetcher/Core (1.2.0)
   - JVFloatLabeledTextField (1.2.1)
   - Kingfisher (4.10.0)
+  - leveldb-library (1.20)
+  - MarqueeLabel/Swift (3.2.0)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - NotificationBannerSwift (1.8.0):
+    - MarqueeLabel/Swift (~> 3.2.0)
+    - SnapKit (~> 4.0.1)
+  - NVActivityIndicatorView (4.4.0):
+    - NVActivityIndicatorView/Presenter (= 4.4.0)
+  - NVActivityIndicatorView/Presenter (4.4.0)
+  - Protobuf (3.6.1)
+  - RMActionController (1.3.1)
+  - RMDateSelectionViewController (2.3.1):
+    - RMActionController (~> 1.3.1)
+  - SnapKit (4.0.1)
+  - SwiftDate (5.0.13)
   - SwiftyButton (0.8.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
+  - CFAlertViewController
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
-  - Eureka
   - Firebase/Auth
   - Firebase/Core
+  - Firebase/Firestore
   - Firebase/Functions
   - JVFloatLabeledTextField
   - Kingfisher (~> 4.0)
+  - NotificationBannerSwift
+  - NVActivityIndicatorView
+  - RMDateSelectionViewController (~> 2.3.1)
+  - SwiftDate (~> 5.0)
   - SwiftyButton
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - Eureka
+    - BoringSSL
+    - CFAlertViewController
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
     - FirebaseAuthInterop
     - FirebaseCore
+    - FirebaseFirestore
     - FirebaseFunctions
     - FirebaseInstanceID
     - GoogleAppMeasurement
     - GoogleUtilities
+    - gRPC
+    - "gRPC-C++"
+    - gRPC-Core
+    - gRPC-ProtoRPC
+    - gRPC-RxLibrary
     - GTMSessionFetcher
     - JVFloatLabeledTextField
     - Kingfisher
+    - leveldb-library
+    - MarqueeLabel
     - nanopb
+    - NotificationBannerSwift
+    - NVActivityIndicatorView
+    - Protobuf
+    - RMActionController
+    - RMDateSelectionViewController
+    - SnapKit
+    - SwiftDate
     - SwiftyButton
 
 EXTERNAL SOURCES:
@@ -114,23 +204,39 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
+  CFAlertViewController: a27cf0512d0fa9ef6a3b966862039c295fb0ef69
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
-  Eureka: 6d711cb30ca333b4bc893110285a722ae3840114
   Firebase: b48f9e653da971ecce5b8c749684bc8bb2d26bd3
   FirebaseAnalytics: 63202d2665de4e6adcbdce189135255d8b5962ba
   FirebaseAuth: 504b198ceb3472dca5c65bb95544ea44cfc9439e
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: d16552f06821489ce1affe2e5e3e5593402ddfe3
+  FirebaseFirestore: 162502df850b584126c609f3449acfb7230d8c1a
   FirebaseFunctions: 6c03d7c5d62520be4678dc3fb7957654aab82b4f
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
   GoogleAppMeasurement: 5029d78f2b438bd30ffb44e6c558b57c21622727
   GoogleUtilities: abb092d2c12e817fa3e0e7b274987dd72fb86ec3
+  gRPC: 9d4c549f37c7cef22478634bac7a0405b6e3dbfb
+  "gRPC-C++": ee0b01db3122f0b6c2be28b5b11039f62fa15fe6
+  gRPC-Core: f4836515817c0eb479aeeb9cc27c91c4ba62a9f6
+  gRPC-ProtoRPC: 76f6053639a842e1fb45fa82aa598bf3f4d9f66f
+  gRPC-RxLibrary: 3c305f32155024b116b780f389323c73a28197e6
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   JVFloatLabeledTextField: cfc44e3c4d493b2ed92ede8035e8e89c2912ba64
   Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  MarqueeLabel: 440a502b91a9179bd98f9fff00ba1150650a1c0e
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  NotificationBannerSwift: 49fc4be7fabada55b189b50e72184c92edd5f7f7
+  NVActivityIndicatorView: ec7440a57af2450319d3a4181cca7da6fc127064
+  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  RMActionController: 535715be9f3d9eb96a838485370dcccee0dda597
+  RMDateSelectionViewController: 1157d34245e6a1dda700e8a9c44417321d181951
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
   SwiftyButton: 5b0ef314e9cf61cf8a83e456ddd1ea1f53f30598
 
-PODFILE CHECKSUM: 000ed1f09a355695ed0df9a667e6034161175123
+PODFILE CHECKSUM: cdddb92fc612419d5b70a2750c5e6fabf75ae705
 
 COCOAPODS: 1.5.3

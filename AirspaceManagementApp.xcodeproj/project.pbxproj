@@ -14,6 +14,17 @@
 		040E988F21A3A7D400143CA5 /* FormTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040E988D21A3A7D400143CA5 /* FormTVCell.xib */; };
 		040E989121A3AF1300143CA5 /* PageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E989021A3AF1300143CA5 /* PageSection.swift */; };
 		040E989421A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E989321A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift */; };
+		040E989721A3B7B900143CA5 /* FormSubmitTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E989521A3B7B900143CA5 /* FormSubmitTVCell.swift */; };
+		040E989821A3B7B900143CA5 /* FormSubmitTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040E989621A3B7B900143CA5 /* FormSubmitTVCell.xib */; };
+		0422BB1B21A4F45500F9CD64 /* ChooseTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB1A21A4F45500F9CD64 /* ChooseTVC.swift */; };
+		0422BB1D21A4F65300F9CD64 /* AirOffice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB1C21A4F65300F9CD64 /* AirOffice.swift */; };
+		0422BB1F21A4F66C00F9CD64 /* AirUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB1E21A4F66C00F9CD64 /* AirUser.swift */; };
+		0422BB2121A4F68E00F9CD64 /* AirBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB2021A4F68E00F9CD64 /* AirBuilding.swift */; };
+		0422BB2321A4F6A900F9CD64 /* AirCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB2221A4F6A900F9CD64 /* AirCompany.swift */; };
+		0422BB2521A4FB2700F9CD64 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB2421A4FB2700F9CD64 /* UserManager.swift */; };
+		0422BB2721A4FC5700F9CD64 /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB2621A4FC5700F9CD64 /* UITableViewCellExtension.swift */; };
+		0422BB2921A5169100F9CD64 /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB2821A5169100F9CD64 /* DateController.swift */; };
+		0422BB2B21A525B400F9CD64 /* RegisterGuestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB2A21A525B400F9CD64 /* RegisterGuestManager.swift */; };
 		043CA237217E87C6008703FC /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043CA236217E87C6008703FC /* NotificationsVC.swift */; };
 		043CA239217E8897008703FC /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043CA238217E8897008703FC /* UserNotification.swift */; };
 		043CA242217E8B65008703FC /* NotificationTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043CA240217E8B65008703FC /* NotificationTVCell.swift */; };
@@ -58,6 +69,17 @@
 		040E988D21A3A7D400143CA5 /* FormTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FormTVCell.xib; sourceTree = "<group>"; };
 		040E989021A3AF1300143CA5 /* PageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageSection.swift; sourceTree = "<group>"; };
 		040E989321A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGuestTVCDataController.swift; sourceTree = "<group>"; };
+		040E989521A3B7B900143CA5 /* FormSubmitTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSubmitTVCell.swift; sourceTree = "<group>"; };
+		040E989621A3B7B900143CA5 /* FormSubmitTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FormSubmitTVCell.xib; sourceTree = "<group>"; };
+		0422BB1A21A4F45500F9CD64 /* ChooseTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTVC.swift; sourceTree = "<group>"; };
+		0422BB1C21A4F65300F9CD64 /* AirOffice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirOffice.swift; sourceTree = "<group>"; };
+		0422BB1E21A4F66C00F9CD64 /* AirUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirUser.swift; sourceTree = "<group>"; };
+		0422BB2021A4F68E00F9CD64 /* AirBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirBuilding.swift; sourceTree = "<group>"; };
+		0422BB2221A4F6A900F9CD64 /* AirCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirCompany.swift; sourceTree = "<group>"; };
+		0422BB2421A4FB2700F9CD64 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		0422BB2621A4FC5700F9CD64 /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
+		0422BB2821A5169100F9CD64 /* DateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateController.swift; sourceTree = "<group>"; };
+		0422BB2A21A525B400F9CD64 /* RegisterGuestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGuestManager.swift; sourceTree = "<group>"; };
 		043CA236217E87C6008703FC /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
 		043CA238217E8897008703FC /* UserNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotification.swift; sourceTree = "<group>"; };
 		043CA240217E8B65008703FC /* NotificationTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTVCell.swift; sourceTree = "<group>"; };
@@ -114,6 +136,9 @@
 			isa = PBXGroup;
 			children = (
 				040E989321A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift */,
+				0422BB2421A4FB2700F9CD64 /* UserManager.swift */,
+				0422BB2821A5169100F9CD64 /* DateController.swift */,
+				0422BB2A21A525B400F9CD64 /* RegisterGuestManager.swift */,
 			);
 			path = DataControllers;
 			sourceTree = "<group>";
@@ -169,6 +194,7 @@
 				045C28DF217CD7A70017C121 /* ProfileVC.swift */,
 				043CA236217E87C6008703FC /* NotificationsVC.swift */,
 				040E988921A38C3C00143CA5 /* RegisterGuestVC.swift */,
+				0422BB1A21A4F45500F9CD64 /* ChooseTVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -182,6 +208,10 @@
 				043CA244217FEC8B008703FC /* ProfileSections.swift */,
 				04E7FEE02186A17C00AD4E79 /* ReserveSection.swift */,
 				040E989021A3AF1300143CA5 /* PageSection.swift */,
+				0422BB1C21A4F65300F9CD64 /* AirOffice.swift */,
+				0422BB1E21A4F66C00F9CD64 /* AirUser.swift */,
+				0422BB2021A4F68E00F9CD64 /* AirBuilding.swift */,
+				0422BB2221A4F6A900F9CD64 /* AirCompany.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -204,6 +234,9 @@
 				04E7FEDD2185578100AD4E79 /* QuickReserveCVCell.xib */,
 				040E988C21A3A7D400143CA5 /* FormTVCell.swift */,
 				040E988D21A3A7D400143CA5 /* FormTVCell.xib */,
+				040E989521A3B7B900143CA5 /* FormSubmitTVCell.swift */,
+				040E989621A3B7B900143CA5 /* FormSubmitTVCell.xib */,
+				0422BB2621A4FC5700F9CD64 /* UITableViewCellExtension.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -312,6 +345,7 @@
 				04E7FEDF2185578100AD4E79 /* QuickReserveCVCell.xib in Resources */,
 				045520A1217548F60033D33B /* Assets.xcassets in Resources */,
 				0455209F217548F50033D33B /* Main.storyboard in Resources */,
+				040E989821A3B7B900143CA5 /* FormSubmitTVCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,25 +378,55 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/CFAlertViewController/CFAlertViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
-				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/JVFloatLabeledTextField/JVFloatLabeledTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/RMActionController/RMActionController.framework",
+				"${BUILT_PRODUCTS_DIR}/RMDateSelectionViewController/RMDateSelectionViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyButton/SwiftyButton.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CFAlertViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVFloatLabeledTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RMActionController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RMDateSelectionViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -377,30 +441,40 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0422BB1B21A4F45500F9CD64 /* ChooseTVC.swift in Sources */,
 				045520B221755A2B0033D33B /* ServiceRequestVC.swift in Sources */,
 				043CA239217E8897008703FC /* UserNotification.swift in Sources */,
 				043EB1D5217CF69E00B40154 /* SubmitTicketField.swift in Sources */,
+				0422BB2B21A525B400F9CD64 /* RegisterGuestManager.swift in Sources */,
 				045520B82177C1300033D33B /* MainVC.swift in Sources */,
 				0407E0512184190500C516BC /* GlobalConstants.swift in Sources */,
 				043CA237217E87C6008703FC /* NotificationsVC.swift in Sources */,
 				045520BC2177C5EB0033D33B /* MainTableViewCell.swift in Sources */,
+				0422BB2321A4F6A900F9CD64 /* AirCompany.swift in Sources */,
 				045C28E0217CD7A70017C121 /* ProfileVC.swift in Sources */,
 				04E7FEE12186A17C00AD4E79 /* ReserveSection.swift in Sources */,
+				040E989721A3B7B900143CA5 /* FormSubmitTVCell.swift in Sources */,
 				045520BA2177C24A0033D33B /* MainOptions.swift in Sources */,
+				0422BB1F21A4F66C00F9CD64 /* AirUser.swift in Sources */,
 				040E989421A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift in Sources */,
+				0422BB2921A5169100F9CD64 /* DateController.swift in Sources */,
 				0455209A217548F50033D33B /* AppDelegate.swift in Sources */,
 				04D8D6952183E68B0079380F /* Yelp.swift in Sources */,
 				043CA245217FEC8C008703FC /* ProfileSections.swift in Sources */,
+				0422BB2521A4FB2700F9CD64 /* UserManager.swift in Sources */,
 				043EB1D7217D00C400B40154 /* MainCollectionViewCell.swift in Sources */,
 				04E7FEDB2185540800AD4E79 /* ReserveVC.swift in Sources */,
+				0422BB1D21A4F65300F9CD64 /* AirOffice.swift in Sources */,
 				045C28E6217CD8F40017C121 /* NavControllers.swift in Sources */,
 				040E988E21A3A7D400143CA5 /* FormTVCell.swift in Sources */,
 				040E988A21A38C3C00143CA5 /* RegisterGuestVC.swift in Sources */,
 				043CA242217E8B65008703FC /* NotificationTVCell.swift in Sources */,
 				04D8D69C2183F7380079380F /* BioTVCell.swift in Sources */,
 				045520B02175589E0033D33B /* HomeTabBarController.swift in Sources */,
+				0422BB2121A4F68E00F9CD64 /* AirBuilding.swift in Sources */,
 				043CA24A217FF0F7008703FC /* CarouselTVCell.swift in Sources */,
 				045520AE217550C90033D33B /* LoginVC.swift in Sources */,
+				0422BB2721A4FC5700F9CD64 /* UITableViewCellExtension.swift in Sources */,
 				043CA250217FF236008703FC /* CarouselCVCell.swift in Sources */,
 				045C28E8217CE6C00017C121 /* SubmitTicketTableViewCell.swift in Sources */,
 				04E7FEDE2185578100AD4E79 /* QuickReserveCVCell.swift in Sources */,

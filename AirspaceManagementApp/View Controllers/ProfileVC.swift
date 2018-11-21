@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import NotificationBannerSwift
 
 class ProfileVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -30,6 +31,14 @@ class ProfileVC: UIViewController {
                     ProfileSection(type: .myDeskReservations),
                     ProfileSection(type: .myServiceRequests),
                     ProfileSection(type: .myRegisteredGuests)]
+    }
+    @IBAction func didTapSignOutBtn(_ sender: Any) {
+        UserAuth.shared.signOutUser() { error in
+            if let _ = error {
+                let banner = StatusBarNotificationBanner(title: "Error signing out.", style: .danger)
+                banner.show()
+            }
+        }
     }
 }
 

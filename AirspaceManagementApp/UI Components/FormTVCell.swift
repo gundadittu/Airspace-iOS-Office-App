@@ -21,7 +21,7 @@ class FormTVCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.button.tintColor = globalColor
+        self.button.tintColor = .black
     }
 
     func configureCell(with object: RegisterGuestVCSection, delegate: FormTVCellDelegate) {
@@ -31,7 +31,7 @@ class FormTVCell: UITableViewCell {
         self.titleLabel.text = object.title
         
         let attrs = [NSAttributedString.Key.underlineStyle : 1]
-        let attributedString = NSMutableAttributedString(string:object.buttonTitle, attributes: attrs)
+        let attributedString = NSMutableAttributedString(string: object.selectedButtonTitle ?? object.buttonTitle, attributes: attrs)
         self.button.setAttributedTitle(attributedString, for: .normal)
     }
     

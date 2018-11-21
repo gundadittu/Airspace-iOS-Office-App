@@ -14,6 +14,12 @@ target 'AirspaceManagementApp' do
   pod 'SwiftyButton'
   pod 'Kingfisher', '~> 4.0'
   pod 'Firebase/Functions'
-  pod 'Eureka'
-
+  pod 'NotificationBannerSwift'
+  pod 'NVActivityIndicatorView'
+#  pod 'BTNavigationDropdownMenu'
+  pod 'Firebase/Firestore'
+  pod 'RMDateSelectionViewController', '~> 2.3.1'
+  pod 'CFAlertViewController'
+  pod 'SwiftDate', '~> 5.0'
+  
 end

@@ -36,7 +36,7 @@ class MainVC: UIViewController {
         
         options = [MainOptions(title: "Reserve a room or desk", subtitle:"Find a space to get working.", icon:"reserve-icon", color: nil, type: MainOptionsType.reserveRoom),
                    MainOptions(title: "Submit a service request", subtitle:"Let us know if something needs servicing.", icon:"serv-req-icon", color: nil, type: MainOptionsType.submitTicket),
-                   MainOptions(title: "Register a guest", subtitle:"We'll send your guest over when they arrive.", icon:"register-guest-icon", color: nil, type: MainOptionsType.registerGuest),
+                   MainOptions(title: "Register a guest", subtitle:"We'll let you know when your guest arrives.", icon:"register-guest-icon", color: nil, type: MainOptionsType.registerGuest),
                     MainOptions(title: "View events", subtitle:"See what's going on in your building.", icon:"events-icon", color: nil, type: MainOptionsType.viewEvents),
                     MainOptions(title: "Space info", subtitle:"Learn more about your building.", icon:"space-info-icon", color: nil, type: MainOptionsType.spaceInfo)]
     }
@@ -122,6 +122,6 @@ extension MainVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (indexPath.section == 0) ? CGFloat(75) : CGFloat(300)
+        return (indexPath.section == 0) ? CGFloat(90) : CGFloat(300)
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseFunctions
 
-enum UserType : String {
+enum UserType : String, CaseIterable {
     case admin = "admin"
     case receptionist = "receptionist"
     case landlord = "landlord"
@@ -56,5 +56,16 @@ class UserAuth {
 //        Need to set user type, otherwise return error
             completionHandler(user, nil)
         }
+    }
+    
+    func signOutUser(completionHandler: @escaping (NSError?)->Void) {
+        do {
+            try Auth.auth().signOut()
+            completionHandler(nil)
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+            completionHandler(signOutError)
+        }
+
     }
 }
