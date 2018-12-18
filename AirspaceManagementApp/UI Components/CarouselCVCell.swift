@@ -15,6 +15,7 @@ class CarouselCVCellItem: NSObject {
     var bannerImage: UIImage?
     var bannerURL: URL?
     var type: CarouselCVCellItemType?
+    var data: AnyObject?
     
     public init(title: String, subtitle: String?, image: UIImage? = nil, imageURL: URL? = nil, type: CarouselCVCellItemType? = nil) {
         self.title = title
@@ -23,11 +24,32 @@ class CarouselCVCellItem: NSObject {
         self.bannerURL = imageURL
         self.type = type ?? .regular
     }
+    
+    public init(with guest: AirGuestRegistration) {
+        self.title = guest.guestName ?? "No Name Provided"
+        self.subtitle = (guest.expectedVisitDate?.localizedDescription ?? "No visiting date")+" at "+(guest.visitingOffice?.name ?? "No visiting office")
+        self.bannerImage = nil
+        self.bannerURL = nil
+        self.type = .text
+        self.data = guest
+    }
+    
+    public init(with sr: AirServiceRequest) {
+        self.title = sr.issueType?.title ?? "No Type Provided"
+        var subtitleString = (sr.status?.title ?? "No Status")+" • "
+        subtitleString += (sr.office?.name ?? "No office provided")
+        self.subtitle = subtitleString
+        self.bannerImage = nil
+        self.bannerURL = nil
+        self.type = .text
+        self.data = sr
+    }
 }
 
 enum CarouselCVCellItemType {
     case regular
     case quickReserve
+    case text
 }
 
 class CarouselCVCell: UICollectionViewCell {
@@ -48,6 +70,8 @@ class CarouselCVCell: UICollectionViewCell {
             self.bannerImage.image = image
         } else if let url = object.bannerURL {
             self.bannerImage.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+        } else {
+            self.bannerImage.isHidden = true
         }
     }
 }

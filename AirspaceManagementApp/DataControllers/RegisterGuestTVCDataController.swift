@@ -14,7 +14,7 @@ protocol RegisterGuestTVCDataControllerDelegate {
     func toggleLoadingIndicator()
 }
 
-enum DateSubmissionError: Error {
+enum DataSubmissionError: Error {
     case missingRequiredInput
     case invalidInput
 }
@@ -51,7 +51,7 @@ class RegisterGuestTVCDataController {
         guard let guestName = self.guestName,
             let officeUID = self.selectedOffice?.uid,
             let guestVisitDate = self.guestVisitDate else {
-                let error = DateSubmissionError.missingRequiredInput
+                let error = DataSubmissionError.missingRequiredInput
                 self.delegate?.didFinishSubmittingData(withError: error)
                 return
         }

@@ -17,7 +17,6 @@ class HomeTabBarController : UITabBarController {
     override func viewDidLoad() {
         
         self.tabBar.tintColor = globalColor
-        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
     
         switch UserAuth.shared.currUserType {
         case .admin?:

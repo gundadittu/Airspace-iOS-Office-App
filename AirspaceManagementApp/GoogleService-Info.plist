@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>927508779333-qldr15b4989getgrk68gndpljp759qdb.apps.googleusercontent.com</string>
+	<string>927508779333-0666u3kr7kfadvg68eg0k2h5kuqaahd8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.927508779333-qldr15b4989getgrk68gndpljp759qdb</string>
+	<string>com.googleusercontent.apps.927508779333-0666u3kr7kfadvg68eg0k2h5kuqaahd8</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDVifQ2Jjv7K5tdjZWN_1Ovb-9O6YeoYJo</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,23 +17,23 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>AG.AirspaceManagementApp</string>
+	<string>AG.AirspaceMobileApp</string>
 	<key>PROJECT_ID</key>
 	<string>airspace-management-app</string>
 	<key>STORAGE_BUCKET</key>
 	<string>airspace-management-app.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:927508779333:ios:660326e055d80a6e</string>
+	<string>1:927508779333:ios:87b06958c03db6da</string>
 	<key>DATABASE_URL</key>
 	<string>https://airspace-management-app.firebaseio.com</string>
 </dict>

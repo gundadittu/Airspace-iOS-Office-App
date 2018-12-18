@@ -27,6 +27,12 @@ class FormSubmitTVCell: UITableViewCell {
         self.button.setTitle(object.buttonTitle, for: .normal)
     }
     
+    func configureCell(with object: ServiceRequestVCSection, delegate: FormTVCellDelegate) {
+        self.delegate = delegate
+        self.sectionObject = object
+        self.button.setTitle(object.buttonTitle, for: .normal)
+    }
+    
     @IBAction func didTapButton(_ sender: Any) {
         guard let so = self.sectionObject else { return }
         self.delegate?.didSelectCellButton(withObject: so)

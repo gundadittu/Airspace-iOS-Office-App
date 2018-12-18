@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol CarouselTVCellDelegate {
+    func didSelectCarouselCVCellItem(item: CarouselCVCellItem)
+}
+
 class CarouselTVCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     var items = [CarouselCVCellItem]()
+    var delegate: CarouselTVCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,6 +24,7 @@ class CarouselTVCell: UITableViewCell {
         self.collectionView.dataSource = self
         self.collectionView.register(UINib(nibName: "CarouselCVCell", bundle: nil), forCellWithReuseIdentifier: "CarouselCVCell")
         self.collectionView.register(UINib(nibName: "QuickReserveCVCell", bundle: nil), forCellWithReuseIdentifier: "QuickReserveCVCell")
+        self.collectionView.register(UINib(nibName: "TextCVCell", bundle: nil), forCellWithReuseIdentifier: "TextCVCell")
         self.collectionView.showsHorizontalScrollIndicator = false
         
         setCVLayout()
@@ -29,12 +35,14 @@ class CarouselTVCell: UITableViewCell {
         guard !items.isEmpty else { return }
         switch items[0].type  {
         case .regular?:
-            flowLayout.itemSize = CGSize(width: 200, height: 250)
+            flowLayout.itemSize = CGSize(width: 200, height: 150)
         case .quickReserve?:
             flowLayout.itemSize = CGSize(width: 100, height: 100)
             flowLayout.minimumInteritemSpacing = CGFloat(20)
         case .none:
             break
+        case .some(.text):
+            flowLayout.itemSize = CGSize(width: 200, height: 100)
         }
         flowLayout.scrollDirection = .horizontal
         collectionView.collectionViewLayout = flowLayout
@@ -70,6 +78,11 @@ extension CarouselTVCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = self.items[indexPath.row]
+        self.delegate?.didSelectCarouselCVCellItem(item: item)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -108,6 +121,16 @@ extension CarouselTVCell: UICollectionViewDataSource {
             return cell
         case .none:
             break
+        case .some(.text):
+            var cell = TextCVCell()
+            if let cvCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCVCell", for: indexPath) as? TextCVCell  {
+                cell = cvCell
+            } else {
+                collectionView.register(UINib(nibName: "TextCVCell", bundle: nil), forCellWithReuseIdentifier: "TextCVCell")
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCVCell", for: indexPath) as! TextCVCell
+            }
+            cell.configureInfo(with: currItem)
+            return cell
         }
         return UICollectionViewCell()
     }

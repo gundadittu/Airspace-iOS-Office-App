@@ -37,4 +37,10 @@ class UserManager {
         }
     }
     
+    func updateUserFCMRegToken(regToken: String, oldToken: String? = nil) {
+        functions.httpsCallable("updateUserFCMRegToken").call(["regToken": regToken, "oldToken": oldToken]) { (_, _) in
+            return
+        }
+    }
+    
 }

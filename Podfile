@@ -8,18 +8,19 @@ target 'AirspaceManagementApp' do
   # Pods for AirspaceManagementApp
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Functions'
+  pod 'Firebase/Firestore'
   pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
   pod 'Alamofire', '~> 4.7'
   pod 'JVFloatLabeledTextField'
   pod 'SwiftyButton'
   pod 'Kingfisher', '~> 4.0'
-  pod 'Firebase/Functions'
   pod 'NotificationBannerSwift'
   pod 'NVActivityIndicatorView'
-#  pod 'BTNavigationDropdownMenu'
-  pod 'Firebase/Firestore'
-  pod 'RMDateSelectionViewController', '~> 2.3.1'
   pod 'CFAlertViewController'
-  pod 'SwiftDate', '~> 5.0'
-  
+  pod 'DZNEmptyDataSet'
+  pod 'ScrollableSegmentedControl'
+
 end

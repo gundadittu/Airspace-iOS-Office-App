@@ -31,7 +31,7 @@ extension UITableViewCell {
     func configureCell(with company: AirCompany) {
         self.accessoryType = .disclosureIndicator
         self.textLabel?.text = company.name ?? "No company name"
-        //        self.detailTextLabel?.text = company.address ?? "No address provided"
+        // self.detailTextLabel?.text = company.address ?? "No address provided"
         // show proper  image
         self.imageView?.image = UIImage(named: "user-placeholder")!
     }
@@ -42,6 +42,25 @@ extension UITableViewCell {
         self.detailTextLabel?.text = office.buildingName ?? "No building name provided"
         // show proper  image
         self.imageView?.image = UIImage(named: "user-placeholder")!
+    }
+    
+    func configureCell(with guest: AirGuestRegistration) {
+        self.textLabel?.text = guest.guestName ?? "No guest name"
+        self.detailTextLabel?.text = (guest.expectedVisitDate?.localizedDescription ?? "No visiting date")+" at "+(guest.visitingOffice?.name ?? "No visiting office")
+    }
+    
+    func configureCell(with srType: ServiceRequestTypeItem) {
+        self.textLabel?.text = srType.title
+    }
+    
+    func configureCell(with sr: AirServiceRequest) {
+        self.textLabel?.text = sr.issueType?.title ?? "No Title Provided"
+        var detailText = ""
+        detailText += (sr.timestamp?.localizedDescription ?? "No Time") + " • " + (sr.office?.name ?? "No Office")
+        if let note = sr.note {
+            detailText += " • "+note
+        }
+        self.detailTextLabel?.text = detailText
     }
 }
 

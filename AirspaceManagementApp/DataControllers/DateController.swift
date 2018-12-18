@@ -7,21 +7,21 @@
 //
 
 import Foundation
-import SwiftDate
 
-class DateController {
-    static let shared = DateController()
+extension Date {
     
-    func convertDateToColloqString(date: Date) -> String {
-        return date.toRelative(style: RelativeFormatter.defaultStyle() , locale: nil)
+    var localizedDescription: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        let shortDateString = dateFormatter.string(from: self)
+        return shortDateString
     }
-    
-    func convertDateToString(date: Date) -> String {
-        return date.toFormat("MMM dd',' yyyy 'at' HH:mm")
-    }
-    
-    func convertDateToISOString(date: Date) -> String {
-        return date.toISO()
+}
+
+extension Formatter {
+    struct Date {
+        static let iso8601 = ISO8601DateFormatter([.withInternetDateTime, .withFractionalSeconds])
     }
 }
 
@@ -30,11 +30,5 @@ extension ISO8601DateFormatter {
         self.init()
         self.formatOptions = formatOptions
         self.timeZone = timeZone ?? TimeZone(abbreviation: "UTC")!
-    }
-}
-
-extension Formatter {
-    struct Date {
-        static let iso8601 = ISO8601DateFormatter([.withInternetDateTime, .withFractionalSeconds])
     }
 }

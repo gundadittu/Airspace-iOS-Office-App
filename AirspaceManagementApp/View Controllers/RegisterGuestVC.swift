@@ -9,19 +9,8 @@
 import Foundation
 import UIKit
 import NotificationBannerSwift
-import RMDateSelectionViewController
-import NotificationBannerSwift
 import NVActivityIndicatorView
 import CFAlertViewController
-
-enum RegisterGuestVCSectionType {
-    case office
-    case name
-    case dateTime
-    case email
-    case submit
-    case none
-}
 
 class RegisterGuestVCSection: PageSection {
     var title = ""
@@ -36,10 +25,20 @@ class RegisterGuestVCSection: PageSection {
     }
 }
 
+enum RegisterGuestVCSectionType {
+    case office
+    case name
+    case dateTime
+    case email
+    case submit
+    case none
+}
+
 class RegisterGuestVC: UITableViewController {
-    var sections = [RegisterGuestVCSection]()
+    var sections = [RegisterGuestVCSection(title: "I have a guest visiting", buttonTitle: "Choose Office", type: .office),RegisterGuestVCSection(title: "Their name is", buttonTitle: "Enter Name", type: .name), RegisterGuestVCSection(title: "They are visiting", buttonTitle: "Choose Date & Time", type: .dateTime), RegisterGuestVCSection(title: "Their email is (optional)", buttonTitle: "Enter Email", type: .email), RegisterGuestVCSection(title: "Submit", buttonTitle: "Register Guest", type: .submit)]
     var dataController: RegisterGuestTVCDataController?
-    var picker: RMDateSelectionViewController? = RMDateSelectionViewController()
+    let datePicker: UIDatePicker = UIDatePicker()
+    let tempInput = UITextField( frame:CGRect.zero )
     var loadingIndicator: NVActivityIndicatorView?
 
     override func viewWillAppear(_ animated: Bool) {
@@ -59,8 +58,6 @@ class RegisterGuestVC: UITableViewController {
         self.loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: (self.tableView.frame.width/2)-25, y: (self.tableView.frame.height/2), width: 50, height: 50), type: .ballClipRotate, color: globalColor, padding: nil)
         self.view.addSubview(self.loadingIndicator!)
         
-        self.sections = [RegisterGuestVCSection(title: "I have a guest visiting", buttonTitle: "Choose Office", type: .office),RegisterGuestVCSection(title: "Their name is", buttonTitle: "Enter Guest Name", type: .name), RegisterGuestVCSection(title: "They are visiting", buttonTitle: "Choose Date/Time", type: .dateTime), RegisterGuestVCSection(title: "Their email is (optional)", buttonTitle: "Enter Guest Email", type: .email), RegisterGuestVCSection(title: "Submit", buttonTitle: "Register Guest", type: .submit)]
-        
         self.dataController = RegisterGuestTVCDataController(delegate: self)
     }
     
@@ -71,10 +68,6 @@ class RegisterGuestVC: UITableViewController {
             destination.delegate = self
         }
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return sections.count
@@ -104,8 +97,6 @@ class RegisterGuestVC: UITableViewController {
             }
             cell.configureCell(with: section, delegate: self)
             return cell
-        case .none:
-            break
         case .name:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormTVCell") as? FormTVCell else {
                 return UITableViewCell()
@@ -122,7 +113,7 @@ class RegisterGuestVC: UITableViewController {
                 return UITableViewCell()
             }
             if let date = self.dataController?.guestVisitDate {
-                section.selectedButtonTitle = DateController.shared.convertDateToString(date: date)
+                section.selectedButtonTitle = date.localizedDescription
             } else {
                 section.selectedButtonTitle = nil
             }
@@ -139,12 +130,16 @@ class RegisterGuestVC: UITableViewController {
             }
             cell.configureCell(with: section, delegate: self)
             return cell
+        case .none:
+            break
         }
         return UITableViewCell()
     }
 }
 
 extension RegisterGuestVC: FormTVCellDelegate {
+    
+    // Delegate from FormTVCell that is called when user clicks on button in cell
     func didSelectCellButton(withObject object: PageSection) {
         // show text field or options to choose data value bassd on object type
         guard let object = object as? RegisterGuestVCSection else {
@@ -169,24 +164,40 @@ extension RegisterGuestVC: FormTVCellDelegate {
     }
     
     func showDatePicker() {
-        let select: RMAction<UIDatePicker> = RMAction(title: "Done", style: .done)  { (controller) in
-            let date = controller.contentView.date
-            self.dataController?.setGuestVistDate(as: date)
-            self.tableView.reloadData()
-            }!
-        
-        let clear: RMAction<UIDatePicker> = RMAction(title: "Remove", style: .destructive) { (controller) in
-            self.dataController?.setGuestVistDate(as: nil)
-            self.tableView.reloadData()
-            }!
-        
-        self.picker = RMDateSelectionViewController(style: .white, title: "When's your guest visiting?", message: nil, select: select, andCancel: clear)
-
+        datePicker.datePickerMode = .dateAndTime
+        datePicker.minimumDate = Date()
         if let currDate = self.dataController?.guestVisitDate {
-            picker?.datePicker.date = currDate
+            datePicker.date = currDate
         }
         
-        self.present(picker!, animated: true)
+        let toolbar = UIToolbar();
+        toolbar.sizeToFit()
+        
+        let chooseButton = UIBarButtonItem(title: "Choose", style: UIBarButtonItem.Style.plain, target: self, action: #selector(RegisterGuestVC.chooseDatePicker))
+        chooseButton.tintColor = globalColor
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let clearButton = UIBarButtonItem(title: "Clear", style: UIBarButtonItem.Style.plain, target: self, action: #selector(RegisterGuestVC.clearDatePicker))
+        clearButton.tintColor = globalColor
+        toolbar.setItems([clearButton,spaceButton,chooseButton], animated: false)
+        
+        tempInput.inputView = datePicker
+        tempInput.inputAccessoryView = toolbar
+        tempInput.inputView = datePicker
+        self.view.addSubview(tempInput)
+        tempInput.becomeFirstResponder()
+    }
+    
+    @objc func chooseDatePicker() {
+        self.tempInput.resignFirstResponder()
+        let date = self.datePicker.date
+        self.dataController?.setGuestVistDate(as: date)
+        self.tableView.reloadData()
+    }
+    
+    @objc func clearDatePicker() {
+        self.tempInput.resignFirstResponder()
+        self.dataController?.setGuestVistDate(as: nil)
+        self.tableView.reloadData()
     }
     
     func showGuestNameAlert() {
@@ -257,9 +268,11 @@ extension RegisterGuestVC: FormTVCellDelegate {
 }
 
 extension RegisterGuestVC: ChooseTVCDelegate {
+    
+    // Delegate function is called when user selects office in ChooseTVC
     func didSelectOffice(office: AirOffice) {
-        // Setting office chosen by user
         self.dataController?.setSelectedOffice(as: office)
+        self.tableView.reloadData()
     }
 }
 
@@ -273,6 +286,7 @@ extension RegisterGuestVC: RegisterGuestTVCDataControllerDelegate {
         }
     }
     
+    // Delegate function is called when network request finishes submitting form data
     func didFinishSubmittingData(withError error: Error?) {
         if let _ = error {
             let banner = StatusBarNotificationBanner(title: "Error registering your guest.", style: .danger, colors: nil)

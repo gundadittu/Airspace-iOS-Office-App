@@ -18,14 +18,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="377" height="230"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="geO-RL-3xh">
-                        <rect key="frame" x="0.0" y="0.0" width="377" height="150"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="geO-RL-3xh">
+                        <rect key="frame" x="0.0" y="0.0" width="377" height="80"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="150" id="ZN2-6b-eQV"/>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="z7s-0t-8C8"/>
                         </constraints>
                     </imageView>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="hoi-xc-FAU">
-                        <rect key="frame" x="0.0" y="158" width="377" height="47.5"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" distribution="fillProportionally" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="hoi-xc-FAU">
+                        <rect key="frame" x="0.0" y="88" width="377" height="47.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGa-3Y-0fs">
                                 <rect key="frame" x="0.0" y="0.0" width="377" height="25"/>

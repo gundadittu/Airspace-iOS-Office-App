@@ -16,10 +16,14 @@ enum ProfileSectionType {
     case myRegisteredGuests
 }
 
-class ProfileSection: NSObject {
+class ProfileSection: PageSection {
+    var title: String?
+    var seeMoreTitle: String?
     var type: ProfileSectionType?
     
-    public init(type: ProfileSectionType) {
-        self.type = type 
+    public init(title: String, seeMoreTitle: String, type: ProfileSectionType) {
+        self.title = title
+        self.type = type
+        self.seeMoreTitle = seeMoreTitle
     }
 }

@@ -14,12 +14,14 @@ enum ChooseTVCType: String {
     case landlords = "Landlord"
     case buildings = "Building"
     case offices = "Office"
+    case serviceRequestType = "Service Request Type"
 }
 
 protocol ChooseTVCDelegate {
     func didSelectUser(landlord: AirUser)
     func didSelectBuilding(building: AirBuilding)
     func didSelectOffice(office: AirOffice)
+    func didSelectSRType(type: ServiceRequestTypeItem)
 }
 
 extension ChooseTVCDelegate {
@@ -30,6 +32,9 @@ extension ChooseTVCDelegate {
         // Makes method optional to implement
     }
     func didSelectOffice(office: AirOffice) {
+        // Makes method optional to implement
+    }
+    func didSelectSRType(type: ServiceRequestTypeItem) {
         // Makes method optional to implement
     }
 }
@@ -52,6 +57,11 @@ class ChooseTVC: UITableViewController {
         self.view.addSubview(self.loadingIndicator!)
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChooseCell")
         self.loadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     func loadData() {
@@ -88,7 +98,7 @@ class ChooseTVC: UITableViewController {
 //                }
 //            }
             UserManager.shared.getCurrentUsersOffices { (offices, error) in
-                if let error = error {
+                if let _ = error {
                     let banner = StatusBarNotificationBanner(title: "Error loading Offices.", style: .danger)
                     banner.show()
                     return
@@ -114,17 +124,60 @@ class ChooseTVC: UITableViewController {
                 }
             }
             break
+        case .some(.serviceRequestType):
+            break
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch self.type {
+        case .landlords?:
+            break
+        case .none:
+            break
+        case .some(.buildings):
+            break
+        case .some(.offices):
+            break
+        case .some(.serviceRequestType):
+            return ServiceRequestTypeController.shared.sections[section].title
+        }
+        return nil
     }
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        switch self.type {
+        case .landlords?:
+           break
+        case .none:
+            break
+        case .some(.buildings):
+            break
+        case .some(.offices):
+            break
+        case .some(.serviceRequestType):
+            return ServiceRequestTypeController.shared.sections.count
+
+        }
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch self.type {
+        case .landlords?:
+            break
+        case .none:
+            break
+        case .some(.buildings):
+            break
+        case .some(.offices):
+            break
+        case .some(.serviceRequestType):
+            return ServiceRequestTypeController.shared.sections[section].items.count
+            
+        }
         return data.count
     }
     
@@ -151,6 +204,11 @@ class ChooseTVC: UITableViewController {
             if let list = self.data as? [AirOffice] {
                 cell.configureCell(with: list[indexPath.row])
             }
+        case .some(.serviceRequestType):
+            let section = ServiceRequestTypeController.shared.sections[indexPath.section]
+            if let item = section.items[indexPath.row] {
+                cell.configureCell(with: item)
+            }
         }
         return cell
     }
@@ -174,6 +232,12 @@ class ChooseTVC: UITableViewController {
                 self.navigationController?.popViewController(animated: true)
                 self.delegate?.didSelectOffice(office: list[indexPath.row])
             }
+        case .some(.serviceRequestType):
+            let section = ServiceRequestTypeController.shared.sections[indexPath.section]
+            if let item = section.items[indexPath.row] {
+                self.delegate?.didSelectSRType(type: item)
+            }
+            self.navigationController?.popViewController(animated: true)
         }
     }
 }
