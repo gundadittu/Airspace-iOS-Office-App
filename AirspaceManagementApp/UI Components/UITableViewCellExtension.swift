@@ -53,6 +53,24 @@ extension UITableViewCell {
         self.textLabel?.text = srType.title
     }
     
+    func configureCell(with duration: Duration) {
+        self.textLabel?.text = duration.description
+    }
+    
+    func configureCell(with amenity: RoomAmenity, selected: Bool) {
+        self.textLabel?.text = amenity.description
+        self.accessoryType = (selected == true) ? .checkmark : .none
+    }
+    
+    
+    func configureCell(with capacity: Int) {
+        if capacity == 0 || capacity == 1 {
+            self.textLabel?.text = "\(capacity) person"
+            return
+        }
+        self.textLabel?.text = "\(capacity) people"
+    }
+    
     func configureCell(with sr: AirServiceRequest) {
         self.textLabel?.text = sr.issueType?.title ?? "No Title Provided"
         var detailText = ""

@@ -40,11 +40,6 @@ class RegisterGuestVC: UITableViewController {
     let datePicker: UIDatePicker = UIDatePicker()
     let tempInput = UITextField( frame:CGRect.zero )
     var loadingIndicator: NVActivityIndicatorView?
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tableView.reloadData()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +61,22 @@ class RegisterGuestVC: UITableViewController {
             let destination = segue.destination as? ChooseTVC {
             destination.type = sender as? ChooseTVCType
             destination.delegate = self
+        } else if segue.identifier == "RegisterGuestVCtoTextInputVC",
+            let destination = segue.destination as? TextInputVC,
+            let identifier = sender as? String {
+            destination.identifier = identifier
+            destination.delegate = self
+            if identifier == "name" {
+                destination.title = "Enter Name"
+            } else if identifier == "email" {
+                destination.title = "Enter Email"
+            }
+        } else if segue.identifier == "RegisterGuestVCtoDateTimeInputVC",
+            let destination = segue.destination as? DateTimeInputVC {
+            destination.delegate = self
+            destination.initialDate = self.dataController?.guestVisitDate
         }
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -151,11 +161,14 @@ extension RegisterGuestVC: FormTVCellDelegate {
         case .office:
             self.performSegue(withIdentifier: "RegisterGuestVCtoChooseTVC", sender: ChooseTVCType.offices)
         case .name:
-            self.showGuestNameAlert()
+            self.performSegue(withIdentifier: "RegisterGuestVCtoTextInputVC", sender: "name")
+//            self.showGuestNameAlert()
         case .dateTime:
-            self.showDatePicker()
+            self.performSegue(withIdentifier: "RegisterGuestVCtoDateTimeInputVC", sender: nil)
+//            self.showDatePicker()
         case .email:
-            self.showGuestEmailAlert()
+            self.performSegue(withIdentifier: "RegisterGuestVCtoTextInputVC", sender: "email")
+//            self.showGuestEmailAlert()
         case .submit:
             self.dataController?.submitFormData()
         case .none:
@@ -163,108 +176,75 @@ extension RegisterGuestVC: FormTVCellDelegate {
         }
     }
     
-    func showDatePicker() {
-        datePicker.datePickerMode = .dateAndTime
-        datePicker.minimumDate = Date()
-        if let currDate = self.dataController?.guestVisitDate {
-            datePicker.date = currDate
-        }
-        
-        let toolbar = UIToolbar();
-        toolbar.sizeToFit()
-        
-        let chooseButton = UIBarButtonItem(title: "Choose", style: UIBarButtonItem.Style.plain, target: self, action: #selector(RegisterGuestVC.chooseDatePicker))
-        chooseButton.tintColor = globalColor
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let clearButton = UIBarButtonItem(title: "Clear", style: UIBarButtonItem.Style.plain, target: self, action: #selector(RegisterGuestVC.clearDatePicker))
-        clearButton.tintColor = globalColor
-        toolbar.setItems([clearButton,spaceButton,chooseButton], animated: false)
-        
-        tempInput.inputView = datePicker
-        tempInput.inputAccessoryView = toolbar
-        tempInput.inputView = datePicker
-        self.view.addSubview(tempInput)
-        tempInput.becomeFirstResponder()
-    }
-    
-    @objc func chooseDatePicker() {
-        self.tempInput.resignFirstResponder()
-        let date = self.datePicker.date
-        self.dataController?.setGuestVistDate(as: date)
-        self.tableView.reloadData()
-    }
-    
-    @objc func clearDatePicker() {
-        self.tempInput.resignFirstResponder()
-        self.dataController?.setGuestVistDate(as: nil)
-        self.tableView.reloadData()
-    }
-    
-    func showGuestNameAlert() {
-        let alertController = UIAlertController(title: "What's your guest's name?", message: nil, preferredStyle: .alert)
-
-        //the confirm action taking the inputs
-        let confirmAction = UIAlertAction(title: "Save", style: .default) { (_) in
-            if let name = alertController.textFields?[0].text {
-                self.dataController?.setGuestName(as: name)
-                self.tableView.reloadData()
-            } else {
-                let banner = StatusBarNotificationBanner(title: "Error Saving Guest's Name.", style: .danger, colors: nil)
-                banner.show()
-            }
-        }
-
-        //the cancel action doing nothing
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-
-        //adding textfields to our dialog box
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Your Guest's Name"
-            if let currentText = self.dataController?.guestName {
-                textField.text = currentText
-            }
-        }
-
-        //adding the action to dialogbox
-        alertController.addAction(confirmAction)
-        alertController.addAction(cancelAction)
-
-        //finally presenting the dialog box
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func showGuestEmailAlert() {
-        let alertController = UIAlertController(title: "What's your guest's email?", message: nil, preferredStyle: .alert)
-        
-        //the confirm action taking the inputs
-        let confirmAction = UIAlertAction(title: "Save", style: .default) { (_) in
-            if let email = alertController.textFields?[0].text {
-                self.dataController?.setGuestEmail(as: email)
-                self.tableView.reloadData()
-            } else {
-                let banner = StatusBarNotificationBanner(title: "Error Saving Guest's Email.", style: .danger, colors: nil)
-                banner.show()
-            }
-        }
-        
-        //the cancel action doing nothing
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-        
-        //adding textfields to our dialog box
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Your Guest's Email"
-            if let currentText = self.dataController?.guestEmail {
-                textField.text = currentText
-            }
-        }
-        
-        //adding the action to dialogbox
-        alertController.addAction(confirmAction)
-        alertController.addAction(cancelAction)
-        
-        //finally presenting the dialog box
-        self.present(alertController, animated: true, completion: nil)
-    }
+//    func showDatePicker() {
+//        datePicker.datePickerMode = .dateAndTime
+//        datePicker.minimumDate = Date()
+//        if let currDate = self.dataController?.guestVisitDate {
+//            datePicker.date = currDate
+//        }
+//
+//        let toolbar = UIToolbar();
+//        toolbar.sizeToFit()
+//
+//        let chooseButton = UIBarButtonItem(title: "Choose", style: UIBarButtonItem.Style.plain, target: self, action: #selector(RegisterGuestVC.chooseDatePicker))
+//        chooseButton.tintColor = globalColor
+//        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+//        let clearButton = UIBarButtonItem(title: "Clear", style: UIBarButtonItem.Style.plain, target: self, action: #selector(RegisterGuestVC.clearDatePicker))
+//        clearButton.tintColor = globalColor
+//        toolbar.setItems([clearButton,spaceButton,chooseButton], animated: false)
+//
+//        tempInput.inputView = datePicker
+//        tempInput.inputAccessoryView = toolbar
+//        tempInput.inputView = datePicker
+//        self.view.addSubview(tempInput)
+//        tempInput.becomeFirstResponder()
+//    }
+//
+//    @objc func chooseDatePicker() {
+//        self.tempInput.resignFirstResponder()
+//        let date = self.datePicker.date
+//        self.dataController?.setGuestVistDate(as: date)
+//        self.tableView.reloadData()
+//    }
+//
+//    @objc func clearDatePicker() {
+//        self.tempInput.resignFirstResponder()
+//        self.dataController?.setGuestVistDate(as: nil)
+//        self.tableView.reloadData()
+//    }
+//
+//    func showGuestEmailAlert() {
+//        let alertController = UIAlertController(title: "What's your guest's email?", message: nil, preferredStyle: .alert)
+//
+//        //the confirm action taking the inputs
+//        let confirmAction = UIAlertAction(title: "Save", style: .default) { (_) in
+//            if let email = alertController.textFields?[0].text {
+//                self.dataController?.setGuestEmail(as: email)
+//                self.tableView.reloadData()
+//            } else {
+//                let banner = StatusBarNotificationBanner(title: "Error Saving Guest's Email.", style: .danger, colors: nil)
+//                banner.show()
+//            }
+//        }
+//
+//        //the cancel action doing nothing
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+//
+//        //adding textfields to our dialog box
+//        alertController.addTextField { (textField) in
+//            textField.placeholder = "Your Guest's Email"
+//            if let currentText = self.dataController?.guestEmail {
+//                textField.text = currentText
+//            }
+//        }
+//
+//        //adding the action to dialogbox
+//        alertController.addAction(confirmAction)
+//        alertController.addAction(cancelAction)
+//
+//        //finally presenting the dialog box
+//        self.present(alertController, animated: true, completion: nil)
+//    }
 }
 
 extension RegisterGuestVC: ChooseTVCDelegate {
@@ -272,11 +252,14 @@ extension RegisterGuestVC: ChooseTVCDelegate {
     // Delegate function is called when user selects office in ChooseTVC
     func didSelectOffice(office: AirOffice) {
         self.dataController?.setSelectedOffice(as: office)
-        self.tableView.reloadData()
     }
 }
 
 extension RegisterGuestVC: RegisterGuestTVCDataControllerDelegate {
+    func reloadTableView() {
+        self.tableView.reloadData()
+    }
+    
     func toggleLoadingIndicator() {
         guard let la = self.loadingIndicator else { return }
         if la.isAnimating {
@@ -299,5 +282,23 @@ extension RegisterGuestVC: RegisterGuestTVCDataControllerDelegate {
             alertController.addAction(action)
             self.present(alertController, animated: true)
         }
+    }
+}
+
+extension RegisterGuestVC: TextInputVCDelegate {
+    func didSaveInput(with text: String, and identifier: String?) {
+        if let identifier = identifier {
+            if identifier == "name" {
+                self.dataController?.setGuestName(as: text)
+            } else if identifier == "email" {
+                self.dataController?.setGuestEmail(as: text)
+            }
+        }
+    }
+}
+
+extension RegisterGuestVC: DateTimeInputVCDelegate {
+    func didSaveInput(with date: Date) {
+        self.dataController?.setGuestVistDate(as: date)
     }
 }

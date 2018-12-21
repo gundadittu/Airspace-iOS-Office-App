@@ -63,6 +63,19 @@
 		045C28E8217CE6C00017C121 /* SubmitTicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C28E7217CE6C00017C121 /* SubmitTicketTableViewCell.swift */; };
 		0476C1E621B0E77900ED87F8 /* ServiceRequestVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476C1E521B0E77900ED87F8 /* ServiceRequestVCDataController.swift */; };
 		04A1741121A62439005D76D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04A1741021A62438005D76D2 /* GoogleService-Info.plist */; };
+		04C7132921C9762200F3D62F /* FindRoomTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7132821C9762200F3D62F /* FindRoomTVC.swift */; };
+		04C7132B21C9840A00F3D62F /* FindRoomTVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7132A21C9840A00F3D62F /* FindRoomTVCDataController.swift */; };
+		04C7132D21C98AB800F3D62F /* Duration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7132C21C98AB800F3D62F /* Duration.swift */; };
+		04C7132F21C98F8700F3D62F /* DateTimeInputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7132E21C98F8700F3D62F /* DateTimeInputVC.swift */; };
+		04C7133121C9AED800F3D62F /* RoomAmenity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7133021C9AED800F3D62F /* RoomAmenity.swift */; };
+		04C7133321C9B8DE00F3D62F /* FindRoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7133221C9B8DE00F3D62F /* FindRoomManager.swift */; };
+		04C7133521CC345500F3D62F /* AirConferenceRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7133421CC345500F3D62F /* AirConferenceRoom.swift */; };
+		04C7133821CC3DC300F3D62F /* ConferenceRoomTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7133621CC3DC300F3D62F /* ConferenceRoomTVCell.swift */; };
+		04C7133921CC3DC300F3D62F /* ConferenceRoomTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C7133721CC3DC300F3D62F /* ConferenceRoomTVCell.xib */; };
+		04C7133B21CC453C00F3D62F /* RoomListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7133A21CC453C00F3D62F /* RoomListTVC.swift */; };
+		04C7133E21CC50BD00F3D62F /* HourBookingCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7133C21CC50BD00F3D62F /* HourBookingCVC.swift */; };
+		04C7133F21CC50BD00F3D62F /* HourBookingCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C7133D21CC50BD00F3D62F /* HourBookingCVC.xib */; };
+		04C7134121CC6C8700F3D62F /* AirConferenceRoomReservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7134021CC6C8700F3D62F /* AirConferenceRoomReservation.swift */; };
 		04D8D6952183E68B0079380F /* Yelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8D6942183E68B0079380F /* Yelp.swift */; };
 		04D8D69C2183F7380079380F /* BioTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8D69A2183F7380079380F /* BioTVCell.swift */; };
 		04D8D69D2183F7380079380F /* BioTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D8D69B2183F7380079380F /* BioTVCell.xib */; };
@@ -134,6 +147,19 @@
 		0476C1E521B0E77900ED87F8 /* ServiceRequestVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequestVCDataController.swift; sourceTree = "<group>"; };
 		04A1740F21A60B10005D76D2 /* AirspaceManagementApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AirspaceManagementApp.entitlements; sourceTree = "<group>"; };
 		04A1741021A62438005D76D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04C7132821C9762200F3D62F /* FindRoomTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRoomTVC.swift; sourceTree = "<group>"; };
+		04C7132A21C9840A00F3D62F /* FindRoomTVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRoomTVCDataController.swift; sourceTree = "<group>"; };
+		04C7132C21C98AB800F3D62F /* Duration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Duration.swift; sourceTree = "<group>"; };
+		04C7132E21C98F8700F3D62F /* DateTimeInputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeInputVC.swift; sourceTree = "<group>"; };
+		04C7133021C9AED800F3D62F /* RoomAmenity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomAmenity.swift; sourceTree = "<group>"; };
+		04C7133221C9B8DE00F3D62F /* FindRoomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRoomManager.swift; sourceTree = "<group>"; };
+		04C7133421CC345500F3D62F /* AirConferenceRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirConferenceRoom.swift; sourceTree = "<group>"; };
+		04C7133621CC3DC300F3D62F /* ConferenceRoomTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceRoomTVCell.swift; sourceTree = "<group>"; };
+		04C7133721CC3DC300F3D62F /* ConferenceRoomTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConferenceRoomTVCell.xib; sourceTree = "<group>"; };
+		04C7133A21CC453C00F3D62F /* RoomListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomListTVC.swift; sourceTree = "<group>"; };
+		04C7133C21CC50BD00F3D62F /* HourBookingCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourBookingCVC.swift; sourceTree = "<group>"; };
+		04C7133D21CC50BD00F3D62F /* HourBookingCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourBookingCVC.xib; sourceTree = "<group>"; };
+		04C7134021CC6C8700F3D62F /* AirConferenceRoomReservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirConferenceRoomReservation.swift; sourceTree = "<group>"; };
 		04D8D6942183E68B0079380F /* Yelp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yelp.swift; sourceTree = "<group>"; };
 		04D8D69A2183F7380079380F /* BioTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioTVCell.swift; sourceTree = "<group>"; };
 		04D8D69B2183F7380079380F /* BioTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BioTVCell.xib; sourceTree = "<group>"; };
@@ -169,6 +195,8 @@
 				042AF9A621A744EB00E7048B /* ProfileVCDataController.swift */,
 				0476C1E521B0E77900ED87F8 /* ServiceRequestVCDataController.swift */,
 				0413D2CA21C821F900E2C5F3 /* ServiceRequestManager.swift */,
+				04C7132A21C9840A00F3D62F /* FindRoomTVCDataController.swift */,
+				04C7133221C9B8DE00F3D62F /* FindRoomManager.swift */,
 			);
 			path = DataControllers;
 			sourceTree = "<group>";
@@ -202,7 +230,6 @@
 				045C28E3217CD7D60017C121 /* UI Components */,
 				045C28E2217CD7C70017C121 /* Models */,
 				045C28E1217CD7AD0017C121 /* View Controllers */,
-				045520AF2175589E0033D33B /* HomeTabBarController.swift */,
 				04552099217548F50033D33B /* AppDelegate.swift */,
 				0455209D217548F50033D33B /* Main.storyboard */,
 				045520A0217548F60033D33B /* Assets.xcassets */,
@@ -229,6 +256,9 @@
 				042AF9A221A71A6900E7048B /* MyGuestRegTVC.swift */,
 				0413D2C821C81ABD00E2C5F3 /* TextInputVC.swift */,
 				0413D2CE21C889D200E2C5F3 /* MyServReqTVC.swift */,
+				04C7132821C9762200F3D62F /* FindRoomTVC.swift */,
+				04C7132E21C98F8700F3D62F /* DateTimeInputVC.swift */,
+				04C7133A21CC453C00F3D62F /* RoomListTVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -248,6 +278,10 @@
 				042AF9A421A71C5F00E7048B /* AirGuestRegistration.swift */,
 				0413D2CC21C8560900E2C5F3 /* AirServiceRequest.swift */,
 				04E1631A21B3207F005441DE /* ServiceRequestType.swift */,
+				04C7132C21C98AB800F3D62F /* Duration.swift */,
+				04C7133021C9AED800F3D62F /* RoomAmenity.swift */,
+				04C7133421CC345500F3D62F /* AirConferenceRoom.swift */,
+				04C7134021CC6C8700F3D62F /* AirConferenceRoomReservation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -278,6 +312,10 @@
 				042AF9A021A683FA00E7048B /* BorderButton.swift */,
 				042AF9A821A759A100E7048B /* TextCVCell.swift */,
 				042AF9A921A759A100E7048B /* TextCVCell.xib */,
+				04C7133621CC3DC300F3D62F /* ConferenceRoomTVCell.swift */,
+				04C7133721CC3DC300F3D62F /* ConferenceRoomTVCell.xib */,
+				04C7133C21CC50BD00F3D62F /* HourBookingCVC.swift */,
+				04C7133D21CC50BD00F3D62F /* HourBookingCVC.xib */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -285,6 +323,7 @@
 		045C28E4217CD8DB0017C121 /* Navigation Components */ = {
 			isa = PBXGroup;
 			children = (
+				045520AF2175589E0033D33B /* HomeTabBarController.swift */,
 				045C28E5217CD8F40017C121 /* NavControllers.swift */,
 			);
 			path = "Navigation Components";
@@ -387,6 +426,8 @@
 				045520A4217548F60033D33B /* LaunchScreen.storyboard in Resources */,
 				04D8D69D2183F7380079380F /* BioTVCell.xib in Resources */,
 				04A1741121A62439005D76D2 /* GoogleService-Info.plist in Resources */,
+				04C7133F21CC50BD00F3D62F /* HourBookingCVC.xib in Resources */,
+				04C7133921CC3DC300F3D62F /* ConferenceRoomTVCell.xib in Resources */,
 				043CA251217FF236008703FC /* CarouselCVCell.xib in Resources */,
 				042AF99F21A6835A00E7048B /* SeeMoreTVC.xib in Resources */,
 				043CA24B217FF0F7008703FC /* CarouselTVCell.xib in Resources */,
@@ -501,20 +542,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				0422BB1B21A4F45500F9CD64 /* ChooseTVC.swift in Sources */,
+				04C7134121CC6C8700F3D62F /* AirConferenceRoomReservation.swift in Sources */,
+				04C7133321C9B8DE00F3D62F /* FindRoomManager.swift in Sources */,
 				045520B221755A2B0033D33B /* ServiceRequestVC.swift in Sources */,
 				043CA239217E8897008703FC /* UserNotification.swift in Sources */,
 				043EB1D5217CF69E00B40154 /* SubmitTicketField.swift in Sources */,
 				0422BB2B21A525B400F9CD64 /* RegisterGuestManager.swift in Sources */,
 				042AF9AA21A759A100E7048B /* TextCVCell.swift in Sources */,
+				04C7133121C9AED800F3D62F /* RoomAmenity.swift in Sources */,
+				04C7132F21C98F8700F3D62F /* DateTimeInputVC.swift in Sources */,
 				045520B82177C1300033D33B /* MainVC.swift in Sources */,
+				04C7133821CC3DC300F3D62F /* ConferenceRoomTVCell.swift in Sources */,
+				04C7132B21C9840A00F3D62F /* FindRoomTVCDataController.swift in Sources */,
 				0407E0512184190500C516BC /* GlobalConstants.swift in Sources */,
 				0413D2CD21C8560900E2C5F3 /* AirServiceRequest.swift in Sources */,
 				0413D2C921C81ABD00E2C5F3 /* TextInputVC.swift in Sources */,
 				043CA237217E87C6008703FC /* NotificationsVC.swift in Sources */,
 				045520BC2177C5EB0033D33B /* MainTableViewCell.swift in Sources */,
 				0413D2CB21C821F900E2C5F3 /* ServiceRequestManager.swift in Sources */,
+				04C7133E21CC50BD00F3D62F /* HourBookingCVC.swift in Sources */,
 				0422BB2321A4F6A900F9CD64 /* AirCompany.swift in Sources */,
 				045C28E0217CD7A70017C121 /* ProfileVC.swift in Sources */,
+				04C7132921C9762200F3D62F /* FindRoomTVC.swift in Sources */,
 				04E7FEE12186A17C00AD4E79 /* ReserveSection.swift in Sources */,
 				040E989721A3B7B900143CA5 /* FormSubmitTVCell.swift in Sources */,
 				0422BB1F21A4F66C00F9CD64 /* AirUser.swift in Sources */,
@@ -525,11 +574,13 @@
 				042AF99E21A6835A00E7048B /* SeeMoreTVC.swift in Sources */,
 				0455209A217548F50033D33B /* AppDelegate.swift in Sources */,
 				0413D2CF21C889D200E2C5F3 /* MyServReqTVC.swift in Sources */,
+				04C7133B21CC453C00F3D62F /* RoomListTVC.swift in Sources */,
 				04D8D6952183E68B0079380F /* Yelp.swift in Sources */,
 				042AF9A521A71C5F00E7048B /* AirGuestRegistration.swift in Sources */,
 				043CA245217FEC8C008703FC /* ProfileSections.swift in Sources */,
 				0422BB2521A4FB2700F9CD64 /* UserManager.swift in Sources */,
 				043EB1D7217D00C400B40154 /* MainCollectionViewCell.swift in Sources */,
+				04C7133521CC345500F3D62F /* AirConferenceRoom.swift in Sources */,
 				04E7FEDB2185540800AD4E79 /* ReserveVC.swift in Sources */,
 				042AF9A121A683FA00E7048B /* BorderButton.swift in Sources */,
 				0422BB1D21A4F65300F9CD64 /* AirOffice.swift in Sources */,
@@ -539,6 +590,7 @@
 				043CA242217E8B65008703FC /* NotificationTVCell.swift in Sources */,
 				04D8D69C2183F7380079380F /* BioTVCell.swift in Sources */,
 				042AF9A721A744EB00E7048B /* ProfileVCDataController.swift in Sources */,
+				04C7132D21C98AB800F3D62F /* Duration.swift in Sources */,
 				04E1631B21B3207F005441DE /* ServiceRequestType.swift in Sources */,
 				045520B02175589E0033D33B /* HomeTabBarController.swift in Sources */,
 				0422BB2121A4F68E00F9CD64 /* AirBuilding.swift in Sources */,

@@ -8,11 +8,13 @@
 
 import Foundation
 import UIKit
+import NotificationBannerSwift
 
 protocol ServiceRequestVCDataControllerDelegate {
     func didFinishSubmittingData(withError error: Error?)
     func startLoadingIndicator()
     func stopLoadingIndicator()
+    func reloadTableView()
 }
 
 class ServiceRequestVCDataController {
@@ -24,19 +26,39 @@ class ServiceRequestVCDataController {
     
     public init(delegate: ServiceRequestVCDataControllerDelegate) {
         self.delegate = delegate
+        
+        // Auto-populate office field
+        UserManager.shared.getCurrentUsersOffices { (offices, error) in
+            if let _ = error {
+                let banner = StatusBarNotificationBanner(title: "Error loading Offices.", style: .danger)
+                banner.show()
+                return
+            }
+            
+            if let offices = offices,
+                let firstOffice = offices.first,
+                self.selectedOffice == nil {
+                self.setSelectedOffice(as: firstOffice)
+                self.delegate?.reloadTableView()
+            }
+        }
     }
     
     public func setSelectedOffice(as office: AirOffice) {
-        self.selectedOffice = office 
+        self.selectedOffice = office
+        self.delegate?.reloadTableView()
     }
     public func setNote(as note: String) {
         self.note = note
+        self.delegate?.reloadTableView()
     }
     public func setImage(as image: UIImage?) {
         self.image = image ?? nil
+        self.delegate?.reloadTableView()
     }
     public func setIssueType(as type: ServiceRequestTypeItem) {
         self.issueType = type
+        self.delegate?.reloadTableView()
     }
     
     public func submitFormData() {

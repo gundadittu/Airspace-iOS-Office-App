@@ -15,8 +15,7 @@ class RegisterGuestManager {
     lazy var functions = Functions.functions()
     
     func createRegisteredGuest(guestName: String, visitingOfficeUID: String, expectedVisitDate: Date, guestEmail: String?, completionHandler: @escaping (Error?) -> Void) {
-        let formatter = Formatter.Date.iso8601
-        let dateString = formatter.string(from: expectedVisitDate)
+        let dateString = expectedVisitDate.serverTimestampString
         functions.httpsCallable("createRegisteredGuest").call(["guestName": guestName, "guestEmail": guestEmail, "expectedVisitDate": dateString, "visitingOfficeUID": visitingOfficeUID]) { (_, error) in
             completionHandler(error)
         }

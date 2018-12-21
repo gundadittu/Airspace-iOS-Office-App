@@ -15,6 +15,9 @@ enum ChooseTVCType: String {
     case buildings = "Building"
     case offices = "Office"
     case serviceRequestType = "Service Request Type"
+    case duration = "Duration"
+    case capacity = "Capacity"
+    case roomAmenities = "Room Amenities"
 }
 
 protocol ChooseTVCDelegate {
@@ -22,6 +25,9 @@ protocol ChooseTVCDelegate {
     func didSelectBuilding(building: AirBuilding)
     func didSelectOffice(office: AirOffice)
     func didSelectSRType(type: ServiceRequestTypeItem)
+    func didSelectDuration(duration: Duration)
+    func didSelectCapacity(number: Int)
+    func didSelectRoomAmenities(amenities: [RoomAmenity])
 }
 
 extension ChooseTVCDelegate {
@@ -37,11 +43,22 @@ extension ChooseTVCDelegate {
     func didSelectSRType(type: ServiceRequestTypeItem) {
         // Makes method optional to implement
     }
+    
+    func didSelectDuration(duration: Duration) {
+        // Makes method optional to implement
+    }
+    func didSelectCapacity(number: Int) {
+        // Makes method optional to implement
+    }
+    func didSelectRoomAmenities(amenities: [RoomAmenity]) {
+        // Makes method optional to implement
+    }
 }
 
 class ChooseTVC: UITableViewController {
     var type: ChooseTVCType?
     var data = [AnyObject]()
+    var selectedAmenities = [RoomAmenity]()
     var loadingIndicator: NVActivityIndicatorView?
     var delegate: ChooseTVCDelegate?
     
@@ -51,18 +68,49 @@ class ChooseTVC: UITableViewController {
             let _ = self.delegate else {
                 fatalError("Did not provide a type and/or delegate for ChooseTVC")
         }
-        self.title = "Choose a \(type.rawValue)"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.title = (type == .roomAmenities) ? "Choose Room Amenities": "Choose a \(type.rawValue)"
         self.loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: (self.tableView.frame.width/2)-25, y: (self.tableView.frame.height/2), width: 50, height: 50), type: .ballClipRotate, color: globalColor, padding: nil)
         self.view.addSubview(self.loadingIndicator!)
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChooseCell")
         self.loadData()
+        
+        if type == .roomAmenities {
+            self.tableView.allowsMultipleSelection = true
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(didClickSave))
+
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+            self.tableView.allowsMultipleSelection = false
+//             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(didClickClear))
+        }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.prefersLargeTitles = false
+    @objc func didClickSave() {
+        self.delegate?.didSelectRoomAmenities(amenities: self.selectedAmenities)
+        self.navigationController?.popViewController(animated: true)
     }
+    
+//    @objc func didClickCLear() {
+////        self.delegate?.didSelectRoomAmenities(amenities: self.selectedAmenities)
+//        guard let type = self.type else { return }
+//        switch type {
+//        case .landlords:
+//            break
+//        case .buildings:
+//            break
+//        case .offices:
+//            break
+//        case .serviceRequestType:
+//            break
+//        case .duration:
+//            break
+//        case .capacity:
+//            break
+//        case .roomAmenities:
+//            break
+//        }
+//        self.navigationController?.popViewController(animated: true)
+//    }
     
     func loadData() {
         switch self.type {
@@ -126,6 +174,12 @@ class ChooseTVC: UITableViewController {
             break
         case .some(.serviceRequestType):
             break
+        case .some(.duration):
+            break
+        case .some(.capacity):
+            break
+        case .some(.roomAmenities):
+            break
         }
     }
     
@@ -141,6 +195,12 @@ class ChooseTVC: UITableViewController {
             break
         case .some(.serviceRequestType):
             return ServiceRequestTypeController.shared.sections[section].title
+        case .some(.duration):
+            break
+        case .some(.capacity):
+            break
+        case .some(.roomAmenities):
+            break
         }
         return nil
     }
@@ -160,8 +220,18 @@ class ChooseTVC: UITableViewController {
         case .some(.serviceRequestType):
             return ServiceRequestTypeController.shared.sections.count
 
+        case .some(.duration):
+            break
+        case .some(.capacity):
+            break
+        case .some(.roomAmenities):
+            break
         }
         return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.white
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -177,6 +247,12 @@ class ChooseTVC: UITableViewController {
         case .some(.serviceRequestType):
             return ServiceRequestTypeController.shared.sections[section].items.count
             
+        case .some(.duration):
+            return Duration.allCases.count
+        case .some(.capacity):
+            return 40
+        case .some(.roomAmenities):
+            return RoomAmenity.allCases.count
         }
         return data.count
     }
@@ -209,7 +285,17 @@ class ChooseTVC: UITableViewController {
             if let item = section.items[indexPath.row] {
                 cell.configureCell(with: item)
             }
+        case .some(.duration):
+            let dur = Duration.allCases[indexPath.row]
+            cell.configureCell(with: dur)
+        case .some(.capacity):
+            let capacity = indexPath.row + 1
+            cell.configureCell(with: capacity)
+        case .some(.roomAmenities):
+            let amenity = RoomAmenity.allCases[indexPath.row]
+            cell.configureCell(with: amenity, selected: self.selectedAmenities.contains(amenity))
         }
+        cell.tintColor = globalColor
         return cell
     }
     
@@ -238,6 +324,22 @@ class ChooseTVC: UITableViewController {
                 self.delegate?.didSelectSRType(type: item)
             }
             self.navigationController?.popViewController(animated: true)
+        case .some(.duration):
+            self.navigationController?.popViewController(animated: true)
+            self.delegate?.didSelectDuration(duration: Duration.allCases[indexPath.row])
+        case .some(.capacity):
+            self.navigationController?.popViewController(animated: true)
+            self.delegate?.didSelectCapacity(number: indexPath.row+1)
+        case .some(.roomAmenities):
+            let currAmenity = RoomAmenity.allCases[indexPath.row]
+            if self.selectedAmenities.contains(currAmenity) {
+                 self.selectedAmenities = self.selectedAmenities.filter { (amenity) -> Bool in
+                    return amenity != currAmenity
+                }
+            } else {
+                self.selectedAmenities.append(currAmenity)
+            }
+            self.tableView.reloadData()
         }
     }
 }

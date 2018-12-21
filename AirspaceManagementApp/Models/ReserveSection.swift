@@ -10,7 +10,8 @@ import Foundation
 
 enum ReserveSectionType {
     case quickReserve
-    case reserve
+    case reserveDesk
+    case reserveRoom
     case recentReservations
     case freeToday
     case onYourFloor

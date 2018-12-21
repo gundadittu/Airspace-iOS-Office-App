@@ -271,6 +271,8 @@
                     </tableView>
                     <connections>
                         <segue destination="mPb-M9-6s1" kind="show" identifier="RegisterGuestVCtoChooseTVC" id="yyO-NO-yVQ"/>
+                        <segue destination="eQ7-Na-JM3" kind="show" identifier="RegisterGuestVCtoTextInputVC" id="lzB-up-1d4"/>
+                        <segue destination="haf-Jb-7Zd" kind="show" identifier="RegisterGuestVCtoDateTimeInputVC" id="tu4-Zk-t6h"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wrn-ed-qo1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -429,6 +431,7 @@
                     <navigationItem key="navigationItem" id="eEE-xA-ubE"/>
                     <connections>
                         <outlet property="tableView" destination="81E-Es-QMx" id="Gli-gY-iLz"/>
+                        <segue destination="65m-Ec-C0G" kind="show" identifier="ReserveVCtoFindRoomTVC" id="BxD-to-eVm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xoQ-M6-mCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -485,6 +488,39 @@
             </objects>
             <point key="canvasLocation" x="3341.5999999999999" y="1861.6191904047978"/>
         </scene>
+        <!--Find RoomTVC-->
+        <scene sceneID="04Z-Ck-4K9">
+            <objects>
+                <tableViewController id="65m-Ec-C0G" customClass="FindRoomTVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bp5-nU-BvP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="96" id="XR1-rE-f8B">
+                                <rect key="frame" x="0.0" y="28" width="375" height="96"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XR1-rE-f8B" id="CnI-Gp-y1I">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="95.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="65m-Ec-C0G" id="4hb-LN-VIl"/>
+                            <outlet property="delegate" destination="65m-Ec-C0G" id="g1d-wZ-vE6"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="mPb-M9-6s1" kind="show" identifier="FindRoomTVCtoChooseTVC" id="9HD-2O-kHo"/>
+                        <segue destination="haf-Jb-7Zd" kind="show" identifier="FindRoomTVCtoDateTimeInputVC" id="Ig4-a4-51K"/>
+                        <segue destination="CEx-GT-t0x" kind="show" identifier="FindRoomTVCtoRoomListTVC" id="qTk-A9-RYx"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fv4-fX-Cb1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4128.8000000000002" y="1861.6191904047978"/>
+        </scene>
         <!--My Guest RegTVC-->
         <scene sceneID="Idq-BN-wka">
             <objects>
@@ -501,7 +537,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ock-Rp-w91" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4703" y="961"/>
+            <point key="canvasLocation" x="4129" y="1106"/>
         </scene>
         <!--My Serv ReqTVC-->
         <scene sceneID="F40-RX-6oK">
@@ -529,7 +565,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yi4-Qe-huv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4702" y="1719"/>
+            <point key="canvasLocation" x="5191" y="1688"/>
         </scene>
         <!--Text InputVC-->
         <scene sceneID="cex-Ak-tXO">
@@ -548,7 +584,67 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3kS-4n-QZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5342" y="749"/>
+            <point key="canvasLocation" x="5190" y="755"/>
+        </scene>
+        <!--Date Time InputVC-->
+        <scene sceneID="p6F-IQ-N6a">
+            <objects>
+                <viewController id="haf-Jb-7Zd" customClass="DateTimeInputVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eZF-t4-jX0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="x4F-i4-NvK">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <date key="date" timeIntervalSinceReferenceDate="566857543.20055497">
+                                    <!--2018-12-18 20:25:43 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="x4F-i4-NvK" firstAttribute="trailing" secondItem="Vxc-pe-6g1" secondAttribute="trailing" id="3fp-UI-Jgi"/>
+                            <constraint firstItem="x4F-i4-NvK" firstAttribute="top" secondItem="Vxc-pe-6g1" secondAttribute="top" id="7fK-Nj-KCu"/>
+                            <constraint firstItem="x4F-i4-NvK" firstAttribute="leading" secondItem="Vxc-pe-6g1" secondAttribute="leading" id="AFJ-yz-8Am"/>
+                            <constraint firstItem="x4F-i4-NvK" firstAttribute="bottom" secondItem="Vxc-pe-6g1" secondAttribute="bottom" id="WaM-dl-iwS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Vxc-pe-6g1"/>
+                    </view>
+                    <connections>
+                        <outlet property="dateTimePicker" destination="x4F-i4-NvK" id="GXq-Wn-C4n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QDk-Hs-YDT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5932" y="754.27286356821594"/>
+        </scene>
+        <!--Room ListTVC-->
+        <scene sceneID="lSz-60-acc">
+            <objects>
+                <tableViewController id="CEx-GT-t0x" customClass="RoomListTVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="v92-Ka-U3u">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="mTL-d3-EzA">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mTL-d3-EzA" id="eKD-Mz-Gb3">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="CEx-GT-t0x" id="0Pa-5M-evc"/>
+                            <outlet property="delegate" destination="CEx-GT-t0x" id="VtT-4u-Jdc"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dUv-bd-xpe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6090" y="1687"/>
         </scene>
         <!--ChooseTVC-->
         <scene sceneID="WsG-zS-NNj">
@@ -566,7 +662,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTq-To-7lC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5343" y="-98"/>
+            <point key="canvasLocation" x="5190" y="-99"/>
         </scene>
         <!--NotificationsVC-->
         <scene sceneID="koG-Qa-Ocn">
@@ -640,6 +736,8 @@
         <image name="circle-logo" width="87.360000610351562" height="78.239997863769531"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rp5-n1-aSH"/>
+        <segue reference="9HD-2O-kHo"/>
+        <segue reference="Ig4-a4-51K"/>
+        <segue reference="lzB-up-1d4"/>
     </inferredMetricsTieBreakers>
 </document>

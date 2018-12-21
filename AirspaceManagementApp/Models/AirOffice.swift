@@ -17,7 +17,6 @@ class AirOffice: NSObject {
     var roomNo: Int?
     
     public init?(dict: [String:Any]) {
-        print(dict)
         if let name = dict["name"] as? String {
             self.name = name
         } else {

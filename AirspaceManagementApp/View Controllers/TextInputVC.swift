@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TextInputVCDelegate {
-    func didSaveInput(with text: String)
+    func didSaveInput(with text: String, and identifier: String?)
 }
 
 class TextInputVC: UIViewController {
@@ -17,6 +17,7 @@ class TextInputVC: UIViewController {
     @IBOutlet var textView: UITextView!
     var delegate: TextInputVCDelegate?
     var initialText: String?
+    var identifier: String? 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,18 +31,12 @@ class TextInputVC: UIViewController {
             self.textView.text = initialText
         }
         
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(didClickSave))
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     @objc func didClickSave() {
         if let text = self.textView.text {
-            self.delegate?.didSaveInput(with: text)
+            self.delegate?.didSaveInput(with: text, and: identifier)
         }
         self.navigationController?.popViewController(animated: true)
     }

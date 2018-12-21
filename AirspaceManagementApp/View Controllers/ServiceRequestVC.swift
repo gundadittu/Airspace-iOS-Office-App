@@ -42,11 +42,6 @@ class ServiceRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     var imagePicker = UIImagePickerController()
     var dataController: ServiceRequestVCDataController?
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tableView.reloadData()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Submit a Service Request"
@@ -207,11 +202,14 @@ extension ServiceRequestVC: UIImagePickerControllerDelegate, UINavigationControl
         } else {
             self.dataController?.setImage(as: nil)
         }
-        self.tableView.reloadData()
     }
 }
 
 extension ServiceRequestVC: ServiceRequestVCDataControllerDelegate {
+    func reloadTableView() {
+        self.tableView.reloadData()
+    }
+    
     func didFinishSubmittingData(withError error: Error?) {
         if let _ = error {
             let banner = StatusBarNotificationBanner(title: "Error submitting your service request.", style: .danger, colors: nil)
@@ -238,18 +236,15 @@ extension ServiceRequestVC: ServiceRequestVCDataControllerDelegate {
 extension ServiceRequestVC: ChooseTVCDelegate {
     func didSelectOffice(office: AirOffice) {
         self.dataController?.setSelectedOffice(as: office)
-        self.tableView.reloadData()
     }
     
     func didSelectSRType(type: ServiceRequestTypeItem) {
         self.dataController?.setIssueType(as: type)
-        self.tableView.reloadData()
     }
 }
 
 extension ServiceRequestVC: TextInputVCDelegate {
-    func didSaveInput(with text: String) {
+    func didSaveInput(with text: String, and identifier: String?) {
         self.dataController?.setNote(as: text)
-        self.tableView.reloadData()
     }
 }

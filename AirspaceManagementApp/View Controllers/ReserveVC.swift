@@ -21,27 +21,69 @@ class ReserveVC: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
-        self.tableView.allowsSelection = false
         self.tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
         
-        sections = [.quickReserve, .reserve, .recentReservations, .onYourFloor]
+        sections = [.quickReserve, .reserveRoom, .reserveDesk, .recentReservations, .onYourFloor]
     }
+
 }
 
 extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let currSection = sections[section]
-        if currSection == .quickReserve {
+        switch currSection {
+        case .quickReserve:
             return "Find a room or desk today for:"
-        } else if currSection == .reserve {
-            return ""
-        } else if currSection == .recentReservations {
+        case .reserveDesk:
+            return nil
+        case .reserveRoom:
+            return nil
+        case .recentReservations:
             return "Recently reserved"
-        }  else if currSection == .onYourFloor {
+        case .freeToday:
+            return "Free Today"
+        case .onYourFloor:
             return "On Your Floor"
         }
-        return ""
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        let section = sections[indexPath.section]
+        switch section {
+        case .quickReserve:
+            return nil
+        case .reserveDesk:
+            return indexPath
+        case .reserveRoom:
+            return indexPath
+        case .recentReservations:
+            return nil
+        case .freeToday:
+            return nil
+        case .onYourFloor:
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let section = sections[indexPath.section]
+        switch section {
+        case .quickReserve:
+           break
+        case .reserveDesk:
+            break
+        case .reserveRoom:
+            self.performSegue(withIdentifier: "ReserveVCtoFindRoomTVC", sender: nil)
+            break
+        case .recentReservations:
+            break
+        case .freeToday:
+            break
+        case .onYourFloor:
+            break
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -53,8 +95,10 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .quickReserve:
             return CGFloat(120)
-        case .reserve:
-            return CGFloat(75)
+        case .reserveDesk:
+            return CGFloat(60)
+        case .reserveRoom:
+            return CGFloat(60)
         case .recentReservations:
             return CGFloat(200)
         case .freeToday:
@@ -76,7 +120,8 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = sections[indexPath.section]
         
-        if section == .quickReserve {
+        switch section {
+        case .quickReserve:
             var cell = CarouselTVCell()
             if let tvCell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as? CarouselTVCell  {
                 cell = tvCell
@@ -86,16 +131,27 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
             }
             cell.setCarouselItems(with: self.timeRangeOptions)
             return cell
-        } else if section == .reserve {
+        case .reserveRoom:
             guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "mainTVCell") as? MainTableViewCell else {
                 return UITableViewCell()
             }
-            cell.titleLabel.text = "Reserve a room or desk"
+            cell.titleLabel.text = "Reserve a conference room"
             cell.subtitleLabel.isHidden = true
             cell.iconImg.image = UIImage(named: "reserve-icon")
+//            cell.iconImg.isHidden = true
             cell.accessoryType = .disclosureIndicator
             return cell
-        } else if section == .recentReservations {
+        case .reserveDesk:
+            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "mainTVCell") as? MainTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.titleLabel.text = "Reserve a hot desk"
+            cell.subtitleLabel.isHidden = true
+            cell.iconImg.image = UIImage(named: "reserve-icon")
+//            cell.iconImg.isHidden = true
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        case .recentReservations:
             var cell = CarouselTVCell()
             if let tvCell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as? CarouselTVCell  {
                 cell = tvCell
@@ -105,7 +161,9 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
             }
             cell.setCarouselItems(with: [CarouselCVCellItem(title: "King's Landing", subtitle: "Seats 10 | Apple TV • Whiteboard • Video Conf.", image: UIImage(named: "room-1")!), CarouselCVCellItem(title: "Braavos", subtitle: "Seats 25 | Apple TV • Whiteboard • Video Conf.", image: UIImage(named: "room-2")!)])
             return cell
-        } else if section == .onYourFloor {
+        case .freeToday:
+            break
+        case .onYourFloor:
             var cell = CarouselTVCell()
             if let tvCell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as? CarouselTVCell  {
                 cell = tvCell
