@@ -21,6 +21,6 @@ target 'AirspaceManagementApp' do
   pod 'NVActivityIndicatorView'
   pod 'CFAlertViewController'
   pod 'DZNEmptyDataSet'
-  pod 'ScrollableSegmentedControl'
+  pod 'SwiftPullToRefresh'
 
 end

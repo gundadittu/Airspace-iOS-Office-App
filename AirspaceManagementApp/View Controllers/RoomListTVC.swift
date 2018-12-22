@@ -7,28 +7,41 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
+import SwiftPullToRefresh
 
 class RoomListTVC: UITableViewController {
     
     var conferenceRooms = [AirConferenceRoom]()
+    var startingDate = Date()
+    var dataController: FindRoomTVCDataController?
+    var loadingIndicator: NVActivityIndicatorView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Conference Rooms"
-//        self.tableView.backgroundColor = .lightGray
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "ConferenceRoomTVCell", bundle: nil), forCellReuseIdentifier: "ConferenceRoomTVCell")
+        self.tableView.backgroundColor = UIColor.flatWhite
+         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(didClickFilter))
+        
+        self.loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: (self.tableView.frame.width/2)-25, y: (self.tableView.frame.height/2)-25, width: 50, height: 50), type: .ballClipRotate, color: globalColor, padding: nil)
+        self.view.addSubview(self.loadingIndicator!)
+        
+        self.tableView.spr_setTextHeader { [weak self] in
+            self?.dataController?.submitData()
+        }
     }
-
-    // MARK: - Table view data source
+    
+    @objc func didClickFilter() {
+        self.navigationController?.popViewController(animated: true)
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-//        return conferenceRooms.count
         return conferenceRooms.count
     }
     
@@ -36,8 +49,56 @@ class RoomListTVC: UITableViewController {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ConferenceRoomTVCell", for: indexPath) as? ConferenceRoomTVCell else {
             return UITableViewCell()
         }
-        cell.configureCell(with: self.conferenceRooms[indexPath.row])
+        cell.configureCell(with: self.conferenceRooms[indexPath.row], startingAt: self.startingDate, delegate: self)
         return cell 
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.performSegue(withIdentifier: "RoomListTVCtoConferenceRoomProfileTVC", sender: self.conferenceRooms[indexPath.row])
+//        let modal = ConferenceRoomProfileTVC()
+//        modal.conferenceRoom = self.conferenceRooms[indexPath.row]
+//        let transitionDelegate = DeckTransitioningDelegate()
+//        modal.transitioningDelegate = transitionDelegate
+//        modal.modalPresentationStyle = .custom
+//        present(modal, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "RoomListTVCtoConferenceRoomProfileTVC",
+            let destination = segue.destination as? ConferenceRoomProfileTVC,
+            let room = sender as? AirConferenceRoom {
+            destination.conferenceRoom = room
+        }
+    }
+    
+}
+
+extension RoomListTVC: ConferenceRoomTVCellDelegate {
+    func didSelectCollectionView(for room: AirConferenceRoom) {
+        self.performSegue(withIdentifier: "RoomListTVCtoConferenceRoomProfileTVC", sender: room)
+    }
+}
+
+extension RoomListTVC: FindRoomTVCDataControllerDelegate {
+    func didFindAvailableConferenceRooms(rooms: [AirConferenceRoom]?, error: Error?) {
+        // handle error
+        if let rooms = rooms {
+            self.conferenceRooms = rooms
+        }
+    }
+    
+    func startLoadingIndicator() {
+        self.loadingIndicator?.startAnimating()
+    }
+    
+    func stopLoadingIndicator() {
+        self.loadingIndicator?.stopAnimating()
+        self.tableView.spr_endRefreshing()
+    }
+    
+    func reloadTableView() {
+        self.tableView.reloadData()
     }
     
 }

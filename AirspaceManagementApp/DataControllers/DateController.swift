@@ -18,6 +18,22 @@ extension Date {
         return shortDateString
     }
     
+    var localizedMedDateDescription: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        let shortDateString = dateFormatter.string(from: self)
+        return shortDateString
+    }
+    
+    var localizedShortTimeDescription: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        let shortDateString = dateFormatter.string(from: self)
+        return shortDateString
+    }
+    
     var serverTimestampString: String {
         let dateFormatter = Formatter.Date.iso8601
          dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")

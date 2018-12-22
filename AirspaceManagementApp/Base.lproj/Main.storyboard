@@ -61,6 +61,13 @@
                                     <constraint firstAttribute="trailing" secondItem="9XQ-Kn-EKC" secondAttribute="trailing" id="mWA-l9-hK2"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYe-DA-K2b">
+                                <rect key="frame" x="109" y="449.5" width="157" height="30"/>
+                                <state key="normal" title="Forgot your password?"/>
+                                <connections>
+                                    <action selector="forgotPasswordBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hvg-mj-foJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -68,10 +75,13 @@
                             <constraint firstItem="Zsc-MH-O45" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HHD-oV-525"/>
                             <constraint firstItem="Zsc-MH-O45" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-50" id="Kp1-pF-68g"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Zsc-MH-O45" secondAttribute="trailing" constant="20" id="MzM-bA-Edc"/>
+                            <constraint firstItem="rYe-DA-K2b" firstAttribute="top" secondItem="Zsc-MH-O45" secondAttribute="bottom" constant="15" id="Pgb-wn-hyS"/>
+                            <constraint firstItem="rYe-DA-K2b" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Vid-y5-2z6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="forgotPasswordBtn" destination="rYe-DA-K2b" id="9Tz-Lb-4do"/>
                         <outlet property="passwordTextField" destination="6Wx-e0-8Xl" id="xZ2-d8-QvM"/>
                         <outlet property="signInButton" destination="Dgi-YQ-8ui" id="bEf-94-2Sd"/>
                         <outlet property="usernameTextField" destination="9XQ-Kn-EKC" id="3lQ-rS-nxP"/>
@@ -567,6 +577,37 @@
             </objects>
             <point key="canvasLocation" x="5191" y="1688"/>
         </scene>
+        <!--Conference Room ProfileTVC-->
+        <scene sceneID="zSw-6q-Vzp">
+            <objects>
+                <tableViewController id="itX-r5-IG1" customClass="ConferenceRoomProfileTVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DhY-aQ-ROc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="SNH-zl-ogz">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SNH-zl-ogz" id="MpR-9N-tPT">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="itX-r5-IG1" id="kIC-yl-mHR"/>
+                            <outlet property="delegate" destination="itX-r5-IG1" id="Tq0-h9-acA"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="haf-Jb-7Zd" kind="show" identifier="toDateInputVC" id="Y6V-0p-USa"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lcm-1F-4N7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5518" y="2465"/>
+        </scene>
         <!--Text InputVC-->
         <scene sceneID="cex-Ak-tXO">
             <objects>
@@ -641,6 +682,9 @@
                             <outlet property="delegate" destination="CEx-GT-t0x" id="VtT-4u-Jdc"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="itX-r5-IG1" kind="show" identifier="RoomListTVCtoConferenceRoomProfileTVC" id="P6A-H0-lne"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dUv-bd-xpe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

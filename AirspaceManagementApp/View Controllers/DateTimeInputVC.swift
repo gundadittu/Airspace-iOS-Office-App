@@ -15,6 +15,7 @@ protocol DateTimeInputVCDelegate {
 class DateTimeInputVC: UIViewController {
     
     @IBOutlet weak var dateTimePicker: UIDatePicker!
+    var mode: UIDatePicker.Mode?
     var delegate: DateTimeInputVCDelegate?
     var initialDate: Date?
     
@@ -23,6 +24,13 @@ class DateTimeInputVC: UIViewController {
         self.title = "Choose Date and Time"
         guard let _ = self.delegate else {
             fatalError("Need to provide delegate value for DateTimeInputVC")
+        }
+        
+        if let mode = self.mode {
+            self.dateTimePicker.datePickerMode = mode
+            if mode == .date {
+                self.title = "Choose Date"
+            }
         }
         
         self.dateTimePicker.minimumDate = Date()

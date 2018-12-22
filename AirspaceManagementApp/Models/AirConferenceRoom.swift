@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class AirConferenceRoom: NSObject {
     var name: String?
@@ -16,8 +17,15 @@ class AirConferenceRoom: NSObject {
     var capacity: Int?
     var active: Bool?
     var reserveable: Bool?
+    var image: UIImage?
     
     public init?(dict: [String: Any]) {
+        
+        // need to load imageView CORRECTLY
+        var images = [UIImage(named: "room-1"), UIImage(named: "room-2"), UIImage(named: "room-3"), UIImage(named: "room-4"), UIImage(named: "room-5")]
+        let number =  Int(arc4random_uniform(UInt32(images.count)))
+        self.image = images[number]
+        
         if let name = dict["name"] as? String {
             self.name = name
         } else {

@@ -13,6 +13,14 @@ class BaseNavController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.tintColor = globalColor
+        self.navigationBar.barTintColor = .white
+        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        self.navigationBar.shadowImage = UIImage()
+        self.navigationBar.isTranslucent = true
+        
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSAttributedString.Key.foregroundColor: UIColor.red,
+             NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 21)!]
     }
 }
 

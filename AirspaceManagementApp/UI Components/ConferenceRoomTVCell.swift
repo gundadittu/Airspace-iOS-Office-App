@@ -8,32 +8,44 @@
 
 import UIKit
 
+protocol ConferenceRoomTVCellDelegate {
+    func didSelectCollectionView(for room: AirConferenceRoom)
+}
+
 class ConferenceRoomTVCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var bannerImage: UIImageView!
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     
     var hourSegments = [Date]()
-    var hourSegmentsCount = 5
+    var hourSegmentsCount = 8
+    var reservations = [AirConferenceRoomReservation]()
+    var conferenceRoom: AirConferenceRoom?
+    var timeRangeStartDate = Date()
+    var timeRangeEndDate = Date()
+    var delegate: ConferenceRoomTVCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.collectionView.register(UINib(nibName: "HourBookingCVC", bundle: nil), forCellWithReuseIdentifier: "HourBookingCVC")
-//        self.collectionView.register(nil, forSupplementaryViewOfKind: "none", withReuseIdentifier: "HourBookingCVC")
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.showsHorizontalScrollIndicator = false
-//        let flowLayout = UICollectionViewFlowLayout()
-//        flowLayout.minimumInteritemSpacing = CGFloat(0)
-//        flowLayout.scrollDirection = .horizontal
-//        self.collectionView.collectionViewLayout = flowLayout
-        populateHourSegments()
     }
     
-    func configureCell(with room: AirConferenceRoom) {
-        self.bannerImage.image = UIImage(named: "room-3")
+    func configureCell(with room: AirConferenceRoom, startingAt reservationRangeStartDate: Date?, delegate: ConferenceRoomTVCellDelegate, hourSegmentCount: Int = 8) {
+        self.delegate = delegate
+        self.hourSegmentsCount = hourSegmentCount
+        
+        self.populateHourSegmentsAndDates(with: reservationRangeStartDate)
+        
+        self.conferenceRoom = room
+        
+        if let image = room.image {
+            self.bannerImage.image = image
+        }
+
         self.titleLabel.text = room.name ?? "No Name Provided"
         var subtitleText = ""
         if let capacity = room.capacity {
@@ -47,6 +59,7 @@ class ConferenceRoomTVCell: UITableViewCell {
             subtitleText += amenitiesString
         }
         self.subtitleLabel.text = subtitleText
+        self.loadReservationData()
     }
 }
 
@@ -59,12 +72,15 @@ extension ConferenceRoomTVCell: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourBookingCVC", for: indexPath) as? HourBookingCVC else {
             return UICollectionViewCell()
         }
-        if   let startDate = Calendar.current.date(byAdding: .minute, value: 30, to: Date()),
-              let endDate = Calendar.current.date(byAdding: .minute, value: 50, to: Date()),
-            let reservation = AirConferenceRoomReservation(startingDate: startDate, endDate: endDate, conferenceRoom: nil) {
-            cell.configure(with: self.hourSegments[indexPath.row], with: [reservation])
-        }
+        
+        cell.configure(with: self.hourSegments[indexPath.row], with: self.reservations)
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let room = self.conferenceRoom else { return }
+        self.delegate?.didSelectCollectionView(for: room)
     }
 }
 
@@ -86,8 +102,11 @@ extension ConferenceRoomTVCell: UICollectionViewDelegateFlowLayout{
 
 extension ConferenceRoomTVCell {
     
-    func populateHourSegments() {
-        let firstDate = Date()
+    func populateHourSegmentsAndDates(with startDate: Date?) {
+        if let startDate = startDate {
+            self.timeRangeStartDate = startDate // = Date() otherwise
+        }
+        let firstDate = timeRangeStartDate
         var firstDateComponents =  Calendar.current.dateComponents(in: TimeZone.current, from: firstDate)
         firstDateComponents.setValue(0, for: .minute)
         firstDateComponents.setValue(0, for: .second)
@@ -103,6 +122,32 @@ extension ConferenceRoomTVCell {
                 }
             }
         }
+        
+        if let lastHourDate = self.hourSegments.last {
+            var endDateComponents =  Calendar.current.dateComponents(in: TimeZone.current, from: lastHourDate)
+            if let endHourComponent = endDateComponents.hour  {
+                endDateComponents.setValue(endHourComponent+1, for: .hour)
+                if let endDate = Calendar.current.date(from: endDateComponents) {
+                    self.timeRangeEndDate = endDate
+                }
+            }
+        }
+        
         self.collectionView.reloadData()
+    }
+    
+    func loadReservationData() {
+        // add loading indicator
+        // add correct parameters below
+        guard let roomUID = self.conferenceRoom?.uid else { return }
+        ReservationManager.shared.getReservationsForConferenceRoom(startDate: timeRangeStartDate, endDate: timeRangeEndDate, conferenceRoomUID: roomUID) { (reservations, error) in
+            if let _ = error {
+                // handle error
+                return
+            } else if let reservations = reservations {
+                self.reservations = reservations
+                self.collectionView.reloadData()
+            }
+        }
     }
 }

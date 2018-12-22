@@ -40,7 +40,7 @@ enum FindRoomTVCSectionType {
 
 class FindRoomTVC: UITableViewController {
 
-    var sections = [ FindRoomTVCSection(title: "I need a room in", buttonTitle: "Choose Office", type: .office), FindRoomTVCSection(title: "starting at (optional)", buttonTitle: "Select Time", type: .startTime), FindRoomTVCSection(title: "for around (optional)", buttonTitle: "Choose Duration", type: .duration), FindRoomTVCSection(title: "and it needs to fit (optional)", buttonTitle: "Choose # of People", type: .capacity), FindRoomTVCSection(title: "and it needs to have (optional)", buttonTitle: " Pick Amenities", type: .amenities), FindRoomTVCSection(title: "Find", buttonTitle: "Show Available Rooms", type: .submit)]
+    var sections = [ FindRoomTVCSection(title: "I need a room in", buttonTitle: "Choose Office", type: .office), FindRoomTVCSection(title: "starting at", buttonTitle: "Select Time", type: .startTime), FindRoomTVCSection(title: "for around", buttonTitle: "Choose Duration", type: .duration), FindRoomTVCSection(title: "and it needs to fit (optional)", buttonTitle: "Choose # of People", type: .capacity), FindRoomTVCSection(title: "and it needs to have (optional)", buttonTitle: " Pick Amenities", type: .amenities), FindRoomTVCSection(title: "Find", buttonTitle: "Show Available Rooms", type: .submit)]
     var loadingIndicator: NVActivityIndicatorView?
     var dataController: FindRoomTVCDataController?
     
@@ -52,8 +52,8 @@ class FindRoomTVC: UITableViewController {
         self.tableView.register(UINib(nibName: "FormSubmitTVCell", bundle: nil), forCellReuseIdentifier: "FormSubmitTVCell")
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false
-        
-        self.loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: (self.tableView.frame.width/2)-25, y: (self.tableView.frame.height/2), width: 50, height: 50), type: .ballClipRotate, color: globalColor, padding: nil)
+
+        self.loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: (self.tableView.frame.width/2)-25, y: (self.tableView.frame.height/2)-25, width: 50, height: 50), type: .ballClipRotate, color: globalColor, padding: nil)
         self.view.addSubview(self.loadingIndicator!)
         
         self.dataController = FindRoomTVCDataController(delegate: self)
@@ -79,8 +79,13 @@ class FindRoomTVC: UITableViewController {
             let destination = segue.destination as? RoomListTVC,
             let sender = sender as? [AirConferenceRoom] {
             destination.conferenceRooms = sender
+            destination.startingDate = self.dataController?.selectedStartDate ?? Date()
+            let newDataController = FindRoomTVCDataController(delegate: destination)
+            newDataController.configure(with: self.dataController)
+            destination.dataController = newDataController
         }
     }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections.count
     }

@@ -12,35 +12,76 @@ import FirebaseAuth
 import AVFoundation
 import JVFloatLabeledTextField
 import SwiftyButton
+import NVActivityIndicatorView
 
-class LoginVC : UIViewController {
+class LoginVC : UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var usernameTextField: JVFloatLabeledTextField!
     @IBOutlet weak var passwordTextField: JVFloatLabeledTextField!
     @IBOutlet weak var signInButton: FlatButton!
     var player: AVPlayer?
-    
+    @IBOutlet weak var forgotPasswordBtn: UIButton!
+    var loadingIndicator: NVActivityIndicatorView?
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadVideo()
         usernameTextField.tintColor = globalColor
         passwordTextField.tintColor = globalColor
+        forgotPasswordBtn.setTitleColor(.white, for: .normal)
         passwordTextField.isSecureTextEntry = true
         signInButton.color = globalColor
         signInButton.cornerRadius = 25
         signInButton.highlightedColor = globalColor
-//        self.setStatusBarStyle(UIStatusBarStyleContrast)
 
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem, queue: .main) { _ in
             self.player?.seek(to: CMTime.zero)
             self.player?.play()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginVC.keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginVC.keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil);
+        
+        self.usernameTextField.tag = 1
+        self.passwordTextField.tag = 2
+        self.usernameTextField.delegate = self 
+        self.passwordTextField.delegate = self
+        
+        self.loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: (self.view.frame.width/2)-25, y: (self.view.frame.height/2), width: 50, height: 50), type: .ballClipRotate, color: globalColor, padding: nil)
+        self.view.addSubview(self.loadingIndicator!)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc func keyboardWillShow(sender: NSNotification) {
+        self.view.frame.origin.y = -125 // Move view 150 points upward
+    }
+    
+    // add functionality here
+    @IBAction func forgotPasswordBtnTapped(_ sender: Any) {
+        return
+    }
+    
+    @objc func keyboardWillHide(sender: NSNotification) {
+        self.view.frame.origin.y = 0 // Move view to original position
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.tag == 1 {
+            let nextResponder: UIResponder = textField.superview!.viewWithTag(2)!
+            nextResponder.becomeFirstResponder()
+            return false
+        } else if textField.tag == 2 {
+            self.view.endEditing(true)
+            return false
+        }
+        return true
+    }
     
     @IBAction func signInButtonClicked(_ sender: Any) {
         
@@ -51,7 +92,9 @@ class LoginVC : UIViewController {
                 return
         }
         
+        self.loadingIndicator?.startAnimating()
         UserAuth.shared.signInUser(email: email, password: password) { (user, error) in
+            self.loadingIndicator?.stopAnimating()
             if user == nil || error != nil {
                 // add error alert otherwise
             }

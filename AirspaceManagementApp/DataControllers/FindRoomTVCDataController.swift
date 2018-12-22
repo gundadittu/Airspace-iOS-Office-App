@@ -18,7 +18,7 @@ protocol FindRoomTVCDataControllerDelegate {
 
 class FindRoomTVCDataController {
     var selectedOffice: AirOffice?
-    var selectedDuration: Duration?
+    var selectedDuration: Duration? = .fifteen
     var selectedStartDate: Date? = Date()
     var selectedCapacity: Int?
     var selectedAmenities: [RoomAmenity]?
@@ -72,15 +72,40 @@ class FindRoomTVCDataController {
     
     func submitData() {
         guard let office = self.selectedOffice,
-            let officeUID = office.uid else { return }
+            let officeUID = office.uid,
+            let startDate = self.selectedStartDate,
+            let duration = self.selectedDuration else {
+                let error = NSError(domain: "missingArguments", code: 20, userInfo: nil)
+                self.delegate?.didFindAvailableConferenceRooms(rooms: nil, error: error as Error)
+                return
+        }
         self.delegate?.startLoadingIndicator()
-        FindRoomManager.shared.findAvailableConferenceRooms(officeUID: officeUID, startDate: self.selectedStartDate, duration: self.selectedDuration, amenities: self.selectedAmenities, capacity: self.selectedCapacity) { (rooms, error) in
+        FindRoomManager.shared.findAvailableConferenceRooms(officeUID: officeUID, startDate: startDate, duration: duration, amenities: self.selectedAmenities, capacity: self.selectedCapacity) { (rooms, error) in
             self.delegate?.stopLoadingIndicator()
             if let error = error {
                 self.delegate?.didFindAvailableConferenceRooms(rooms: nil, error: error)
             } else if let rooms = rooms {
                 self.delegate?.didFindAvailableConferenceRooms(rooms: rooms, error: nil)
             }
+        }
+    }
+    
+    func configure(with controller: FindRoomTVCDataController?) {
+        guard let controller = controller else { return }
+        if let selectedOffice = controller.selectedOffice {
+            self.setSelectedOffice(with: selectedOffice)
+        }
+        if let selectedDuration = controller.selectedDuration {
+            self.setSelectedDuration(with: selectedDuration)
+        }
+        if let selectedStartDate = controller.selectedStartDate {
+            self.setSelectedStartDate(with: selectedStartDate)
+        }
+        if let capacity = controller.selectedCapacity {
+            self.setSelectedCapacity(with: capacity)
+        }
+        if let amenities = controller.selectedAmenities {
+            self.setSelectedAmenities(with: amenities)
         }
     }
 }

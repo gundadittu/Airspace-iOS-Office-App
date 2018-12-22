@@ -7,14 +7,67 @@
 //
 
 import Foundation
+import FirebaseFirestore
+
 class AirConferenceRoomReservation : NSObject {
+    var uid: String?
     var startingDate: Date?
     var endDate: Date?
-    var conferenceRoom: AirConferenceRoom?
+    var note: String?
+     var conferenceRoom: AirConferenceRoom?
+    var conferenceRoomUID: String?
+    var title: String?
+    // var user: AirUser?
     
-    public init?(startingDate: Date, endDate: Date, conferenceRoom: AirConferenceRoom?) {
-        self.startingDate = startingDate
-        self.endDate = endDate
-        self.conferenceRoom = conferenceRoom
+//    public init?(startingDate: Date, endDate: Date, conferenceRoom: AirConferenceRoom?) {
+//        self.startingDate = startingDate
+//        self.endDate = endDate
+//        self.conferenceRoom = conferenceRoom
+//    }
+    
+    public init?(dict: [String: Any]) {
+        
+        if let uid = dict["uid"] as? String {
+            self.uid = uid
+        } else {
+            print("No uid found for conference room reservation")
+            return nil
+        }
+        
+        if let timestampDict = dict["startDate"] as? [String:Any],
+            let seconds = timestampDict["_seconds"] as? Int64,
+            let nanoseconds = timestampDict["_nanoseconds"] as? Int32 {
+            self.startingDate = Timestamp(seconds: seconds, nanoseconds: nanoseconds).dateValue()
+        } else {
+            print("No startDate found for conference room reservation")
+            return nil
+        }
+        
+        if let timestampDict = dict["endDate"] as? [String:Any],
+            let seconds = timestampDict["_seconds"] as? Int64,
+            let nanoseconds = timestampDict["_nanoseconds"] as? Int32 {
+            self.endDate = Timestamp(seconds: seconds, nanoseconds: nanoseconds).dateValue()
+        } else {
+            print("No endDate found for conference room reservation")
+            return nil
+        }
+        
+        if let note = dict["note"] as? String {
+            self.note = note
+        } else {
+            print("No note found for conference room reservation")
+        }
+        
+        if let title = dict["title"] as? String {
+            self.title = title
+        } else {
+            print("No title found for conference room reservation")
+        }
+        
+        if let roomUID = dict["roomUID"] as? String {
+            self.conferenceRoomUID = roomUID
+        } else {
+            print("No conferenceRoomUID found for conference room reservation")
+        }
     }
 }

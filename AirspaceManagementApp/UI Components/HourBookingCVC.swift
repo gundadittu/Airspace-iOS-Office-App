@@ -14,7 +14,10 @@ class HourBookingCVC: UICollectionViewCell {
     @IBOutlet weak var backgroundImage: UIImageView!
     var startingDate: Date?
     var endingDate: Date?
-    let topOffset = CGFloat(20)
+    static let staticTopOffset = CGFloat(30)
+    let topOffset = staticTopOffset
+    var selectedTimeSlotView: UIView?
+    var allReservations = [AirConferenceRoomReservation]()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,17 +26,12 @@ class HourBookingCVC: UICollectionViewCell {
     }
     
     public func configure(with date: Date, with reservations: [AirConferenceRoomReservation]) {
-        self.setCellDates(with: date)
+        self.startingDate = date
+        self.endingDate = date.addingTimeInterval(TimeInterval(3600))
+       
         self.setTitleLabelForCell(with: date)
+        
         self.setExistingReservations(with: reservations)
-    }
-    
-    public func setCellDates(with startingDate: Date) {
-        self.startingDate = startingDate
-        let endDate = startingDate.addingTimeInterval(TimeInterval(3600))
-        print(startingDate)
-        print(endDate)
-        self.endingDate = endDate
     }
     
     public func setTitleLabelForCell(with date: Date) {
@@ -45,17 +43,19 @@ class HourBookingCVC: UICollectionViewCell {
     }
     
     public func setExistingReservations(with reservations: [AirConferenceRoomReservation]) {
-        // calculate proportion of distance from beg of cell to startTime
-        // calculate proportion of distance from end of cell to endTime
+        self.allReservations = reservations
         for reservation in reservations {
             guard let resStartDate = reservation.startingDate,
             let resEndDate = reservation.endDate,
             let startDate = self.startingDate,
-                let endDate = self.endingDate else { break }
+                let endDate = self.endingDate else {
+                    break
+            }
             var difference = 0
             var startPoint = CGFloat(0)
             if ((resStartDate < startDate && resEndDate < startDate) || (resStartDate > endDate && resEndDate > endDate)) {
                 // reservation does not fall in time range
+//                createPanGestureRecognizer(targetView: self.contentView)
                 continue
             } else if ((resStartDate < startDate) && (resEndDate > startDate && resEndDate < endDate)) {
                 // reservation's startDate not within interval
@@ -82,14 +82,48 @@ class HourBookingCVC: UICollectionViewCell {
             let rect = CGRect(x: 0, y: 0, width: view.layer.frame.width, height: view.layer.frame.height)
             let imageView = UIImageView(frame: rect)
             imageView.image = UIImage(named: "reservedSpotBackground")
+            
+            view.tag = 2
             view.addSubview(imageView)
             self.addSubview(view)
         }
     }
     
+    public func getDate(from point: CGPoint, in view: UIView) -> Date? {
+        guard let startingDate = self.startingDate else { return nil }
+        let convertedPoint = view.convert(point, to: self.contentView)
+        let convertedPointX = convertedPoint.x
+        let differenceProportion = convertedPointX  / self.frame.width
+        let difference = differenceProportion * 60
+        var startingDateComponents = Calendar.current.dateComponents(in: TimeZone.current, from: startingDate)
+        let newMinuteCount = (startingDateComponents.minute ?? 0)  + Int(difference)
+        startingDateComponents.setValue(newMinuteCount, for: .minute)
+        let date = startingDateComponents.date
+        return date
+    }
+    
+    public func reservation(at point: CGPoint, in view: UIView) -> Bool{
+        if let date = self.getDate(from: point, in: view) {
+            let mappedAllReservations = self.allReservations.map { (reservation) -> DateInterval in
+                guard let resStartDate = reservation.startingDate,
+                    let resEndDate = reservation.endDate else { return DateInterval() }
+                return DateInterval(start: resStartDate, end: resEndDate)
+            }
+            for interval in mappedAllReservations {
+                if interval.contains(date) {
+                    return false
+                }
+            }
+            return true
+        }
+        return false
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
         self.titleLabel.text = ""
+        for view in self.subviews where view.tag == 2 {
+            view.removeFromSuperview()
+        }
     }
-
 }
