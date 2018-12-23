@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import ChameleonFramework
 
 protocol ConferenceRoomDetailedTVCDelegate {
     func didTapWhenDateButton()
@@ -49,6 +50,8 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.showsHorizontalScrollIndicator = false
+        
+//        self.collectionView.backgroundColor = UIColor.flatWhite.lighten(byPercentage: CGFloat(50))
         
         self.topOffset = HourBookingCVC.staticTopOffset
 

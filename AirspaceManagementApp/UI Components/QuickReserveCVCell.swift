@@ -11,6 +11,9 @@ import UIKit
 class QuickReserveCVCell: UICollectionViewCell {
 
     @IBOutlet weak var timeRangeLabel: UILabel!
+    var duration: Duration?
+    @IBOutlet weak var subtitleLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = globalColor

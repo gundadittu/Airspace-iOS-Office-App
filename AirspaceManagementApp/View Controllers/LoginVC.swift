@@ -50,7 +50,7 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         self.usernameTextField.delegate = self 
         self.passwordTextField.delegate = self
         
-        self.loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: (self.view.frame.width/2)-25, y: (self.view.frame.height/2), width: 50, height: 50), type: .ballClipRotate, color: globalColor, padding: nil)
+        self.loadingIndicator = getGLobalLoadingIndicator(in: self.view)
         self.view.addSubview(self.loadingIndicator!)
     }
     

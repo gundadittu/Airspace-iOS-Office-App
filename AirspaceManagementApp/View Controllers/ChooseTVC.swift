@@ -69,7 +69,7 @@ class ChooseTVC: UITableViewController {
                 fatalError("Did not provide a type and/or delegate for ChooseTVC")
         }
         self.title = (type == .roomAmenities) ? "Choose Room Amenities": "Choose a \(type.rawValue)"
-        self.loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: (self.tableView.frame.width/2)-25, y: (self.tableView.frame.height/2), width: 50, height: 50), type: .ballClipRotate, color: globalColor, padding: nil)
+        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChooseCell")
         self.loadData()

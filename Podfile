@@ -22,5 +22,6 @@ target 'AirspaceManagementApp' do
   pod 'CFAlertViewController'
   pod 'DZNEmptyDataSet'
   pod 'SwiftPullToRefresh'
+  pod 'BetterSegmentedControl', '~> 1.0'
 
 end

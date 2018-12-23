@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.8.0)
+  - BetterSegmentedControl (1.0.3)
   - BoringSSL (10.0.6):
     - BoringSSL/Implementation (= 10.0.6)
     - BoringSSL/Interface (= 10.0.6)
@@ -146,6 +147,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
+  - BetterSegmentedControl (~> 1.0)
   - CFAlertViewController
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - DZNEmptyDataSet
@@ -165,6 +167,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - BetterSegmentedControl
     - BoringSSL
     - CFAlertViewController
     - DZNEmptyDataSet
@@ -207,6 +210,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  BetterSegmentedControl: 4e3bd0bd517b0f6077c9e17f5663a01cff48e2c5
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   CFAlertViewController: a27cf0512d0fa9ef6a3b966862039c295fb0ef69
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
@@ -239,6 +243,6 @@ SPEC CHECKSUMS:
   SwiftPullToRefresh: 7949588ace920cc6898b57799d7f5cd5db9ea9a3
   SwiftyButton: 5b0ef314e9cf61cf8a83e456ddd1ea1f53f30598
 
-PODFILE CHECKSUM: 05badc2fc0f332ca1e9c7f1bf12d0886d26b8699
+PODFILE CHECKSUM: 3ae447750bdfa68d46029803348106bdefa31efd
 
 COCOAPODS: 1.5.3

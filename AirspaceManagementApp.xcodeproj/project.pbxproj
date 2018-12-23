@@ -29,6 +29,7 @@
 		0422BB2721A4FC5700F9CD64 /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB2621A4FC5700F9CD64 /* UITableViewCellExtension.swift */; };
 		0422BB2921A5169100F9CD64 /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB2821A5169100F9CD64 /* DateController.swift */; };
 		0422BB2B21A525B400F9CD64 /* RegisterGuestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB2A21A525B400F9CD64 /* RegisterGuestManager.swift */; };
+		04247FB521CF204400DA6E5E /* ConferenceRoomProfileDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04247FB421CF204400DA6E5E /* ConferenceRoomProfileDataController.swift */; };
 		042AF99E21A6835A00E7048B /* SeeMoreTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042AF99C21A6835A00E7048B /* SeeMoreTVC.swift */; };
 		042AF99F21A6835A00E7048B /* SeeMoreTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042AF99D21A6835A00E7048B /* SeeMoreTVC.xib */; };
 		042AF9A121A683FA00E7048B /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042AF9A021A683FA00E7048B /* BorderButton.swift */; };
@@ -114,6 +115,7 @@
 		0422BB2621A4FC5700F9CD64 /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
 		0422BB2821A5169100F9CD64 /* DateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateController.swift; sourceTree = "<group>"; };
 		0422BB2A21A525B400F9CD64 /* RegisterGuestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGuestManager.swift; sourceTree = "<group>"; };
+		04247FB421CF204400DA6E5E /* ConferenceRoomProfileDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceRoomProfileDataController.swift; sourceTree = "<group>"; };
 		042AF99C21A6835A00E7048B /* SeeMoreTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreTVC.swift; sourceTree = "<group>"; };
 		042AF99D21A6835A00E7048B /* SeeMoreTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeeMoreTVC.xib; sourceTree = "<group>"; };
 		042AF9A021A683FA00E7048B /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				04C7134221CC864200F3D62F /* ReservationManager.swift */,
 				044F8E61218BF26000E84B0F /* AuthManager.swift */,
 				0407E0502184190500C516BC /* GlobalConstants.swift */,
+				04247FB421CF204400DA6E5E /* ConferenceRoomProfileDataController.swift */,
 			);
 			path = DataControllers;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BetterSegmentedControl/BetterSegmentedControl.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/CFAlertViewController/CFAlertViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
@@ -504,6 +508,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BetterSegmentedControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CFAlertViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
@@ -565,6 +570,7 @@
 				04C7133121C9AED800F3D62F /* RoomAmenity.swift in Sources */,
 				04C7132F21C98F8700F3D62F /* DateTimeInputVC.swift in Sources */,
 				045520B82177C1300033D33B /* MainVC.swift in Sources */,
+				04247FB521CF204400DA6E5E /* ConferenceRoomProfileDataController.swift in Sources */,
 				04C7133821CC3DC300F3D62F /* ConferenceRoomTVCell.swift in Sources */,
 				04C7132B21C9840A00F3D62F /* FindRoomTVCDataController.swift in Sources */,
 				0407E0512184190500C516BC /* GlobalConstants.swift in Sources */,

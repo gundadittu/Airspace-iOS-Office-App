@@ -13,6 +13,7 @@ class AirOffice: NSObject {
     var name: String?
     var buildingUID: String?
     var buildingName: String?
+    var building: AirBuilding? // replace above
     var floor: Int?
     var roomNo: Int?
     

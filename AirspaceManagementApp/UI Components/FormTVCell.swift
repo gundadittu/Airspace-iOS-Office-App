@@ -23,6 +23,16 @@ class FormTVCell: UITableViewCell {
         super.awakeFromNib()
         self.button.tintColor = .black
     }
+    
+    func configureCell(with object: ConferenceRoomProfileSection, delegate: FormTVCellDelegate) {
+        self.delegate = delegate
+        self.sectionObject = object
+        self.titleLabel.text = object.title
+       
+        let attrs = [NSAttributedString.Key.underlineStyle : 1]
+        let attributedString = NSMutableAttributedString(string: object.selectedButtonTitle ?? object.buttonTitle, attributes: attrs)
+        self.button.setAttributedTitle(attributedString, for: .normal)
+    }
 
     func configureCell(with object: RegisterGuestVCSection, delegate: FormTVCellDelegate) {
         self.delegate = delegate

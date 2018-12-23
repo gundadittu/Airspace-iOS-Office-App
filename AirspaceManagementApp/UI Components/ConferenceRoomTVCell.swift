@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 protocol ConferenceRoomTVCellDelegate {
     func didSelectCollectionView(for room: AirConferenceRoom)
@@ -32,6 +33,15 @@ class ConferenceRoomTVCell: UITableViewCell {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.showsHorizontalScrollIndicator = false
+        
+        let gradient = CAGradientLayer()
+        gradient.frame = self.bannerImage.bounds
+        gradient.colors = [UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.clear.cgColor]
+        self.bannerImage.layer.mask = gradient
+        
+        let backgroundColor = UIColor.flatWhite
+        self.contentView.backgroundColor = backgroundColor
+//        self.collectionView.backgroundColor = backgroundColor
     }
     
     func configureCell(with room: AirConferenceRoom, startingAt reservationRangeStartDate: Date?, delegate: ConferenceRoomTVCellDelegate, hourSegmentCount: Int = 8) {

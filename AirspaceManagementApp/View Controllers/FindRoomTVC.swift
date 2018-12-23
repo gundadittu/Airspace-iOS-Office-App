@@ -43,6 +43,7 @@ class FindRoomTVC: UITableViewController {
     var sections = [ FindRoomTVCSection(title: "I need a room in", buttonTitle: "Choose Office", type: .office), FindRoomTVCSection(title: "starting at", buttonTitle: "Select Time", type: .startTime), FindRoomTVCSection(title: "for around", buttonTitle: "Choose Duration", type: .duration), FindRoomTVCSection(title: "and it needs to fit (optional)", buttonTitle: "Choose # of People", type: .capacity), FindRoomTVCSection(title: "and it needs to have (optional)", buttonTitle: " Pick Amenities", type: .amenities), FindRoomTVCSection(title: "Find", buttonTitle: "Show Available Rooms", type: .submit)]
     var loadingIndicator: NVActivityIndicatorView?
     var dataController: FindRoomTVCDataController?
+    var shouldAutomaticallySubmit = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,10 +54,20 @@ class FindRoomTVC: UITableViewController {
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false
 
-        self.loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: (self.tableView.frame.width/2)-25, y: (self.tableView.frame.height/2)-25, width: 50, height: 50), type: .ballClipRotate, color: globalColor, padding: nil)
+        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         
-        self.dataController = FindRoomTVCDataController(delegate: self)
+        if dataController == nil {
+            self.dataController = FindRoomTVCDataController(delegate: self)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if self.shouldAutomaticallySubmit == true {
+            // quickReserve option
+            self.dataController?.submitData()
+            self.shouldAutomaticallySubmit = false 
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

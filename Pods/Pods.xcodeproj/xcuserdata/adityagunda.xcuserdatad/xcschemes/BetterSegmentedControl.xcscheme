@@ -7,33 +7,30 @@
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
+            buildForAnalyzing = "YES"
             buildForTesting = "YES"
             buildForRunning = "YES"
             buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "484200C3704C44F1A02951EA6C07187D"
-               BuildableName = "Pods_AirspaceManagementApp.framework"
-               BlueprintName = "Pods-AirspaceManagementApp"
-               ReferencedContainer = "container:Pods.xcodeproj">
+               BlueprintIdentifier = "04F9CB62B8DA981D2A5C07A7292CC4FA"
+               BlueprintName = "BetterSegmentedControl"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "BetterSegmentedControl.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      buildConfiguration = "Debug">
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -41,25 +38,17 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
+      buildConfiguration = "Debug"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "484200C3704C44F1A02951EA6C07187D"
-            BuildableName = "Pods_AirspaceManagementApp.framework"
-            BlueprintName = "Pods-AirspaceManagementApp"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
-      shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
+      debugDocumentVersioning = "YES"
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES">
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

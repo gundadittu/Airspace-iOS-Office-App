@@ -8,11 +8,46 @@
 
 import Foundation
 
-enum ReserveSectionType {
-    case quickReserve
+class ReserveVCSection: PageSection {
+    var title: String?
+    var type: ReserveVCSectionType?
+    
+    public init(type: ReserveVCSectionType) {
+        self.title = type.description
+        self.type = type
+    }
+}
+
+enum ReserveVCConfiguration {
+    case conferenceRooms
+    case hotDesks
+}
+
+enum ReserveVCSectionType {
+    case quickReserveRoom
+    case quickReserveDesk
     case reserveDesk
     case reserveRoom
-    case recentReservations
-    case freeToday
-    case onYourFloor
+    case allRooms
+    case allDesks
+//    case recentReservations
+//    case freeToday
+//    case onYourFloor
+    
+    var description: String {
+        switch self {
+        case .quickReserveRoom:
+            return ""
+        case .quickReserveDesk:
+            return ""
+        case .reserveDesk:
+            return "Reserve a Desk"
+        case .reserveRoom:
+            return "Reserve a Conference Room"
+        case .allRooms:
+            return ""
+        case .allDesks:
+            return ""
+        }
+    }
 }

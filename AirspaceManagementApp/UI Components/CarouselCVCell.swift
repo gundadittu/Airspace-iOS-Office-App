@@ -25,6 +25,16 @@ class CarouselCVCellItem: NSObject {
         self.type = type ?? .regular
     }
     
+    public init(with duration: Duration) {
+        let durationLength = duration.rawValue
+        let durationString = (durationLength > 60) ? "\(durationLength/60)" : "\(durationLength)"
+        let subtitleString = (durationLength > 60) ? "hrs" : "min"
+        self.title = durationString
+        self.subtitle = subtitleString
+        self.type = .quickReserve
+        self.data = duration as AnyObject
+    }
+    
     public init(with guest: AirGuestRegistration) {
         self.title = guest.guestName ?? "No Name Provided"
         self.subtitle = (guest.expectedVisitDate?.localizedDescription ?? "No visiting date")+" at "+(guest.visitingOffice?.name ?? "No visiting office")

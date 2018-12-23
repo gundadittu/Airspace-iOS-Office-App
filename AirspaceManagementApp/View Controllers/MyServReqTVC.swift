@@ -38,7 +38,7 @@ class MyServReqTVC: UITableViewController {
         super.viewDidLoad()
         self.title = "My Service Requests"
         
-        self.loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: (self.tableView.frame.width/2)-25, y: (self.tableView.frame.height/2), width: 50, height: 50), type: .ballClipRotate, color: globalColor, padding: nil)
+        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         
         self.loadData()

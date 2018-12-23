@@ -107,6 +107,7 @@ extension CarouselTVCell: UICollectionViewDataSource {
                 cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuickReserveCVCell", for: indexPath) as! QuickReserveCVCell
             }
             cell.timeRangeLabel.text = currItem.title
+            cell.subtitleLabel.text = currItem.subtitle
             cell.contentView.layer.borderWidth = 1.0
             cell.contentView.layer.borderColor = UIColor.clear.cgColor
             cell.contentView.layer.masksToBounds = true;

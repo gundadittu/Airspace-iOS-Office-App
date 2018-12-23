@@ -22,6 +22,13 @@ class SeeMoreTVC: UITableViewCell {
         self.button.setTitle(buttonTitle, for: .normal)
         self.delegate = delegate
     }
+    
+    func configureCell(with section: ReserveVCSection, delegate: SeeMoreTVCDelegate) {
+        self.sectionObj = section
+        self.button.setTitle(section.title, for: .normal)
+        self.delegate = delegate
+    }
+    
     @IBAction func didTapButton(_ sender: Any) {
         guard let sectionObj = self.sectionObj else { return }
         self.delegate?.didSelectSeeMore(for: sectionObj)
