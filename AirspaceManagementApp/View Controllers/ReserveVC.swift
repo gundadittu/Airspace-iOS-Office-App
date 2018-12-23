@@ -38,7 +38,9 @@ class ReserveVC: UIViewController {
                                             selectedTextColor: .white),
             index: 0,
             options: [.backgroundColor(.flatWhite),
-                      .indicatorViewBackgroundColor(globalColor)])
+                      .indicatorViewBackgroundColor(globalColor),
+                      .cornerRadius(17.0)])
+        
         control.addTarget(self, action: #selector(ReserveVC.controlValueChanged(_:)), for: .valueChanged)
         topVIew.addSubview(control)
         self.sections = self.roomSections
@@ -298,6 +300,7 @@ extension ReserveVC: SeeMoreTVCDelegate {
 
 extension ReserveVC: CarouselTVCellDelegate {
     func didSelectCarouselCVCellItem(item: CarouselCVCellItem) {
+        // did select a quickReserve cell
         if let duration = item.data as? Duration {
             switch self.type {
             case .conferenceRooms:
@@ -315,7 +318,7 @@ extension ReserveVC: CarouselTVCellDelegate {
             let dataController = FindRoomTVCDataController(delegate: destination)
             dataController.setSelectedDuration(with: duration)
             destination.dataController = dataController
-            destination.shouldAutomaticallySubmit = true
+            destination.dataController?.shouldAutomaticallySubmit = true
         }
     }
 }

@@ -62,14 +62,6 @@ class FindRoomTVC: UITableViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if self.shouldAutomaticallySubmit == true {
-            // quickReserve option
-            self.dataController?.submitData()
-            self.shouldAutomaticallySubmit = false 
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FindRoomTVCtoChooseTVC",
             let destination = segue.destination as? ChooseTVC,
@@ -196,6 +188,7 @@ extension FindRoomTVC: FormTVCellDelegate {
         case .amenities:
              self.performSegue(withIdentifier: "FindRoomTVCtoChooseTVC", sender: ChooseTVCType.roomAmenities)
         case .submit:
+            guard (self.loadingIndicator?.isAnimating == false ||  self.loadingIndicator == nil) else { return }
             self.dataController?.submitData()
         case .none:
             break

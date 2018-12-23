@@ -30,6 +30,7 @@
 		0422BB2921A5169100F9CD64 /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB2821A5169100F9CD64 /* DateController.swift */; };
 		0422BB2B21A525B400F9CD64 /* RegisterGuestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB2A21A525B400F9CD64 /* RegisterGuestManager.swift */; };
 		04247FB521CF204400DA6E5E /* ConferenceRoomProfileDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04247FB421CF204400DA6E5E /* ConferenceRoomProfileDataController.swift */; };
+		0429F22A21CF48CA00BAECAA /* OfficeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0429F22921CF48CA00BAECAA /* OfficeManager.swift */; };
 		042AF99E21A6835A00E7048B /* SeeMoreTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042AF99C21A6835A00E7048B /* SeeMoreTVC.swift */; };
 		042AF99F21A6835A00E7048B /* SeeMoreTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042AF99D21A6835A00E7048B /* SeeMoreTVC.xib */; };
 		042AF9A121A683FA00E7048B /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042AF9A021A683FA00E7048B /* BorderButton.swift */; };
@@ -116,6 +117,7 @@
 		0422BB2821A5169100F9CD64 /* DateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateController.swift; sourceTree = "<group>"; };
 		0422BB2A21A525B400F9CD64 /* RegisterGuestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGuestManager.swift; sourceTree = "<group>"; };
 		04247FB421CF204400DA6E5E /* ConferenceRoomProfileDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceRoomProfileDataController.swift; sourceTree = "<group>"; };
+		0429F22921CF48CA00BAECAA /* OfficeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeManager.swift; sourceTree = "<group>"; };
 		042AF99C21A6835A00E7048B /* SeeMoreTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreTVC.swift; sourceTree = "<group>"; };
 		042AF99D21A6835A00E7048B /* SeeMoreTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeeMoreTVC.xib; sourceTree = "<group>"; };
 		042AF9A021A683FA00E7048B /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				044F8E61218BF26000E84B0F /* AuthManager.swift */,
 				0407E0502184190500C516BC /* GlobalConstants.swift */,
 				04247FB421CF204400DA6E5E /* ConferenceRoomProfileDataController.swift */,
+				0429F22921CF48CA00BAECAA /* OfficeManager.swift */,
 			);
 			path = DataControllers;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				0422BB1B21A4F45500F9CD64 /* ChooseTVC.swift in Sources */,
 				04C7134121CC6C8700F3D62F /* AirConferenceRoomReservation.swift in Sources */,
 				04C7133321C9B8DE00F3D62F /* FindRoomManager.swift in Sources */,
+				0429F22A21CF48CA00BAECAA /* OfficeManager.swift in Sources */,
 				045520B221755A2B0033D33B /* ServiceRequestVC.swift in Sources */,
 				043CA239217E8897008703FC /* UserNotification.swift in Sources */,
 				043EB1D5217CF69E00B40154 /* SubmitTicketField.swift in Sources */,

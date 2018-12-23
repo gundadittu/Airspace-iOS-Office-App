@@ -11,8 +11,8 @@ import Foundation
 class AirOffice: NSObject {
     var uid: String?
     var name: String?
-    var buildingUID: String?
-    var buildingName: String?
+//    var buildingUID: String?
+//    var buildingName: String?
     var building: AirBuilding? // replace above
     var floor: Int?
     var roomNo: Int?
@@ -43,17 +43,24 @@ class AirOffice: NSObject {
             return nil
         }
         
-        if let buildingUID = dict["buildingUID"] as? String {
-            self.buildingUID = buildingUID
-        } else {
-            print("No buildingUID found for office")
-            return nil
-        }
+//        if let buildingUID = dict["buildingUID"] as? String {
+//            self.buildingUID = buildingUID
+//        } else {
+//            print("No buildingUID found for office")
+//            return nil
+//        }
+//
+//        if let buildingName = dict["buildingName"] as? String {
+//            self.buildingName = buildingName
+//        } else {
+//            print("No buildingName found for office")
+//        }
         
-        if let buildingName = dict["buildingName"] as? String {
-            self.buildingName = buildingName
+        if let building = dict["building"] as? [String:Any],
+            let ab = AirBuilding(dict: building) {
+            self.building = ab
         } else {
-            print("No buildingName found for office")
+            print("No building found for office")
         }
     }
 }

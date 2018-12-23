@@ -13,6 +13,7 @@ protocol ConferenceRoomDetailedTVCDelegate {
     func didTapWhenDateButton()
     func startLoadingIndicator()
     func stopLoadingIndicator()
+    func didChooseNewDates(start: Date, end: Date)
 }
 
 class ConferenceRoomDetailedTVC: UITableViewCell {
@@ -25,7 +26,7 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
     
     @IBOutlet weak var clearBtn: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
-    
+    @IBOutlet weak var secondSubtitleLabel: UILabel!
     var hourSegments = [Date]()
     var hourSegmentsCount = 24 // one whole day
     var reservations = [AirConferenceRoomReservation]()
@@ -114,14 +115,22 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         if let capacity = room.capacity {
             subtitleText += "Seats \(capacity) • "
         }
+        if let offices = room.offices {
+            let officesStringArr = offices.map { (office) -> String in
+                return office.name ?? "No office name"
+            }
+            subtitleText += officesStringArr.joined(separator: ", ")
+        }
+        var secondSubtitleText = ""
         if let amenities = room.amenities {
             let amenitiesStringArr = amenities.map { (amenity) -> String in
                 return amenity.description
             }
             let amenitiesString = amenitiesStringArr.joined(separator: " • ")
-            subtitleText += amenitiesString
+            secondSubtitleText += amenitiesString
         }
         self.subtitleLabel.text = subtitleText
+        self.secondSubtitleLabel.text = secondSubtitleText
         self.loadReservationData()
     }
 }
@@ -204,6 +213,7 @@ extension ConferenceRoomDetailedTVC {
                 return
             } else if let reservations = reservations {
                 self.reservations = reservations
+                self.addColorStatusBar()
                 self.collectionView.reloadData()
             }
         }
@@ -211,6 +221,52 @@ extension ConferenceRoomDetailedTVC {
 }
 
 extension ConferenceRoomDetailedTVC {
+    
+    func addColorStatusBar() {
+        var string = ""
+        var backgroundColor = UIColor.flatGreenDark
+        var nextStartDate: Date?
+        var isBusy = false
+        for reservation in reservations {
+            if let startDate = reservation.startingDate,
+                let endDate = reservation.endDate {
+                let dateInterval = DateInterval(start: startDate, end: endDate)
+                let currDate = Date()
+                if dateInterval.contains(currDate) {
+                    string = "Busy till \(endDate.localizedShortTimeDescription)"
+                    isBusy = true
+                    backgroundColor = UIColor.flatRedDark
+                }
+                if nextStartDate == nil,
+                    startDate > Date() {
+                    nextStartDate = startDate
+                }
+            }
+        }
+        if isBusy == false {
+            if let date = nextStartDate {
+                string = "Available till \(date.localizedShortTimeDescription)"
+            } else {
+                string = "Available all day"
+            }
+        }
+        let view = UIView()
+        let viewWidth = self.bannerImage.frame.width/3
+        let viewHeight = self.bannerImage.frame.height/5
+        view.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: viewWidth, height: viewHeight)
+        view.backgroundColor = backgroundColor
+        view.roundCorners(corners: UIRectCorner.bottomRight, radius: CGFloat(10))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        label.textColor = .white
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        let attrs = [NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 15.0)!, NSAttributedString.Key.paragraphStyle: paragraph]
+        let attributedString = NSMutableAttributedString(string: string, attributes: attrs)
+        label.attributedText = attributedString
+        view.addSubview(label)
+        self.bannerImage.addSubview(view)
+    }
     
     @objc func clearNewResData() {
         self.collectionView.viewWithTag(1)?.removeFromSuperview()
@@ -225,7 +281,7 @@ extension ConferenceRoomDetailedTVC {
     func updateDateLabel() {
         guard let start = self.newResStartDate,
             let end = self.newResEndDate else {
-                self.dateLabel.text = "No Selected Time Range"
+                self.dateLabel.text = "Long press a time to create a reservation"
                 self.clearBtn.isHidden = true
                 return
         }
@@ -233,18 +289,12 @@ extension ConferenceRoomDetailedTVC {
         self.dateLabel.text = start.localizedShortTimeDescription+" to "+end.localizedShortTimeDescription
     }
     
-    @objc func handleLongPressGesture(_ longPressGesture: UILongPressGestureRecognizer) {
-//        if let selectedTimeSlotView = self.selectedTimeSlotView {
-//            // code to move entire item goes here
-//            return
-//        }
-//        only execute rest if self.selectedTimeSlotView == nil
-
+    func addNewReservationRangeView(at startPoint: CGPoint, to endPoint: CGPoint) {
+       
         guard selectedTimeSlotView == nil else { return }
-        let location = longPressGesture.location(in: self.collectionView)
         let view = UIView()
-        let viewWidth = initialTimeSlotViewWidth
-        view.frame = CGRect(x: location.x, y: topOffset, width: viewWidth, height: self.collectionView.frame.height-topOffset)
+        let viewWidth = endPoint.x - startPoint.x
+        view.frame = CGRect(x: startPoint.x, y: topOffset, width: viewWidth, height: self.collectionView.frame.height-topOffset)
         view.backgroundColor = globalColor
         view.tag = 1
         view.layer.shadowColor = UIColor.black.cgColor
@@ -255,28 +305,28 @@ extension ConferenceRoomDetailedTVC {
         let leftView = UIView()
         leftView.frame = CGRect(x: 0, y: 0, width: view.frame.width/2, height: view.frame.height)
         
-//        let leftCircle = UIView()
-//        leftCircle.center = CGPoint(x: 0, y: leftView.frame.midY)
-//        leftCircle.frame.size.width = CGFloat(20)
-//        leftCircle.frame.size.height = CGFloat(20)
-//        leftCircle.backgroundColor = .white
-//        leftCircle.layer.borderColor = globalColor.cgColor
-//        leftCircle.layer.borderWidth = CGFloat(3)
-//        leftCircle.layer.cornerRadius = leftCircle.frame.width/2
-//        leftView.addSubview(leftCircle)
+        //        let leftCircle = UIView()
+        //        leftCircle.center = CGPoint(x: 0, y: leftView.frame.midY)
+        //        leftCircle.frame.size.width = CGFloat(20)
+        //        leftCircle.frame.size.height = CGFloat(20)
+        //        leftCircle.backgroundColor = .white
+        //        leftCircle.layer.borderColor = globalColor.cgColor
+        //        leftCircle.layer.borderWidth = CGFloat(3)
+        //        leftCircle.layer.cornerRadius = leftCircle.frame.width/2
+        //        leftView.addSubview(leftCircle)
         
         let rightView = UIView()
         rightView.frame = CGRect(x: view.frame.width/2, y: 0, width: view.frame.width/2, height: view.frame.height)
         
-//        let rightCircle = UIView()
-//        rightCircle.center = CGPoint(x: rightView.frame.maxX, y: rightView.frame.midY)
-//        rightCircle.frame.size.width = CGFloat(20)
-//        rightCircle.frame.size.height = CGFloat(20)
-//        rightCircle.backgroundColor = .white
-//        rightCircle.layer.borderColor = globalColor.cgColor
-//        rightCircle.layer.borderWidth = CGFloat(3)
-//        rightCircle.layer.cornerRadius = rightCircle.frame.width/2
-//        rightView.addSubview(rightCircle)
+        //        let rightCircle = UIView()
+        //        rightCircle.center = CGPoint(x: rightView.frame.maxX, y: rightView.frame.midY)
+        //        rightCircle.frame.size.width = CGFloat(20)
+        //        rightCircle.frame.size.height = CGFloat(20)
+        //        rightCircle.backgroundColor = .white
+        //        rightCircle.layer.borderColor = globalColor.cgColor
+        //        rightCircle.layer.borderWidth = CGFloat(3)
+        //        rightCircle.layer.cornerRadius = rightCircle.frame.width/2
+        //        rightView.addSubview(rightCircle)
         
         let panGestureRecognizerLeft = UIPanGestureRecognizer(target: self, action: #selector(ConferenceRoomDetailedTVC.handlePanGesture(_:)))
         panGestureRecognizerLeft.cancelsTouchesInView = false
@@ -290,12 +340,12 @@ extension ConferenceRoomDetailedTVC {
         panGestureRecognizerRight.name = "right"
         rightView.addGestureRecognizer(panGestureRecognizerRight)
         
-//        let rect = CGRect(x: 0, y: 0, width: view.layer.frame.width, height: view.layer.frame.height)
-//        let imageView = UIImageView(frame: rect)
-//        imageView.image = UIImage(named: "selectedTimeSlot")
-       
-//        view.isExclusiveTouch = true
-//        view.addSubview(imageView)
+        //        let rect = CGRect(x: 0, y: 0, width: view.layer.frame.width, height: view.layer.frame.height)
+        //        let imageView = UIImageView(frame: rect)
+        //        imageView.image = UIImage(named: "selectedTimeSlot")
+        
+        //        view.isExclusiveTouch = true
+        //        view.addSubview(imageView)
         
         view.addSubview(leftView)
         view.addSubview(rightView)
@@ -309,9 +359,14 @@ extension ConferenceRoomDetailedTVC {
         }
         
         self.selectedTimeSlotView = view
-        
         self.updateReservationTimeFrame()
         self.collectionView.isScrollEnabled = false
+    }
+    
+    @objc func handleLongPressGesture(_ longPressGesture: UILongPressGestureRecognizer) {
+        let startLocation = longPressGesture.location(in: self.collectionView)
+        let endLocation = CGPoint(x: startLocation.x+initialTimeSlotViewWidth, y: startLocation.y)
+        self.addNewReservationRangeView(at: startLocation, to: endLocation)
     }
     
     @objc func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
@@ -406,6 +461,7 @@ extension ConferenceRoomDetailedTVC {
                 let endDate = endCell.getDate(from: endTimePosition, in: collectionView) {
                 self.newResStartDate = startDate
                 self.newResEndDate = endDate
+                self.delegate?.didChooseNewDates(start: startDate, end: endDate)
                 self.updateDateLabel()
             }
         }
@@ -536,5 +592,14 @@ extension UIView {
             self.layer.position = CGPoint(x: x, y: y)
             self.transform = self.transform.scaledBy(x: xScale, y: yScale)
         }, completion: completion)
+    }
+}
+
+extension UIView {
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
     }
 }

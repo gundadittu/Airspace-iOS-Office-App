@@ -11,8 +11,8 @@ import UIKit
 
 extension UITableViewCell {
     
-    func configureCell(with user: AirUser) {
-        self.accessoryType = .disclosureIndicator
+    func configureCell(with user: AirUser, accessoryType: UITableViewCell.AccessoryType = .disclosureIndicator ) {
+        self.accessoryType = accessoryType
         // configure image
         self.textLabel?.text = user.displayName ?? "No name"
         self.detailTextLabel?.text = user.email ?? "No email provided"
@@ -39,7 +39,7 @@ extension UITableViewCell {
     func configureCell(with office: AirOffice) {
         self.accessoryType = .disclosureIndicator
         self.textLabel?.text = office.name ?? "No office name"
-        self.detailTextLabel?.text = office.buildingName ?? "No building name provided"
+        self.detailTextLabel?.text = office.building?.name ?? "No building name provided"
         // show proper  image
         self.imageView?.image = UIImage(named: "user-placeholder")!
     }

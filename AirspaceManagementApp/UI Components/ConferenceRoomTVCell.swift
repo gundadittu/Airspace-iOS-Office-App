@@ -18,6 +18,7 @@ class ConferenceRoomTVCell: UITableViewCell {
     @IBOutlet weak var bannerImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var secondSubtitleLabel: UILabel!
     
     var hourSegments = [Date]()
     var hourSegmentsCount = 8
@@ -40,8 +41,8 @@ class ConferenceRoomTVCell: UITableViewCell {
         self.bannerImage.layer.mask = gradient
         
         let backgroundColor = UIColor.flatWhite
-        self.contentView.backgroundColor = backgroundColor
-//        self.collectionView.backgroundColor = backgroundColor
+//        self.contentView.backgroundColor = backgroundColor
+        self.collectionView.backgroundColor = backgroundColor
     }
     
     func configureCell(with room: AirConferenceRoom, startingAt reservationRangeStartDate: Date?, delegate: ConferenceRoomTVCellDelegate, hourSegmentCount: Int = 8) {
@@ -61,15 +62,69 @@ class ConferenceRoomTVCell: UITableViewCell {
         if let capacity = room.capacity {
             subtitleText += "Seats \(capacity) • "
         }
+        if let offices = room.offices {
+            let officesStringArr = offices.map { (office) -> String in
+                return office.name ?? "No office name"
+            }
+            subtitleText += officesStringArr.joined(separator: ", ")
+        }
+        var secondSubtitleText = ""
         if let amenities = room.amenities {
             let amenitiesStringArr = amenities.map { (amenity) -> String in
                 return amenity.description
             }
             let amenitiesString = amenitiesStringArr.joined(separator: " • ")
-            subtitleText += amenitiesString
+            secondSubtitleText += amenitiesString
         }
         self.subtitleLabel.text = subtitleText
+        self.secondSubtitleLabel.text = secondSubtitleText
         self.loadReservationData()
+    }
+    
+    func addColorStatusBar() {
+        var string = ""
+        var backgroundColor = UIColor.flatGreenDark
+        var nextStartDate: Date?
+        var isBusy = false
+        for reservation in reservations {
+            if let startDate = reservation.startingDate,
+                let endDate = reservation.endDate {
+                let dateInterval = DateInterval(start: startDate, end: endDate)
+                let currDate = Date()
+                if dateInterval.contains(currDate) {
+                  string = "Busy till \(endDate.localizedShortTimeDescription)"
+                isBusy = true
+                  backgroundColor = UIColor.flatRedDark
+                }
+                if nextStartDate == nil,
+                    startDate > Date() {
+                        nextStartDate = startDate
+                }
+            }
+        }
+        if isBusy == false {
+            if let date = nextStartDate {
+                 string = "Available till \(date.localizedShortTimeDescription)"
+            } else {
+                 string = "Available all day"
+            }
+        }
+        let view = UIView()
+        let viewWidth = self.bannerImage.frame.width/3
+        let viewHeight = self.bannerImage.frame.height/5
+        view.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: viewWidth, height: viewHeight)
+        view.backgroundColor = backgroundColor
+        view.roundCorners(corners: UIRectCorner.bottomRight, radius: CGFloat(10))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        label.textColor = .white
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        let attrs = [NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 15.0)!, NSAttributedString.Key.paragraphStyle: paragraph]
+        let attributedString = NSMutableAttributedString(string: string, attributes: attrs)
+        label.attributedText = attributedString
+        view.addSubview(label)
+        self.bannerImage.addSubview(view)
     }
 }
 
@@ -142,7 +197,6 @@ extension ConferenceRoomTVCell {
                 }
             }
         }
-        
         self.collectionView.reloadData()
     }
     
@@ -156,6 +210,7 @@ extension ConferenceRoomTVCell {
                 return
             } else if let reservations = reservations {
                 self.reservations = reservations
+                self.addColorStatusBar()
                 self.collectionView.reloadData()
             }
         }

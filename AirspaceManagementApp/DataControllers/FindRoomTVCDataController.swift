@@ -22,11 +22,17 @@ class FindRoomTVCDataController {
     var selectedStartDate: Date? = Date()
     var selectedCapacity: Int?
     var selectedAmenities: [RoomAmenity]?
+    var shouldAutomaticallySubmit = false
     
     var delegate: FindRoomTVCDataControllerDelegate?
     
     public init(delegate: FindRoomTVCDataControllerDelegate) {
         self.delegate = delegate
+        
+        // Handling quickReserve actions
+        if (shouldAutomaticallySubmit == true) {
+            self.delegate?.startLoadingIndicator()
+        }
         
         // Auto-populate office field
         UserManager.shared.getCurrentUsersOffices { (offices, error) in
@@ -41,6 +47,13 @@ class FindRoomTVCDataController {
                 self.selectedOffice == nil {
                 self.setSelectedOffice(with: firstOffice)
                 self.delegate?.reloadTableView()
+            }
+            
+            // Handling quickReserve actions
+            if (self.shouldAutomaticallySubmit == true) {
+                self.delegate?.stopLoadingIndicator()
+                self.submitData()
+                self.shouldAutomaticallySubmit = false
             }
         }
     }

@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol ConferenceRoomProfileDataControllerDelegate {
-    func didFinishSubmittingData(withError: Error?)
+    func didFinishSubmittingData(withError error: Error?)
     func startLoadingIndicator()
     func stopLoadingIndicator()
     func reloadTableView()
@@ -37,12 +37,12 @@ class ConferenceRoomProfileDataController {
     
     public func setSelectedStartDate(with date: Date) {
         self.selectedStartDate = date
-        self.delegate?.reloadTableView()
+//        self.delegate?.reloadTableView()
     }
     
     public func setSelectedEndDate(with date: Date) {
         self.selectedEndDate = date
-        self.delegate?.reloadTableView()
+//        self.delegate?.reloadTableView()
     }
     
     public func setEventName(with name: String) {
@@ -57,7 +57,7 @@ class ConferenceRoomProfileDataController {
     
     public func setShouldCreateCalendarEvent(with value: Bool) {
         self.shouldCreateCalendarEvent = value
-        self.delegate?.reloadTableView()
+//        self.delegate?.reloadTableView()
     }
     
     public func setInvitedUsers(with users: [AirUser]) {
@@ -66,6 +66,28 @@ class ConferenceRoomProfileDataController {
     }
     
     public func submitData() {
-        return
+        guard let startTime = self.selectedStartDate,
+            let endTime = self.selectedEndDate else {
+                // handle error
+            return
+        }
+        guard let conferenceRoomUID = self.conferenceRoom?.uid else {
+            // handle error
+            return
+        }
+        let shouldCreateCalendarEvent = self.shouldCreateCalendarEvent ?? false
+        
+        // fix office address parameter to: self.conferenceRoom?.offices?.first?.building?.address
+        self.delegate?.startLoadingIndicator()
+        ReservationManager.shared.createConferenceRoomReservation(startTime: startTime, endTime: endTime, conferenceRoomUID: conferenceRoomUID, shouldCreateCalendarEvent: shouldCreateCalendarEvent, eventName: self.eventName, description: self.eventDescription, conferenceRoomName: self.conferenceRoom?.name, officeAddress: "address", attendees: self.invitedUsers) { (error) in
+            self.delegate?.stopLoadingIndicator()
+            if let error = error {
+                self.delegate?.didFinishSubmittingData(withError: error)
+                return
+            } else {
+                self.delegate?.didFinishSubmittingData(withError: nil)
+                return
+            }
+        }
     }
 }

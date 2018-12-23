@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import NVActivityIndicatorView
 import SwiftPullToRefresh
+import NotificationBannerSwift
 
 enum ConferenceRoomProfileSectionType {
     case bio
@@ -17,7 +18,6 @@ enum ConferenceRoomProfileSectionType {
     case eventName
     case eventDescription
     case inviteOthers
-    case submit
     case none
 }
 
@@ -34,25 +34,28 @@ class ConferenceRoomProfileSection : PageSection {
     }
 }
 
-class ConferenceRoomProfileTVC: UITableViewController {
+class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var sections = [ConferenceRoomProfileSection(title: "Bio", buttonTitle: nil, type: .bio), ConferenceRoomProfileSection(title: "", buttonTitle: nil, type: .createCalendarEvent), ConferenceRoomProfileSection(title: "Add Event Name (optional)", buttonTitle: "Enter Name", type: .eventName), ConferenceRoomProfileSection(title: "Add Event Description (optional)", buttonTitle: "Enter Description", type: .eventDescription),
-        ConferenceRoomProfileSection(title: "Add Attendees (optional)", buttonTitle: "Choose Attendees", type: .inviteOthers),
-        ConferenceRoomProfileSection(title: "Reserve Room", buttonTitle: nil, type: .submit)]
+    var sections = [ConferenceRoomProfileSection(title: "Bio", buttonTitle: nil, type: .bio), ConferenceRoomProfileSection(title: "", buttonTitle: nil, type: .createCalendarEvent), ConferenceRoomProfileSection(title: "Add Event Name (optional)", buttonTitle: "Enter Name", type: .eventName), ConferenceRoomProfileSection(title: "Add Event Description (optional)", buttonTitle: "Enter Description", type: .eventDescription)]
     var loadingIndicator: NVActivityIndicatorView?
     var dataController: ConferenceRoomProfileDataController?
     var conferenceRoom: AirConferenceRoom?
     var startingDate = Date() // date used to display existing reservations for room
-
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var bottomViewBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Conference Room Profile"        
           self.tableView.register(UINib(nibName: "ConferenceRoomDetailedTVC", bundle: nil), forCellReuseIdentifier: "ConferenceRoomDetailedTVC")
          self.tableView.register(UINib(nibName: "FormSubmitTVCell", bundle: nil), forCellReuseIdentifier: "FormSubmitTVCell")
         self.tableView.register(UINib(nibName: "FormTVCell", bundle: nil), forCellReuseIdentifier: "FormTVCell")
-
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false
+        
         
         self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
         self.tableView.addSubview(self.loadingIndicator!)
@@ -61,11 +64,25 @@ class ConferenceRoomProfileTVC: UITableViewController {
             self?.tableView.reloadData()
         }
 
+        guard let conferenceRoom = self.conferenceRoom else {
+            fatalError("Did not provide conferenceRoom object for ConferenceRoomProfileTVC.")
+        }
         if self.dataController == nil {
             self.dataController = ConferenceRoomProfileDataController(delegate: self)
+            self.dataController?.setConferenceRoom(with: conferenceRoom)
         }
+        
+        self.bottomViewBtn.setTitleColor(.white, for: .normal)
+        self.bottomView.backgroundColor = globalColor
+        self.bottomView.layer.shadowColor = UIColor.black.cgColor
+        self.bottomView.layer.shadowOpacity = 0.5
+        self.bottomView.layer.shadowOffset = CGSize.zero
+        self.bottomView.layer.shadowRadius = 2
     }
-    
+    @IBAction func bottomViewBtnTapped(_ sender: Any) {
+        self.dataController?.submitData()
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDateInputVC",
             let destination = segue.destination as? DateTimeInputVC {
@@ -83,22 +100,28 @@ class ConferenceRoomProfileTVC: UITableViewController {
             }
             destination.identifier = identifier
             destination.delegate = self
+        } else if segue.identifier == "toChooseTVC",
+            let destination = segue.destination as? ChooseTVC {
+            destination.type = .employees
+            destination.delegate = self
+            destination.officeObj = self.conferenceRoom?.offices?.first // we know not nil from shouldPerformSegue()
+            if let employees = self.dataController?.invitedUsers {
+                destination.selectedEmployees = employees
+            }
         }
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let section = sections[section]
         switch section.type {
         case .bio:
             return 1
         case .none:
             return 0
-        case .submit:
-            return 1
         case .createCalendarEvent:
             return 1
         case .eventName:
@@ -110,27 +133,10 @@ class ConferenceRoomProfileTVC: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-//        let section = self.sections[indexPath.section]
-//        switch section.type {
-//        case .bio:
-//            break
-//        case .createCalendarEvent:
-//            break
-//        case .eventName:
-//            break
-//        case .eventDescription:
-//            break
-//        case .inviteOthers:
-//            break
-//        case .submit:
-//            break
-//        case .none:
-//            break
-//        }
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return false
     }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = sections[indexPath.section]
         switch section.type {
         case .bio:
@@ -143,12 +149,6 @@ class ConferenceRoomProfileTVC: UITableViewController {
             return cell
         case .none:
             return UITableViewCell()
-        case .submit:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
-                return UITableViewCell()
-            }
-            cell.configureCell(with: section, delegate: self)
-            return cell
         case .createCalendarEvent:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell") as? ConferenceRoomProfileSwitchCell else {
                 return UITableViewCell()
@@ -159,6 +159,7 @@ class ConferenceRoomProfileTVC: UITableViewController {
             } else {
                cell.switchBtn.isOn = true
             }
+            self.dataController?.shouldCreateCalendarEvent = cell.switchBtn.isOn
             return cell
         case .eventName:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormTVCell") as? FormTVCell else {
@@ -200,7 +201,7 @@ class ConferenceRoomProfileTVC: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -218,25 +219,21 @@ extension ConferenceRoomProfileTVC: FormTVCellDelegate {
         case .eventDescription:
             self.performSegue(withIdentifier: "toTextInputVC", sender: "description")
         case .inviteOthers:
-            return
-        case .submit:
-            self.dataController?.submitData()
+            if (self.conferenceRoom?.offices?.first != nil) {
+                self.performSegue(withIdentifier: "toChooseTVC", sender: nil)
+            }
         case .none:
             return
         }
-//        ReservationManager.shared.createConferenceRomReservation(eventName: "test name", description: "test description", startTime: Date(), endTime: Date().addingTimeInterval(TimeInterval(3600)), conferenceRoomName: self.conferenceRoom?.name, officeAddress: self.conferenceRoom?.offices?.first?.building?.address, attendees: [["email":"adityagunda@uchicago.edu"]]) { (error) in
-//            if let error = error {
-//                // handle error
-//                return
-//            } else {
-//                // handle success
-//                return
-//            }
-//        }
     }
 }
 
 extension ConferenceRoomProfileTVC: ConferenceRoomDetailedTVCDelegate, ConferenceRoomProfileDataControllerDelegate {
+    func didChooseNewDates(start: Date, end: Date) {
+        self.dataController?.setSelectedStartDate(with: start)
+        self.dataController?.setSelectedEndDate(with: end)
+    }
+    
     func didTapWhenDateButton() {
         // clicked when date button -> show date picker
         self.performSegue(withIdentifier: "toDateInputVC", sender: nil)
@@ -251,17 +248,25 @@ extension ConferenceRoomProfileTVC: ConferenceRoomDetailedTVCDelegate, Conferenc
         self.tableView.spr_endRefreshing()
     }
     
-    func didFinishSubmittingData(withError: Error?) {
-        return
+    func didFinishSubmittingData(withError error: Error?) {
+        if let _ = error {
+            let banner = StatusBarNotificationBanner(title: "Error creating reservation.", style: .danger)
+            banner.show()
+            return
+        } else {
+            let banner = NotificationBanner(title: "Get Working!", subtitle: "Your reservation was sucessfully created.", leftView: nil, rightView: nil, style: .success, colors: nil)
+            banner.show()
+        }
     }
     
     func reloadTableView() {
-        self.tableView.reloadData()
+        let indexSet = IndexSet(integersIn: 1..<self.sections.count)
+        self.tableView.reloadSections(indexSet, with: .none)
     }
     
 }
 
-extension ConferenceRoomProfileTVC: DateTimeInputVCDelegate, TextInputVCDelegate, ConferenceRoomProfileSwitchCellDelegate {
+extension ConferenceRoomProfileTVC: DateTimeInputVCDelegate, TextInputVCDelegate, ConferenceRoomProfileSwitchCellDelegate, ChooseTVCDelegate {
     func didSaveInput(with text: String, and identifier: String?) {
         guard let identifier = identifier else { return }
         if identifier == "name" {
@@ -269,6 +274,10 @@ extension ConferenceRoomProfileTVC: DateTimeInputVCDelegate, TextInputVCDelegate
         } else if identifier == "description" {
             self.dataController?.setEventDescription(with: text)
         }
+    }
+    
+    func didChooseEmployees(employees: [AirUser]) {
+       self.dataController?.setInvitedUsers(with: employees)
     }
     
     func didSaveInput(with date: Date) {

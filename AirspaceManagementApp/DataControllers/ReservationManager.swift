@@ -17,10 +17,17 @@ class ReservationManager {
     lazy var functions = Functions.functions()
     let storageRef = Storage.storage().reference()
     
-    func createConferenceRomReservation(eventName: String, description: String, startTime: Date, endTime: Date, conferenceRoomName: String?, officeAddress: String?, attendees: [[String: String]], completionHandler: @escaping (Error?) -> Void) {
+    func createConferenceRoomReservation(startTime: Date, endTime: Date, conferenceRoomUID: String, shouldCreateCalendarEvent: Bool, eventName: String?, description: String?, conferenceRoomName: String?, officeAddress: String?, attendees: [AirUser], completionHandler: @escaping (Error?) -> Void) {
         let startTimeString = startTime.serverTimestampString
         let endTimeString = endTime.serverTimestampString
-        functions.httpsCallable("createConferenceRoomReservation").call(["eventName": eventName, "description":description, "startTime": startTimeString, "endTime": endTimeString, "attendees": attendees, "conferenceRoomName": conferenceRoomName, "officeAddress": officeAddress]) { (result, error) in
+        let attendeesArray = attendees.map { (user) -> [String:String] in
+            if let email = user.email {
+                return ["email":email]
+            }
+            // handle error
+            return [:]
+        }
+        functions.httpsCallable("createConferenceRoomReservation").call(["shouldCreateCalendarEvent": shouldCreateCalendarEvent,"eventName": eventName, "description":description, "startTime": startTimeString, "endTime": endTimeString, "conferenceRoomUID": conferenceRoomUID,"attendees": attendeesArray, "conferenceRoomName": conferenceRoomName, "officeAddress": officeAddress]) { (result, error) in
             if let error = error {
                 completionHandler(error)
             } else {

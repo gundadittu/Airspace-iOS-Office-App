@@ -18,6 +18,7 @@ enum ChooseTVCType: String {
     case duration = "Duration"
     case capacity = "Capacity"
     case roomAmenities = "Room Amenities"
+    case employees = "Employees"
 }
 
 protocol ChooseTVCDelegate {
@@ -28,6 +29,7 @@ protocol ChooseTVCDelegate {
     func didSelectDuration(duration: Duration)
     func didSelectCapacity(number: Int)
     func didSelectRoomAmenities(amenities: [RoomAmenity])
+    func didChooseEmployees(employees: [AirUser])
 }
 
 extension ChooseTVCDelegate {
@@ -53,14 +55,20 @@ extension ChooseTVCDelegate {
     func didSelectRoomAmenities(amenities: [RoomAmenity]) {
         // Makes method optional to implement
     }
+    
+    func didChooseEmployees(employees: [AirUser]) {
+        // Makes method optional to implement
+    }
 }
 
 class ChooseTVC: UITableViewController {
     var type: ChooseTVCType?
     var data = [AnyObject]()
     var selectedAmenities = [RoomAmenity]()
+    var selectedEmployees = [AirUser]()
     var loadingIndicator: NVActivityIndicatorView?
     var delegate: ChooseTVCDelegate?
+    var officeObj: AirOffice?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +82,11 @@ class ChooseTVC: UITableViewController {
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChooseCell")
         self.loadData()
         
-        if type == .roomAmenities {
+        if type == .employees && self.officeObj == nil {
+            fatalError("Did not provide an officeObj for ChooseTVC to display employees.")
+        }
+        
+        if type == .roomAmenities || type == .employees {
             self.tableView.allowsMultipleSelection = true
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(didClickSave))
 
@@ -86,7 +98,11 @@ class ChooseTVC: UITableViewController {
     }
     
     @objc func didClickSave() {
-        self.delegate?.didSelectRoomAmenities(amenities: self.selectedAmenities)
+        if self.type == .roomAmenities {
+            self.delegate?.didSelectRoomAmenities(amenities: self.selectedAmenities)
+        } else if self.type == .employees {
+            self.delegate?.didChooseEmployees(employees: self.selectedEmployees)
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -151,7 +167,7 @@ class ChooseTVC: UITableViewController {
                     banner.show()
                     return
                 }
-                
+
                 if let offices = offices {
                    self.data = offices
                     self.tableView.reloadData()
@@ -180,53 +196,71 @@ class ChooseTVC: UITableViewController {
             break
         case .some(.roomAmenities):
             break
+        case .some(.employees):
+            guard let office = self.officeObj, let officeUID = office.uid else { return }
+            self.loadingIndicator?.startAnimating()
+            OfficeManager.shared.getEmployeesForOffice(officeUID: officeUID) { (offices, error) in
+                self.loadingIndicator?.stopAnimating()
+                if let _ = error {
+                    let banner = StatusBarNotificationBanner(title: "Error loading employees.", style: .danger)
+                    banner.show()
+                }
+                if let list = offices {
+                    self.data = list
+                    self.tableView.reloadData()
+                }
+            }
         }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch self.type {
-        case .landlords?:
-            break
-        case .none:
-            break
-        case .some(.buildings):
-            break
-        case .some(.offices):
-            break
-        case .some(.serviceRequestType):
-            return ServiceRequestTypeController.shared.sections[section].title
-        case .some(.duration):
-            break
-        case .some(.capacity):
-            break
-        case .some(.roomAmenities):
-            break
-        }
+//        switch self.type {
+//        case .landlords?:
+//            break
+//        case .none:
+//            break
+//        case .some(.buildings):
+//            break
+//        case .some(.offices):
+//            break
+//        case .some(.serviceRequestType):
+//            return ServiceRequestTypeController.shared.sections[section].title
+//        case .some(.duration):
+//            break
+//        case .some(.capacity):
+//            break
+//        case .some(.roomAmenities):
+//            break
+//        case .some(.employees):
+//            break
+//        }
         return nil
     }
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        switch self.type {
-        case .landlords?:
-           break
-        case .none:
-            break
-        case .some(.buildings):
-            break
-        case .some(.offices):
-            break
-        case .some(.serviceRequestType):
-            return ServiceRequestTypeController.shared.sections.count
-
-        case .some(.duration):
-            break
-        case .some(.capacity):
-            break
-        case .some(.roomAmenities):
-            break
-        }
+//        switch self.type {
+//        case .landlords?:
+//           break
+//        case .none:
+//            break
+//        case .some(.buildings):
+//            break
+//        case .some(.offices):
+//            break
+//        case .some(.serviceRequestType):
+//            return ServiceRequestTypeController.shared.sections.count
+//
+//        case .some(.duration):
+//            break
+//        case .some(.capacity):
+//            break
+//        case .some(.roomAmenities):
+//            break
+//        case .some(.employees):
+//            break
+//        }
         return 1
     }
     
@@ -253,6 +287,8 @@ class ChooseTVC: UITableViewController {
             return 40
         case .some(.roomAmenities):
             return RoomAmenity.allCases.count
+        case .some(.employees):
+            break
         }
         return data.count
     }
@@ -294,12 +330,28 @@ class ChooseTVC: UITableViewController {
         case .some(.roomAmenities):
             let amenity = RoomAmenity.allCases[indexPath.row]
             cell.configureCell(with: amenity, selected: self.selectedAmenities.contains(amenity))
+        case .some(.employees):
+            if let data = self.data as? [AirUser] {
+                let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+                cell.tintColor = globalColor
+                let currUser = data[indexPath.row]
+                
+                for employee in selectedEmployees {
+                    if employee.uid == currUser.uid {
+                        cell.configureCell(with: currUser, accessoryType: .checkmark)
+                        return cell 
+                    }
+                }
+                cell.configureCell(with: currUser, accessoryType: .none)
+                return cell
+            }
         }
         cell.tintColor = globalColor
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         switch self.type {
         case .landlords?:
             if let list = self.data as? [AirUser] {
@@ -338,6 +390,17 @@ class ChooseTVC: UITableViewController {
                 }
             } else {
                 self.selectedAmenities.append(currAmenity)
+            }
+            self.tableView.reloadData()
+        case .some(.employees):
+            guard let selectedUser = self.data[indexPath.row] as? AirUser else { return }
+            if self.selectedEmployees.contains(selectedUser) {
+                let newData = self.selectedEmployees.filter { (user) -> Bool in
+                    return (user != selectedUser)
+                }
+                self.selectedEmployees = newData
+            } else {
+                self.selectedEmployees.append(selectedUser)
             }
             self.tableView.reloadData()
         }
