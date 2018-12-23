@@ -101,7 +101,7 @@ extension MainVC: UITableViewDelegate {
     func didSelectQuickAction(ofType type: QuickActionType) {
         switch type {
         case .reserveRoom:
-            break
+            self.performSegue(withIdentifier: "toReserveVC", sender: nil)
         case .submitTicket:
             self.performSegue(withIdentifier: "mainToSubmitTicket", sender: nil)
         case .registerGuest:
@@ -141,7 +141,7 @@ extension MainVC: UITableViewDataSource {
         case .quickActions:
             return self.quickActionsList.count
         case .nearbyEats:
-            return 1
+            return 0
         case .none:
             return 0
         }

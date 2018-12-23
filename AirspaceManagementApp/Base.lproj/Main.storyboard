@@ -261,6 +261,7 @@
                         <outlet property="tableView" destination="ZJH-1V-6co" id="Z6r-Eu-JY9"/>
                         <segue destination="cG7-qb-Kn2" kind="show" identifier="mainToSubmitTicket" id="Wva-VX-VrE"/>
                         <segue destination="JoJ-U4-jB8" kind="show" identifier="MainVCtoRegisterGuestVC" id="g2r-iT-aV4"/>
+                        <segue destination="I4h-p4-Ae5" kind="show" identifier="toReserveVC" id="EOH-SA-r0L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0XN-hf-Ju0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -439,13 +440,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="TB1-OY-z8X" firstAttribute="trailing" secondItem="LN1-db-f9l" secondAttribute="trailing" constant="-10" id="88M-h2-CaL"/>
+                            <constraint firstItem="LN1-db-f9l" firstAttribute="bottom" secondItem="81E-Es-QMx" secondAttribute="bottom" id="063-Hh-ORa"/>
                             <constraint firstItem="81E-Es-QMx" firstAttribute="leading" secondItem="LN1-db-f9l" secondAttribute="leading" id="IT3-i4-liD"/>
-                            <constraint firstItem="81E-Es-QMx" firstAttribute="top" secondItem="TB1-OY-z8X" secondAttribute="bottom" constant="10" id="Ir9-Z7-5cS"/>
-                            <constraint firstItem="81E-Es-QMx" firstAttribute="bottom" secondItem="LN1-db-f9l" secondAttribute="bottom" id="KKg-aL-qs1"/>
-                            <constraint firstItem="TB1-OY-z8X" firstAttribute="leading" secondItem="LN1-db-f9l" secondAttribute="leading" constant="10" id="Tau-BR-Wei"/>
-                            <constraint firstItem="TB1-OY-z8X" firstAttribute="top" secondItem="LN1-db-f9l" secondAttribute="top" constant="10" id="tmv-jI-X0d"/>
+                            <constraint firstItem="LN1-db-f9l" firstAttribute="trailing" secondItem="TB1-OY-z8X" secondAttribute="trailing" constant="10" id="cJY-o9-Sqe"/>
+                            <constraint firstItem="81E-Es-QMx" firstAttribute="top" secondItem="TB1-OY-z8X" secondAttribute="bottom" constant="10" id="ibC-AP-xBR"/>
+                            <constraint firstItem="TB1-OY-z8X" firstAttribute="leading" secondItem="LN1-db-f9l" secondAttribute="leading" constant="10" id="k0Z-L6-h9g"/>
                             <constraint firstItem="81E-Es-QMx" firstAttribute="trailing" secondItem="LN1-db-f9l" secondAttribute="trailing" id="uuW-i0-82F"/>
+                            <constraint firstItem="TB1-OY-z8X" firstAttribute="top" secondItem="LN1-db-f9l" secondAttribute="top" constant="10" id="yaD-zy-z41"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LN1-db-f9l"/>
                     </view>
@@ -862,5 +863,6 @@
         <segue reference="Wy7-hw-B7D"/>
         <segue reference="cxF-zx-cdi"/>
         <segue reference="zWd-J1-tuq"/>
+        <segue reference="EOH-SA-r0L"/>
     </inferredMetricsTieBreakers>
 </document>

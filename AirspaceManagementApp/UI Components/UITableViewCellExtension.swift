@@ -49,6 +49,13 @@ extension UITableViewCell {
         self.detailTextLabel?.text = (guest.expectedVisitDate?.localizedDescription ?? "No visiting date")+" at "+(guest.visitingOffice?.name ?? "No visiting office")
     }
     
+    func configureCell(with notification: AirNotification) {
+        self.textLabel?.text = "Title"
+        self.detailTextLabel?.text = "Subtitle"
+        self.imageView?.image = UIImage(named: "serv-req-icon")
+    }
+
+    
     func configureCell(with srType: ServiceRequestTypeItem) {
         self.textLabel?.text = srType.title
     }
