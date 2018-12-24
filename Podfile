@@ -23,5 +23,6 @@ target 'AirspaceManagementApp' do
   pod 'DZNEmptyDataSet'
   pod 'SwiftPullToRefresh'
   pod 'BetterSegmentedControl', '~> 1.0'
-
+  pod 'SwiftDate', '~> 5.0'
+  
 end

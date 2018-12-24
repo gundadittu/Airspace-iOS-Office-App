@@ -142,6 +142,7 @@ PODS:
   - NVActivityIndicatorView/Presenter (4.4.1)
   - Protobuf (3.6.1)
   - SnapKit (4.0.1)
+  - SwiftDate (5.0.13)
   - SwiftPullToRefresh (3.0.1)
   - SwiftyButton (0.8.2)
 
@@ -161,6 +162,7 @@ DEPENDENCIES:
   - Kingfisher (~> 4.0)
   - NotificationBannerSwift
   - NVActivityIndicatorView
+  - SwiftDate (~> 5.0)
   - SwiftPullToRefresh
   - SwiftyButton
 
@@ -196,6 +198,7 @@ SPEC REPOS:
     - NVActivityIndicatorView
     - Protobuf
     - SnapKit
+    - SwiftDate
     - SwiftPullToRefresh
     - SwiftyButton
 
@@ -240,9 +243,10 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: f0a6b0ed2973d9544da268f4eb76696f0a9577b0
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
   SwiftPullToRefresh: 7949588ace920cc6898b57799d7f5cd5db9ea9a3
   SwiftyButton: 5b0ef314e9cf61cf8a83e456ddd1ea1f53f30598
 
-PODFILE CHECKSUM: 3ae447750bdfa68d46029803348106bdefa31efd
+PODFILE CHECKSUM: 1741abab542cf04b8c109b8eeb9b14ca3a5a70d7
 
 COCOAPODS: 1.5.3

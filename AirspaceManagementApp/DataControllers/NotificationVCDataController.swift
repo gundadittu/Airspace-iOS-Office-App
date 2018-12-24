@@ -20,9 +20,21 @@ class NotificationVCDataController {
     
     public init(delegate: NotificationVCDataControllerDelegate) {
         self.delegate = delegate
+        self.loadNotifications()
     }
     
     func loadNotifications() {
-        return 
+        self.delegate?.startLoadingIndicator()
+        NotificationManager.shared.getUsersNotifications { (notifications, error) in
+            self.delegate?.stopLoadingIndicator()
+            if let error = error {
+                self.delegate?.didLoadNotifications(nil, with: error)
+            } else if let notifications = notifications {
+                self.notifications = notifications
+                self.delegate?.didLoadNotifications(notifications, with: nil)
+            } else {
+                self.delegate?.didLoadNotifications(nil, with: NSError())
+            }
+        }
     }
 }

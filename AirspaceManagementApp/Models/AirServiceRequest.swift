@@ -16,6 +16,7 @@ class AirServiceRequest: NSObject {
     var timestamp: Date?
     var status: ServiceRequestStatus?
     var office: AirOffice?
+    var title: String?
 //    var user
     
     public init?(dict: [String: Any]) {
@@ -27,19 +28,31 @@ class AirServiceRequest: NSObject {
             return nil
         }
         
+        if let title = dict["title"] as? String {
+            self.title = title
+        } else {
+            print("No title found for AirServiceRequest")
+        }
+        
         if let note = dict["note"] as? String {
             self.note = note
+        } else {
+            print("No note found for AirServiceRequest")
         }
         
         if let statusString = dict["status"] as? String,
             let status = ServiceRequestStatus(rawValue: statusString) {
             self.status = status
+        } else {
+            print("No status found for AirServiceRequest")
         }
         
         if let timestampDict = dict["timestamp"] as? [String:Any],
             let seconds = timestampDict["_seconds"] as? Int64,
             let nanoseconds = timestampDict["_nanoseconds"] as? Int32 {
             self.timestamp = Timestamp(seconds: seconds, nanoseconds: nanoseconds).dateValue()
+        } else {
+            print("No timestamp found for AirServiceRequest")
         }
         
         if let officeDict = dict["office"] as? [String: Any],

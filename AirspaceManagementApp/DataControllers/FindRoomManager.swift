@@ -14,6 +14,25 @@ class FindRoomManager {
     static let shared = FindRoomManager()
     lazy var functions = Functions.functions()
     let storageRef = Storage.storage().reference()
+    
+    
+    public func getAllConferenceRoomsForUser(completionHandler: @escaping ([AirConferenceRoom]?, Error?) -> Void) {
+        functions.httpsCallable("getAllConferenceRoomsForUser").call { (result, error) in
+            if let error = error {
+                completionHandler(nil, error)
+            } else if let resultData = result?.data as? [[String: Any]] {
+                var rooms = [AirConferenceRoom]()
+                for result in resultData {
+                    if let room = AirConferenceRoom(dict: result) {
+                        rooms.append(room)
+                    }
+                }
+                completionHandler(rooms, nil)
+            } else {
+                completionHandler(nil, NSError())
+            }
+        }
+    }
 
     
     public func findAvailableConferenceRooms(officeUID: String, startDate: Date?, duration: Duration?, amenities: [RoomAmenity]?, capacity: Int?, completionHandler: @escaping ([AirConferenceRoom]?, Error?) -> Void) {

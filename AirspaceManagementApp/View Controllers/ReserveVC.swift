@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import BetterSegmentedControl
+import NVActivityIndicatorView
+import SwiftPullToRefresh
 
 class ReserveVC: UIViewController {
     
@@ -19,6 +21,8 @@ class ReserveVC: UIViewController {
     var deskSections = [ReserveVCSection(type: .quickReserveDesk), ReserveVCSection(type: .reserveDesk), ReserveVCSection(type: .allDesks)]
     var timeRangeOptions = [CarouselCVCellItem]()
     var type = ReserveVCConfiguration.conferenceRooms
+    var allConferenceRooms = [AirConferenceRoom]()
+    var loadingIndicator: NVActivityIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +32,14 @@ class ReserveVC: UIViewController {
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
         self.tableView.register(UINib(nibName: "SeeMoreTVC", bundle: nil), forCellReuseIdentifier: "SeeMoreTVC")
+        self.tableView.register(UINib(nibName: "ConferenceRoomTVCell", bundle: nil), forCellReuseIdentifier: "ConferenceRoomTVCell")
+
+        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
+        self.tableView.addSubview(self.loadingIndicator!)
+        
+        self.tableView.spr_setTextHeader { [weak self] in
+            self?.loadData()
+        }
         
         let control = BetterSegmentedControl(
             frame: CGRect(x: 0, y: 0, width: topVIew.frame.width, height: topVIew.frame.height),
@@ -46,6 +58,8 @@ class ReserveVC: UIViewController {
         self.sections = self.roomSections
         
         self.updateTimeRangeOptions()
+        
+        self.loadAllConferenceRooms()
     }
     
     @objc func controlValueChanged(_ sender: BetterSegmentedControl) {
@@ -190,6 +204,23 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let section = self.sections[section]
+        switch section.type {
+        case .none:
+            return 0
+        case .some(.quickReserveDesk):
+            break
+        case .some(.allRooms):
+            return self.allConferenceRooms.count
+        case .some(.allDesks):
+            break
+        case .some(.quickReserveRoom):
+            break
+        case .some(.reserveDesk):
+            break
+        case .some(.reserveRoom):
+            break
+        }
         return 1
     }
     
@@ -268,7 +299,11 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
 //            cell.setCarouselItems(with: [CarouselCVCellItem(title: "Volantis", subtitle: "Seats 8 | Apple TV • Whiteboard • Video Conf.", image: UIImage(named: "room-3")!), CarouselCVCellItem(title: "Bay of Dragons", subtitle: "Seats 15 | Apple TV • Whiteboard • Video Conf.", image: UIImage(named: "room-4")!)])
 //            return cell
         case .allRooms:
-            break
+            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ConferenceRoomTVCell", for: indexPath) as? ConferenceRoomTVCell else {
+                return UITableViewCell()
+            }
+            cell.configureCell(with: self.allConferenceRooms[indexPath.row], startingAt: Date(), delegate: self)
+            return cell
         case .allDesks:
             break
         }
@@ -320,5 +355,42 @@ extension ReserveVC: CarouselTVCellDelegate {
             destination.dataController = dataController
             destination.dataController?.shouldAutomaticallySubmit = true
         }
+    }
+}
+
+extension ReserveVC {
+    
+    func loadData() {
+        switch self.type {
+        case .conferenceRooms:
+            loadAllConferenceRooms()
+        case .hotDesks:
+            break
+        }
+    }
+
+    func loadAllConferenceRooms() {
+        self.loadingIndicator?.startAnimating()
+        FindRoomManager.shared.getAllConferenceRoomsForUser { (rooms, error) in
+            self.tableView.spr_endRefreshing()
+            self.loadingIndicator?.stopAnimating()
+            if let error = error {
+                // handle error
+                return
+            } else if let rooms = rooms {
+                self.allConferenceRooms = rooms
+                self.tableView.reloadData()
+            } else {
+                // handle error
+                return
+            }
+        }
+    }
+}
+
+extension ReserveVC: ConferenceRoomTVCellDelegate {
+    func didSelectCollectionView(for room: AirConferenceRoom) {
+        //perform segue to room profile
+        return
     }
 }

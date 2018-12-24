@@ -50,9 +50,23 @@ extension UITableViewCell {
     }
     
     func configureCell(with notification: AirNotification) {
-        self.textLabel?.text = "Title"
-        self.detailTextLabel?.text = "Subtitle"
-        self.imageView?.image = UIImage(named: "serv-req-icon")
+        guard let uid = notification.uid,
+            let type = notification.type,
+            let readStatus = notification.readStatus,
+            let data = notification.data else {
+            // handle error state cell
+            return
+        }
+        switch type {
+        case .serviceRequestUpdate:
+            self.textLabel?.text = type.title
+            self.detailTextLabel?.text = "service request subtitle"
+            self.imageView?.image = UIImage(named: "serv-req-icon")
+        case .arrivedGuestUpdate:
+            self.textLabel?.text = type.title
+            self.detailTextLabel?.text = "guest subtitle"
+            self.imageView?.image = UIImage(named: "register-guest-icon")
+        }
     }
 
     

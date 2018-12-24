@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import NVActivityIndicatorView
+import SwiftPullToRefresh
 
 class NotificationsVC: UIViewController {
     
@@ -26,9 +27,20 @@ class NotificationsVC: UIViewController {
         self.tableView.separatorStyle = .none
         self.tableView.rowHeight = CGFloat(100)
         self.tableView.estimatedRowHeight = UITableView.automaticDimension
+        self.tableView.register(UINib(nibName: reuseID, bundle: nil), forCellReuseIdentifier: reuseID)
+        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
+        self.tableView.addSubview(self.loadingIndicator!)
         
         if self.dataController == nil {
             self.dataController = NotificationVCDataController(delegate: self)
+        }
+        
+        self.tableView.spr_setTextHeader { [weak self] in
+            if let _ = self?.dataController {
+                self?.dataController?.loadNotifications()
+            } else {
+                 self?.tableView.spr_endRefreshing()
+            }
         }
     }
 }
@@ -36,12 +48,12 @@ class NotificationsVC: UIViewController {
 extension NotificationsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let notification = self.notifications[indexPath.row]
-        guard let notificationType = notification.type else { return }
-        switch notificationType {
-        case .serviceRequestStatusChange:
-            return
-        }
+//        let notification = self.notifications[indexPath.row]
+//        guard let notificationType = notification.type else { return }
+//        switch notificationType {
+//        case .serviceRequestStatusChange:
+//            return
+//        }
     }
 }
 
@@ -56,17 +68,21 @@ extension NotificationsVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: reuseID)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as? NotificationTVCell else {
+            return UITableViewCell()
+        }
         // need to write configureCell function
-        cell.configureCell(with: notifications[indexPath.row])
+        cell.configure(with: notifications[indexPath.row])
         return cell
     }
 }
 
 extension NotificationsVC: NotificationVCDataControllerDelegate {
     func didLoadNotifications(_ notifications: [AirNotification]?, with error: Error?) {
+        self.tableView.spr_endRefreshing()
         if let notifications = notifications {
             self.notifications = notifications
+            self.tableView.reloadData()
         } else if let _ = error {
             // handle error
             return

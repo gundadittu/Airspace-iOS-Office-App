@@ -62,6 +62,9 @@
 		045C28E8217CE6C00017C121 /* SubmitTicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C28E7217CE6C00017C121 /* SubmitTicketTableViewCell.swift */; };
 		046CC9B521D03DC000DC1993 /* AirNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CC9B421D03DC000DC1993 /* AirNotification.swift */; };
 		046CC9B721D0478300DC1993 /* NotificationVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CC9B621D0478300DC1993 /* NotificationVCDataController.swift */; };
+		046CC9B921D068B200DC1993 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CC9B821D068B200DC1993 /* NotificationManager.swift */; };
+		046CC9BC21D07EFF00DC1993 /* NotificationTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CC9BA21D07EFF00DC1993 /* NotificationTVCell.swift */; };
+		046CC9BD21D07EFF00DC1993 /* NotificationTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046CC9BB21D07EFF00DC1993 /* NotificationTVCell.xib */; };
 		046D8BF221CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D8BF021CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.swift */; };
 		046D8BF321CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046D8BF121CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.xib */; };
 		0476C1E621B0E77900ED87F8 /* ServiceRequestVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476C1E521B0E77900ED87F8 /* ServiceRequestVCDataController.swift */; };
@@ -150,6 +153,9 @@
 		045C28E7217CE6C00017C121 /* SubmitTicketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitTicketTableViewCell.swift; sourceTree = "<group>"; };
 		046CC9B421D03DC000DC1993 /* AirNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirNotification.swift; sourceTree = "<group>"; };
 		046CC9B621D0478300DC1993 /* NotificationVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVCDataController.swift; sourceTree = "<group>"; };
+		046CC9B821D068B200DC1993 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		046CC9BA21D07EFF00DC1993 /* NotificationTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTVCell.swift; sourceTree = "<group>"; };
+		046CC9BB21D07EFF00DC1993 /* NotificationTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTVCell.xib; sourceTree = "<group>"; };
 		046D8BF021CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceRoomDetailedTVC.swift; sourceTree = "<group>"; };
 		046D8BF121CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConferenceRoomDetailedTVC.xib; sourceTree = "<group>"; };
 		0476C1E521B0E77900ED87F8 /* ServiceRequestVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequestVCDataController.swift; sourceTree = "<group>"; };
@@ -213,6 +219,7 @@
 				04247FB421CF204400DA6E5E /* ConferenceRoomProfileDataController.swift */,
 				0429F22921CF48CA00BAECAA /* OfficeManager.swift */,
 				046CC9B621D0478300DC1993 /* NotificationVCDataController.swift */,
+				046CC9B821D068B200DC1993 /* NotificationManager.swift */,
 			);
 			path = DataControllers;
 			sourceTree = "<group>";
@@ -331,6 +338,8 @@
 				04C7133D21CC50BD00F3D62F /* HourBookingCVC.xib */,
 				046D8BF021CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.swift */,
 				046D8BF121CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.xib */,
+				046CC9BA21D07EFF00DC1993 /* NotificationTVCell.swift */,
+				046CC9BB21D07EFF00DC1993 /* NotificationTVCell.xib */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -435,6 +444,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046CC9BD21D07EFF00DC1993 /* NotificationTVCell.xib in Resources */,
 				0407E04F21840BE100C516BC /* background-video.mp4 in Resources */,
 				040E988F21A3A7D400143CA5 /* FormTVCell.xib in Resources */,
 				046D8BF321CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.xib in Resources */,
@@ -497,6 +507,7 @@
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftPullToRefresh/SwiftPullToRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyButton/SwiftyButton.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
@@ -521,6 +532,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftPullToRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
@@ -578,6 +590,7 @@
 				0413D2CD21C8560900E2C5F3 /* AirServiceRequest.swift in Sources */,
 				0413D2C921C81ABD00E2C5F3 /* TextInputVC.swift in Sources */,
 				043CA237217E87C6008703FC /* NotificationsVC.swift in Sources */,
+				046CC9BC21D07EFF00DC1993 /* NotificationTVCell.swift in Sources */,
 				045520BC2177C5EB0033D33B /* MainTableViewCell.swift in Sources */,
 				0413D2CB21C821F900E2C5F3 /* ServiceRequestManager.swift in Sources */,
 				04C7133E21CC50BD00F3D62F /* HourBookingCVC.swift in Sources */,
@@ -597,6 +610,7 @@
 				0455209A217548F50033D33B /* AppDelegate.swift in Sources */,
 				0413D2CF21C889D200E2C5F3 /* MyServReqTVC.swift in Sources */,
 				04C7133B21CC453C00F3D62F /* RoomListTVC.swift in Sources */,
+				046CC9B921D068B200DC1993 /* NotificationManager.swift in Sources */,
 				04D8D6952183E68B0079380F /* Yelp.swift in Sources */,
 				042AF9A521A71C5F00E7048B /* AirGuestRegistration.swift in Sources */,
 				043CA245217FEC8C008703FC /* ProfileSections.swift in Sources */,

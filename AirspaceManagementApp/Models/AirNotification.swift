@@ -7,14 +7,18 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 enum AirNotificationType: String {
-    case serviceRequestStatusChange = "serviceRequestStatusChange"
+    case serviceRequestUpdate = "serviceRequestUpdate"
+    case arrivedGuestUpdate = "arrivedGuestUpdate"
     
     var title: String {
         switch self {
-        case .serviceRequestStatusChange:
-            return "Update on your Service Request"
+        case .serviceRequestUpdate:
+            return "Service request update"
+        case .arrivedGuestUpdate:
+            return "Your guest has arrived"
         }
     }
 }
@@ -24,6 +28,9 @@ class AirNotification: NSObject {
     var type: AirNotificationType?
     var readStatus: Bool?
     var data: [String: Any]?
+    var timestamp: Date?
+    var title: String?
+    var body: String?
     
     public init?(dict: [String: Any]) {
         
@@ -42,6 +49,20 @@ class AirNotification: NSObject {
             return nil
         }
         
+        if let title = dict["title"] as? String {
+            self.title = title
+        } else {
+            print("No title found for AirNotification")
+            return nil
+        }
+        
+        if let body = dict["body"] as? String {
+            self.body = body
+        } else {
+            print("No body found for AirNotification")
+            return nil
+        }
+        
         if let readStatus = dict["readStatus"] as? Bool {
             self.readStatus = readStatus
         } else {
@@ -52,6 +73,14 @@ class AirNotification: NSObject {
             self.data = data
         } else {
             print("No data found for AirNotification")
+        }
+        
+        if let timestampDict = dict["timestamp"] as? [String:Any],
+            let seconds = timestampDict["_seconds"] as? Int64,
+            let nanoseconds = timestampDict["_nanoseconds"] as? Int32 {
+            self.timestamp = Timestamp(seconds: seconds, nanoseconds: nanoseconds).dateValue()
+        } else {
+            print("No timestamp found for AirNotification")
         }
     }
 }
