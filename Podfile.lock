@@ -125,7 +125,6 @@ PODS:
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.14.0)
   - GTMSessionFetcher/Core (1.2.1)
-  - Instabug (8.0.17)
   - JVFloatLabeledTextField (1.2.1)
   - Kingfisher (4.10.1)
   - leveldb-library (1.20)
@@ -159,7 +158,6 @@ DEPENDENCIES:
   - Firebase/Functions
   - Firebase/Messaging
   - Firebase/Storage
-  - Instabug
   - JVFloatLabeledTextField
   - Kingfisher (~> 4.0)
   - NotificationBannerSwift
@@ -191,7 +189,6 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
-    - Instabug
     - JVFloatLabeledTextField
     - Kingfisher
     - leveldb-library
@@ -237,7 +234,6 @@ SPEC CHECKSUMS:
   "gRPC-C++": 19eec1ffd34de29453f5fab5b4697ad0f240ad51
   gRPC-Core: f4836515817c0eb479aeeb9cc27c91c4ba62a9f6
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
-  Instabug: 399f0ce0ac407adcd157c4a0693918442b13d9c3
   JVFloatLabeledTextField: cfc44e3c4d493b2ed92ede8035e8e89c2912ba64
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
@@ -251,6 +247,6 @@ SPEC CHECKSUMS:
   SwiftPullToRefresh: 7949588ace920cc6898b57799d7f5cd5db9ea9a3
   SwiftyButton: 5b0ef314e9cf61cf8a83e456ddd1ea1f53f30598
 
-PODFILE CHECKSUM: a0eaa1c2afd15f25daa94b590ae2cdf77eb27ed2
+PODFILE CHECKSUM: 319f3abc9fb76bb60af7094776cf10cc81ce2877
 
 COCOAPODS: 1.5.3
