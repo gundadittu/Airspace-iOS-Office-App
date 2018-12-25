@@ -25,7 +25,7 @@ class RoomListTVC: UITableViewController {
         self.tableView.backgroundColor = UIColor.flatWhite
          self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(didClickFilter))
         
-        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         
         self.tableView.spr_setTextHeader { [weak self] in
@@ -49,7 +49,7 @@ class RoomListTVC: UITableViewController {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ConferenceRoomTVCell", for: indexPath) as? ConferenceRoomTVCell else {
             return UITableViewCell()
         }
-        cell.configureCell(with: self.conferenceRooms[indexPath.row], startingAt: self.startingDate, delegate: self)
+        cell.configureCell(with: self.conferenceRooms[indexPath.row], startingAt: self.dataController?.selectedStartDate ?? Date(), delegate: self)
         return cell 
     }
     

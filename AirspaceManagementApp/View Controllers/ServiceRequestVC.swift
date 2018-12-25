@@ -54,7 +54,7 @@ class ServiceRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         
         self.dataController = ServiceRequestVCDataController(delegate: self)

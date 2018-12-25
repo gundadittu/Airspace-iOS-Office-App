@@ -38,7 +38,7 @@ class MyServReqTVC: UITableViewController {
         super.viewDidLoad()
         self.title = "My Service Requests"
         
-        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         
         self.loadData()

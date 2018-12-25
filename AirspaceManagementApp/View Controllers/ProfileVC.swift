@@ -40,7 +40,7 @@ class ProfileVC: UIViewController {
         
         self.dataController = ProfileVCDataController(delegate: self)
         
-        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         
         let settings = UIBarButtonItem(image: UIImage(named: "settings-icon"), style: .plain, target: self, action: #selector(ProfileVC.didTapSettings))

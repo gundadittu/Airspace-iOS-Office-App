@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 import NVActivityIndicatorView
 import SwiftPullToRefresh
-import NotificationBannerSwift
+//import NotificationBannerSwift
+import CFAlertViewController
 
 enum ConferenceRoomProfileSectionType {
     case bio
@@ -60,7 +61,7 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
         self.tableView.allowsSelection = false
         
         
-        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.tableView.addSubview(self.loadingIndicator!)
         
         self.tableView.spr_setTextHeader { [weak self] in
@@ -73,13 +74,14 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
         
         if self.dataController == nil {
             self.dataController = ConferenceRoomProfileDataController(delegate: self)
-            self.dataController?.setConferenceRoom(with: conferenceRoom)
-            if let startDate = self.startDate {
-                self.dataController?.setSelectedStartDate(with: startDate)
-            }
-            if let endDate = self.endDate {
-                self.dataController?.setSelectedEndDate(with: endDate)
-            }
+        }
+        self.dataController?.setConferenceRoom(with: conferenceRoom)
+        if let startDate = self.startDate {
+            self.existingResDisplayStartDate = startDate.getBeginningOfDay ?? Date()
+            self.dataController?.setSelectedStartDate(with: startDate)
+        }
+        if let endDate = self.endDate {
+            self.dataController?.setSelectedEndDate(with: endDate)
         }
         
         self.bottomViewBtn.setTitleColor(.white, for: .normal)
@@ -89,6 +91,8 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
         self.bottomView.layer.shadowOffset = CGSize.zero
         self.bottomView.layer.shadowRadius = 2
     }
+    
+    
     @IBAction func bottomViewBtnTapped(_ sender: Any) {
         self.dataController?.submitData()
     }
@@ -102,6 +106,7 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
 
             if (identifier == "chooseReservationDate") {
                 destination.mode = .date
+                destination.minimumDate = Date()
                 destination.initialDate = self.existingResDisplayStartDate
             } else if (identifier == "chooseStartDate") {
                 destination.mode = .time
@@ -111,11 +116,6 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
                 } else {
                     destination.initialDate = self.existingResDisplayStartDate
                 }
-                
-                if let endDate = self.dataController?.selectedEndDate {
-                    destination.maximumDate = endDate
-                }
-                
             } else if (identifier == "chooseEndDate") {
                 destination.mode = .time
                 
@@ -272,12 +272,24 @@ extension ConferenceRoomProfileTVC: FormTVCellDelegate {
 extension ConferenceRoomProfileTVC: ConferenceRoomProfileDataControllerDelegate {
     func didFinishSubmittingData(withError error: Error?) {
         if let _ = error {
-            let banner = StatusBarNotificationBanner(title: "Error creating reservation.", style: .danger)
-            banner.show()
-            return
+            let alertController = CFAlertViewController(title: "Oh no!🤯", message: "There was an issue reserving this room.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+            
+            let action = CFAlertAction(title: "Ok", style: .Default, alignment: .left, backgroundColor: .red, textColor: .black, handler: nil)
+            alertController.addAction(action)
+            self.present(alertController, animated: true)
         } else {
-            let banner = NotificationBanner(title: "Get Working!", subtitle: "Your reservation was sucessfully created.", leftView: nil, rightView: nil, style: .success, colors: nil)
-            banner.show()
+            let alertController = CFAlertViewController(title: "Get Working!🤟🏼 ", message: "Your reservations has been confirmed.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+            
+            let action = CFAlertAction(title: "Sounds Good", style: .Default, alignment: .right, backgroundColor: globalColor, textColor: nil) { (action) in
+                for controller in self.navigationController!.viewControllers as Array {
+                    if controller.isKind(of: ReserveVC.self) {
+                        self.navigationController!.popToViewController(controller, animated: true)
+                        break
+                    }
+                }
+            }
+            alertController.addAction(action)
+            self.present(alertController, animated: true)
         }
     }
     
@@ -291,7 +303,10 @@ extension ConferenceRoomProfileTVC: ConferenceRoomProfileDataControllerDelegate 
 extension ConferenceRoomProfileTVC: ConferenceRoomDetailedTVCDelegate {
     
     func didFindConflict() {
-        //handle conflict by displaying alert to tell user
+        let alertController = CFAlertViewController(title: "Oh no!", message: "This conference room is not available during the selected time frame.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+        let action = CFAlertAction(title: "Ok 😕", style: .Default, alignment: .left, backgroundColor: globalColor, textColor: .black, handler: nil)
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
     }
     
     func didChooseNewDates(start: Date, end: Date) {
@@ -301,6 +316,7 @@ extension ConferenceRoomProfileTVC: ConferenceRoomDetailedTVCDelegate {
     
     func didTapWhenDateButton() {
         // clicked when date button -> show date picker
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.performSegue(withIdentifier: "toDateInputVC", sender: "chooseReservationDate")
     }
     
@@ -313,10 +329,12 @@ extension ConferenceRoomProfileTVC: ConferenceRoomDetailedTVCDelegate {
     }
     
     func startLoadingIndicator() {
+        self.showActivityIndicator()
         self.loadingIndicator?.startAnimating()
     }
     
     func stopLoadingIndicator() {
+        self.hideActivityIndicator()
         self.loadingIndicator?.stopAnimating()
         self.tableView.spr_endRefreshing()
     }
@@ -358,7 +376,16 @@ extension ConferenceRoomProfileTVC: DateTimeInputVCDelegate, TextInputVCDelegate
             self.dataController?.setSelectedEndDate(with: date)
             self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
         }
-
+    }
+    
+    func changeInDate(interval: TimeInterval, and identifier: String?) {
+        //auto increase end date after increasing start date
+        if identifier == "chooseStartDate" {
+            if let currEndDate = self.dataController?.selectedEndDate {
+                let newEndDate = currEndDate.addingTimeInterval(interval)
+                self.dataController?.setSelectedEndDate(with: newEndDate)
+            }
+        }
     }
     
     func switchDidChangeValue(to value: Bool) {

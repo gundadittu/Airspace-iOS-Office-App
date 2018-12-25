@@ -11,6 +11,13 @@ import SwiftDate
 
 protocol DateTimeInputVCDelegate {
     func didSaveInput(with date: Date, and identifier: String?)
+    func changeInDate(interval: TimeInterval, and identifier: String?)
+}
+
+extension DateTimeInputVCDelegate {
+    func changeInDate(interval: TimeInterval, and identifier: String?) {
+        // makes method optional
+    }
 }
 
 class DateTimeInputVC: UIViewController {
@@ -44,6 +51,7 @@ class DateTimeInputVC: UIViewController {
         if let minimumDate = self.minimumDate  {
             self.dateTimePicker.minimumDate = minimumDate
         } else if let initialDate = self.initialDate {
+            // initial date, but no minimum
             if initialDate.isToday {
                 self.dateTimePicker.minimumDate = Date()
             } else {
@@ -63,6 +71,9 @@ class DateTimeInputVC: UIViewController {
             // no minimum & no initial date
             self.dateTimePicker.minimumDate = Date()
         }
+        if let initialDate = self.initialDate {
+            self.initialDate = initialDate
+        }
         
         if let maxDate = self.maximumDate {
             self.dateTimePicker.maximumDate = maxDate
@@ -80,9 +91,12 @@ class DateTimeInputVC: UIViewController {
     
     @objc func didClickSave() {
         let date = self.dateTimePicker.date
+        if let initialDate = self.initialDate {
+            let differenceInterval = date.timeIntervalSince(initialDate)
+            self.delegate?.changeInDate(interval: differenceInterval, and: self.identifier)
+        }
         self.delegate?.didSaveInput(with: date, and: self.identifier)
         self.navigationController?.popViewController(animated: true)
     }
-    
 }
 

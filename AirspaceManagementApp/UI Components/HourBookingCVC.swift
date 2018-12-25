@@ -26,7 +26,12 @@ class HourBookingCVC: UICollectionViewCell {
     
     public func configure(with date: Date, with reservations: [AirConferenceRoomReservation]) {
         self.startingDate = date
-        self.endingDate = date.addingTimeInterval(TimeInterval(3600))
+        self.endingDate = date.addingTimeInterval(TimeInterval(3599))
+        
+        let interval = DateInterval(start: self.startingDate!, end: self.endingDate!)
+        if interval.contains(Date()) {
+            self.titleLabel.textColor = globalColor
+        }
        
         self.setTitleLabelForCell(with: date)
         
@@ -183,6 +188,7 @@ class HourBookingCVC: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.titleLabel.text = ""
+        self.titleLabel.textColor = .black
         for view in self.subviews where view.tag == 2 {
             view.removeFromSuperview()
         }

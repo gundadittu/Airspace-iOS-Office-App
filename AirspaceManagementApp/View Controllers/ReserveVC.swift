@@ -23,6 +23,7 @@ class ReserveVC: UIViewController {
     var type = ReserveVCConfiguration.conferenceRooms
     var allConferenceRooms = [AirConferenceRoom]()
     var loadingIndicator: NVActivityIndicatorView?
+    var allRoomsStartDate = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +35,7 @@ class ReserveVC: UIViewController {
         self.tableView.register(UINib(nibName: "SeeMoreTVC", bundle: nil), forCellReuseIdentifier: "SeeMoreTVC")
         self.tableView.register(UINib(nibName: "ConferenceRoomTVCell", bundle: nil), forCellReuseIdentifier: "ConferenceRoomTVCell")
 
-        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.tableView.addSubview(self.loadingIndicator!)
         
         self.tableView.spr_setTextHeader { [weak self] in
@@ -164,7 +165,7 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
         case .quickReserveDesk:
             break
         case .allRooms:
-            let room = self.allConferenceRooms[indexPath.row]
+            let room = self.allConferenceRooms[indexPath.row-1]
             self.performSegue(withIdentifier: "toConferenceRoomProfileTVC", sender: room)
         case .allDesks:
              break
@@ -212,7 +213,7 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
         case .some(.quickReserveDesk):
             break
         case .some(.allRooms):
-            return self.allConferenceRooms.count
+            return (self.allConferenceRooms.count + 1)
         case .some(.allDesks):
             break
         case .some(.quickReserveRoom):
@@ -300,11 +301,20 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
 //            cell.setCarouselItems(with: [CarouselCVCellItem(title: "Volantis", subtitle: "Seats 8 | Apple TV • Whiteboard • Video Conf.", image: UIImage(named: "room-3")!), CarouselCVCellItem(title: "Bay of Dragons", subtitle: "Seats 15 | Apple TV • Whiteboard • Video Conf.", image: UIImage(named: "room-4")!)])
 //            return cell
         case .allRooms:
-            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ConferenceRoomTVCell", for: indexPath) as? ConferenceRoomTVCell else {
-                return UITableViewCell()
+            
+            if indexPath.row == 0 {
+                guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ChooseDateTVCell", for: indexPath) as? ChooseDateCell else {
+                    return UITableViewCell()
+                }
+                cell.setCell(with: self.allRoomsStartDate, and: self)
+                return cell
+            } else {
+                guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ConferenceRoomTVCell", for: indexPath) as? ConferenceRoomTVCell else {
+                    return UITableViewCell()
+                }
+                cell.configureCell(with: self.allConferenceRooms[indexPath.row-1], startingAt: self.allRoomsStartDate, delegate: self)
+                return cell
             }
-            cell.configureCell(with: self.allConferenceRooms[indexPath.row], startingAt: Date(), delegate: self)
-            return cell
         case .allDesks:
             break
         }
@@ -358,6 +368,29 @@ extension ReserveVC: CarouselTVCellDelegate {
             let destination = segue.destination as? ConferenceRoomProfileTVC,
             let room = sender as? AirConferenceRoom {
             destination.conferenceRoom = room
+        } else if segue.identifier == "toDateInputVC",
+            let destination = segue.destination as? DateTimeInputVC {
+            destination.mode = .date
+            switch self.type {
+            case .conferenceRooms:
+                destination.minimumDate = Date()
+                destination.initialDate = self.allRoomsStartDate
+                destination.delegate = self
+            case .hotDesks:
+                break
+            }
+        }
+    }
+}
+
+extension ReserveVC: DateTimeInputVCDelegate {
+    func didSaveInput(with date: Date, and identifier: String?) {
+        switch self.type {
+        case .conferenceRooms:
+            self.allRoomsStartDate = date
+            self.tableView.reloadData()
+        case .hotDesks:
+            break
         }
     }
 }
@@ -396,5 +429,39 @@ extension ReserveVC: ConferenceRoomTVCellDelegate {
     func didSelectCollectionView(for room: AirConferenceRoom) {
         //perform segue to room profile
         self.performSegue(withIdentifier: "toConferenceRoomProfileTVC", sender: room)
+    }
+}
+
+extension ReserveVC: ChooseDateCellDelegate {
+    func didTapChooseDateButton() {
+        self.performSegue(withIdentifier: "toDateInputVC", sender: nil)
+    }
+}
+
+protocol ChooseDateCellDelegate {
+    func didTapChooseDateButton()
+}
+
+class ChooseDateCell: UITableViewCell {
+    @IBOutlet weak var chooseDateBtn: UIButton!
+    var delegate: ChooseDateCellDelegate?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        chooseDateBtn.setTitleColor(globalColor, for: .normal)
+    }
+    public func setCell(with date: Date, and delegate: ChooseDateCellDelegate) {
+        if date.isToday {
+            self.chooseDateBtn.setTitle("Today", for: .normal)
+        } else if date.isTomorrow {
+            self.chooseDateBtn.setTitle("Tomorrow", for: .normal)
+        } else {
+            self.chooseDateBtn.setTitle(date.localizedMedDateDescription, for: .normal)
+        }
+       
+        self.delegate = delegate
+    }
+    @IBAction func didTapDateBtn(_ sender: Any) {
+        self.delegate?.didTapChooseDateButton()
     }
 }

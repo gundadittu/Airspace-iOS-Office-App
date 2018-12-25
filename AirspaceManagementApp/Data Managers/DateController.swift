@@ -49,6 +49,15 @@ extension Date {
 
         return dateString
     }
+    
+    var getBeginningOfDay: Date? {
+        var dateComponents =  Calendar.current.dateComponents(in: TimeZone.current, from: self)
+        dateComponents.setValue(0, for: .hour)
+        dateComponents.setValue(0, for: .minute)
+        dateComponents.setValue(0, for: .second)
+        dateComponents.setValue(0, for: .nanosecond)
+        return dateComponents.date
+    }
 }
 
 extension Date {

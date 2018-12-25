@@ -50,7 +50,7 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         self.usernameTextField.delegate = self 
         self.passwordTextField.delegate = self
         
-        self.loadingIndicator = getGLobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.view)
         self.view.addSubview(self.loadingIndicator!)
     }
     

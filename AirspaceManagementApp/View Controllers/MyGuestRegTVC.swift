@@ -37,7 +37,7 @@ class MyGuestRegTVC: UITableViewController {
         self.title = "My Registered Guests"
 //        self.tableView.separatorStyle = .none
         
-        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         
         loadData()

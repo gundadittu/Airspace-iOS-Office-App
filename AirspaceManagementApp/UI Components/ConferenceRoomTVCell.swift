@@ -21,7 +21,7 @@ class ConferenceRoomTVCell: UITableViewCell {
     @IBOutlet weak var secondSubtitleLabel: UILabel!
     
     var hourSegments = [Date]()
-    var hourSegmentsCount = 8
+    var hourSegmentsCount = 12
     var reservations = [AirConferenceRoomReservation]()
     var conferenceRoom: AirConferenceRoom?
     var timeRangeStartDate = Date()
@@ -41,7 +41,7 @@ class ConferenceRoomTVCell: UITableViewCell {
         self.bannerImage.layer.mask = gradient
     }
     
-    func configureCell(with room: AirConferenceRoom, startingAt reservationRangeStartDate: Date?, delegate: ConferenceRoomTVCellDelegate, hourSegmentCount: Int = 8) {
+    func configureCell(with room: AirConferenceRoom, startingAt reservationRangeStartDate: Date?, delegate: ConferenceRoomTVCellDelegate, hourSegmentCount: Int = 12) {
         self.delegate = delegate
         self.hourSegmentsCount = hourSegmentCount
         
@@ -106,7 +106,7 @@ class ConferenceRoomTVCell: UITableViewCell {
             }
         }
         let view = UIView()
-        let viewWidth = self.bannerImage.frame.width/3
+        let viewWidth = self.bannerImage.frame.width/2
         let viewHeight = self.bannerImage.frame.height/5
         view.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: viewWidth, height: viewHeight)
         view.backgroundColor = backgroundColor
@@ -169,22 +169,27 @@ extension ConferenceRoomTVCell {
         }
         let firstDate = timeRangeStartDate
         var firstDateComponents =  Calendar.current.dateComponents(in: TimeZone.current, from: firstDate)
+        if self.timeRangeStartDate.isToday == false {
+            firstDateComponents.setValue(0, for: .hour)
+        }
         firstDateComponents.setValue(0, for: .minute)
         firstDateComponents.setValue(0, for: .second)
         firstDateComponents.setValue(0, for: .nanosecond)
+        
+        var localHourSegments = [Date]()
         if let firstHourDate = Calendar.current.date(from: firstDateComponents) {
-            self.hourSegments.append(firstHourDate)
+            localHourSegments.append(firstHourDate)
         }
         for _ in 2...hourSegmentsCount {
             if let currentHourCompVal = firstDateComponents.hour {
                 firstDateComponents.setValue(currentHourCompVal+1, for: .hour)
                 if let date = Calendar.current.date(from: firstDateComponents) {
-                    self.hourSegments.append(date)
+                    localHourSegments.append(date)
                 }
             }
         }
         
-        if let lastHourDate = self.hourSegments.last {
+        if let lastHourDate = localHourSegments.last {
             var endDateComponents =  Calendar.current.dateComponents(in: TimeZone.current, from: lastHourDate)
             if let endHourComponent = endDateComponents.hour  {
                 endDateComponents.setValue(endHourComponent+1, for: .hour)
@@ -193,6 +198,7 @@ extension ConferenceRoomTVCell {
                 }
             }
         }
+        self.hourSegments = localHourSegments
         self.collectionView.reloadData()
     }
     

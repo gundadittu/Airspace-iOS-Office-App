@@ -50,7 +50,7 @@ class RegisterGuestVC: UITableViewController {
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false
         
-        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         
         self.dataController = RegisterGuestTVCDataController(delegate: self)

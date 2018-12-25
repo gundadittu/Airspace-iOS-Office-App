@@ -15,6 +15,6 @@ let globalColor = UIColor(hexString: "f07c94")!
     //UIColor(hexString: "e38395")!
 
 // https://github.com/ninjaprox/NVActivityIndicatorView
-func getGLobalLoadingIndicator(in view: UIView) ->  NVActivityIndicatorView {
-    return NVActivityIndicatorView(frame: CGRect(x: (view.frame.width/2)-25, y: (view.frame.height/2)-150, width: 60, height: 60), type: .circleStrokeSpin, color: globalColor, padding: nil)
+func getGlobalLoadingIndicator(in view: UIView, with color: UIColor = globalColor, and size: CGFloat = 60, yOffset: CGFloat = 150) ->  NVActivityIndicatorView {
+    return NVActivityIndicatorView(frame: CGRect(x: (view.frame.width/2)-(size/2), y: (view.frame.height/2)-yOffset, width: size, height: size), type: .circleStrokeSpin, color: color, padding: nil)
 }

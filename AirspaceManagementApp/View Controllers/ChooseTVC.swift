@@ -77,7 +77,7 @@ class ChooseTVC: UITableViewController {
                 fatalError("Did not provide a type and/or delegate for ChooseTVC")
         }
         self.title = (type == .roomAmenities) ? "Choose Room Amenities": "Choose a \(type.rawValue)"
-        self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChooseCell")
         self.loadData()

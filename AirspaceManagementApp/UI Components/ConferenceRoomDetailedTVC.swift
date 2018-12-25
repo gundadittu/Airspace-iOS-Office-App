@@ -99,8 +99,15 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
     func configureCell(with room: AirConferenceRoom, for date: Date, newReservationStartDate: Date?, newReservationEndDate: Date?) {
         
         var conflict = false
-        if let start = newReservationStartDate, let end = newReservationEndDate {
+        if let start = newReservationStartDate,
+            let end = newReservationEndDate {
             conflict = self.checkForConflicts(start: start, end: end)
+        } else if let start = newReservationStartDate {
+            conflict = self.checkDateForConflicts(date: start)
+        } else if let end = newReservationEndDate {
+            conflict = self.checkDateForConflicts(date: end)
+        }
+        if (conflict == true) {
             self.delegate?.didFindConflict()
         }
         
@@ -116,7 +123,14 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
             self.timeRangeStartDate = reservationRangeStartDate
             self.timeRangeEndDate = reservationRangeEndDate
         }
-        self.whenDateBtn.setTitle(date.localizedMedDateDescription, for: .normal)
+        
+        if date.isToday {
+            self.whenDateBtn.setTitle("Today", for: .normal)
+        } else if date.isTomorrow {
+            self.whenDateBtn.setTitle("Tomorrow", for: .normal)
+        } else {
+            self.whenDateBtn.setTitle(date.localizedMedDateDescription, for: .normal)
+        }
         self.populateHourSegmentsAndDates(with: date)
         
         // Remove existing time slot view (given tag 1), so that new one can be configured 
@@ -297,6 +311,18 @@ extension ConferenceRoomDetailedTVC {
         return false
     }
     
+    func checkDateForConflicts(date: Date) -> Bool{
+        for reservation in self.reservations {
+            if let interval = reservation.getDateInterval() {
+                if interval.contains(date) {
+                    print(interval)
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     func addColorStatusBar() {
         var string = ""
         var backgroundColor = UIColor.flatGreenDark
@@ -326,7 +352,7 @@ extension ConferenceRoomDetailedTVC {
             }
         }
         let view = UIView()
-        let viewWidth = self.bannerImage.frame.width/3
+        let viewWidth = self.bannerImage.frame.width/2
         let viewHeight = self.bannerImage.frame.height/5
         view.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: viewWidth, height: viewHeight)
         view.backgroundColor = backgroundColor
