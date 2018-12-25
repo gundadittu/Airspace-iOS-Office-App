@@ -55,4 +55,23 @@ class ReservationManager {
             }
         }
     }
+    
+    func getAllConferenceRoomReservationsForUser(completionHandler: @escaping ([AirConferenceRoomReservation]?, Error?) -> Void) {
+        functions.httpsCallable("getAllConferenceRoomReservationsForUser").call { (result, error) in
+            if let error = error {
+                completionHandler(nil, error)
+            } else if let result = result,
+                let resultData = result.data as? [[String: Any]]  {
+                var reservations = [AirConferenceRoomReservation]()
+                for item in resultData {
+                    if let res = AirConferenceRoomReservation(dict: item) {
+                        reservations.append(res)
+                    }
+                }
+                completionHandler(reservations, nil)
+            } else {
+                completionHandler(nil, NSError())
+            }
+        }
+    }
 }

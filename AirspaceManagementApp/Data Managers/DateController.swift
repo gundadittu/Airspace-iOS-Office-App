@@ -18,6 +18,14 @@ extension Date {
         return shortDateString
     }
     
+    var localizedDescriptionNoDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        let shortDateString = dateFormatter.string(from: self)
+        return shortDateString
+    }
+    
     var localizedMedDateDescription: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium

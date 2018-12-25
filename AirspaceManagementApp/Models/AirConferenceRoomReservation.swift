@@ -14,7 +14,7 @@ class AirConferenceRoomReservation : NSObject {
     var startingDate: Date?
     var endDate: Date?
     var note: String?
-     var conferenceRoom: AirConferenceRoom?
+    var conferenceRoom: AirConferenceRoom?
     var conferenceRoomUID: String?
     var title: String?
     // var user: AirUser?
@@ -68,6 +68,13 @@ class AirConferenceRoomReservation : NSObject {
             self.conferenceRoomUID = roomUID
         } else {
             print("No conferenceRoomUID found for conference room reservation")
+        }
+        
+        if let conferenceRoomDict = dict["conferenceRoom"] as? [String: Any],
+            let conferenceRoom = AirConferenceRoom(dict: conferenceRoomDict) {
+            self.conferenceRoom = conferenceRoom
+        } else {
+            print("No conferenceRoom found for conference room reservation")
         }
     }
     

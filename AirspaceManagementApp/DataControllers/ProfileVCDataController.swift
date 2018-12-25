@@ -17,9 +17,12 @@ protocol ProfileVCDataControllerDelegate {
 class ProfileVCDataController {
     var upcomingGuests = [AirGuestRegistration]()
     var pastGuests = [AirGuestRegistration]()
+    
     var openSR = [AirServiceRequest]()
     var pendingSR = [AirServiceRequest]()
     var closedSR = [AirServiceRequest]()
+    
+    var reservations = [AirConferenceRoomReservation]()
 
     var delegate: ProfileVCDataControllerDelegate?
     
@@ -31,6 +34,7 @@ class ProfileVCDataController {
     func loadData() {
         self.loadUpcomingGuestRegistrations()
         self.loadServiceRequests()
+        self.loadConferenceRoomReservations()
     }
     
     func loadServiceRequests() {
@@ -55,12 +59,32 @@ class ProfileVCDataController {
         self.delegate?.startLoadingIndicator()
         RegisterGuestManager.shared.getUsersRegisteredGuests { (upcoming, past, error) in
             self.delegate?.stopLoadingIndicator()
+            
             // HANDLE ERROR
+            if let error = error {
+                return
+            }
+            
             if let upcoming = upcoming {
                 self.upcomingGuests = upcoming
             }
             if let past = past {
                 self.pastGuests = past
+            }
+            self.delegate?.didUpdateCarouselData()
+        }
+    }
+    
+    func loadConferenceRoomReservations() {
+        self.delegate?.startLoadingIndicator()
+        ReservationManager.shared.getAllConferenceRoomReservationsForUser { (reservations, error) in
+            self.delegate?.stopLoadingIndicator()
+            if let error = error {
+                // handle error
+                return
+            }
+            if let reservations = reservations {
+                self.reservations = reservations
             }
             self.delegate?.didUpdateCarouselData()
         }

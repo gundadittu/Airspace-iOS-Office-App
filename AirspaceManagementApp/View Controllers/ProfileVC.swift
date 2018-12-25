@@ -16,6 +16,7 @@ class ProfileVC: UIViewController {
     var dataController: ProfileVCDataController?
     var upcomingGuests = [AirGuestRegistration]()
     var serviceRequests = [AirServiceRequest]()
+    var reservations = [AirConferenceRoomReservation]()
     var loadingIndicator: NVActivityIndicatorView?
     
     var sections = [ProfileSection(title: "Bio", seeMoreTitle: "Edit Bio",type: .bioInfo),
@@ -157,7 +158,14 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                     tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
                     cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
                 }
-                cell.setCarouselItems(with: [CarouselCVCellItem(title: "King's Landing", subtitle: "Today 5 PM to 7 PM", image: UIImage(named: "room-5")!), CarouselCVCellItem(title: "Braavos", subtitle: "Friday 10 AM to 11:30 AM", image: UIImage(named: "room-3")!)])
+                
+                var carouselItems = [CarouselCVCellItem]()
+                for reservation in self.reservations {
+                    let item = CarouselCVCellItem(with: reservation)
+                    carouselItems.append(item)
+                }
+                
+                cell.setCarouselItems(with: carouselItems)
                 return cell
             } else if indexPath.row == 1 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
@@ -317,6 +325,10 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
             array.append(contentsOf: pending)
             self.serviceRequests = array
         }
+        if let reservations = self.dataController?.reservations {
+            self.reservations = reservations
+        }
+        
         self.tableView.reloadData()
     }
 }
