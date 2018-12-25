@@ -46,7 +46,6 @@
 		043CA250217FF236008703FC /* CarouselCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043CA24E217FF236008703FC /* CarouselCVCell.swift */; };
 		043CA251217FF236008703FC /* CarouselCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043CA24F217FF236008703FC /* CarouselCVCell.xib */; };
 		043EB1D5217CF69E00B40154 /* SubmitTicketField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EB1D4217CF69E00B40154 /* SubmitTicketField.swift */; };
-		043EB1D7217D00C400B40154 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EB1D6217D00C400B40154 /* MainCollectionViewCell.swift */; };
 		044F8E62218BF26000E84B0F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F8E61218BF26000E84B0F /* AuthManager.swift */; };
 		0455209A217548F50033D33B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04552099217548F50033D33B /* AppDelegate.swift */; };
 		0455209F217548F50033D33B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0455209D217548F50033D33B /* Main.storyboard */; };
@@ -59,12 +58,12 @@
 		045520BC2177C5EB0033D33B /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045520BB2177C5EB0033D33B /* MainTableViewCell.swift */; };
 		045C28E0217CD7A70017C121 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C28DF217CD7A70017C121 /* ProfileVC.swift */; };
 		045C28E6217CD8F40017C121 /* NavControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C28E5217CD8F40017C121 /* NavControllers.swift */; };
-		045C28E8217CE6C00017C121 /* SubmitTicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C28E7217CE6C00017C121 /* SubmitTicketTableViewCell.swift */; };
 		046CC9B521D03DC000DC1993 /* AirNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CC9B421D03DC000DC1993 /* AirNotification.swift */; };
 		046CC9B721D0478300DC1993 /* NotificationVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CC9B621D0478300DC1993 /* NotificationVCDataController.swift */; };
 		046CC9B921D068B200DC1993 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CC9B821D068B200DC1993 /* NotificationManager.swift */; };
 		046CC9BC21D07EFF00DC1993 /* NotificationTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CC9BA21D07EFF00DC1993 /* NotificationTVCell.swift */; };
 		046CC9BD21D07EFF00DC1993 /* NotificationTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046CC9BB21D07EFF00DC1993 /* NotificationTVCell.xib */; };
+		046CC9C121D15FD000DC1993 /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CC9BF21D15FD000DC1993 /* SettingsTVC.swift */; };
 		046D8BF221CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D8BF021CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.swift */; };
 		046D8BF321CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046D8BF121CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.xib */; };
 		0476C1E621B0E77900ED87F8 /* ServiceRequestVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476C1E521B0E77900ED87F8 /* ServiceRequestVCDataController.swift */; };
@@ -135,7 +134,6 @@
 		043CA24E217FF236008703FC /* CarouselCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVCell.swift; sourceTree = "<group>"; };
 		043CA24F217FF236008703FC /* CarouselCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselCVCell.xib; sourceTree = "<group>"; };
 		043EB1D4217CF69E00B40154 /* SubmitTicketField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitTicketField.swift; sourceTree = "<group>"; };
-		043EB1D6217D00C400B40154 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		044F8E61218BF26000E84B0F /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		04552096217548F50033D33B /* AirspaceManagementApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirspaceManagementApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04552099217548F50033D33B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -150,12 +148,12 @@
 		045520BB2177C5EB0033D33B /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		045C28DF217CD7A70017C121 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		045C28E5217CD8F40017C121 /* NavControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavControllers.swift; sourceTree = "<group>"; };
-		045C28E7217CE6C00017C121 /* SubmitTicketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitTicketTableViewCell.swift; sourceTree = "<group>"; };
 		046CC9B421D03DC000DC1993 /* AirNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirNotification.swift; sourceTree = "<group>"; };
 		046CC9B621D0478300DC1993 /* NotificationVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVCDataController.swift; sourceTree = "<group>"; };
 		046CC9B821D068B200DC1993 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		046CC9BA21D07EFF00DC1993 /* NotificationTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTVCell.swift; sourceTree = "<group>"; };
 		046CC9BB21D07EFF00DC1993 /* NotificationTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTVCell.xib; sourceTree = "<group>"; };
+		046CC9BF21D15FD000DC1993 /* SettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
 		046D8BF021CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceRoomDetailedTVC.swift; sourceTree = "<group>"; };
 		046D8BF121CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConferenceRoomDetailedTVC.xib; sourceTree = "<group>"; };
 		0476C1E521B0E77900ED87F8 /* ServiceRequestVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequestVCDataController.swift; sourceTree = "<group>"; };
@@ -205,21 +203,11 @@
 			isa = PBXGroup;
 			children = (
 				040E989321A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift */,
-				0422BB2421A4FB2700F9CD64 /* UserManager.swift */,
-				0422BB2821A5169100F9CD64 /* DateController.swift */,
-				0422BB2A21A525B400F9CD64 /* RegisterGuestManager.swift */,
 				042AF9A621A744EB00E7048B /* ProfileVCDataController.swift */,
 				0476C1E521B0E77900ED87F8 /* ServiceRequestVCDataController.swift */,
-				0413D2CA21C821F900E2C5F3 /* ServiceRequestManager.swift */,
 				04C7132A21C9840A00F3D62F /* FindRoomTVCDataController.swift */,
-				04C7133221C9B8DE00F3D62F /* FindRoomManager.swift */,
-				04C7134221CC864200F3D62F /* ReservationManager.swift */,
-				044F8E61218BF26000E84B0F /* AuthManager.swift */,
-				0407E0502184190500C516BC /* GlobalConstants.swift */,
 				04247FB421CF204400DA6E5E /* ConferenceRoomProfileDataController.swift */,
-				0429F22921CF48CA00BAECAA /* OfficeManager.swift */,
 				046CC9B621D0478300DC1993 /* NotificationVCDataController.swift */,
-				046CC9B821D068B200DC1993 /* NotificationManager.swift */,
 			);
 			path = DataControllers;
 			sourceTree = "<group>";
@@ -247,8 +235,7 @@
 			children = (
 				04A1740F21A60B10005D76D2 /* AirspaceManagementApp.entitlements */,
 				040E989221A3B1EB00143CA5 /* DataControllers */,
-				0407E04E21840BE000C516BC /* background-video.mp4 */,
-				04D8D6932183E6750079380F /* DataSources */,
+				046CC9BE21D0D5D100DC1993 /* Data Managers */,
 				045C28E4217CD8DB0017C121 /* Navigation Components */,
 				045C28E3217CD7D60017C121 /* UI Components */,
 				045C28E2217CD7C70017C121 /* Models */,
@@ -256,6 +243,7 @@
 				04552099217548F50033D33B /* AppDelegate.swift */,
 				0455209D217548F50033D33B /* Main.storyboard */,
 				045520A0217548F60033D33B /* Assets.xcassets */,
+				0407E04E21840BE000C516BC /* background-video.mp4 */,
 				045520A2217548F60033D33B /* LaunchScreen.storyboard */,
 				045520A5217548F60033D33B /* Info.plist */,
 				04A1741021A62438005D76D2 /* GoogleService-Info.plist */,
@@ -281,6 +269,7 @@
 				04C7132E21C98F8700F3D62F /* DateTimeInputVC.swift */,
 				04C7133A21CC453C00F3D62F /* RoomListTVC.swift */,
 				0478226621CCB8CA000A6FED /* ConferenceRoomProfileTVC.swift */,
+				046CC9BF21D15FD000DC1993 /* SettingsTVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -311,9 +300,8 @@
 		045C28E3217CD7D60017C121 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
+				0407E0502184190500C516BC /* GlobalConstants.swift */,
 				045520BB2177C5EB0033D33B /* MainTableViewCell.swift */,
-				045C28E7217CE6C00017C121 /* SubmitTicketTableViewCell.swift */,
-				043EB1D6217D00C400B40154 /* MainCollectionViewCell.swift */,
 				043CA248217FF0F7008703FC /* CarouselTVCell.swift */,
 				043CA249217FF0F7008703FC /* CarouselTVCell.xib */,
 				043CA24E217FF236008703FC /* CarouselCVCell.swift */,
@@ -353,12 +341,21 @@
 			path = "Navigation Components";
 			sourceTree = "<group>";
 		};
-		04D8D6932183E6750079380F /* DataSources */ = {
+		046CC9BE21D0D5D100DC1993 /* Data Managers */ = {
 			isa = PBXGroup;
 			children = (
+				0413D2CA21C821F900E2C5F3 /* ServiceRequestManager.swift */,
+				0422BB2821A5169100F9CD64 /* DateController.swift */,
+				0422BB2A21A525B400F9CD64 /* RegisterGuestManager.swift */,
+				046CC9B821D068B200DC1993 /* NotificationManager.swift */,
+				0429F22921CF48CA00BAECAA /* OfficeManager.swift */,
+				04C7134221CC864200F3D62F /* ReservationManager.swift */,
+				044F8E61218BF26000E84B0F /* AuthManager.swift */,
+				04C7133221C9B8DE00F3D62F /* FindRoomManager.swift */,
+				0422BB2421A4FB2700F9CD64 /* UserManager.swift */,
 				04D8D6942183E68B0079380F /* Yelp.swift */,
 			);
-			path = DataSources;
+			path = "Data Managers";
 			sourceTree = "<group>";
 		};
 		39E411A42304779E5373AB58 /* Frameworks */ = {
@@ -500,6 +497,8 @@
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${PODS_ROOT}/Instabug/Instabug.framework",
+				"${PODS_ROOT}/Instabug/Instabug.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/JVFloatLabeledTextField/JVFloatLabeledTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
@@ -525,6 +524,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instabug.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Instabug.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVFloatLabeledTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
@@ -615,7 +616,6 @@
 				042AF9A521A71C5F00E7048B /* AirGuestRegistration.swift in Sources */,
 				043CA245217FEC8C008703FC /* ProfileSections.swift in Sources */,
 				0422BB2521A4FB2700F9CD64 /* UserManager.swift in Sources */,
-				043EB1D7217D00C400B40154 /* MainCollectionViewCell.swift in Sources */,
 				04C7133521CC345500F3D62F /* AirConferenceRoom.swift in Sources */,
 				04E7FEDB2185540800AD4E79 /* ReserveVC.swift in Sources */,
 				042AF9A121A683FA00E7048B /* BorderButton.swift in Sources */,
@@ -633,10 +633,10 @@
 				045520AE217550C90033D33B /* LoginVC.swift in Sources */,
 				0422BB2721A4FC5700F9CD64 /* UITableViewCellExtension.swift in Sources */,
 				043CA250217FF236008703FC /* CarouselCVCell.swift in Sources */,
-				045C28E8217CE6C00017C121 /* SubmitTicketTableViewCell.swift in Sources */,
 				04E7FEDE2185578100AD4E79 /* QuickReserveCVCell.swift in Sources */,
 				040E989121A3AF1300143CA5 /* PageSection.swift in Sources */,
 				04C7134321CC864200F3D62F /* ReservationManager.swift in Sources */,
+				046CC9C121D15FD000DC1993 /* SettingsTVC.swift in Sources */,
 				044F8E62218BF26000E84B0F /* AuthManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

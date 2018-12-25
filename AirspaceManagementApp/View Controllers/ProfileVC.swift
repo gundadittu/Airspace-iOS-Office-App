@@ -41,15 +41,13 @@ class ProfileVC: UIViewController {
         
         self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
+        
+        let settings = UIBarButtonItem(image: UIImage(named: "settings-icon"), style: .plain, target: self, action: #selector(ProfileVC.didTapSettings))
+        self.navigationItem.rightBarButtonItem  = settings
     }
     
-    @IBAction func didTapSignOutBtn(_ sender: Any) {
-        UserAuth.shared.signOutUser() { error in
-            if let _ = error {
-                let banner = StatusBarNotificationBanner(title: "Error signing out.", style: .danger)
-                banner.show()
-            }
-        }
+    @objc func didTapSettings() {
+        self.performSegue(withIdentifier: "toSettingsTVC", sender: nil)
     }
     
     func showUnregisterGuestAlert(guest: AirGuestRegistration) {
@@ -109,6 +107,20 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let currSection = sections[section]
+        guard let type = currSection.type else { return 0 }
+        switch type {
+        case .bioInfo:
+            return 1
+        case .myRoomReservations:
+            break
+        case .myDeskReservations:
+            break
+        case .myServiceRequests:
+            break
+        case .myRegisteredGuests:
+            break
+        }
         return 2
     }
     
@@ -128,13 +140,14 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.mainLbl.text = UserAuth.shared.displayName
                 cell.subtitleLbl.text = UserAuth.shared.email
                 return cell
-            } else if indexPath.row == 1 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
-                    return UITableViewCell() 
-                }
-                cell.configureCell(with: currSection, buttonTitle: currSection.seeMoreTitle ?? "More", delegate: self)
-                return cell
             }
+//            else if indexPath.row == 1 {
+//                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
+//                    return UITableViewCell()
+//                }
+//                cell.configureCell(with: currSection, buttonTitle: currSection.seeMoreTitle ?? "More", delegate: self)
+//                return cell
+//            }
         case .myRoomReservations?:
             if indexPath.row == 0 {
                 var cell = CarouselTVCell()

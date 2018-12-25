@@ -101,5 +101,10 @@ extension UITableViewCell {
         }
         self.detailTextLabel?.text = detailText
     }
+    
+    func configureCell(with section: SettingsTVCSection) {
+        self.textLabel?.text = section.title ?? "No Title Provided"
+        self.accessoryType = .disclosureIndicator
+    }
 }
 

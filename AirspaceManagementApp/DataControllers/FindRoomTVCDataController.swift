@@ -26,16 +26,21 @@ class FindRoomTVCDataController {
     
     var delegate: FindRoomTVCDataControllerDelegate?
     
-    public init(delegate: FindRoomTVCDataControllerDelegate) {
+    public init(delegate: FindRoomTVCDataControllerDelegate, shouldAutomaticallySubmit: Bool = false) {
         self.delegate = delegate
+        self.shouldAutomaticallySubmit = shouldAutomaticallySubmit
         
-        // Handling quickReserve actions
-        if (shouldAutomaticallySubmit == true) {
-            self.delegate?.startLoadingIndicator()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            // Handling quickReserve actions
+            if (shouldAutomaticallySubmit == true) {
+                self.delegate?.startLoadingIndicator()
+            }
         }
         
         // Auto-populate office field
         UserManager.shared.getCurrentUsersOffices { (offices, error) in
+            
             if let _ = error {
                 let banner = StatusBarNotificationBanner(title: "Error loading Offices.", style: .danger)
                 banner.show()
@@ -81,6 +86,16 @@ class FindRoomTVCDataController {
     public func setSelectedAmenities(with amenities: [RoomAmenity]) {
         self.selectedAmenities = amenities
         self.delegate?.reloadTableView()
+    }
+    
+    public func getEndDate() -> Date? {
+        if let startDate = self.selectedStartDate,
+            let duration = self.selectedDuration {
+            let durationVal = duration.rawValue
+            let endDate = startDate.addingTimeInterval(TimeInterval(durationVal*60))
+            return endDate
+        }
+        return nil
     }
     
     func submitData() {

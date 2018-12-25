@@ -298,7 +298,7 @@ extension RegisterGuestVC: TextInputVCDelegate {
 }
 
 extension RegisterGuestVC: DateTimeInputVCDelegate {
-    func didSaveInput(with date: Date) {
+    func didSaveInput(with date: Date, and identifier: String?) {
         self.dataController?.setGuestVistDate(as: date)
     }
 }

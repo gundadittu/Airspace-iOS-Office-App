@@ -394,9 +394,13 @@ class ChooseTVC: UITableViewController {
             self.tableView.reloadData()
         case .some(.employees):
             guard let selectedUser = self.data[indexPath.row] as? AirUser else { return }
-            if self.selectedEmployees.contains(selectedUser) {
+            let union = self.selectedEmployees.filter { (employee) -> Bool in
+                return (employee.uid == selectedUser.uid)
+            }
+            
+            if union.count > 0 {
                 let newData = self.selectedEmployees.filter { (user) -> Bool in
-                    return (user != selectedUser)
+                    return (user.uid != selectedUser.uid)
                 }
                 self.selectedEmployees = newData
             } else {

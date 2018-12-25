@@ -70,4 +70,11 @@ class AirConferenceRoomReservation : NSObject {
             print("No conferenceRoomUID found for conference room reservation")
         }
     }
+    
+    func getDateInterval() -> DateInterval? {
+        guard let startDate = self.startingDate, let endDate = self.endDate else {
+            return nil
+        }
+        return DateInterval(start: startDate, end: endDate)
+    }
 }

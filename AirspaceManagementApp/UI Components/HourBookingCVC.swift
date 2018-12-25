@@ -16,7 +16,6 @@ class HourBookingCVC: UICollectionViewCell {
     var endingDate: Date?
     static let staticTopOffset = CGFloat(30)
     let topOffset = staticTopOffset
-    var selectedTimeSlotView: UIView?
     var allReservations = [AirConferenceRoomReservation]()
 
     override func awakeFromNib() {
@@ -100,6 +99,68 @@ class HourBookingCVC: UICollectionViewCell {
         startingDateComponents.setValue(newMinuteCount, for: .minute)
         let date = startingDateComponents.date
         return date
+    }
+    
+    public func getWidth(in view: UIView) -> CGFloat {
+        let convertedRect = self.contentView.convert(self.contentView.frame, to: view)
+        let convertedWidth = convertedRect.width
+        return convertedWidth
+    }
+    
+    public func getLengthFromOrigin(from date: Date, in view: UIView) -> CGFloat {
+        var dateComponents = Calendar.current.dateComponents(in: TimeZone.current, from: date)
+        let minuteDifference = dateComponents.minute ?? 0
+        let proportion =  min(CGFloat(minuteDifference)/CGFloat(60), 1)
+        let localXPos = self.contentView.frame.minX + (proportion*self.contentView.frame.width)
+        let localWidth = localXPos - self.contentView.frame.minX
+        let localRect = CGRect(x: self.contentView.frame.minX, y: self.contentView.frame.midY, width: localWidth, height: self.contentView.frame.height
+        )
+        let convertedRect = self.contentView.convert(localRect, to: view)
+        return convertedRect.width
+    }
+    
+    public func getLengthToEnd(from date: Date, in view: UIView) -> CGFloat {
+        var dateComponents = Calendar.current.dateComponents(in: TimeZone.current, from: date)
+        let minuteDifference = dateComponents.minute ?? 0
+        let proportion =  min(CGFloat(minuteDifference)/CGFloat(60), 1)
+        let localXPos = self.contentView.frame.minX + (proportion*self.contentView.frame.width)
+        let localWidth = self.contentView.frame.maxX - localXPos
+        let localRect = CGRect(x: localXPos, y: self.contentView.frame.midY, width: localWidth, height: self.contentView.frame.height)
+        return localRect.width
+    }
+    
+    public func getPoint(from date: Date, in view: UIView) -> CGPoint {
+        guard let startingDate = self.startingDate, let endingDate = self.endingDate else {
+            let convertedRect = self.contentView.convert(self.contentView.frame, to: view)
+            let xPoint = convertedRect.minX
+            let yPoint = convertedRect.midY
+            let convertedPoint = CGPoint(x: xPoint, y: yPoint)
+            return convertedPoint
+        }
+        let currentInterval = DateInterval(start: startingDate, end: endingDate)
+        if currentInterval.contains(date) {
+            var dateComponents = Calendar.current.dateComponents(in: TimeZone.current, from: date)
+            let minuteDifference = dateComponents.minute ?? 0
+            let proportion =  min(CGFloat(minuteDifference)/CGFloat(60), 1)
+            let convertedRect = self.contentView.convert(self.contentView.frame, to: view)
+            let xPoint = convertedRect.minX + (proportion*convertedRect.width)
+            let yPoint = convertedRect.midY
+            let convertedPoint = CGPoint(x: xPoint, y: yPoint)
+            return convertedPoint
+        } else if (date < startingDate) {
+            let convertedRect = self.contentView.convert(self.contentView.frame, to: view)
+            let xPoint = convertedRect.minX
+            let yPoint = convertedRect.midY
+            let convertedPoint = CGPoint(x: xPoint, y: yPoint)
+            return convertedPoint
+        } else {
+            // if date > endingDate
+            let convertedRect = self.contentView.convert(self.contentView.frame, to: view)
+            let xPoint = convertedRect.maxX
+            let yPoint = convertedRect.midY
+            let convertedPoint = CGPoint(x: xPoint, y: yPoint)
+            return convertedPoint
+        }
     }
     
     public func reservation(at point: CGPoint, in view: UIView) -> Bool{

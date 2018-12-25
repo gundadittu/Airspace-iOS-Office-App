@@ -219,7 +219,7 @@ extension FindRoomTVC: FindRoomTVCDataControllerDelegate {
 }
 
 extension FindRoomTVC: DateTimeInputVCDelegate {
-    func didSaveInput(with date: Date) {
+    func didSaveInput(with date: Date, and identifier: String?) {
         self.dataController?.setSelectedStartDate(with: date)
     }
 }

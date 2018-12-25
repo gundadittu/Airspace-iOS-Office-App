@@ -103,47 +103,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6nf-3R-UUn">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="serv-req-cell" rowHeight="125" id="q3w-IT-b5j" customClass="SubmitTicketTableViewCell" customModule="AirspaceManagementApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="125"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q3w-IT-b5j" id="jeu-ke-trj">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="124.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="4l9-gu-MNY">
-                                                    <rect key="frame" x="25" y="21" width="325" height="83"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biR-S7-C3D">
-                                                            <rect key="frame" x="0.0" y="0.0" width="43" height="23.5"/>
-                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ixl-KY-yCD">
-                                                            <rect key="frame" x="0.0" y="23.5" width="91" height="59.5"/>
-                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="30"/>
-                                                            <state key="normal" title="Button"/>
-                                                            <connections>
-                                                                <action selector="mainButtonTapped:" destination="q3w-IT-b5j" eventType="touchUpInside" id="Z6W-xm-E3q"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="4l9-gu-MNY" secondAttribute="trailing" constant="10" id="BP4-6v-VoX"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="4l9-gu-MNY" secondAttribute="bottom" constant="10" id="LrW-Rn-Lma"/>
-                                                <constraint firstItem="4l9-gu-MNY" firstAttribute="top" secondItem="jeu-ke-trj" secondAttribute="topMargin" constant="10" id="Nv3-2h-iHz"/>
-                                                <constraint firstItem="4l9-gu-MNY" firstAttribute="leading" secondItem="jeu-ke-trj" secondAttribute="leadingMargin" constant="10" id="SVl-VF-ZF3"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="mainButton" destination="Ixl-KY-yCD" id="b4F-RQ-Ye5"/>
-                                            <outlet property="titleLabel" destination="biR-S7-C3D" id="dv1-k3-ba5"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -349,17 +308,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PpF-f4-RYN"/>
                     </view>
-                    <navigationItem key="navigationItem" id="cQV-NO-rs8">
-                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="No5-nI-yMC">
-                            <connections>
-                                <action selector="didTapSignOutBtn:" destination="Gek-MS-mh2" id="JHX-C3-BNW"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="cQV-NO-rs8"/>
                     <connections>
                         <outlet property="tableView" destination="csc-7C-Ucb" id="0u2-Kl-AjU"/>
                         <segue destination="mi9-kC-n5q" kind="show" identifier="ProfileVCtoMyGuestRegTVC" id="gkW-jy-2sD"/>
                         <segue destination="IAh-um-esc" kind="show" identifier="ProfileVCtoMyServReqTVC" id="UDw-Jv-ePQ"/>
+                        <segue destination="Pky-iX-fSo" kind="show" identifier="toSettingsTVC" id="AVp-iv-oIo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i9X-cb-seD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -455,6 +409,7 @@
                         <outlet property="tableView" destination="81E-Es-QMx" id="Gli-gY-iLz"/>
                         <outlet property="topVIew" destination="TB1-OY-z8X" id="ysY-XI-Dcs"/>
                         <segue destination="65m-Ec-C0G" kind="show" identifier="ReserveVCtoFindRoomTVC" id="BxD-to-eVm"/>
+                        <segue destination="eLi-oy-IVa" kind="show" identifier="toConferenceRoomProfileTVC" id="vLk-3V-1hZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xoQ-M6-mCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -560,7 +515,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ock-Rp-w91" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4129" y="1106"/>
+            <point key="canvasLocation" x="4236" y="1106"/>
         </scene>
         <!--My Serv ReqTVC-->
         <scene sceneID="F40-RX-6oK">
@@ -589,6 +544,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yi4-Qe-huv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5191" y="1688"/>
+        </scene>
+        <!--SettingsTVC-->
+        <scene sceneID="ixk-os-gaJ">
+            <objects>
+                <tableViewController id="Pky-iX-fSo" customClass="SettingsTVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fFW-TG-ZxG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ht3-qB-oNa">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ht3-qB-oNa" id="igK-7a-Pvy">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Pky-iX-fSo" id="6dO-2R-HMy"/>
+                            <outlet property="delegate" destination="Pky-iX-fSo" id="XXA-rP-AB8"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cxY-tN-YDq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5122" y="2466"/>
         </scene>
         <!--Conference Room ProfileTVC-->
         <scene sceneID="0vS-2O-EfR">
@@ -863,6 +846,7 @@
         <segue reference="Wy7-hw-B7D"/>
         <segue reference="cxF-zx-cdi"/>
         <segue reference="zWd-J1-tuq"/>
+        <segue reference="vLk-3V-1hZ"/>
         <segue reference="EOH-SA-r0L"/>
     </inferredMetricsTieBreakers>
 </document>

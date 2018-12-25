@@ -50,14 +50,14 @@ class ReserveVC: UIViewController {
                                             selectedTextColor: .white),
             index: 0,
             options: [.backgroundColor(.flatWhite),
-                      .indicatorViewBackgroundColor(globalColor),
+                      .indicatorViewBackgroundColor(.darkGray),
                       .cornerRadius(17.0)])
         
         control.addTarget(self, action: #selector(ReserveVC.controlValueChanged(_:)), for: .valueChanged)
         topVIew.addSubview(control)
         self.sections = self.roomSections
         
-        self.updateTimeRangeOptions()
+        self.updateQuickReserveTimeRangeOptions()
         
         self.loadAllConferenceRooms()
     }
@@ -71,11 +71,11 @@ class ReserveVC: UIViewController {
             self.sections = self.deskSections
             self.type = .hotDesks
         }
-        self.updateTimeRangeOptions()
+        self.updateQuickReserveTimeRangeOptions()
         self.tableView.reloadData()
     }
     
-    func updateTimeRangeOptions() {
+    func updateQuickReserveTimeRangeOptions() {
         switch self.type {
         case .conferenceRooms:
             var timeRangeOptionsArr = [CarouselCVCellItem]()
@@ -94,15 +94,15 @@ class ReserveVC: UIViewController {
             self.timeRangeOptions = timeRangeOptionsArr
         case .hotDesks:
             var timeRangeOptionsArr = [CarouselCVCellItem]()
-            if let duration = Duration(rawValue: 30) {
+            if let duration = Duration(rawValue: 60) {
                 let carouselItem = CarouselCVCellItem(with: duration)
                 timeRangeOptionsArr.append(carouselItem)
             }
-            if let duration = Duration(rawValue: 120) {
+            if let duration = Duration(rawValue: 240) {
                 let carouselItem = CarouselCVCellItem(with: duration)
                 timeRangeOptionsArr.append(carouselItem)
             }
-            if let duration = Duration(rawValue: 300) {
+            if let duration = Duration(rawValue: 480) {
                 let carouselItem = CarouselCVCellItem(with: duration)
                 timeRangeOptionsArr.append(carouselItem)
             }
@@ -164,7 +164,8 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
         case .quickReserveDesk:
             break
         case .allRooms:
-            break
+            let room = self.allConferenceRooms[indexPath.row]
+            self.performSegue(withIdentifier: "toConferenceRoomProfileTVC", sender: room)
         case .allDesks:
              break
         }
@@ -350,10 +351,13 @@ extension ReserveVC: CarouselTVCellDelegate {
         if segue.identifier == "ReserveVCtoFindRoomTVC",
             let destination = segue.destination as? FindRoomTVC,
             let duration = sender as? Duration {
-            let dataController = FindRoomTVCDataController(delegate: destination)
+            let dataController = FindRoomTVCDataController(delegate: destination, shouldAutomaticallySubmit: true)
             dataController.setSelectedDuration(with: duration)
             destination.dataController = dataController
-            destination.dataController?.shouldAutomaticallySubmit = true
+        } else if segue.identifier == "toConferenceRoomProfileTVC",
+            let destination = segue.destination as? ConferenceRoomProfileTVC,
+            let room = sender as? AirConferenceRoom {
+            destination.conferenceRoom = room
         }
     }
 }
@@ -391,6 +395,6 @@ extension ReserveVC {
 extension ReserveVC: ConferenceRoomTVCellDelegate {
     func didSelectCollectionView(for room: AirConferenceRoom) {
         //perform segue to room profile
-        return
+        self.performSegue(withIdentifier: "toConferenceRoomProfileTVC", sender: room)
     }
 }

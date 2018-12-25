@@ -22,6 +22,7 @@ class RoomListTVC: UITableViewController {
         self.title = "Conference Rooms"
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "ConferenceRoomTVCell", bundle: nil), forCellReuseIdentifier: "ConferenceRoomTVCell")
+        self.tableView.backgroundColor = UIColor.flatWhite
          self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(didClickFilter))
         
         self.loadingIndicator = getGLobalLoadingIndicator(in: self.tableView)
@@ -68,6 +69,15 @@ class RoomListTVC: UITableViewController {
             let destination = segue.destination as? ConferenceRoomProfileTVC,
             let room = sender as? AirConferenceRoom {
             destination.conferenceRoom = room
+            
+            // auto-populate fields if applicable
+            if let dataController = self.dataController,
+                let startDate = dataController.selectedStartDate,
+                let duration = dataController.selectedDuration?.rawValue,
+                let endDate = dataController.getEndDate() {
+                destination.startDate = startDate
+                destination.endDate = endDate
+            }
         }
     }
     

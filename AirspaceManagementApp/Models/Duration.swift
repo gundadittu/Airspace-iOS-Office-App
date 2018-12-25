@@ -18,6 +18,7 @@ enum Duration: Int, CaseIterable {
     case fourHours = 240
     case fiveHours = 300
     case sixHours = 360
+    case eightHours = 480
     
     var description: String {
         switch self {
@@ -39,6 +40,8 @@ enum Duration: Int, CaseIterable {
             return "5 hrs"
         case .sixHours:
             return "6 hrs"
+        case .eightHours:
+            return "8 hrs"
         }
     }
 }

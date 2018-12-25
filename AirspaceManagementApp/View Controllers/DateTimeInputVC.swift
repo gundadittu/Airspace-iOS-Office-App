@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DateTimeInputVCDelegate {
-    func didSaveInput(with date: Date)
+    func didSaveInput(with date: Date, and identifier: String?)
 }
 
 class DateTimeInputVC: UIViewController {
@@ -17,6 +17,7 @@ class DateTimeInputVC: UIViewController {
     @IBOutlet weak var dateTimePicker: UIDatePicker!
     var mode: UIDatePicker.Mode?
     var delegate: DateTimeInputVCDelegate?
+    var identifier: String?
     var initialDate: Date?
     
     override func viewDidLoad() {
@@ -30,6 +31,8 @@ class DateTimeInputVC: UIViewController {
             self.dateTimePicker.datePickerMode = mode
             if mode == .date {
                 self.title = "Choose Date"
+            } else if mode == .time {
+                self.title = "Choose Time"
             }
         }
         
@@ -38,6 +41,8 @@ class DateTimeInputVC: UIViewController {
         self.dateTimePicker.tintColor = globalColor
         if let initialDate = self.initialDate  {
             self.dateTimePicker.setDate(initialDate, animated: false)
+        } else {
+            self.dateTimePicker.setDate(Date(), animated: true)
         }
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(didClickSave))
@@ -45,7 +50,7 @@ class DateTimeInputVC: UIViewController {
     
     @objc func didClickSave() {
         let date = self.dateTimePicker.date
-        self.delegate?.didSaveInput(with: date)
+        self.delegate?.didSaveInput(with: date, and: self.identifier)
         self.navigationController?.popViewController(animated: true)
     }
     

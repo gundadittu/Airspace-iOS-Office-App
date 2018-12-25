@@ -40,7 +40,10 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
     var loadingIndicator: NVActivityIndicatorView?
     var dataController: ConferenceRoomProfileDataController?
     var conferenceRoom: AirConferenceRoom?
-    var startingDate = Date() // date used to display existing reservations for room
+    var existingResDisplayStartDate = Date() // date used to display existing reservations for room
+    var startDate: Date?
+    var endDate: Date?
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var bottomViewBtn: UIButton!
@@ -67,9 +70,16 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
         guard let conferenceRoom = self.conferenceRoom else {
             fatalError("Did not provide conferenceRoom object for ConferenceRoomProfileTVC.")
         }
+        
         if self.dataController == nil {
             self.dataController = ConferenceRoomProfileDataController(delegate: self)
             self.dataController?.setConferenceRoom(with: conferenceRoom)
+            if let startDate = self.startDate {
+                self.dataController?.setSelectedStartDate(with: startDate)
+            }
+            if let endDate = self.endDate {
+                self.dataController?.setSelectedEndDate(with: endDate)
+            }
         }
         
         self.bottomViewBtn.setTitleColor(.white, for: .normal)
@@ -85,9 +95,21 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDateInputVC",
-            let destination = segue.destination as? DateTimeInputVC {
+            let destination = segue.destination as? DateTimeInputVC,
+            let identifier = sender as? String {
             destination.delegate = self
-            destination.mode = .date
+            destination.identifier = identifier
+
+            if (identifier == "chooseReservationDate") {
+                destination.mode = .date
+                destination.initialDate = self.existingResDisplayStartDate
+            } else if (identifier == "chooseStartDate") {
+                destination.mode = .time
+                destination.initialDate = self.dataController?.selectedStartDate
+            } else if (identifier == "chooseEndDate") {
+                destination.mode = .time
+                destination.initialDate = self.dataController?.selectedEndDate
+            }
         } else if segue.identifier == "toTextInputVC",
             let destination = segue.destination as? TextInputVC,
             let identifier = sender as? String {
@@ -144,7 +166,7 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
             let conferenceRoom = self.conferenceRoom else {
                 return UITableViewCell()
             }
-            cell.configureCell(with: conferenceRoom, for: startingDate)
+            cell.configureCell(with: conferenceRoom, for: existingResDisplayStartDate, newReservationStartDate: self.dataController?.selectedStartDate, newReservationEndDate: self.dataController?.selectedEndDate)
             cell.setDelegate(with: self)
             return cell
         case .none:
@@ -227,27 +249,7 @@ extension ConferenceRoomProfileTVC: FormTVCellDelegate {
         }
     }
 }
-
-extension ConferenceRoomProfileTVC: ConferenceRoomDetailedTVCDelegate, ConferenceRoomProfileDataControllerDelegate {
-    func didChooseNewDates(start: Date, end: Date) {
-        self.dataController?.setSelectedStartDate(with: start)
-        self.dataController?.setSelectedEndDate(with: end)
-    }
-    
-    func didTapWhenDateButton() {
-        // clicked when date button -> show date picker
-        self.performSegue(withIdentifier: "toDateInputVC", sender: nil)
-    }
-    
-    func startLoadingIndicator() {
-        self.loadingIndicator?.startAnimating()
-    }
-    
-    func stopLoadingIndicator() {
-        self.loadingIndicator?.stopAnimating()
-        self.tableView.spr_endRefreshing()
-    }
-    
+extension ConferenceRoomProfileTVC: ConferenceRoomProfileDataControllerDelegate {
     func didFinishSubmittingData(withError error: Error?) {
         if let _ = error {
             let banner = StatusBarNotificationBanner(title: "Error creating reservation.", style: .danger)
@@ -266,7 +268,42 @@ extension ConferenceRoomProfileTVC: ConferenceRoomDetailedTVCDelegate, Conferenc
     
 }
 
+extension ConferenceRoomProfileTVC: ConferenceRoomDetailedTVCDelegate {
+    
+    func didFindConflict() {
+        //handle conflict by displaying alert to tell user
+    }
+    
+    func didChooseNewDates(start: Date, end: Date) {
+        self.dataController?.setSelectedStartDate(with: start)
+        self.dataController?.setSelectedEndDate(with: end)
+    }
+    
+    func didTapWhenDateButton() {
+        // clicked when date button -> show date picker
+        self.performSegue(withIdentifier: "toDateInputVC", sender: "chooseReservationDate")
+    }
+    
+    func didTapStartDateButton() {
+        self.performSegue(withIdentifier: "toDateInputVC", sender: "chooseStartDate")
+    }
+    
+    func didTapEndDateButton() {
+        self.performSegue(withIdentifier: "toDateInputVC", sender: "chooseEndDate")
+    }
+    
+    func startLoadingIndicator() {
+        self.loadingIndicator?.startAnimating()
+    }
+    
+    func stopLoadingIndicator() {
+        self.loadingIndicator?.stopAnimating()
+        self.tableView.spr_endRefreshing()
+    }
+}
+
 extension ConferenceRoomProfileTVC: DateTimeInputVCDelegate, TextInputVCDelegate, ConferenceRoomProfileSwitchCellDelegate, ChooseTVCDelegate {
+    
     func didSaveInput(with text: String, and identifier: String?) {
         guard let identifier = identifier else { return }
         if identifier == "name" {
@@ -280,9 +317,28 @@ extension ConferenceRoomProfileTVC: DateTimeInputVCDelegate, TextInputVCDelegate
        self.dataController?.setInvitedUsers(with: employees)
     }
     
-    func didSaveInput(with date: Date) {
-        self.startingDate = date
-        self.tableView.reloadData()
+    func didSaveInput(with date: Date, and identifier: String?) {
+        if identifier == "chooseReservationDate" {
+            self.existingResDisplayStartDate = date
+            
+            self.dataController?.setSelectedStartDate(with: nil)
+            self.dataController?.setSelectedEndDate(with: nil)
+
+            //need to clear old selection
+            self.startDate = nil
+            self.endDate = nil
+            
+            self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
+        } else if identifier == "chooseStartDate" {
+            self.startDate = nil
+            self.dataController?.setSelectedStartDate(with: date)
+            self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
+        } else if identifier == "chooseEndDate" {
+            self.endDate = nil
+            self.dataController?.setSelectedEndDate(with: date)
+            self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
+        }
+
     }
     
     func switchDidChangeValue(to value: Bool) {
