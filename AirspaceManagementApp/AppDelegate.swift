@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Set up Firebase for app
         FirebaseApp.configure()
-        Instabug.start(withToken: "59651c2f888ce36ec65cf60f79a263f1", invocationEvents: [.shake, .screenshot])
 
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
