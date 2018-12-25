@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 import UserNotifications
 import NotificationBannerSwift
-import Instabug
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

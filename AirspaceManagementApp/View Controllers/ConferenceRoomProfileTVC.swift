@@ -105,10 +105,30 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
                 destination.initialDate = self.existingResDisplayStartDate
             } else if (identifier == "chooseStartDate") {
                 destination.mode = .time
-                destination.initialDate = self.dataController?.selectedStartDate
+                
+                if let initialDate = self.dataController?.selectedStartDate {
+                    destination.initialDate = initialDate
+                } else {
+                    destination.initialDate = self.existingResDisplayStartDate
+                }
+                
+                if let endDate = self.dataController?.selectedEndDate {
+                    destination.maximumDate = endDate
+                }
+                
             } else if (identifier == "chooseEndDate") {
                 destination.mode = .time
-                destination.initialDate = self.dataController?.selectedEndDate
+                
+                if let startDate = self.dataController?.selectedStartDate {
+                    destination.minimumDate = startDate
+                }
+                
+                if let initialDate = self.dataController?.selectedEndDate {
+                    destination.initialDate = initialDate
+                } else {
+                    destination.initialDate = self.existingResDisplayStartDate
+                }
+                
             }
         } else if segue.identifier == "toTextInputVC",
             let destination = segue.destination as? TextInputVC,

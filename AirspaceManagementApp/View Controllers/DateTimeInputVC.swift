@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftDate
 
 protocol DateTimeInputVCDelegate {
     func didSaveInput(with date: Date, and identifier: String?)
@@ -19,6 +20,8 @@ class DateTimeInputVC: UIViewController {
     var delegate: DateTimeInputVCDelegate?
     var identifier: String?
     var initialDate: Date?
+    var minimumDate: Date?
+    var maximumDate: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +39,34 @@ class DateTimeInputVC: UIViewController {
             }
         }
         
-        self.dateTimePicker.minimumDate = Date()
+        self.dateTimePicker.date = self.initialDate ?? Date()
+        
+        if let minimumDate = self.minimumDate  {
+            self.dateTimePicker.minimumDate = minimumDate
+        } else if let initialDate = self.initialDate {
+            if initialDate.isToday {
+                self.dateTimePicker.minimumDate = Date()
+            } else {
+                var dateComponents = Calendar.current.dateComponents(in: TimeZone.current, from: initialDate)
+                dateComponents.setValue(0, for: .hour)
+                dateComponents.setValue(0, for: .minute)
+                dateComponents.setValue(0, for: .second)
+                dateComponents.setValue(0, for: .nanosecond)
+                
+                if let date = dateComponents.date {
+                    self.dateTimePicker.minimumDate = date
+                } else {
+                    self.dateTimePicker.minimumDate = initialDate
+                }
+            }
+        } else {
+            // no minimum & no initial date
+            self.dateTimePicker.minimumDate = Date()
+        }
+        
+        if let maxDate = self.maximumDate {
+            self.dateTimePicker.maximumDate = maxDate
+        }
         
         self.dateTimePicker.tintColor = globalColor
         if let initialDate = self.initialDate  {

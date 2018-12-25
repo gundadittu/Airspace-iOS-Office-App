@@ -17,6 +17,7 @@ protocol ConferenceRoomDetailedTVCDelegate {
     func stopLoadingIndicator()
     func didChooseNewDates(start: Date, end: Date)
     func didFindConflict()
+//    func didUpdateExResStartDate(with date: Date)
 }
 
 class ConferenceRoomDetailedTVC: UITableViewCell {
