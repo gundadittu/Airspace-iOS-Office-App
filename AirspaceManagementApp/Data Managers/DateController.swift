@@ -17,7 +17,7 @@ extension Date {
         let shortDateString = dateFormatter.string(from: self)
         return shortDateString
     }
-    
+
     var localizedDescriptionNoDate: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .none

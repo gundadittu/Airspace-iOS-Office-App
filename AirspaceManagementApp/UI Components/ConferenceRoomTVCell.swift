@@ -64,6 +64,7 @@ class ConferenceRoomTVCell: UITableViewCell {
             }
             subtitleText += officesStringArr.joined(separator: ", ")
         }
+        
         var secondSubtitleText = ""
         if let amenities = room.amenities {
             let amenitiesStringArr = amenities.map { (amenity) -> String in

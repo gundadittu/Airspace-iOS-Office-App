@@ -8,10 +8,12 @@
 
 import Foundation
 import UIKit
+import NVActivityIndicatorView
 
 enum MainVCSectionType {
     case quickActions
-    case nearbyEats
+    case reservationsToday
+//    case nearbyEats
     case none
 }
 
@@ -27,6 +29,7 @@ class MainVCSection: PageSection {
 
 enum QuickActionType {
     case reserveRoom
+    case reserveDesk
     case submitTicket
     case registerGuest
     case viewEvents
@@ -52,14 +55,18 @@ class QuickAction: NSObject {
 
 class MainVC: UIViewController {
     
-    var sections = [MainVCSection(title: "Quick Actions", type: .quickActions)]
-//    , MainVCSection(title: "Nearby Eats", type: .nearbyEats)]
-    var quickActionsList = [QuickAction(title: "Reserve a room or desk", subtitle:"Find a space to get working.", icon:"reserve-icon", color: nil, type: .reserveRoom),
+    var sections = [MainVCSection(title: "Quick Actions", type: .quickActions), MainVCSection(title: "Today's Reservations", type: .reservationsToday)]
+    var quickActionsList = [QuickAction(title: "Reserve a conference room", subtitle:"Find a meeting space.", icon:"reserve-icon", color: nil, type: .reserveRoom),
+                            QuickAction(title: "Reserve a hot desk", subtitle:"Find a space to get working.", icon:"table-icon", color: nil, type: .reserveDesk),
                             QuickAction(title: "Submit a service request", subtitle:"Let us know if something needs servicing.", icon:"serv-req-icon", color: nil, type: .submitTicket),
                             QuickAction(title: "Register a guest", subtitle:"We'll let you know when your guest arrives.", icon:"register-guest-icon", color: nil, type: .registerGuest),
                             QuickAction(title: "View events", subtitle:"See what's going on in your building.", icon:"events-icon", color: nil, type: .viewEvents),
                             QuickAction(title: "Space info", subtitle:"Learn more about your building.", icon:"space-info-icon", color: nil, type: .spaceInfo)]
-    var yelpRestaurants = [CarouselCVCellItem]()
+//    var yelpRestaurants = [CarouselCVCellItem]()
+    var loadingIndicator: NVActivityIndicatorView?
+    var reservationsToday = [AirReservation]()
+    var dataController: MainVCDataController?
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -70,6 +77,12 @@ class MainVC: UIViewController {
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
+        
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
+        
+        if (dataController == nil) {
+            self.dataController = MainVCDataController(delegate: self)
+        }
     }
     
 //    func loadNearbyEatsData() {
@@ -91,17 +104,17 @@ extension MainVC: UITableViewDelegate {
         case .quickActions:
             let quickAction = quickActionsList[indexPath.row]
             self.didSelectQuickAction(ofType: quickAction.type)
-        case .nearbyEats:
-            return
         case .none:
             return
+        case .reservationsToday:
+            break
         }
     }
     
     func didSelectQuickAction(ofType type: QuickActionType) {
         switch type {
         case .reserveRoom:
-            self.performSegue(withIdentifier: "toReserveVC", sender: nil)
+            self.performSegue(withIdentifier: "toFindRoomVC", sender: nil)
         case .submitTicket:
             self.performSegue(withIdentifier: "mainToSubmitTicket", sender: nil)
         case .registerGuest:
@@ -111,6 +124,8 @@ extension MainVC: UITableViewDelegate {
         case .spaceInfo:
             break
         case .none:
+            break
+        case .reserveDesk:
             break
         }
     }
@@ -140,8 +155,8 @@ extension MainVC: UITableViewDataSource {
         switch sectionObj.type {
         case .quickActions:
             return self.quickActionsList.count
-        case .nearbyEats:
-            return 0
+        case .reservationsToday:
+            return 1
         case .none:
             return 0
         }
@@ -160,23 +175,77 @@ extension MainVC: UITableViewDataSource {
             cell.iconImg.image = action.icon
             cell.accessoryType = .disclosureIndicator
             return cell
-        case .nearbyEats:
+//        case .nearbyEats:
+//            var cell = CarouselTVCell()
+//            if let tvCell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as? CarouselTVCell  {
+//                cell = tvCell
+//            } else {
+//                tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
+//                cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
+//            }
+            //         case .reservationsToday:
+            
+//            cell.setCarouselItems(with: self.yelpRestaurants)
+//            return cell
+        case .none:
+            break
+        case .reservationsToday:
             var cell = CarouselTVCell()
             if let tvCell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as? CarouselTVCell  {
                 cell = tvCell
-            } else {
-                tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
-                cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
             }
-            cell.setCarouselItems(with: self.yelpRestaurants)
+            
+            var carouselItems = [CarouselCVCellItem]()
+            for reservation in self.reservationsToday {
+                let item = CarouselCVCellItem(with: reservation)
+                carouselItems.append(item)
+            }
+            cell.setCarouselItems(with: carouselItems)
+            cell.delegate = self
             return cell
-        case .none:
-            break
         }
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (indexPath.section == 0) ? CGFloat(80) : CGFloat(300)
+        return (indexPath.section == 0) ? CGFloat(80) : CGFloat(210)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toRoomReservationVC",
+        let destination = segue.destination as? RoomReservationVC,
+            let roomRes = sender as? AirConferenceRoomReservation {
+            destination.conferenceRoomReservation = roomRes
+        }
+    }
+}
+
+extension MainVC: MainVCDataControllerDelegate {
+    func didUpdateReservationsToday(with error: Error?) {
+        if let error = error {
+            // handle error
+            return
+        } else {
+            let data = self.dataController?.reservationsToday ?? []
+            print(data)
+            self.reservationsToday = data
+            self.tableView.reloadData()
+        }
+    }
+    
+    func startLoadingIndicator() {
+        self.loadingIndicator?.startAnimating()
+    }
+    
+    func stopLoadingIndicator() {
+        self.loadingIndicator?.stopAnimating()
+    }
+}
+
+extension MainVC: CarouselTVCellDelegate {
+    func didSelectCarouselCVCellItem(item: CarouselCVCellItem) {
+        if let roomRes = item.data as? AirConferenceRoomReservation {
+            self.performSegue(withIdentifier: "toRoomReservationVC", sender: roomRes)
+        }
     }
 }

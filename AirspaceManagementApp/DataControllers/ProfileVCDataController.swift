@@ -22,7 +22,8 @@ class ProfileVCDataController {
     var pendingSR = [AirServiceRequest]()
     var closedSR = [AirServiceRequest]()
     
-    var reservations = [AirConferenceRoomReservation]()
+    var upcomingReservations = [AirConferenceRoomReservation]()
+    var pastReservations = [AirConferenceRoomReservation]()
 
     var delegate: ProfileVCDataControllerDelegate?
     
@@ -77,14 +78,17 @@ class ProfileVCDataController {
     
     func loadConferenceRoomReservations() {
         self.delegate?.startLoadingIndicator()
-        ReservationManager.shared.getAllConferenceRoomReservationsForUser { (reservations, error) in
+        ReservationManager.shared.getAllConferenceRoomReservationsForUser { (upcoming, past, error) in
             self.delegate?.stopLoadingIndicator()
             if let error = error {
                 // handle error
                 return
             }
-            if let reservations = reservations {
-                self.reservations = reservations
+            if let upcoming = upcoming {
+                self.upcomingReservations = upcoming
+            }
+            if let past = past {
+                self.pastReservations = past
             }
             self.delegate?.didUpdateCarouselData()
         }

@@ -29,7 +29,6 @@ enum ServiceRequestVCSectionType {
     case location
     case serviceType
     case image
-    case submit
     case note
     case none
 }
@@ -37,7 +36,11 @@ enum ServiceRequestVCSectionType {
 class ServiceRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    var sections = [ServiceRequestVCSection(title: "There's an issue in", buttonTitle: "Choose Office", type: .location), ServiceRequestVCSection(title: "There's an issue with", buttonTitle: "Choose Issue", type: .serviceType), ServiceRequestVCSection(title: "Add a note (optional)", buttonTitle: "Tell us more", type: .note), ServiceRequestVCSection(title: "Add an image (optional)", buttonTitle: "Choose Image", type: .image), ServiceRequestVCSection(title: "Submit", buttonTitle: "Submit Service Request", type: .submit)]
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var bottomViewBtn: UIButton!
+    
+    
+    var sections = [ServiceRequestVCSection(title: "There's an issue in", buttonTitle: "Choose Office", type: .location), ServiceRequestVCSection(title: "There's an issue with", buttonTitle: "Choose Issue", type: .serviceType), ServiceRequestVCSection(title: "Add a note (optional)", buttonTitle: "Tell us more", type: .note), ServiceRequestVCSection(title: "Add an image (optional)", buttonTitle: "Choose Image", type: .image)]
     var loadingIndicator: NVActivityIndicatorView?
     var imagePicker = UIImagePickerController()
     var dataController: ServiceRequestVCDataController?
@@ -58,6 +61,10 @@ class ServiceRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         self.view.addSubview(self.loadingIndicator!)
         
         self.dataController = ServiceRequestVCDataController(delegate: self)
+    }
+    
+    @IBAction func didTapBottomViewBtn(_ sender: Any) {
+        self.dataController?.submitFormData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -105,12 +112,6 @@ class ServiceRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             } else {
                 section.selectedButtonTitle = nil
             }
-        case .submit:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
-                return UITableViewCell()
-            }
-            cell.configureCell(with: section, delegate: self)
-            return cell
         case .none:
             break
         case .note:
@@ -142,8 +143,6 @@ extension ServiceRequestVC: FormTVCellDelegate {
              self.performSegue(withIdentifier: "ServiceRequestVCtoChooseTVC", sender: ChooseTVCType.serviceRequestType)
         case .image:
             self.showImagePicker()
-        case .submit:
-            self.dataController?.submitFormData()
         case .none:
             return
         case .note:

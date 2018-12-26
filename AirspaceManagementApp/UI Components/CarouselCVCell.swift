@@ -55,15 +55,21 @@ class CarouselCVCellItem: NSObject {
         self.data = sr
     }
     
-    public init(with reservation: AirConferenceRoomReservation) {
-        self.title = reservation.conferenceRoom?.name ?? "No Name"
-        var subtitleString = (reservation.startingDate?.localizedDescription ?? "No Start Date")
-        subtitleString += " to "
-        subtitleString += (reservation.endDate?.localizedDescriptionNoDate ?? "No End Date")
-        self.subtitle = subtitleString
-        self.bannerImage = reservation.conferenceRoom?.image
-        self.type = .regular
-        self.data = reservation
+    public init(with reservation: AirReservation) {
+        if let reservation = reservation as? AirConferenceRoomReservation {
+            self.title = reservation.conferenceRoom?.name ?? "No Name"
+            var subtitleString = (reservation.startingDate?.localizedDescription ?? "No Start Date")
+            subtitleString += " to "
+            subtitleString += (reservation.endDate?.localizedDescriptionNoDate ?? "No End Date")
+            self.subtitle = subtitleString
+            self.bannerImage = reservation.conferenceRoom?.image
+            self.type = .regular
+            self.data = reservation
+        } else if let reservation = reservation as? AirDeskReservation {
+            // populate cell here 
+            return
+        }
+       
     }
 }
 

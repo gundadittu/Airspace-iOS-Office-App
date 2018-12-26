@@ -19,6 +19,7 @@ class AirUser: NSObject {
     
     public init?(dictionary: [String: Any]) {
         super.init()
+        
         if let uid = dictionary["uid"] as? String {
             self.uid = uid
         } else {

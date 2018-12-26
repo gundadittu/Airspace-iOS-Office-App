@@ -33,7 +33,7 @@ class FormSubmitTVCell: UITableViewCell {
         self.button.setTitle(object.buttonTitle, for: .normal)
     }
     
-    func configureCell(with object: FindRoomTVCSection, delegate: FormTVCellDelegate) {
+    func configureCell(with object: FindRoomVCSection, delegate: FormTVCellDelegate) {
         self.delegate = delegate
         self.sectionObject = object
         self.button.setTitle(object.buttonTitle, for: .normal)

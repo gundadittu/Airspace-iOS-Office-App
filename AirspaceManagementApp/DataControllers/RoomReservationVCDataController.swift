@@ -29,6 +29,16 @@ class RoomReservationVCDataController {
         self.delegate = delegate
     }
     
+    public func setConferenceRoomReservation(with reservation: AirConferenceRoomReservation) {
+        self.conferenceRoom = reservation.conferenceRoom
+        self.selectedStartDate = reservation.startingDate
+        self.selectedEndDate = reservation.endDate
+        self.eventName = reservation.title
+        self.eventDescription = reservation.note
+        self.originalReservation = reservation
+        self.invitedUsers = reservation.invitedUsers
+        self.delegate?.reloadTableView()
+    }
     public func setConferenceRoom(with room: AirConferenceRoom) {
         self.conferenceRoom = room
         self.delegate?.reloadTableView()
@@ -36,12 +46,10 @@ class RoomReservationVCDataController {
     
     public func setSelectedStartDate(with date: Date?) {
         self.selectedStartDate = date
-        //        self.delegate?.reloadTableView()
     }
     
     public func setSelectedEndDate(with date: Date?) {
         self.selectedEndDate = date
-        //        self.delegate?.reloadTableView()
     }
     
     public func setEventName(with name: String) {
@@ -60,10 +68,21 @@ class RoomReservationVCDataController {
     }
     
     public func resetToOriginal() {
-        guard let room = self.conferenceRoom else { return }
+        guard let room = self.originalReservation else { return }
+        self.setConferenceRoomReservation(with: room)
     }
     
     public func submitData() {
-        return
+        guard let reservationUID = self.originalReservation?.uid,
+            let startTime = self.selectedStartDate,
+            let endTime = self.selectedEndDate,
+            let reservationTitle = self.eventName,
+            let note = self.eventDescription else {
+                return
+        }
+        let attendees =  self.invitedUsers 
+        ReservationManager.shared.updateConferenceRoomReservation(reservationUID: reservationUID, startTime: startTime, endTime: endTime, reservationTitle: reservationTitle, note: note, attendees: attendees) { (error) in
+            self.delegate?.didFinishSubmittingData(withError: error)
+        }
     }
 }

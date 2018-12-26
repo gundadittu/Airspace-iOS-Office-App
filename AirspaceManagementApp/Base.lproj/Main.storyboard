@@ -101,21 +101,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6nf-3R-UUn">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="543"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sxr-EW-W4W">
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taW-el-Xia">
+                                        <rect key="frame" x="96" y="12" width="183" height="36"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                                        <state key="normal" title="Submit Service Request"/>
+                                        <connections>
+                                            <action selector="didTapBottomViewBtn:" destination="cG7-qb-Kn2" eventType="touchUpInside" id="b6H-tY-t7V"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="taW-el-Xia" firstAttribute="centerX" secondItem="Sxr-EW-W4W" secondAttribute="centerX" id="Bwf-Cs-v8h"/>
+                                    <constraint firstItem="taW-el-Xia" firstAttribute="centerY" secondItem="Sxr-EW-W4W" secondAttribute="centerY" id="en6-pa-dZ5"/>
+                                    <constraint firstAttribute="height" constant="60" id="feN-bs-M6y"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6nf-3R-UUn" firstAttribute="leading" secondItem="KGi-KX-RuJ" secondAttribute="leading" id="4uy-O8-E01"/>
-                            <constraint firstItem="6nf-3R-UUn" firstAttribute="bottom" secondItem="KGi-KX-RuJ" secondAttribute="bottom" id="G9d-qc-B3m"/>
+                            <constraint firstItem="Sxr-EW-W4W" firstAttribute="leading" secondItem="KGi-KX-RuJ" secondAttribute="leading" id="8UT-YD-L7s"/>
                             <constraint firstItem="6nf-3R-UUn" firstAttribute="top" secondItem="KGi-KX-RuJ" secondAttribute="top" id="Rrs-9n-LOx"/>
+                            <constraint firstItem="Sxr-EW-W4W" firstAttribute="top" secondItem="6nf-3R-UUn" secondAttribute="bottom" id="Yh4-tn-dWW"/>
+                            <constraint firstItem="Sxr-EW-W4W" firstAttribute="bottom" secondItem="KGi-KX-RuJ" secondAttribute="bottom" id="iFd-6k-nOq"/>
+                            <constraint firstItem="Sxr-EW-W4W" firstAttribute="trailing" secondItem="KGi-KX-RuJ" secondAttribute="trailing" id="ncC-Ld-bYQ"/>
                             <constraint firstItem="KGi-KX-RuJ" firstAttribute="trailing" secondItem="6nf-3R-UUn" secondAttribute="trailing" id="yCn-Bq-nNK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KGi-KX-RuJ"/>
                     </view>
                     <navigationItem key="navigationItem" id="CsW-v2-YAZ"/>
                     <connections>
+                        <outlet property="bottomView" destination="Sxr-EW-W4W" id="IpK-q2-gWs"/>
+                        <outlet property="bottomViewBtn" destination="taW-el-Xia" id="ohw-5b-lD6"/>
                         <outlet property="tableView" destination="6nf-3R-UUn" id="EEi-OZ-3cP"/>
                         <segue destination="mPb-M9-6s1" kind="show" identifier="ServiceRequestVCtoChooseTVC" id="rp5-n1-aSH"/>
                         <segue destination="eQ7-Na-JM3" kind="show" identifier="ServiceRequestVCtoTextInputVC" id="aYa-1q-nGD"/>
@@ -123,7 +147,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MD5-Cw-WVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4129" y="-516"/>
+            <point key="canvasLocation" x="4128.8000000000002" y="-516.79160419790105"/>
         </scene>
         <!--Home Tab Bar Controller-->
         <scene sceneID="JVA-ts-9Pp">
@@ -219,36 +243,14 @@
                     <connections>
                         <outlet property="tableView" destination="ZJH-1V-6co" id="Z6r-Eu-JY9"/>
                         <segue destination="cG7-qb-Kn2" kind="show" identifier="mainToSubmitTicket" id="Wva-VX-VrE"/>
-                        <segue destination="JoJ-U4-jB8" kind="show" identifier="MainVCtoRegisterGuestVC" id="g2r-iT-aV4"/>
-                        <segue destination="I4h-p4-Ae5" kind="show" identifier="toReserveVC" id="EOH-SA-r0L"/>
+                        <segue destination="7Zb-v6-xc1" kind="show" identifier="MainVCtoRegisterGuestVC" id="RvS-mj-9Re"/>
+                        <segue destination="U0G-q0-d36" kind="show" identifier="toFindRoomVC" id="1Pu-07-iuP"/>
+                        <segue destination="qkS-K9-EPy" kind="show" identifier="toRoomReservationVC" id="lPI-wf-qzA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0XN-hf-Ju0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3343.1999999999998" y="340.47976011994007"/>
-        </scene>
-        <!--Register GuestVC-->
-        <scene sceneID="9R1-9g-aX2">
-            <objects>
-                <tableViewController id="JoJ-U4-jB8" customClass="RegisterGuestVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="9Es-Ti-DYw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="JoJ-U4-jB8" id="Xkh-vK-18Y"/>
-                            <outlet property="delegate" destination="JoJ-U4-jB8" id="vsA-oc-sfQ"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <segue destination="mPb-M9-6s1" kind="show" identifier="RegisterGuestVCtoChooseTVC" id="yyO-NO-yVQ"/>
-                        <segue destination="eQ7-Na-JM3" kind="show" identifier="RegisterGuestVCtoTextInputVC" id="lzB-up-1d4"/>
-                        <segue destination="haf-Jb-7Zd" kind="show" identifier="RegisterGuestVCtoDateTimeInputVC" id="tu4-Zk-t6h"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wrn-ed-qo1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4128.8000000000002" y="339.58020989505252"/>
         </scene>
         <!--Home Nav Controller-->
         <scene sceneID="NhO-gA-9BJ">
@@ -314,6 +316,8 @@
                         <segue destination="mi9-kC-n5q" kind="show" identifier="ProfileVCtoMyGuestRegTVC" id="gkW-jy-2sD"/>
                         <segue destination="IAh-um-esc" kind="show" identifier="ProfileVCtoMyServReqTVC" id="UDw-Jv-ePQ"/>
                         <segue destination="Pky-iX-fSo" kind="show" identifier="toSettingsTVC" id="AVp-iv-oIo"/>
+                        <segue destination="qkS-K9-EPy" kind="show" identifier="toRoomReservationVC" id="7oR-mF-K1e"/>
+                        <segue destination="edN-D2-GTQ" kind="show" identifier="toMyReservationsListTVC" id="LSa-iT-DwI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i9X-cb-seD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -445,9 +449,9 @@
                     <connections>
                         <outlet property="tableView" destination="81E-Es-QMx" id="Gli-gY-iLz"/>
                         <outlet property="topVIew" destination="TB1-OY-z8X" id="ysY-XI-Dcs"/>
-                        <segue destination="65m-Ec-C0G" kind="show" identifier="ReserveVCtoFindRoomTVC" id="BxD-to-eVm"/>
                         <segue destination="eLi-oy-IVa" kind="show" identifier="toConferenceRoomProfileTVC" id="vLk-3V-1hZ"/>
                         <segue destination="haf-Jb-7Zd" kind="show" identifier="toDateInputVC" id="5ra-Sn-Psd"/>
+                        <segue destination="U0G-q0-d36" kind="show" identifier="ReserveVCtoFindRoomTVC" id="LxT-o5-97Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xoQ-M6-mCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -527,15 +531,10 @@
                             <outlet property="delegate" destination="65m-Ec-C0G" id="g1d-wZ-vE6"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <segue destination="mPb-M9-6s1" kind="show" identifier="FindRoomTVCtoChooseTVC" id="9HD-2O-kHo"/>
-                        <segue destination="haf-Jb-7Zd" kind="show" identifier="FindRoomTVCtoDateTimeInputVC" id="Ig4-a4-51K"/>
-                        <segue destination="CEx-GT-t0x" kind="show" identifier="FindRoomTVCtoRoomListTVC" id="qTk-A9-RYx"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fv4-fX-Cb1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4128.8000000000002" y="1861.6191904047978"/>
+            <point key="canvasLocation" x="3391" y="3740"/>
         </scene>
         <!--My Guest RegTVC-->
         <scene sceneID="Idq-BN-wka">
@@ -611,6 +610,37 @@
             </objects>
             <point key="canvasLocation" x="5122" y="2466"/>
         </scene>
+        <!--My Reservations ListTVC-->
+        <scene sceneID="y1X-nf-8Na">
+            <objects>
+                <tableViewController id="edN-D2-GTQ" customClass="MyReservationsListTVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6Uh-Sg-F4G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="TDP-85-8w6">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TDP-85-8w6" id="p9U-x1-4d0">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="edN-D2-GTQ" id="28M-Ji-ZoP"/>
+                            <outlet property="delegate" destination="edN-D2-GTQ" id="aZe-vm-vWM"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="qkS-K9-EPy" kind="show" identifier="toRoomReservationVC" id="BA3-TL-khd"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w8s-yt-qof" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4787" y="3200"/>
+        </scene>
         <!--Room ReservationVC-->
         <scene sceneID="bWF-mb-mdi">
             <objects>
@@ -620,26 +650,54 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tvp-XO-EhS">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="543"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N9d-m0-bLY">
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJc-TX-dC1">
+                                        <rect key="frame" x="122.5" y="10" width="130" height="40"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
+                                        <state key="normal" title="Save Changes"/>
+                                        <connections>
+                                            <action selector="bottomViewBtnTapped:" destination="eLi-oy-IVa" eventType="touchUpInside" id="mPD-rb-PzC"/>
+                                            <action selector="didTapBottomViewBtn:" destination="qkS-K9-EPy" eventType="touchUpInside" id="8PP-eq-3Zr"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="tJc-TX-dC1" firstAttribute="centerX" secondItem="N9d-m0-bLY" secondAttribute="centerX" id="GhO-wC-eQ2"/>
+                                    <constraint firstItem="tJc-TX-dC1" firstAttribute="centerY" secondItem="N9d-m0-bLY" secondAttribute="centerY" id="lVb-Of-L6I"/>
+                                    <constraint firstAttribute="height" constant="60" id="oid-93-Buv"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="tvp-XO-EhS" firstAttribute="bottom" secondItem="HLl-bh-ULr" secondAttribute="bottom" id="D9o-2r-pbn"/>
                             <constraint firstItem="tvp-XO-EhS" firstAttribute="leading" secondItem="HLl-bh-ULr" secondAttribute="leading" id="IX5-s3-hC0"/>
                             <constraint firstItem="tvp-XO-EhS" firstAttribute="trailing" secondItem="HLl-bh-ULr" secondAttribute="trailing" id="Tp3-qj-PJA"/>
                             <constraint firstItem="tvp-XO-EhS" firstAttribute="top" secondItem="HLl-bh-ULr" secondAttribute="top" id="VIt-of-9s5"/>
+                            <constraint firstItem="N9d-m0-bLY" firstAttribute="trailing" secondItem="HLl-bh-ULr" secondAttribute="trailing" id="bDd-Jv-oZs"/>
+                            <constraint firstItem="N9d-m0-bLY" firstAttribute="bottom" secondItem="HLl-bh-ULr" secondAttribute="bottom" id="rye-X5-xkO"/>
+                            <constraint firstItem="N9d-m0-bLY" firstAttribute="top" secondItem="tvp-XO-EhS" secondAttribute="bottom" id="ttE-FG-WhL"/>
+                            <constraint firstItem="N9d-m0-bLY" firstAttribute="leading" secondItem="HLl-bh-ULr" secondAttribute="leading" id="zXt-N3-9x4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HLl-bh-ULr"/>
                     </view>
                     <connections>
+                        <outlet property="bottomView" destination="N9d-m0-bLY" id="3fk-V2-wYe"/>
+                        <outlet property="bottomViewBtn" destination="tJc-TX-dC1" id="NWG-Vm-csw"/>
                         <outlet property="tableView" destination="tvp-XO-EhS" id="VrH-Fc-Bp8"/>
+                        <segue destination="eQ7-Na-JM3" kind="show" identifier="toTextInputVC" id="BE0-wO-9YW"/>
+                        <segue destination="mPb-M9-6s1" kind="show" identifier="toChooseTVC" id="PpA-1h-ZrX"/>
+                        <segue destination="haf-Jb-7Zd" kind="show" identifier="toDateInputVC" id="sr5-cT-I7J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jr5-9g-mtb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6109.6000000000004" y="2652.3238380809598"/>
+            <point key="canvasLocation" x="6124" y="2685.6071964017992"/>
         </scene>
         <!--Conference Room ProfileTVC-->
         <scene sceneID="0vS-2O-EfR">
@@ -821,6 +879,62 @@
             </objects>
             <point key="canvasLocation" x="6090" y="1687"/>
         </scene>
+        <!--Register GuestVC-->
+        <scene sceneID="JAr-R5-yaj">
+            <objects>
+                <viewController id="7Zb-v6-xc1" customClass="RegisterGuestVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mUW-Sh-719">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Owh-DP-UgW">
+                                <rect key="frame" x="0.0" y="64" width="375" height="543"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Va4-sg-6TG">
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RlN-CD-Y2s">
+                                        <rect key="frame" x="131" y="14" width="114" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                                        <state key="normal" title="Register Guest"/>
+                                        <connections>
+                                            <action selector="didtapBottonViewBTN:" destination="7Zb-v6-xc1" eventType="touchUpInside" id="eml-Rk-Cbt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="fch-Jv-Vjn"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Owh-DP-UgW" firstAttribute="leading" secondItem="Qen-Yc-UQC" secondAttribute="leading" id="BwL-tx-VWa"/>
+                            <constraint firstItem="Va4-sg-6TG" firstAttribute="leading" secondItem="Qen-Yc-UQC" secondAttribute="leading" id="CJL-lB-Eby"/>
+                            <constraint firstItem="Va4-sg-6TG" firstAttribute="trailing" secondItem="Qen-Yc-UQC" secondAttribute="trailing" id="Hv7-4p-O7F"/>
+                            <constraint firstItem="Va4-sg-6TG" firstAttribute="bottom" secondItem="Qen-Yc-UQC" secondAttribute="bottom" id="IwP-OS-dqA"/>
+                            <constraint firstItem="Owh-DP-UgW" firstAttribute="trailing" secondItem="Qen-Yc-UQC" secondAttribute="trailing" id="fGT-VP-ZWC"/>
+                            <constraint firstItem="Owh-DP-UgW" firstAttribute="top" secondItem="Qen-Yc-UQC" secondAttribute="top" id="hZC-fk-xku"/>
+                            <constraint firstItem="Va4-sg-6TG" firstAttribute="top" secondItem="Owh-DP-UgW" secondAttribute="bottom" id="uiL-37-b7I"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Qen-Yc-UQC"/>
+                    </view>
+                    <connections>
+                        <outlet property="bottomView" destination="Va4-sg-6TG" id="fQ6-Rv-pZW"/>
+                        <outlet property="bottomViewBtn" destination="RlN-CD-Y2s" id="TkB-CN-DOd"/>
+                        <outlet property="tableView" destination="Owh-DP-UgW" id="MZr-gK-FyG"/>
+                        <segue destination="haf-Jb-7Zd" kind="show" identifier="RegisterGuestVCtoDateTimeInputVC" id="JVy-aW-5mh"/>
+                        <segue destination="mPb-M9-6s1" kind="show" identifier="RegisterGuestVCtoChooseTVC" id="HQB-zd-fEw"/>
+                        <segue destination="eQ7-Na-JM3" kind="show" identifier="RegisterGuestVCtoTextInputVC" id="L8e-TC-CAJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oUp-lY-bM8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4150" y="340"/>
+        </scene>
         <!--ChooseTVC-->
         <scene sceneID="WsG-zS-NNj">
             <objects>
@@ -870,6 +984,62 @@
             </objects>
             <point key="canvasLocation" x="3343" y="2642"/>
         </scene>
+        <!--Find RoomVC-->
+        <scene sceneID="mX1-CM-nf3">
+            <objects>
+                <viewController id="U0G-q0-d36" customClass="FindRoomVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YJg-Jh-mkX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aHg-qG-nq9">
+                                <rect key="frame" x="0.0" y="64" width="375" height="543"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cyy-Ct-EIX">
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oVv-hJ-9WA">
+                                        <rect key="frame" x="100" y="14" width="176" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                                        <state key="normal" title="Show Available Rooms"/>
+                                        <connections>
+                                            <action selector="bottomViewBtnTapped:" destination="U0G-q0-d36" eventType="touchUpInside" id="Sfy-Eh-W5p"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Z4w-t7-w4M"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Cyy-Ct-EIX" firstAttribute="bottom" secondItem="4ZT-rA-HAc" secondAttribute="bottom" id="6RR-Tf-WJ9"/>
+                            <constraint firstItem="aHg-qG-nq9" firstAttribute="top" secondItem="4ZT-rA-HAc" secondAttribute="top" id="8OB-QD-yoz"/>
+                            <constraint firstItem="Cyy-Ct-EIX" firstAttribute="leading" secondItem="4ZT-rA-HAc" secondAttribute="leading" id="8ed-xE-Moq"/>
+                            <constraint firstItem="Cyy-Ct-EIX" firstAttribute="top" secondItem="aHg-qG-nq9" secondAttribute="bottom" id="TiE-Ny-cM1"/>
+                            <constraint firstItem="aHg-qG-nq9" firstAttribute="leading" secondItem="4ZT-rA-HAc" secondAttribute="leading" id="Xf8-SF-mOM"/>
+                            <constraint firstItem="4ZT-rA-HAc" firstAttribute="trailing" secondItem="Cyy-Ct-EIX" secondAttribute="trailing" id="eO2-LV-899"/>
+                            <constraint firstItem="aHg-qG-nq9" firstAttribute="trailing" secondItem="4ZT-rA-HAc" secondAttribute="trailing" id="hVC-es-vMB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4ZT-rA-HAc"/>
+                    </view>
+                    <connections>
+                        <outlet property="bottomView" destination="Cyy-Ct-EIX" id="8pw-ym-SYW"/>
+                        <outlet property="bottomViewBtn" destination="oVv-hJ-9WA" id="vdO-hV-klA"/>
+                        <outlet property="tableView" destination="aHg-qG-nq9" id="306-Ls-ygk"/>
+                        <segue destination="mPb-M9-6s1" kind="show" identifier="FindRoomVCtoChooseTVC" id="S8f-5f-7q6"/>
+                        <segue destination="haf-Jb-7Zd" kind="show" identifier="FindRoomVCtoDateTimeInputVC" id="o8o-5D-OJi"/>
+                        <segue destination="CEx-GT-t0x" kind="show" identifier="FindRoomVCtoRoomListTVC" id="x9X-C9-DYj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hbk-FP-6Zb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4149.6000000000004" y="1861.6191904047978"/>
+        </scene>
         <!--Notification Nav Controller-->
         <scene sceneID="zqP-rI-7sR">
             <objects>
@@ -911,10 +1081,11 @@
         <image name="circle-logo" width="87.360000610351562" height="78.239997863769531"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9HD-2O-kHo"/>
-        <segue reference="5ra-Sn-Psd"/>
-        <segue reference="zWd-J1-tuq"/>
+        <segue reference="1Pu-07-iuP"/>
+        <segue reference="rp5-n1-aSH"/>
+        <segue reference="JVy-aW-5mh"/>
+        <segue reference="aYa-1q-nGD"/>
         <segue reference="vLk-3V-1hZ"/>
-        <segue reference="OWj-XX-mGC"/>
+        <segue reference="lPI-wf-qzA"/>
     </inferredMetricsTieBreakers>
 </document>

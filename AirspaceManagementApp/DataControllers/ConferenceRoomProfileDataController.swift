@@ -77,9 +77,8 @@ class ConferenceRoomProfileDataController {
         }
         let createCalendarEvent = self.shouldCreateCalendarEvent ?? false
         
-        // fix office address parameter to: self.conferenceRoom?.offices?.first?.building?.address
         self.delegate?.startLoadingIndicator()
-        ReservationManager.shared.createConferenceRoomReservation(startTime: startTime, endTime: endTime, conferenceRoomUID: conferenceRoomUID, shouldCreateCalendarEvent: createCalendarEvent, eventName: self.eventName, description: self.eventDescription, conferenceRoomName: self.conferenceRoom?.name, officeAddress: "address", attendees: self.invitedUsers) { (error) in
+        ReservationManager.shared.createConferenceRoomReservation(startTime: startTime, endTime: endTime, conferenceRoomUID: conferenceRoomUID, shouldCreateCalendarEvent: createCalendarEvent, reservationTitle: self.eventName, note: self.eventDescription, attendees: self.invitedUsers) { (error) in
             self.delegate?.stopLoadingIndicator()
             if let error = error {
                 self.delegate?.didFinishSubmittingData(withError: error)

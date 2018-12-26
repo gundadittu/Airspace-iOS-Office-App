@@ -1,5 +1,5 @@
 //
-//  FindRoomTVCDataController.swift
+//  FindRoomVCDataController.swift
 //  AirspaceManagementApp
 //
 //  Created by Aditya Gunda on 12/18/18.
@@ -9,14 +9,14 @@
 import Foundation
 import NotificationBannerSwift
 
-protocol FindRoomTVCDataControllerDelegate {
+protocol FindRoomVCDataControllerDelegate {
     func didFindAvailableConferenceRooms(rooms: [AirConferenceRoom]?, error: Error?)
     func startLoadingIndicator()
     func stopLoadingIndicator()
     func reloadTableView()
 }
 
-class FindRoomTVCDataController {
+class FindRoomVCDataController {
     var selectedOffice: AirOffice?
     var selectedDuration: Duration? = .fifteen
     var selectedStartDate: Date? = Date()
@@ -24,9 +24,9 @@ class FindRoomTVCDataController {
     var selectedAmenities: [RoomAmenity]?
     var shouldAutomaticallySubmit = false
     
-    var delegate: FindRoomTVCDataControllerDelegate?
+    var delegate: FindRoomVCDataControllerDelegate?
     
-    public init(delegate: FindRoomTVCDataControllerDelegate, shouldAutomaticallySubmit: Bool = false) {
+    public init(delegate: FindRoomVCDataControllerDelegate, shouldAutomaticallySubmit: Bool = false) {
         self.delegate = delegate
         self.shouldAutomaticallySubmit = shouldAutomaticallySubmit
         
@@ -118,7 +118,7 @@ class FindRoomTVCDataController {
         }
     }
     
-    func configure(with controller: FindRoomTVCDataController?) {
+    func configure(with controller: FindRoomVCDataController?) {
         guard let controller = controller else { return }
         if let selectedOffice = controller.selectedOffice {
             self.setSelectedOffice(with: selectedOffice)

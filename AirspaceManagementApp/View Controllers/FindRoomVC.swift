@@ -12,43 +12,49 @@ import NotificationBannerSwift
 import NVActivityIndicatorView
 import CFAlertViewController
 
-class FindRoomTVCSection: PageSection {
+class FindRoomVCSection: PageSection {
     var title = ""
     var buttonTitle = ""
     var selectedButtonTitle: String?
-    var type: FindRoomTVCSectionType = .none
+    var type: FindRoomVCSectionType = .none
     
-    public init(title: String, buttonTitle: String, type: FindRoomTVCSectionType) {
+    public init(title: String, buttonTitle: String, type: FindRoomVCSectionType) {
         self.title = title
         self.buttonTitle = buttonTitle
         self.type = type
     }
 }
 
-enum FindRoomTVCSectionType {
+enum FindRoomVCSectionType {
     case office
     case startTime
     case duration
     case capacity
     case amenities
-    case submit
+//    case submit
 //    case repeatEvent
 //    case note
 //    case title
     case none
 }
 
-class FindRoomTVC: UITableViewController {
+class FindRoomVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var sections = [ FindRoomTVCSection(title: "I need a room in", buttonTitle: "Choose Office", type: .office), FindRoomTVCSection(title: "starting at", buttonTitle: "Select Time", type: .startTime), FindRoomTVCSection(title: "for around", buttonTitle: "Choose Duration", type: .duration), FindRoomTVCSection(title: "and it needs to fit (optional)", buttonTitle: "Choose # of People", type: .capacity), FindRoomTVCSection(title: "and it needs to have (optional)", buttonTitle: " Pick Amenities", type: .amenities), FindRoomTVCSection(title: "Find", buttonTitle: "Show Available Rooms", type: .submit)]
+    var sections = [ FindRoomVCSection(title: "I need a room in", buttonTitle: "Choose Office", type: .office), FindRoomVCSection(title: "starting at", buttonTitle: "Select Time", type: .startTime), FindRoomVCSection(title: "for around", buttonTitle: "Choose Duration", type: .duration), FindRoomVCSection(title: "and it needs to fit (optional)", buttonTitle: "Choose # of People", type: .capacity), FindRoomVCSection(title: "and it needs to have (optional)", buttonTitle: " Pick Amenities", type: .amenities)]
     var loadingIndicator: NVActivityIndicatorView?
-    var dataController: FindRoomTVCDataController?
+    var dataController: FindRoomVCDataController?
     var shouldAutomaticallySubmit = false
+    
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var bottomViewBtn: UIButton!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Find a Conference Room"
         
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         self.tableView.register(UINib(nibName: "FormTVCell", bundle: nil), forCellReuseIdentifier: "FormTVCell")
         self.tableView.register(UINib(nibName: "FormSubmitTVCell", bundle: nil), forCellReuseIdentifier: "FormSubmitTVCell")
         self.tableView.separatorStyle = .none
@@ -58,12 +64,26 @@ class FindRoomTVC: UITableViewController {
         self.view.addSubview(self.loadingIndicator!)
         
         if dataController == nil {
-            self.dataController = FindRoomTVCDataController(delegate: self)
+            self.dataController = FindRoomVCDataController(delegate: self)
         }
+        
+        self.bottomViewBtn.setTitleColor(.white, for: .normal)
+        self.bottomView.backgroundColor = globalColor
+        self.bottomView.layer.shadowColor = UIColor.black.cgColor
+        self.bottomView.layer.shadowOpacity = 0.5
+        self.bottomView.layer.shadowOffset = CGSize.zero
+        self.bottomView.layer.shadowRadius = 2
+    }
+    
+    @IBAction func bottomViewBtnTapped(_ sender: Any) {
+        guard (self.loadingIndicator?.isAnimating == false ||  self.loadingIndicator == nil) else {
+            return
+        }
+        self.dataController?.submitData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "FindRoomTVCtoChooseTVC",
+        if segue.identifier == "FindRoomVCtoChooseTVC",
             let destination = segue.destination as? ChooseTVC,
             let sender = sender as? ChooseTVCType {
             destination.type = sender
@@ -72,33 +92,33 @@ class FindRoomTVC: UITableViewController {
                 let selectedAmenities = self.dataController?.selectedAmenities {
                 destination.selectedAmenities = selectedAmenities
             }
-        } else if segue.identifier == "FindRoomTVCtoDateTimeInputVC",
+        } else if segue.identifier == "FindRoomVCtoDateTimeInputVC",
             let destination = segue.destination as? DateTimeInputVC {
             destination.delegate = self
             if let initialDate = self.dataController?.selectedStartDate {
                 destination.initialDate = initialDate
             }
-        } else if segue.identifier == "FindRoomTVCtoRoomListTVC",
+        } else if segue.identifier == "FindRoomVCtoRoomListTVC",
             let destination = segue.destination as? RoomListTVC,
             let sender = sender as? [AirConferenceRoom] {
             destination.conferenceRooms = sender
             destination.startingDate = self.dataController?.selectedStartDate ?? Date()
-            let newDataController = FindRoomTVCDataController(delegate: destination)
+            let newDataController = FindRoomVCDataController(delegate: destination)
             newDataController.configure(with: self.dataController)
             destination.dataController = newDataController
         }
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections.count
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        return UITableView.automaticDimension
         return CGFloat(110)
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = self.sections[indexPath.row]
         switch section.type {
         case .office:
@@ -134,12 +154,6 @@ class FindRoomTVC: UITableViewController {
             } else {
                 section.selectedButtonTitle = nil
             }
-        case .submit:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
-                return UITableViewCell()
-            }
-            cell.configureCell(with: section, delegate: self)
-            return cell
         case .none:
             break
         }
@@ -151,7 +165,7 @@ class FindRoomTVC: UITableViewController {
     }
 }
 
-extension FindRoomTVC: ChooseTVCDelegate {
+extension FindRoomVC: ChooseTVCDelegate {
     func didSelectOffice(office: AirOffice) {
        self.dataController?.setSelectedOffice(with: office)
     }
@@ -169,27 +183,24 @@ extension FindRoomTVC: ChooseTVCDelegate {
     }
 }
 
-extension FindRoomTVC: FormTVCellDelegate {
+extension FindRoomVC: FormTVCellDelegate {
     func didSelectCellButton(withObject object: PageSection) {
-        guard let object = object as? FindRoomTVCSection else {
+        guard let object = object as? FindRoomVCSection else {
             // handle error
             return
         }
         
         switch object.type {
         case .office:
-            self.performSegue(withIdentifier: "FindRoomTVCtoChooseTVC", sender: ChooseTVCType.offices)
+            self.performSegue(withIdentifier: "FindRoomVCtoChooseTVC", sender: ChooseTVCType.offices)
         case .startTime:
-            self.performSegue(withIdentifier: "FindRoomTVCtoDateTimeInputVC", sender: nil)
+            self.performSegue(withIdentifier: "FindRoomVCtoDateTimeInputVC", sender: nil)
         case .duration:
-             self.performSegue(withIdentifier: "FindRoomTVCtoChooseTVC", sender: ChooseTVCType.duration)
+             self.performSegue(withIdentifier: "FindRoomVCtoChooseTVC", sender: ChooseTVCType.duration)
         case .capacity:
-             self.performSegue(withIdentifier: "FindRoomTVCtoChooseTVC", sender: ChooseTVCType.capacity)
+             self.performSegue(withIdentifier: "FindRoomVCtoChooseTVC", sender: ChooseTVCType.capacity)
         case .amenities:
-             self.performSegue(withIdentifier: "FindRoomTVCtoChooseTVC", sender: ChooseTVCType.roomAmenities)
-        case .submit:
-            guard (self.loadingIndicator?.isAnimating == false ||  self.loadingIndicator == nil) else { return }
-            self.dataController?.submitData()
+             self.performSegue(withIdentifier: "FindRoomVCtoChooseTVC", sender: ChooseTVCType.roomAmenities)
         case .none:
             break
         }
@@ -197,11 +208,11 @@ extension FindRoomTVC: FormTVCellDelegate {
     }
 }
 
-extension FindRoomTVC: FindRoomTVCDataControllerDelegate {
+extension FindRoomVC: FindRoomVCDataControllerDelegate {
     func didFindAvailableConferenceRooms(rooms: [AirConferenceRoom]?, error: Error?) {
         if error == nil,
             let rooms = rooms {
-            self.performSegue(withIdentifier: "FindRoomTVCtoRoomListTVC", sender: rooms)
+            self.performSegue(withIdentifier: "FindRoomVCtoRoomListTVC", sender: rooms)
         }
     }
     
@@ -218,7 +229,7 @@ extension FindRoomTVC: FindRoomTVCDataControllerDelegate {
     }
 }
 
-extension FindRoomTVC: DateTimeInputVCDelegate {
+extension FindRoomVC: DateTimeInputVCDelegate {
     func didSaveInput(with date: Date, and identifier: String?) {
         self.dataController?.setSelectedStartDate(with: date)
     }

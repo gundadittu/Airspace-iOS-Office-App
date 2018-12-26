@@ -66,7 +66,7 @@ class FormTVCell: UITableViewCell {
         self.button.setAttributedTitle(attributedString, for: .normal)
     }
     
-    func configureCell(with object: FindRoomTVCSection, delegate: FormTVCellDelegate) {
+    func configureCell(with object: FindRoomVCSection, delegate: FormTVCellDelegate) {
         self.delegate = delegate
         self.sectionObject = object
         

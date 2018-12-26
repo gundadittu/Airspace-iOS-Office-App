@@ -30,21 +30,27 @@ enum RegisterGuestVCSectionType {
     case name
     case dateTime
     case email
-    case submit
     case none
 }
 
-class RegisterGuestVC: UITableViewController {
-    var sections = [RegisterGuestVCSection(title: "I have a guest visiting", buttonTitle: "Choose Office", type: .office),RegisterGuestVCSection(title: "Their name is", buttonTitle: "Enter Name", type: .name), RegisterGuestVCSection(title: "They are visiting", buttonTitle: "Choose Date & Time", type: .dateTime), RegisterGuestVCSection(title: "Their email is (optional)", buttonTitle: "Enter Email", type: .email), RegisterGuestVCSection(title: "Submit", buttonTitle: "Register Guest", type: .submit)]
+class RegisterGuestVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var sections = [RegisterGuestVCSection(title: "I have a guest visiting", buttonTitle: "Choose Office", type: .office),RegisterGuestVCSection(title: "Their name is", buttonTitle: "Enter Name", type: .name), RegisterGuestVCSection(title: "They are visiting", buttonTitle: "Choose Date & Time", type: .dateTime), RegisterGuestVCSection(title: "Their email is (optional)", buttonTitle: "Enter Email", type: .email)]
     var dataController: RegisterGuestTVCDataController?
     let datePicker: UIDatePicker = UIDatePicker()
     let tempInput = UITextField( frame:CGRect.zero )
     var loadingIndicator: NVActivityIndicatorView?
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var bottomViewBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Register a Guest"
         
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         self.tableView.register(UINib(nibName: "FormTVCell", bundle: nil), forCellReuseIdentifier: "FormTVCell")
         self.tableView.register(UINib(nibName: "FormSubmitTVCell", bundle: nil), forCellReuseIdentifier: "FormSubmitTVCell")
         self.tableView.separatorStyle = .none
@@ -54,6 +60,16 @@ class RegisterGuestVC: UITableViewController {
         self.view.addSubview(self.loadingIndicator!)
         
         self.dataController = RegisterGuestTVCDataController(delegate: self)
+        
+        self.bottomViewBtn.setTitleColor(.white, for: .normal)
+        self.bottomView.backgroundColor = globalColor
+        self.bottomView.layer.shadowColor = UIColor.black.cgColor
+        self.bottomView.layer.shadowOpacity = 0.5
+        self.bottomView.layer.shadowOffset = CGSize.zero
+        self.bottomView.layer.shadowRadius = 2
+    }
+    @IBAction func didtapBottonViewBTN(_ sender: Any) {
+        self.dataController?.submitFormData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,15 +95,15 @@ class RegisterGuestVC: UITableViewController {
         
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return sections.count
         }
         
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return UITableView.automaticDimension
         }
         
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = self.sections[indexPath.row]
         switch section.type {
         case .office:
@@ -98,12 +114,6 @@ class RegisterGuestVC: UITableViewController {
                 section.selectedButtonTitle = officeName
             } else {
                 section.selectedButtonTitle = nil
-            }
-            cell.configureCell(with: section, delegate: self)
-            return cell
-        case .submit:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
-                return UITableViewCell()
             }
             cell.configureCell(with: section, delegate: self)
             return cell
@@ -169,8 +179,6 @@ extension RegisterGuestVC: FormTVCellDelegate {
         case .email:
             self.performSegue(withIdentifier: "RegisterGuestVCtoTextInputVC", sender: "email")
 //            self.showGuestEmailAlert()
-        case .submit:
-            self.dataController?.submitFormData()
         case .none:
             return
         }

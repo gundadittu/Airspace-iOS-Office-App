@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseFirestore
 
-class AirConferenceRoomReservation : NSObject {
+class AirConferenceRoomReservation : AirReservation {
     var uid: String?
     var startingDate: Date?
     var endDate: Date?
@@ -17,7 +17,8 @@ class AirConferenceRoomReservation : NSObject {
     var conferenceRoom: AirConferenceRoom?
     var conferenceRoomUID: String?
     var title: String?
-    // var user: AirUser?
+    var host: AirUser?
+    var invitedUsers = [AirUser]()
     
 //    public init?(startingDate: Date, endDate: Date, conferenceRoom: AirConferenceRoom?) {
 //        self.startingDate = startingDate
@@ -26,7 +27,6 @@ class AirConferenceRoomReservation : NSObject {
 //    }
     
     public init?(dict: [String: Any]) {
-        
         if let uid = dict["uid"] as? String {
             self.uid = uid
         } else {
@@ -68,6 +68,7 @@ class AirConferenceRoomReservation : NSObject {
             self.conferenceRoomUID = roomUID
         } else {
             print("No conferenceRoomUID found for conference room reservation")
+            return nil
         }
         
         if let conferenceRoomDict = dict["conferenceRoom"] as? [String: Any],
@@ -75,6 +76,26 @@ class AirConferenceRoomReservation : NSObject {
             self.conferenceRoom = conferenceRoom
         } else {
             print("No conferenceRoom found for conference room reservation")
+            return nil
+        }
+        
+        if let hostDict = dict["host"] as? [String: Any],
+            let hostUser = AirUser(dictionary: hostDict) {
+            self.host = hostUser
+        } else {
+            print("No host found for conference room reservation")
+        }
+        
+        if let attendees = dict["attendees"] as? [[String: Any]] {
+            var attendeeArray = [AirUser]()
+            for userDict in attendees {
+                if let airUser = AirUser(dictionary: userDict) {
+                    attendeeArray.append(airUser)
+                }
+            }
+            self.invitedUsers = attendeeArray
+        } else {
+            print("No attendees found for conference room reservation")
         }
     }
     

@@ -16,7 +16,7 @@ class ProfileVC: UIViewController {
     var dataController: ProfileVCDataController?
     var upcomingGuests = [AirGuestRegistration]()
     var serviceRequests = [AirServiceRequest]()
-    var reservations = [AirConferenceRoomReservation]()
+    var roomReservations = [AirConferenceRoomReservation]()
     var loadingIndicator: NVActivityIndicatorView?
     
     var sections = [ProfileSection(title: "Bio", seeMoreTitle: "Edit Bio",type: .bioInfo),
@@ -93,11 +93,12 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             if let type = self.sections[indexPath.section].type,
-                (type == .myRegisteredGuests || type == .myServiceRequests) {
+                (type == .myRegisteredGuests || type == .myServiceRequests || type == .bioInfo) {
                 return CGFloat(120)
             }
-            return CGFloat(200)
+            return CGFloat(210)
         } else if indexPath.row == 1 {
+            // see more buttons 
             return CGFloat(90)
         }
         return CGFloat(0)
@@ -160,12 +161,13 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 var carouselItems = [CarouselCVCellItem]()
-                for reservation in self.reservations {
+                for reservation in self.roomReservations {
                     let item = CarouselCVCellItem(with: reservation)
                     carouselItems.append(item)
                 }
                 
                 cell.setCarouselItems(with: carouselItems)
+                cell.delegate = self 
                 return cell
             } else if indexPath.row == 1 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
@@ -274,7 +276,7 @@ extension ProfileVC: SeeMoreTVCDelegate {
         case .some(.bioInfo):
             return
         case .some(.myRoomReservations):
-            return
+            self.performSegue(withIdentifier: "toMyReservationsListTVC", sender: "conferenceRooms")
         case .some(.myDeskReservations):
             return
         case .some(.myServiceRequests):
@@ -300,9 +302,23 @@ extension ProfileVC: SeeMoreTVCDelegate {
             if let closedSR = self.dataController?.closedSR {
                 destination.closedSR = closedSR
             }
+        } else if segue.identifier == "toRoomReservationVC",
+            let destination = segue.destination as? RoomReservationVC,
+            let reservation = sender as? AirConferenceRoomReservation {
+            destination.conferenceRoomReservation = reservation
+        } else if segue.identifier == "toMyReservationsListTVC",
+            let destination = segue.destination as? MyReservationsListTVC,
+            let identifier = sender as? String {
+            
+            if identifier == "conferenceRooms" {
+                destination.upcoming = self.dataController?.upcomingReservations ?? []
+                destination.past = self.dataController?.pastReservations ?? []
+            }
         }
     }
 }
+
+// toMyReservationsListTVC
 
 extension ProfileVC: ProfileVCDataControllerDelegate {
     func stopLoadingIndicator() {
@@ -325,8 +341,8 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
             array.append(contentsOf: pending)
             self.serviceRequests = array
         }
-        if let reservations = self.dataController?.reservations {
-            self.reservations = reservations
+        if let upcomingRes = self.dataController?.upcomingReservations {
+            self.roomReservations = upcomingRes
         }
         
         self.tableView.reloadData()
@@ -337,6 +353,8 @@ extension ProfileVC: CarouselTVCellDelegate {
     func didSelectCarouselCVCellItem(item: CarouselCVCellItem) {
         if let guest = item.data as? AirGuestRegistration {
             self.showUnregisterGuestAlert(guest: guest)
+        } else if let reservation = item.data as? AirConferenceRoomReservation {
+            self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)
         }
     }
 }

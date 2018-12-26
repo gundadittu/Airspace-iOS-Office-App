@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import NVActivityIndicatorView
 import SwiftPullToRefresh
-//import NotificationBannerSwift
+import NotificationBannerSwift
 import CFAlertViewController
 
 enum ConferenceRoomProfileSectionType {
@@ -241,6 +241,7 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
             cell.configureCell(with: section, delegate: self)
             return cell
         }
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -263,6 +264,9 @@ extension ConferenceRoomProfileTVC: FormTVCellDelegate {
         case .inviteOthers:
             if (self.conferenceRoom?.offices?.first != nil) {
                 self.performSegue(withIdentifier: "toChooseTVC", sender: nil)
+            } else {
+                let banner = NotificationBanner(title: "Woops!", subtitle: "We are unable to modify your reservation's attendees currently. Try again later.", leftView: nil, rightView: nil, style: .warning, colors: nil)
+                banner.show()
             }
         case .none:
             return
@@ -316,7 +320,6 @@ extension ConferenceRoomProfileTVC: ConferenceRoomDetailedTVCDelegate {
     
     func didTapWhenDateButton() {
         // clicked when date button -> show date picker
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.performSegue(withIdentifier: "toDateInputVC", sender: "chooseReservationDate")
     }
     

@@ -39,6 +39,7 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
     var hourSegmentsCount = 24 // one whole day
     var reservations = [AirConferenceRoomReservation]()
     var conferenceRoom: AirConferenceRoom?
+    var conferenceRoomReservation: AirConferenceRoomReservation?
     var timeRangeStartDate = Date()
     var timeRangeEndDate = Date()
     var delegate: ConferenceRoomDetailedTVCDelegate?
@@ -162,17 +163,22 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         
         self.titleLabel.text = room.name ?? "No Name Provided"
         var subtitleText = ""
-        if let capacity = room.capacity {
-            subtitleText += "Seats \(capacity) • "
-        }
         if let offices = room.offices {
             let officesStringArr = offices.map { (office) -> String in
                 return office.name ?? "No office name"
             }
             subtitleText += officesStringArr.joined(separator: ", ")
         }
+        if let address = room.address {
+            let splitAddress = address.split(separator: ",")
+            subtitleText += " • "
+            subtitleText += String(splitAddress.first ?? "")
+        }
         
         var secondSubtitleText = ""
+        if let capacity = room.capacity {
+            secondSubtitleText += "Seats \(capacity) • "
+        }
         if let amenities = room.amenities {
             let amenitiesStringArr = amenities.map { (amenity) -> String in
                 return amenity.description
@@ -180,7 +186,6 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
             let amenitiesString = amenitiesStringArr.joined(separator: " • ")
             secondSubtitleText += amenitiesString
         }
-        
         self.subtitleLabel.text = subtitleText
         self.secondSubtitleLabel.text = secondSubtitleText
         self.loadReservationData()
@@ -299,12 +304,17 @@ extension ConferenceRoomDetailedTVC {
     func checkForConflicts(start: Date, end: Date) -> Bool{
         for reservation in self.reservations {
             if let interval = reservation.getDateInterval() {
-                if interval.contains(start) {
-                    return true
-                } else if interval.contains(end) {
-                    return true
-                } else if ((start < interval.start) && (interval.end < end)) {
-                    return true
+                if let currRes = self.conferenceRoomReservation,
+                    reservation.uid == currRes.uid {
+                    continue
+                } else {
+                    if interval.contains(start) {
+                        return true
+                    } else if interval.contains(end) {
+                        return true
+                    } else if ((start < interval.start) && (interval.end < end)) {
+                        return true
+                    }
                 }
             }
         }

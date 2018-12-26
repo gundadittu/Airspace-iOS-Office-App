@@ -11,7 +11,7 @@ import UIKit
 import NVActivityIndicatorView
 import SwiftPullToRefresh
 import NotificationBannerSwift
-
+import CFAlertViewController
 
 enum RoomReservationVCSectionType {
     case bio
@@ -41,10 +41,13 @@ class RoomReservationVC: UIViewController {
     
     var loadingIndicator: NVActivityIndicatorView?
     var dataController: RoomReservationVCDataController?
-    var conferenceRoom: AirConferenceRoom?
-//    var existingResDisplayStartDate = Date() // date used to display existing reservations for room
-//    var startDate: Date?
-//    var endDate: Date?
+    var conferenceRoomReservation: AirConferenceRoomReservation?
+    var existingResDisplayStartDate = Date() // date used to display existing reservations for room
+    
+    
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var bottomViewBtn: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,27 +61,32 @@ class RoomReservationVC: UIViewController {
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.tableView.addSubview(self.loadingIndicator!)
         
+        self.title = "My Reservation"
+        
         self.tableView.spr_setTextHeader { [weak self] in
             self?.tableView.reloadData()
         }
         
-        guard let conferenceRoom = self.conferenceRoom else {
-            fatalError("Did not provide conferenceRoom object for ConferenceRoomProfileTVC.")
+        guard let reservation = self.conferenceRoomReservation else {
+            fatalError("Did not provide conferenceRoomReservation object for ConferenceRoomProfileTVC.")
         }
-        // Do any additional setup after loading the view.
         if self.dataController == nil {
             self.dataController = RoomReservationVCDataController(delegate: self)
         }
-        self.dataController?.setConferenceRoom(with: conferenceRoom)
-//        if let startDate = self.startDate {
-//            self.dataController?.setSelectedStartDate(with: startDate)
-//        }
-//        if let endDate = self.endDate {
-//            self.dataController?.setSelectedEndDate(with: endDate)
-//        }
-
+        self.dataController?.setConferenceRoomReservation(with: reservation)
+        self.existingResDisplayStartDate = reservation.startingDate?.getBeginningOfDay ?? Date()
+        
+        self.bottomViewBtn.setTitleColor(.white, for: .normal)
+        self.bottomView.backgroundColor = globalColor
+        self.bottomView.layer.shadowColor = UIColor.black.cgColor
+        self.bottomView.layer.shadowOpacity = 0.5
+        self.bottomView.layer.shadowOffset = CGSize.zero
+        self.bottomView.layer.shadowRadius = 2
     }
     
+    @IBAction func didTapBottomViewBtn(_ sender: Any) {
+        self.dataController?.submitData()
+    }
     
 }
 
@@ -107,16 +115,23 @@ extension RoomReservationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return false
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var topCell: FormTVCell?
         let section = sections[indexPath.section]
         switch section.type {
         case .bio:
-            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ConferenceRoomDetailedTVC", for: indexPath) as? ConferenceRoomDetailedTVC,
-                let conferenceRoom = self.conferenceRoom else {
+            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ConferenceRoomDetailedTVC", for: indexPath) as? ConferenceRoomDetailedTVC else {
                     return UITableViewCell()
             }
-//            cell.configureCell(with: conferenceRoom, for: existingResDisplayStartDate, newReservationStartDate: self.dataController?.selectedStartDate, newReservationEndDate: self.dataController?.selectedEndDate)
+            
+            if let conferenceRoom = self.dataController?.conferenceRoom,
+                let start = self.dataController?.selectedStartDate,
+                let end = self.dataController?.selectedEndDate {
+                cell.whenDateBtn.isEnabled = false
+                cell.conferenceRoomReservation = self.conferenceRoomReservation
+                cell.configureCell(with: conferenceRoom, for: start, newReservationStartDate: start, newReservationEndDate: end)
+            }
             cell.setDelegate(with: self)
             return cell
         case .none:
@@ -163,19 +178,88 @@ extension RoomReservationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDateInputVC",
+            let destination = segue.destination as? DateTimeInputVC,
+            let identifier = sender as? String {
+            destination.delegate = self
+            destination.identifier = identifier
+            
+            if (identifier == "chooseReservationDate") {
+                destination.mode = .date
+                destination.minimumDate = Date()
+                destination.initialDate = self.existingResDisplayStartDate
+            } else if (identifier == "chooseStartDate") {
+                destination.mode = .time
+                
+                if let initialDate = self.dataController?.selectedStartDate {
+                    destination.initialDate = initialDate
+                } else {
+                    destination.initialDate = self.existingResDisplayStartDate
+                }
+            } else if (identifier == "chooseEndDate") {
+                destination.mode = .time
+                
+                if let startDate = self.dataController?.selectedStartDate {
+                    destination.minimumDate = startDate
+                }
+                
+                if let initialDate = self.dataController?.selectedEndDate {
+                    destination.initialDate = initialDate
+                } else {
+                    destination.initialDate = self.existingResDisplayStartDate
+                }
+                
+            }
+        } else if segue.identifier == "toTextInputVC",
+            let destination = segue.destination as? TextInputVC,
+            let identifier = sender as? String {
+            if identifier == "name" {
+                destination.initialText = self.dataController?.eventName
+                destination.title = "Modify Event Name"
+            } else if identifier == "description" {
+                destination.initialText = self.dataController?.eventDescription
+                destination.title = "Modify Event Description"
+            }
+            destination.identifier = identifier
+            destination.delegate = self
+        } else if segue.identifier == "toChooseTVC",
+            let destination = segue.destination as? ChooseTVC {
+            destination.type = .employees
+            destination.delegate = self
+            destination.officeObj = self.dataController?.conferenceRoom?.offices?.first // we know not nil since segue will not be executed otherwise
+            if let employees = self.dataController?.invitedUsers {
+                destination.selectedEmployees = employees
+            }
+        }
+    }
 }
 
 extension RoomReservationVC: RoomReservationVCDataControllerDelegate {
     func didFinishSubmittingData(withError error: Error?) {
-        return
+        if let _ = error {
+            let banner = NotificationBanner(title: "Woops!", subtitle: "We are unable to modify your reservation currently. Try again later.", leftView: nil, rightView: nil, style: .warning, colors: nil)
+            banner.show()
+        } else {
+            let alertController = CFAlertViewController(title: "Blast off! 🚀", message: "We were able to update your reservation.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+            let action = CFAlertAction(title: "Great!", style: .Default, alignment: .right, backgroundColor: globalColor, textColor: nil) { (action) in
+                self.navigationController?.popViewController(animated: true)
+            }
+            alertController.addAction(action)
+            self.present(alertController, animated: true)
+        }
     }
     
     func startLoadingIndicator() {
+        self.showActivityIndicator()
         self.loadingIndicator?.startAnimating()
     }
     
     func stopLoadingIndicator() {
+        self.hideActivityIndicator()
         self.loadingIndicator?.stopAnimating()
+        self.tableView.spr_endRefreshing()
     }
     
     func reloadTableView() {
@@ -185,42 +269,95 @@ extension RoomReservationVC: RoomReservationVCDataControllerDelegate {
 
 extension RoomReservationVC: ConferenceRoomDetailedTVCDelegate {
     func didTapWhenDateButton() {
-        return
+//        self.performSegue(withIdentifier: "toDateInputVC", sender: "chooseReservationDate")
+        return 
     }
     
     func didTapStartDateButton() {
-        return
+        self.performSegue(withIdentifier: "toDateInputVC", sender: "chooseStartDate")
     }
     
     func didTapEndDateButton() {
-        return
+        self.performSegue(withIdentifier: "toDateInputVC", sender: "chooseEndDate")
     }
     
     func didChooseNewDates(start: Date, end: Date) {
-        return
+        self.dataController?.setSelectedStartDate(with: start)
+        self.dataController?.setSelectedEndDate(with: end)
     }
     
     func didFindConflict() {
-        return
+        let alertController = CFAlertViewController(title: "Oh no!", message: "This conference room is not available during the selected time frame.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+        let action = CFAlertAction(title: "Ok 😕", style: .Default, alignment: .left, backgroundColor: globalColor, textColor: .black, handler: nil)
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
     }
 }
 
 extension RoomReservationVC: DateTimeInputVCDelegate, TextInputVCDelegate, ChooseTVCDelegate {
-    func didSaveInput(with date: Date, and identifier: String?) {
-        return
-    }
-    
-    func didSaveInput(with text: String, and identifier: String?) {
-        return
-    }
-    
-    func didChooseEmployees(employees: [AirUser]) {
-        return
-    }
+        
+        func didSaveInput(with text: String, and identifier: String?) {
+            guard let identifier = identifier else { return }
+            if identifier == "name" {
+                self.dataController?.setEventName(with: text)
+            } else if identifier == "description" {
+                self.dataController?.setEventDescription(with: text)
+            }
+        }
+        
+        func didChooseEmployees(employees: [AirUser]) {
+            self.dataController?.setInvitedUsers(with: employees)
+        }
+        
+        func didSaveInput(with date: Date, and identifier: String?) {
+            if identifier == "chooseReservationDate" {
+                self.existingResDisplayStartDate = date
+                
+                self.dataController?.setSelectedStartDate(with: nil)
+                self.dataController?.setSelectedEndDate(with: nil)
+                
+                self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
+            } else if identifier == "chooseStartDate" {
+//                self.startDate = nil
+                self.dataController?.setSelectedStartDate(with: date)
+                self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
+            } else if identifier == "chooseEndDate" {
+//                self.endDate = nil
+                self.dataController?.setSelectedEndDate(with: date)
+                self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
+            }
+        }
+        
+        func changeInDate(interval: TimeInterval, and identifier: String?) {
+            //auto increase end date after increasing start date
+            if identifier == "chooseStartDate" {
+                if let currEndDate = self.dataController?.selectedEndDate {
+                    let newEndDate = currEndDate.addingTimeInterval(interval)
+                    self.dataController?.setSelectedEndDate(with: newEndDate)
+                }
+            }
+        }
 }
 
 extension RoomReservationVC: FormTVCellDelegate {
     func didSelectCellButton(withObject object: PageSection) {
-        return 
+        guard let object = object as? RoomReservationVCSection else { return }
+        switch object.type {
+        case .bio:
+            return
+        case .eventName:
+            self.performSegue(withIdentifier: "toTextInputVC", sender: "name")
+        case .eventDescription:
+            self.performSegue(withIdentifier: "toTextInputVC", sender: "description")
+        case .inviteOthers:
+            if (self.dataController?.conferenceRoom?.offices?.first != nil) {
+                self.performSegue(withIdentifier: "toChooseTVC", sender: nil)
+            } else {
+                let banner = NotificationBanner(title: "Woops!", subtitle: "We are unable to modify your reservation's attendees currently. Try again later.", leftView: nil, rightView: nil, style: .warning, colors: nil)
+                banner.show()
+            }
+        case .none:
+            return
+        }
     }
 }

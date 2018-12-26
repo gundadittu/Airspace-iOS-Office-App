@@ -106,5 +106,18 @@ extension UITableViewCell {
         self.textLabel?.text = section.title ?? "No Title Provided"
         self.accessoryType = .disclosureIndicator
     }
+    
+    func configureCell(with reservation: AirReservation) {
+        if let reservation = reservation as? AirConferenceRoomReservation {
+            self.textLabel?.text = reservation.conferenceRoom?.name ?? "No Name"
+            var subtitleString = (reservation.startingDate?.localizedDescription ?? "No Start Date")
+            subtitleString += " to "
+            subtitleString += (reservation.endDate?.localizedDescriptionNoDate ?? "No End Date")
+            self.detailTextLabel?.text = subtitleString
+            self.accessoryType = .disclosureIndicator
+        } else if let reservation = reservation as? AirDeskReservation {
+            return
+        }
+    }
 }
 

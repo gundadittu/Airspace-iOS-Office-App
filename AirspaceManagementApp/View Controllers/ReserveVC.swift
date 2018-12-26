@@ -51,7 +51,7 @@ class ReserveVC: UIViewController {
                                             selectedTextColor: .white),
             index: 0,
             options: [.backgroundColor(.flatWhite),
-                      .indicatorViewBackgroundColor(.darkGray),
+                      .indicatorViewBackgroundColor(.black),
                       .cornerRadius(17.0)])
         
         control.addTarget(self, action: #selector(ReserveVC.controlValueChanged(_:)), for: .valueChanged)
@@ -359,14 +359,15 @@ extension ReserveVC: CarouselTVCellDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ReserveVCtoFindRoomTVC",
-            let destination = segue.destination as? FindRoomTVC,
+            let destination = segue.destination as? FindRoomVC,
             let duration = sender as? Duration {
-            let dataController = FindRoomTVCDataController(delegate: destination, shouldAutomaticallySubmit: true)
+            let dataController = FindRoomVCDataController(delegate: destination, shouldAutomaticallySubmit: true)
             dataController.setSelectedDuration(with: duration)
             destination.dataController = dataController
         } else if segue.identifier == "toConferenceRoomProfileTVC",
             let destination = segue.destination as? ConferenceRoomProfileTVC,
             let room = sender as? AirConferenceRoom {
+            destination.existingResDisplayStartDate = self.allRoomsStartDate
             destination.conferenceRoom = room
         } else if segue.identifier == "toDateInputVC",
             let destination = segue.destination as? DateTimeInputVC {

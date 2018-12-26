@@ -14,7 +14,7 @@ class RoomListTVC: UITableViewController {
     
     var conferenceRooms = [AirConferenceRoom]()
     var startingDate = Date()
-    var dataController: FindRoomTVCDataController?
+    var dataController: FindRoomVCDataController?
     var loadingIndicator: NVActivityIndicatorView?
 
     override func viewDidLoad() {
@@ -89,7 +89,7 @@ extension RoomListTVC: ConferenceRoomTVCellDelegate {
     }
 }
 
-extension RoomListTVC: FindRoomTVCDataControllerDelegate {
+extension RoomListTVC: FindRoomVCDataControllerDelegate {
     func didFindAvailableConferenceRooms(rooms: [AirConferenceRoom]?, error: Error?) {
         // handle error
         if let rooms = rooms {

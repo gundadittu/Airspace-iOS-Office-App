@@ -15,6 +15,7 @@ class AirConferenceRoom: NSObject {
     var offices: [AirOffice]?
     var amenities: [RoomAmenity]?
     var capacity: Int?
+    var address: String?
     var active: Bool?
     var reserveable: Bool?
     var image: UIImage?
@@ -37,6 +38,12 @@ class AirConferenceRoom: NSObject {
         } else {
             print("No conference room id found")
             return nil
+        }
+        
+        if let address = dict["address"] as? String {
+            self.address = address
+        } else {
+            print("No address found for conference room.");
         }
         
         if let offices = dict["offices"] as? [[String: Any]] {
