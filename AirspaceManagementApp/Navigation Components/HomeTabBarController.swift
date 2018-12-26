@@ -17,7 +17,8 @@ class HomeTabBarController : UITabBarController {
     override func viewDidLoad() {
         
         self.tabBar.tintColor = globalColor
-    
+        self.tabBar.barTintColor = .white
+        
         switch UserAuth.shared.currUserType {
         case .admin?:
            // need to return error

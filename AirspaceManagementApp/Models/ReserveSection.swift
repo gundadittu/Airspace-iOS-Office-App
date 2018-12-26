@@ -41,9 +41,9 @@ enum ReserveVCSectionType {
         case .quickReserveDesk:
             return ""
         case .reserveDesk:
-            return "Reserve a Desk"
+            return "Find a Hot Desk"
         case .reserveRoom:
-            return "Reserve a Conference Room"
+            return "Find a Conference Room"
         case .allRooms:
             return ""
         case .allDesks:

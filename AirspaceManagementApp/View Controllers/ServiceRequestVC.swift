@@ -61,6 +61,13 @@ class ServiceRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         self.view.addSubview(self.loadingIndicator!)
         
         self.dataController = ServiceRequestVCDataController(delegate: self)
+        
+        self.bottomViewBtn.setTitleColor(.white, for: .normal)
+        self.bottomView.backgroundColor = globalColor
+        self.bottomView.layer.shadowColor = UIColor.black.cgColor
+        self.bottomView.layer.shadowOpacity = 0.5
+        self.bottomView.layer.shadowOffset = CGSize.zero
+        self.bottomView.layer.shadowRadius = 2
     }
     
     @IBAction func didTapBottomViewBtn(_ sender: Any) {

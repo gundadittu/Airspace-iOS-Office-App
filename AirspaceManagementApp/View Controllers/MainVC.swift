@@ -56,8 +56,8 @@ class QuickAction: NSObject {
 class MainVC: UIViewController {
     
     var sections = [MainVCSection(title: "Quick Actions", type: .quickActions), MainVCSection(title: "Today's Reservations", type: .reservationsToday)]
-    var quickActionsList = [QuickAction(title: "Reserve a conference room", subtitle:"Find a meeting space.", icon:"reserve-icon", color: nil, type: .reserveRoom),
-                            QuickAction(title: "Reserve a hot desk", subtitle:"Find a space to get working.", icon:"table-icon", color: nil, type: .reserveDesk),
+    var quickActionsList = [QuickAction(title: "Find a conference room", subtitle:"Find a meeting space.", icon:"reserve-icon", color: nil, type: .reserveRoom),
+                            QuickAction(title: "Find a hot desk", subtitle:"Find a space to get working.", icon:"table-icon", color: nil, type: .reserveDesk),
                             QuickAction(title: "Submit a service request", subtitle:"Let us know if something needs servicing.", icon:"serv-req-icon", color: nil, type: .submitTicket),
                             QuickAction(title: "Register a guest", subtitle:"We'll let you know when your guest arrives.", icon:"register-guest-icon", color: nil, type: .registerGuest),
                             QuickAction(title: "View events", subtitle:"See what's going on in your building.", icon:"events-icon", color: nil, type: .viewEvents),
@@ -227,7 +227,6 @@ extension MainVC: MainVCDataControllerDelegate {
             return
         } else {
             let data = self.dataController?.reservationsToday ?? []
-            print(data)
             self.reservationsToday = data
             self.tableView.reloadData()
         }

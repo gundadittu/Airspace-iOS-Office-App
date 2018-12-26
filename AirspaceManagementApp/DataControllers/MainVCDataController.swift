@@ -22,7 +22,6 @@ class MainVCDataController {
         self.delegate = delegate
         self.loadTodayReservations()
     }
-    
     public func loadTodayReservations() {
         ReservationManager.shared.getUsersReservationsForToday { (reservations, error) in
             if let error = error {

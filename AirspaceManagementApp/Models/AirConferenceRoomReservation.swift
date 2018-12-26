@@ -76,7 +76,6 @@ class AirConferenceRoomReservation : AirReservation {
             self.conferenceRoom = conferenceRoom
         } else {
             print("No conferenceRoom found for conference room reservation")
-            return nil
         }
         
         if let hostDict = dict["host"] as? [String: Any],
