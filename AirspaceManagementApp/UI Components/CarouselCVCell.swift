@@ -88,13 +88,9 @@ class CarouselCVCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.contentView.layer.cornerRadius = 15.0
+        self.contentView.layer.cornerRadius = 10.0
         self.contentView.layer.masksToBounds = true
-        
-        let gradient = CAGradientLayer()
-        gradient.frame = self.bannerImage.bounds
-        gradient.colors = [UIColor.black.cgColor, UIColor.black.cgColor, UIColor.clear.cgColor, UIColor.clear.cgColor]
-        self.bannerImage.layer.mask = gradient
+        self.bannerImage.addBlackGradientLayer(frame: self.frame, colors: [.clear,.black])
     }
     
     func configureInfo(with object: CarouselCVCellItem) {

@@ -96,7 +96,7 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 (type == .myRegisteredGuests || type == .myServiceRequests || type == .bioInfo) {
                 return CGFloat(120)
             }
-            return CGFloat(210)
+            return CGFloat(180)
         } else if indexPath.row == 1 {
             // see more buttons 
             return CGFloat(90)
