@@ -27,7 +27,7 @@ class ReserveVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Reserve"
+        self.title = "RESERVE"
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none

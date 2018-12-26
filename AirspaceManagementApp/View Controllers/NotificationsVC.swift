@@ -21,7 +21,7 @@ class NotificationsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Alerts"
+        self.title = "ALERTS"
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none

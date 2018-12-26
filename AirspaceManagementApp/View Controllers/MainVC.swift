@@ -71,7 +71,7 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Home"
+        self.title = "HOME"
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
