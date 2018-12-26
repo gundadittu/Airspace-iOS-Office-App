@@ -208,7 +208,7 @@ extension MainVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (indexPath.section == 0) ? CGFloat(80) : CGFloat(210)
+        return (indexPath.section == 0) ? CGFloat(80) : CGFloat(200)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -35,7 +35,10 @@ class CarouselTVCell: UITableViewCell {
         guard !items.isEmpty else { return }
         switch items[0].type  {
         case .regular?:
-            flowLayout.itemSize = CGSize(width: 200, height: 150)
+            let size = self.collectionView.superview?.bounds.size
+            let width = (size?.width ?? CGFloat(270)) - CGFloat(60)
+            let height = (size?.height ?? CGFloat(170)) - CGFloat(20)
+            flowLayout.itemSize = CGSize(width: width, height: height)
         case .quickReserve?:
             flowLayout.itemSize = CGSize(width: 100, height: 100)
             flowLayout.minimumInteritemSpacing = CGFloat(20)
