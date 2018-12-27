@@ -80,8 +80,10 @@ class RoomReservationVCDataController {
             let note = self.eventDescription else {
                 return
         }
-        let attendees =  self.invitedUsers 
+        let attendees =  self.invitedUsers
+        self.delegate?.startLoadingIndicator()
         ReservationManager.shared.updateConferenceRoomReservation(reservationUID: reservationUID, startTime: startTime, endTime: endTime, reservationTitle: reservationTitle, note: note, attendees: attendees) { (error) in
+            self.delegate?.stopLoadingIndicator()
             self.delegate?.didFinishSubmittingData(withError: error)
         }
     }

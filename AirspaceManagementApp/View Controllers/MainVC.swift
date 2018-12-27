@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import NVActivityIndicatorView
+import SwiftPullToRefresh
 
 enum MainVCSectionType {
     case quickActions
@@ -79,6 +80,10 @@ class MainVC: UIViewController {
         self.tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
         
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
+        
+        self.tableView.spr_setTextHeader {
+            self.dataController?.loadData()
+        }
         
         if (dataController == nil) {
             self.dataController = MainVCDataController(delegate: self)
@@ -222,6 +227,12 @@ extension MainVC: UITableViewDataSource {
 
 extension MainVC: MainVCDataControllerDelegate {
     func didUpdateReservationsToday(with error: Error?) {
+        
+        if let bool = self.dataController?.isLoading,
+            bool == false {
+            self.tableView.spr_endRefreshing()
+        }
+        
         if let error = error {
             // handle error
             return

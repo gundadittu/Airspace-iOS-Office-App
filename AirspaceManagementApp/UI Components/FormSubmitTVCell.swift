@@ -45,6 +45,19 @@ class FormSubmitTVCell: UITableViewCell {
         self.button.setTitle(object.title, for: .normal)
     }
     
+    func configureCell(with object: RoomReservationVCSection, delegate: FormTVCellDelegate) {
+        self.delegate = delegate
+        self.sectionObject = object
+        self.button.setTitle(object.title, for: .normal)
+        if object.type == .cancelReservation {
+            button.color = .flatRed
+            button.highlightedColor = .flatRed
+        } else {
+            button.color = globalColor
+            button.highlightedColor = globalColor
+        }
+    }
+    
     @IBAction func didTapButton(_ sender: Any) {
         guard let so = self.sectionObject else { return }
         self.delegate?.didSelectCellButton(withObject: so)

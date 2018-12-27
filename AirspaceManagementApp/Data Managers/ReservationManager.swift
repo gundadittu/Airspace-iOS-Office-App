@@ -124,4 +124,10 @@ class ReservationManager {
             }
         }
     }
+    
+    func cancelRoomReservation(reservationUID: String, completionHandler: @escaping (Error?)->Void) {
+        functions.httpsCallable("cancelRoomReservation").call(["reservationUID":reservationUID]) { (result, error) in
+            completionHandler(error)
+        }
+    }
 }

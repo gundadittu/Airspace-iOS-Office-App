@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import NotificationBannerSwift
 import NVActivityIndicatorView
+import SwiftPullToRefresh
+import CFAlertViewController
 
 class ProfileVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -19,7 +21,8 @@ class ProfileVC: UIViewController {
     var roomReservations = [AirConferenceRoomReservation]()
     var loadingIndicator: NVActivityIndicatorView?
     var profileImage: UIImage?
-    
+    var imagePicker = UIImagePickerController()
+
     var sections = [ProfileSection(title: "Bio", seeMoreTitle: "Edit Bio",type: .bioInfo),
                     ProfileSection(title: "My Reserved Rooms", seeMoreTitle: "See More", type: .myRoomReservations),
                     ProfileSection(title: "My Reserved Desks", seeMoreTitle: "See More", type: .myDeskReservations),
@@ -32,8 +35,8 @@ class ProfileVC: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.separatorStyle = .none
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.estimatedRowHeight = UITableView.automaticDimension
+//        self.tableView.rowHeight = UITableView.automaticDimension
+//        self.tableView.estimatedRowHeight = UITableView.automaticDimension
         self.tableView.register(UINib(nibName: "BioTVCell", bundle: nil), forCellReuseIdentifier: "BioTVCell")
         self.tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
         self.tableView.register(UINib(nibName: "SeeMoreTVC", bundle: nil), forCellReuseIdentifier: "SeeMoreTVC")
@@ -47,18 +50,15 @@ class ProfileVC: UIViewController {
         let settings = UIBarButtonItem(image: UIImage(named: "settings-icon"), style: .plain, target: self, action: #selector(ProfileVC.didTapSettings))
         self.navigationItem.rightBarButtonItem  = settings
         
-        self.loadProfileImage()
-    }
-    
-    func loadProfileImage() {
-        guard let uid = UserAuth.shared.uid else { return }
-        UserManager.shared.getProfileImage(for: uid) { (image, _) in
-            if let image = image {
-                self.profileImage = image
-                self.tableView.reloadData()
-            }
+        self.tableView.spr_setTextHeader { [weak self] in
+            self?.loadData()
         }
     }
+    
+    func loadData(){
+        self.dataController?.loadData()
+    }
+
     
     @objc func didTapSettings() {
         self.performSegue(withIdentifier: "toSettingsTVC", sender: nil)
@@ -151,7 +151,7 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                     tableView.register(UINib(nibName: "BioTVCell", bundle: nil), forCellReuseIdentifier: "BioTVCell")
                     cell = tableView.dequeueReusableCell(withIdentifier: "BioTVCell", for: indexPath) as! BioTVCell
                 }
-//                cell.profileImg.image = UIImage(named: "profile-image")
+                cell.delegate = self
                 cell.setProfileImage(with: self.profileImage)
                 cell.mainLbl.text = UserAuth.shared.displayName
                 cell.subtitleLbl.text = UserAuth.shared.email
@@ -335,9 +335,25 @@ extension ProfileVC: SeeMoreTVCDelegate {
 // toMyReservationsListTVC
 
 extension ProfileVC: ProfileVCDataControllerDelegate {
+    
+    func didFinishUploadingNewImage(with error: Error?) {
+        if let _ = error {
+            let alertController = CFAlertViewController(title: "Oh no!🤯", message: "There was an issue uploading your new profile picture.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+            
+            let action = CFAlertAction(title: "Ok", style: .Default, alignment: .left, backgroundColor: .red, textColor: .black, handler: nil)
+            alertController.addAction(action)
+            self.present(alertController, animated: true)
+        } else {
+            let alertController = CFAlertViewController(title: "Rock on!🤟🏼 ", message: "Your profile picture was updated.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+            
+            let action = CFAlertAction(title: "Sounds Good", style: .Default, alignment: .right, backgroundColor: globalColor, textColor: nil, handler: nil)
+            alertController.addAction(action)
+            self.present(alertController, animated: true)
+        }
+    }
+    
     func stopLoadingIndicator() {
         self.loadingIndicator?.stopAnimating()
-
     }
     
     func startLoadingIndicator() {
@@ -358,7 +374,13 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
         if let upcomingRes = self.dataController?.upcomingReservations {
             self.roomReservations = upcomingRes
         }
+        if let profileImage = self.dataController?.profileImage {
+            self.profileImage = profileImage
+        }
         
+        if (self.dataController?.isLoading == false) {
+            self.tableView.spr_endRefreshing()
+        }
         self.tableView.reloadData()
     }
 }
@@ -370,5 +392,67 @@ extension ProfileVC: CarouselTVCellDelegate {
         } else if let reservation = item.data as? AirConferenceRoomReservation {
             self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)
         }
+    }
+}
+
+extension ProfileVC {
+    
+    func showImagePicker() {
+        self.imagePicker.delegate = self
+        let alert = UIAlertController(title: "Choose new profile image from:", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+            self.openCamera()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+            self.openGallery()
+        }))
+        
+        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func openCamera() {
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
+        {
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            imagePicker.allowsEditing = true
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        else
+        {
+            let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func openGallery() {
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+        imagePicker.allowsEditing = true
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+}
+
+extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let editedImage = info[.editedImage] as? UIImage {
+            let selectedImage = editedImage
+            self.dataController?.uploadNewProfileImage(with: selectedImage)
+            picker.dismiss(animated: true, completion: nil)
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            let selectedImage = originalImage
+            self.dataController?.uploadNewProfileImage(with: selectedImage)
+            picker.dismiss(animated: true, completion: nil)
+        } else {
+            self.dataController?.uploadNewProfileImage(with: nil)
+        }
+    }
+}
+
+extension ProfileVC: BioTVCellDelegate {
+    func didTapImage() {
+        self.showImagePicker()
     }
 }

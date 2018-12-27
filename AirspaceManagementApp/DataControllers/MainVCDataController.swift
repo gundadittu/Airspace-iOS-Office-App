@@ -18,12 +18,29 @@ class MainVCDataController {
     var reservationsToday = [AirReservation]()
     var delegate: MainVCDataControllerDelegate?
     
+    var isLoading: Bool {
+        if loadingTodayReservations {
+            return true
+        }
+        return false
+    }
+    var loadingTodayReservations = false
+    
     public init(delegate: MainVCDataControllerDelegate) {
         self.delegate = delegate
+        self.loadData()
+    }
+    
+    public func loadData() {
         self.loadTodayReservations()
     }
+    
     public func loadTodayReservations() {
+        self.loadingTodayReservations = true
+        self.delegate?.startLoadingIndicator()
         ReservationManager.shared.getUsersReservationsForToday { (reservations, error) in
+            self.loadingTodayReservations = false 
+            self.delegate?.stopLoadingIndicator()
             if let error = error {
                 self.delegate?.didUpdateReservationsToday(with: error)
             } else if let reservations = reservations {

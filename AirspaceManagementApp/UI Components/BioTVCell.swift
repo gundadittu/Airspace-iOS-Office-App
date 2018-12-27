@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol BioTVCellDelegate {
+    func didTapImage()
+}
+
 class BioTVCell: UITableViewCell {
 
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var mainLbl: UILabel!
     @IBOutlet weak var subtitleLbl: UILabel!
+    var delegate: BioTVCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +26,14 @@ class BioTVCell: UITableViewCell {
         self.profileImg.clipsToBounds = true
         self.profileImg.layer.borderWidth = CGFloat(1)
         self.profileImg.layer.borderColor = UIColor.lightGray.cgColor
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapImage(_:)))
+        self.profileImg.isUserInteractionEnabled = true 
+        self.profileImg.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func didTapImage(_ tapGesture: UITapGestureRecognizer) {
+        self.delegate?.didTapImage()
     }
     
     func setProfileImage(with image: UIImage?) {

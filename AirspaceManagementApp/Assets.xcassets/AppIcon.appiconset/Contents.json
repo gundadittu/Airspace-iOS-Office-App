@@ -122,6 +122,11 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "Icon@3x.png",
+      "scale" : "3x"
+    },
+    {
+      "idiom" : "universal",
       "filename" : "icon_20pt.png",
       "unassigned" : true,
       "scale" : "1x"

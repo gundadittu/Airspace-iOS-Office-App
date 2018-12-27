@@ -18,6 +18,8 @@ enum RoomReservationVCSectionType {
     case eventName
     case eventDescription
     case inviteOthers
+    case cancelReservation
+    case saveChanges
     case none
 }
 
@@ -37,7 +39,7 @@ class RoomReservationVCSection: PageSection {
 class RoomReservationVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    var sections = [RoomReservationVCSection(title: "Bio", buttonTitle: nil, type: .bio), RoomReservationVCSection(title: "Change Event Name", buttonTitle: "Enter Name", type: .eventName), RoomReservationVCSection(title: "Change Event Description (optional)", buttonTitle: "Enter Description", type: .eventDescription), RoomReservationVCSection(title: "Modify Attendees", buttonTitle: "Choose Attendees", type: .inviteOthers)]
+    var sections = [RoomReservationVCSection(title: "Bio", buttonTitle: nil, type: .bio), RoomReservationVCSection(title: "Change Event Name", buttonTitle: "Enter Name", type: .eventName), RoomReservationVCSection(title: "Change Event Description (optional)", buttonTitle: "Enter Description", type: .eventDescription), RoomReservationVCSection(title: "Modify Attendees", buttonTitle: "Choose Attendees", type: .inviteOthers), RoomReservationVCSection(title: "Cancel Reservation", buttonTitle: "", type: .cancelReservation), RoomReservationVCSection(title: "Save Changes", buttonTitle: "", type: .saveChanges)]
     
     var loadingIndicator: NVActivityIndicatorView?
     var dataController: RoomReservationVCDataController?
@@ -45,14 +47,16 @@ class RoomReservationVC: UIViewController {
     var existingResDisplayStartDate = Date() // date used to display existing reservations for room
     
     
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var bottomViewBtn: UIButton!
+//    @IBOutlet weak var bottomView: UIView!
+//    @IBOutlet weak var bottomViewBtn: UIButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(UINib(nibName: "FormTVCell", bundle: nil), forCellReuseIdentifier: "FormTVCell")
         self.tableView.register(UINib(nibName: "ConferenceRoomDetailedTVC", bundle: nil), forCellReuseIdentifier: "ConferenceRoomDetailedTVC")
+        self.tableView.register(UINib(nibName: "FormSubmitTVCell", bundle: nil), forCellReuseIdentifier: "FormSubmitTVCell")
+
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
@@ -76,17 +80,17 @@ class RoomReservationVC: UIViewController {
         self.dataController?.setConferenceRoomReservation(with: reservation)
         self.existingResDisplayStartDate = reservation.startingDate?.getBeginningOfDay ?? Date()
         
-        self.bottomViewBtn.setTitleColor(.white, for: .normal)
-        self.bottomView.backgroundColor = globalColor
-        self.bottomView.layer.shadowColor = UIColor.black.cgColor
-        self.bottomView.layer.shadowOpacity = 0.5
-        self.bottomView.layer.shadowOffset = CGSize.zero
-        self.bottomView.layer.shadowRadius = 2
+//        self.bottomViewBtn.setTitleColor(.white, for: .normal)
+//        self.bottomView.backgroundColor = globalColor
+//        self.bottomView.layer.shadowColor = UIColor.black.cgColor
+//        self.bottomView.layer.shadowOpacity = 0.5
+//        self.bottomView.layer.shadowOffset = CGSize.zero
+//        self.bottomView.layer.shadowRadius = 2
     }
     
-    @IBAction func didTapBottomViewBtn(_ sender: Any) {
-        self.dataController?.submitData()
-    }
+//    @IBAction func didTapBottomViewBtn(_ sender: Any) {
+//        self.dataController?.submitData()
+//    }
     
 }
 
@@ -108,6 +112,10 @@ extension RoomReservationVC: UITableViewDelegate, UITableViewDataSource {
         case .eventDescription:
             return 1
         case .inviteOthers:
+            return 1
+        case .cancelReservation:
+            return 1
+        case .saveChanges:
             return 1
         }
     }
@@ -170,6 +178,18 @@ extension RoomReservationVC: UITableViewDelegate, UITableViewDataSource {
                 section.selectedButtonTitle = nil
             }
             topCell = cell
+        case .cancelReservation:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
+                return UITableViewCell()
+            }
+            cell.configureCell(with: section, delegate: self)
+            return cell
+        case .saveChanges:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
+                return UITableViewCell()
+            }
+            cell.configureCell(with: section, delegate: self)
+            return cell 
         }
         topCell?.configureCell(with: section, delegate: self)
         return topCell ?? UITableViewCell()
@@ -242,8 +262,8 @@ extension RoomReservationVC: RoomReservationVCDataControllerDelegate {
             let banner = NotificationBanner(title: "Woops!", subtitle: "We are unable to modify your reservation currently. Try again later.", leftView: nil, rightView: nil, style: .warning, colors: nil)
             banner.show()
         } else {
-            let alertController = CFAlertViewController(title: "Blast off! 🚀", message: "We were able to update your reservation.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
-            let action = CFAlertAction(title: "Great!", style: .Default, alignment: .right, backgroundColor: globalColor, textColor: nil) { (action) in
+            let alertController = CFAlertViewController(title: "Blast off! 🚀", message: "We were able to update your reservation.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+            let action = CFAlertAction(title: "Great!", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil) { (action) in
                 self.navigationController?.popViewController(animated: true)
             }
             alertController.addAction(action)
@@ -287,8 +307,8 @@ extension RoomReservationVC: ConferenceRoomDetailedTVCDelegate {
     }
     
     func didFindConflict() {
-        let alertController = CFAlertViewController(title: "Oh no!", message: "This conference room is not available during the selected time frame.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
-        let action = CFAlertAction(title: "Ok 😕", style: .Default, alignment: .left, backgroundColor: globalColor, textColor: .black, handler: nil)
+        let alertController = CFAlertViewController(title: "Oh no!", message: "This conference room is not available during the selected time frame.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+        let action = CFAlertAction(title: "Ok 😕", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: .black, handler: nil)
         alertController.addAction(action)
         self.present(alertController, animated: true)
     }
@@ -358,6 +378,46 @@ extension RoomReservationVC: FormTVCellDelegate {
             }
         case .none:
             return
+        case .cancelReservation:
+            self.handleCancellation()
+        case .saveChanges:
+            self.dataController?.submitData()
+        }
+    }
+    
+    func handleCancellation() {
+        let alertController = CFAlertViewController(title: "Watch out!😱", message: "Are you sure you want to cancel your reservation? This action is permanent.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+        let action = CFAlertAction(title: "Cancel Reservation", style: .Destructive, alignment: .center, backgroundColor: .flatRed, textColor: nil) { (action) in
+            self.cancelReservation()
+        }
+        let secondAction = CFAlertAction(title: "No, don't cancel it.", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil, handler: nil)
+        alertController.addAction(action)
+        alertController.addAction(secondAction)
+        self.present(alertController, animated: true)
+    }
+    
+    func cancelReservation() {
+        let errorAlertController = CFAlertViewController(title: "Oh no!", message: "We couldn't cancel your reservation. Please try again later.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+        let action = CFAlertAction(title: "Ok 😕", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: .black, handler: nil)
+        errorAlertController.addAction(action)
+        
+        guard let uid = self.dataController?.originalReservation?.uid else {
+            self.present(errorAlertController, animated: true)
+            return
+        }
+        self.loadingIndicator?.startAnimating()
+        ReservationManager.shared.cancelRoomReservation(reservationUID: uid) { (error) in
+            self.loadingIndicator?.stopAnimating()
+            if let _ = error {
+                self.present(errorAlertController, animated: true)
+            } else {
+                let alertController = CFAlertViewController(title: "Good News!", message: "Your reservations was canceled.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+                let action = CFAlertAction(title: "Sounds good", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: .black) { (action) in
+                    self.navigationController?.popViewController(animated: true)
+                }
+                alertController.addAction(action)
+                self.present(alertController, animated: true)
+            }
         }
     }
 }
