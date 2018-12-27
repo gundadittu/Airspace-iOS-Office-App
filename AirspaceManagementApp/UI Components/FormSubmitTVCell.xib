@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="acc-t7-pxA" customClass="FlatButton" customModule="SwiftyButton">
-                        <rect key="frame" x="30" y="11" width="780" height="70"/>
+                        <rect key="frame" x="20" y="11" width="800" height="70"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="M3g-oe-HE4"/>
                         </constraints>
@@ -34,9 +34,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="acc-t7-pxA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="5wJ-ef-3nO"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="acc-t7-pxA" secondAttribute="trailing" constant="10" id="HNX-sd-7XC"/>
+                    <constraint firstAttribute="trailing" secondItem="acc-t7-pxA" secondAttribute="trailing" constant="20" id="PuI-gx-LEO"/>
                     <constraint firstAttribute="bottomMargin" secondItem="acc-t7-pxA" secondAttribute="bottom" id="b0D-zW-qSK"/>
-                    <constraint firstItem="acc-t7-pxA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="mrW-db-7BR"/>
+                    <constraint firstItem="acc-t7-pxA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="u7X-wD-TWE"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

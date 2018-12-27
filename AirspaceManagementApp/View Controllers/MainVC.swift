@@ -127,7 +127,7 @@ extension MainVC: UITableViewDelegate {
         case .viewEvents:
             break
         case .spaceInfo:
-            break
+            self.performSegue(withIdentifier: "toSpaceInfoTVC", sender: nil)
         case .none:
             break
         case .reserveDesk:

@@ -16,6 +16,8 @@
 		040E989421A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E989321A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift */; };
 		040E989721A3B7B900143CA5 /* FormSubmitTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E989521A3B7B900143CA5 /* FormSubmitTVCell.swift */; };
 		040E989821A3B7B900143CA5 /* FormSubmitTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040E989621A3B7B900143CA5 /* FormSubmitTVCell.xib */; };
+		04110D6A21D4A67F00A07DB7 /* SpaceInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04110D6921D4A67F00A07DB7 /* SpaceInfoTVC.swift */; };
+		04110D6C21D4B07F00A07DB7 /* SpaceInfoTVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04110D6B21D4B07F00A07DB7 /* SpaceInfoTVCDataController.swift */; };
 		0413D2C921C81ABD00E2C5F3 /* TextInputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413D2C821C81ABD00E2C5F3 /* TextInputVC.swift */; };
 		0413D2CB21C821F900E2C5F3 /* ServiceRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413D2CA21C821F900E2C5F3 /* ServiceRequestManager.swift */; };
 		0413D2CD21C8560900E2C5F3 /* AirServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413D2CC21C8560900E2C5F3 /* AirServiceRequest.swift */; };
@@ -112,6 +114,8 @@
 		040E989321A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGuestTVCDataController.swift; sourceTree = "<group>"; };
 		040E989521A3B7B900143CA5 /* FormSubmitTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSubmitTVCell.swift; sourceTree = "<group>"; };
 		040E989621A3B7B900143CA5 /* FormSubmitTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FormSubmitTVCell.xib; sourceTree = "<group>"; };
+		04110D6921D4A67F00A07DB7 /* SpaceInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceInfoTVC.swift; sourceTree = "<group>"; };
+		04110D6B21D4B07F00A07DB7 /* SpaceInfoTVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceInfoTVCDataController.swift; sourceTree = "<group>"; };
 		0413D2C821C81ABD00E2C5F3 /* TextInputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputVC.swift; sourceTree = "<group>"; };
 		0413D2CA21C821F900E2C5F3 /* ServiceRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequestManager.swift; sourceTree = "<group>"; };
 		0413D2CC21C8560900E2C5F3 /* AirServiceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirServiceRequest.swift; sourceTree = "<group>"; };
@@ -226,6 +230,7 @@
 				046CC9B621D0478300DC1993 /* NotificationVCDataController.swift */,
 				04CE40BD21D243EA002279DF /* RoomReservationVCDataController.swift */,
 				04CE40C921D39D8E002279DF /* MainVCDataController.swift */,
+				04110D6B21D4B07F00A07DB7 /* SpaceInfoTVCDataController.swift */,
 			);
 			path = DataControllers;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 				046CC9BF21D15FD000DC1993 /* SettingsTVC.swift */,
 				04CE40BB21D2427C002279DF /* RoomReservationVC.swift */,
 				04CE40C121D30788002279DF /* MyReservationsListTVC.swift */,
+				04110D6921D4A67F00A07DB7 /* SpaceInfoTVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -649,12 +655,14 @@
 				045C28E6217CD8F40017C121 /* NavControllers.swift in Sources */,
 				040E988E21A3A7D400143CA5 /* FormTVCell.swift in Sources */,
 				040E988A21A38C3C00143CA5 /* RegisterGuestVC.swift in Sources */,
+				04110D6A21D4A67F00A07DB7 /* SpaceInfoTVC.swift in Sources */,
 				04D8D69C2183F7380079380F /* BioTVCell.swift in Sources */,
 				042AF9A721A744EB00E7048B /* ProfileVCDataController.swift in Sources */,
 				04C7132D21C98AB800F3D62F /* Duration.swift in Sources */,
 				04E1631B21B3207F005441DE /* ServiceRequestType.swift in Sources */,
 				045520B02175589E0033D33B /* HomeTabBarController.swift in Sources */,
 				0422BB2121A4F68E00F9CD64 /* AirBuilding.swift in Sources */,
+				04110D6C21D4B07F00A07DB7 /* SpaceInfoTVCDataController.swift in Sources */,
 				043CA24A217FF0F7008703FC /* CarouselTVCell.swift in Sources */,
 				045520AE217550C90033D33B /* LoginVC.swift in Sources */,
 				0422BB2721A4FC5700F9CD64 /* UITableViewCellExtension.swift in Sources */,

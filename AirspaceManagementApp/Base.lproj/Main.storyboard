@@ -222,6 +222,7 @@
                         <segue destination="7Zb-v6-xc1" kind="show" identifier="MainVCtoRegisterGuestVC" id="RvS-mj-9Re"/>
                         <segue destination="U0G-q0-d36" kind="show" identifier="toFindRoomVC" id="1Pu-07-iuP"/>
                         <segue destination="qkS-K9-EPy" kind="show" identifier="toRoomReservationVC" id="lPI-wf-qzA"/>
+                        <segue destination="9tK-7d-buM" kind="show" identifier="toSpaceInfoTVC" id="Z9T-kD-Mp5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0XN-hf-Ju0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -650,6 +651,34 @@
             </objects>
             <point key="canvasLocation" x="6124" y="2685.6071964017992"/>
         </scene>
+        <!--Space InfoTVC-->
+        <scene sceneID="KvW-Or-OZz">
+            <objects>
+                <tableViewController id="9tK-7d-buM" customClass="SpaceInfoTVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="7Gu-Zh-qP3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="cL5-Kz-zQm">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cL5-Kz-zQm" id="opP-CL-4y3">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9tK-7d-buM" id="Fs6-9k-iZF"/>
+                            <outlet property="delegate" destination="9tK-7d-buM" id="uCJ-2Q-saW"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0D1-7v-1Ti" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7028" y="2751"/>
+        </scene>
         <!--Conference Room ProfileTVC-->
         <scene sceneID="0vS-2O-EfR">
             <objects>
@@ -960,11 +989,11 @@
         <image name="circle-logo" width="87.360000610351562" height="78.239997863769531"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LxT-o5-97Q"/>
+        <segue reference="1Pu-07-iuP"/>
         <segue reference="Wy7-hw-B7D"/>
         <segue reference="cxF-zx-cdi"/>
         <segue reference="zWd-J1-tuq"/>
         <segue reference="vLk-3V-1hZ"/>
-        <segue reference="7oR-mF-K1e"/>
+        <segue reference="lPI-wf-qzA"/>
     </inferredMetricsTieBreakers>
 </document>

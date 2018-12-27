@@ -37,6 +37,7 @@ class ReserveVC: UIViewController {
 
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.tableView.addSubview(self.loadingIndicator!)
+        self.tableView.bringSubviewToFront(self.loadingIndicator!)
         
         self.tableView.spr_setTextHeader { [weak self] in
             self?.loadData()

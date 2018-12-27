@@ -24,6 +24,13 @@ class FormTVCell: UITableViewCell {
         self.button.tintColor = .black
     }
     
+    func configureCell(with section: SpaceInfoTVCSection, delegate: FormTVCellDelegate) {
+        self.titleLabel.text = section.title
+        let attrs = [NSAttributedString.Key.underlineStyle : 1]
+        let attributedString = NSMutableAttributedString(string: section.buttonTitle, attributes: attrs)
+        self.button.setAttributedTitle(attributedString, for: .normal)
+    }
+    
     func configureCell(with object: RoomReservationVCSection, delegate: FormTVCellDelegate) {
         self.delegate = delegate
         self.sectionObject = object

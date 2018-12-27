@@ -117,12 +117,10 @@ extension RoomReservationVC: UITableViewDelegate, UITableViewDataSource {
                     return UITableViewCell()
             }
             
-            if let conferenceRoom = self.dataController?.conferenceRoom,
-                let start = self.dataController?.selectedStartDate,
-                let end = self.dataController?.selectedEndDate {
-//                cell.whenDateBtn.isEnabled = false
+            if let conferenceRoom = self.dataController?.conferenceRoom {
+                let start = self.existingResDisplayStartDate
                 cell.conferenceRoomReservation = self.conferenceRoomReservation
-                cell.configureCell(with: conferenceRoom, for: start, newReservationStartDate: start, newReservationEndDate: end)
+                cell.configureCell(with: conferenceRoom, for: start, newReservationStartDate: self.dataController?.selectedStartDate, newReservationEndDate: self.dataController?.selectedEndDate)
             }
             cell.setDelegate(with: self)
             return cell
@@ -279,8 +277,8 @@ extension RoomReservationVC: RoomReservationVCDataControllerDelegate {
 
 extension RoomReservationVC: ConferenceRoomDetailedTVCDelegate {
     func didTapWhenDateButton() {
-//        self.performSegue(withIdentifier: "toDateInputVC", sender: "chooseReservationDate")
-        return 
+        self.performSegue(withIdentifier: "toDateInputVC", sender: "chooseReservationDate")
+        return
     }
     
     func didTapStartDateButton() {
@@ -323,16 +321,19 @@ extension RoomReservationVC: DateTimeInputVCDelegate, TextInputVCDelegate, Choos
             if identifier == "chooseReservationDate" {
                 self.existingResDisplayStartDate = date
                 
-                self.dataController?.setSelectedStartDate(with: nil)
-                self.dataController?.setSelectedEndDate(with: nil)
+                if date.getBeginningOfDay == self.dataController?.originalReservation?.startingDate?.getBeginningOfDay,
+                    (self.dataController?.selectedStartDate == nil || self.dataController?.selectedEndDate == nil) {
+                    self.dataController?.updateToOriginalTimes()
+                } else {
+                    self.dataController?.setSelectedStartDate(with: nil)
+                    self.dataController?.setSelectedEndDate(with: nil)
+                }
                 
                 self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
             } else if identifier == "chooseStartDate" {
-//                self.startDate = nil
                 self.dataController?.setSelectedStartDate(with: date)
                 self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
             } else if identifier == "chooseEndDate" {
-//                self.endDate = nil
                 self.dataController?.setSelectedEndDate(with: date)
                 self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
             }

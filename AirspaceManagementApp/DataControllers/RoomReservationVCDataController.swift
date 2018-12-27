@@ -72,13 +72,22 @@ class RoomReservationVCDataController {
         self.setConferenceRoomReservation(with: room)
     }
     
+    public func updateToOriginalTimes() {
+        self.selectedStartDate = self.originalReservation?.startingDate
+        self.selectedEndDate = self.originalReservation?.endDate
+    }
+    
     public func submitData() {
         guard let reservationUID = self.originalReservation?.uid,
-            let startTime = self.selectedStartDate,
-            let endTime = self.selectedEndDate else {
+            let originalStart = self.originalReservation?.startingDate,
+            let originalEnd = self.originalReservation?.endDate else {
                 self.delegate?.didFinishSubmittingData(withError: NSError())
                 return
         }
+        
+        let startTime = self.selectedStartDate ?? originalStart
+        let endTime = self.selectedEndDate ?? originalEnd
+        
         let reservationTitle = self.eventName
         let note = self.eventDescription
         let attendees =  self.invitedUsers
