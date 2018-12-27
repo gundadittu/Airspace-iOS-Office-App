@@ -17,7 +17,7 @@ class UserManager {
 
     func getProfileImage(for user: AirUser, completionHandler: @escaping (UIImage?, Error?) -> Void) {
         // Create a reference to the file you want to download
-        guard let uid = user.uid as? String else {
+        guard let uid = user.uid else {
             completionHandler(nil, NSError())
             return
         }

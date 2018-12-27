@@ -67,7 +67,7 @@ class RoomListTVC: UITableViewController {
             // auto-populate fields if applicable
             if let dataController = self.dataController,
                 let startDate = dataController.selectedStartDate,
-                let duration = dataController.selectedDuration?.rawValue,
+                let _ = dataController.selectedDuration?.rawValue,
                 let endDate = dataController.getEndDate() {
                 destination.startDate = startDate
                 destination.endDate = endDate

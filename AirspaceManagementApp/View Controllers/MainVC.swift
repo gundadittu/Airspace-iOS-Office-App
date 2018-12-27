@@ -206,6 +206,7 @@ extension MainVC: UITableViewDataSource {
                 let item = CarouselCVCellItem(with: reservation)
                 carouselItems.append(item)
             }
+            cell.identifier = "todayReservations"
             cell.setCarouselItems(with: carouselItems)
             cell.delegate = self
             return cell
@@ -254,9 +255,35 @@ extension MainVC: MainVCDataControllerDelegate {
 }
 
 extension MainVC: CarouselTVCellDelegate {
+    func titleForEmptyState(for identifier: String?) -> String {
+        if identifier == "todayReservations" {
+            return "You have no reservations today."
+        }
+        return ""
+    }
+    
+    func imageForEmptyState(for identifier: String?) -> UIImage {
+        if identifier == "todayReservations" {
+            return UIImage(named: "reserve-icon")!
+        }
+        return UIImage()
+    }
+    
+    func isLoadingData(for identifier: String?) -> Bool {
+        if identifier == "todayReservations" {
+            return self.dataController?.loadingTodayReservations ?? false
+        }
+        return false
+    }
+    
+    
     func didSelectCarouselCVCellItem(item: CarouselCVCellItem) {
-        if let roomRes = item.data as? AirConferenceRoomReservation {
-            self.performSegue(withIdentifier: "toRoomReservationVC", sender: roomRes)
+        if let _ = item.data as? AirGuestRegistration {
+            self.performSegue(withIdentifier: "ProfileVCtoMyGuestRegTVC", sender: nil)
+        } else if let _ = item.data as? AirServiceRequest {
+            self.performSegue(withIdentifier: "ProfileVCtoMyServReqTVC", sender: nil)
+        } else if let reservation = item.data as? AirConferenceRoomReservation {
+            self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)
         }
     }
 }

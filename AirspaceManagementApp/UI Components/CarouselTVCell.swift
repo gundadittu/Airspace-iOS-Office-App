@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 
 protocol CarouselTVCellDelegate {
     func didSelectCarouselCVCellItem(item: CarouselCVCellItem)
+    func titleForEmptyState(for identifier: String?) -> String
+    func imageForEmptyState(for identifier: String?) -> UIImage
+    func isLoadingData(for identifier: String?) -> Bool
 }
 
 class CarouselTVCell: UITableViewCell {
@@ -17,17 +21,21 @@ class CarouselTVCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     var items = [CarouselCVCellItem]()
     var delegate: CarouselTVCellDelegate?
+    var identifier: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+        
+        self.collectionView.emptyDataSetSource = self
+        self.collectionView.emptyDataSetDelegate = self
+        
         self.collectionView.register(UINib(nibName: "CarouselCVCell", bundle: nil), forCellWithReuseIdentifier: "CarouselCVCell")
         self.collectionView.register(UINib(nibName: "QuickReserveCVCell", bundle: nil), forCellWithReuseIdentifier: "QuickReserveCVCell")
         self.collectionView.register(UINib(nibName: "TextCVCell", bundle: nil), forCellWithReuseIdentifier: "TextCVCell")
         self.collectionView.showsHorizontalScrollIndicator = false
-        
-        setCVLayout()
+        self.setCVLayout()
     }
     
     func setCVLayout() {
@@ -137,5 +145,27 @@ extension CarouselTVCell: UICollectionViewDataSource {
             return cell
         }
         return UICollectionViewCell()
+    }
+}
+
+extension CarouselTVCell: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource{
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 20) ?? UIFont.systemFont(ofSize: 20)] as [NSAttributedString.Key : Any]
+        if let isLoading = self.delegate?.isLoadingData(for: self.identifier),
+            isLoading == true {
+            let attributedString = NSMutableAttributedString(string: "Loading...", attributes: attrs)
+            return attributedString
+        } else {
+            let text = self.delegate?.titleForEmptyState(for: self.identifier)
+            return NSMutableAttributedString(string: text ?? "", attributes: attrs)
+        }
+    }
+
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        if let isLoading = self.delegate?.isLoadingData(for: self.identifier),
+            isLoading == true {
+            return UIImage()
+        }
+        return self.delegate?.imageForEmptyState(for: self.identifier) ?? UIImage()
     }
 }

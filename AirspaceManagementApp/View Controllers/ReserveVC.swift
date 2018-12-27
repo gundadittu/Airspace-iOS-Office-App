@@ -314,6 +314,18 @@ extension ReserveVC: SeeMoreTVCDelegate {
 }
 
 extension ReserveVC: CarouselTVCellDelegate {
+    
+    // Empty state not required, since all FormTVCells on this page contain static content
+    func titleForEmptyState(for identifier: String?) -> String {
+        return ""
+    }
+    func imageForEmptyState(for identifier: String?) -> UIImage {
+        return UIImage()
+    }
+    func isLoadingData(for identifier: String?) -> Bool {
+        return false
+    }
+    
     func didSelectCarouselCVCellItem(item: CarouselCVCellItem) {
         // did select a quickReserve cell
         if let duration = item.data as? Duration {

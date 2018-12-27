@@ -28,7 +28,8 @@ class ReservationManager {
             return dict
         }
         
-    functions.httpsCallable("createConferenceRoomReservation").call(["shouldCreateCalendarEvent": shouldCreateCalendarEvent,"reservationTitle": reservationTitle, "note":note, "startTime": startTimeString, "endTime": endTimeString, "conferenceRoomUID": conferenceRoomUID, "attendees": attendeesArray]) { (result, error) in
+        let parameters = ["shouldCreateCalendarEvent": shouldCreateCalendarEvent,"reservationTitle": reservationTitle, "note":note, "startTime": startTimeString, "endTime": endTimeString, "conferenceRoomUID": conferenceRoomUID, "attendees": attendeesArray] as [String: Any]
+        functions.httpsCallable("createConferenceRoomReservation").call(parameters) { (result, error) in
             if let error = error {
                 completionHandler(error)
             } else {

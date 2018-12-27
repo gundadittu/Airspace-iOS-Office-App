@@ -47,9 +47,6 @@ class ProfileVC: UIViewController {
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         
-        let settings = UIBarButtonItem(image: UIImage(named: "settings-icon"), style: .plain, target: self, action: #selector(ProfileVC.didTapSettings))
-        self.navigationItem.rightBarButtonItem  = settings
-        
         self.tableView.spr_setTextHeader { [weak self] in
             self?.loadData()
         }
@@ -57,11 +54,6 @@ class ProfileVC: UIViewController {
     
     func loadData(){
         self.dataController?.loadData()
-    }
-
-    
-    @objc func didTapSettings() {
-        self.performSegue(withIdentifier: "toSettingsTVC", sender: nil)
     }
 }
 
@@ -103,20 +95,20 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let currSection = sections[section]
-        guard let type = currSection.type else { return 0 }
-        switch type {
-        case .bioInfo:
-            return 1
-        case .myRoomReservations:
-            break
-        case .myDeskReservations:
-            break
-        case .myServiceRequests:
-            break
-        case .myRegisteredGuests:
-            break
-        }
+//        let currSection = sections[section]
+//        guard let type = currSection.type else { return 0 }
+//        switch type {
+//        case .bioInfo:
+//            break
+//        case .myRoomReservations:
+//            break
+//        case .myDeskReservations:
+//            break
+//        case .myServiceRequests:
+//            break
+//        case .myRegisteredGuests:
+//            break
+//        }
         return 2
     }
     
@@ -137,6 +129,13 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.mainLbl.text = UserAuth.shared.displayName
                 cell.subtitleLbl.text = UserAuth.shared.email
                 return cell
+            } else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
+                    return UITableViewCell()
+                }
+                cell.configureCell(with: currSection, buttonTitle: "Settings", delegate: self)
+//                cell.button.setTitle("Settings", for: .normal)
+                return cell
             }
         case .myRoomReservations?:
             if indexPath.row == 0 {
@@ -154,6 +153,7 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                     carouselItems.append(item)
                 }
                 
+                cell.identifier = "myRoomReservations"
                 cell.setCarouselItems(with: carouselItems)
                 cell.delegate = self 
                 return cell
@@ -177,6 +177,7 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 for guest in self.upcomingGuests {
                     carouselItems.append(CarouselCVCellItem(with: guest))
                 }
+                cell.identifier = "myRegisteredGuests"
                 cell.setCarouselItems(with: carouselItems)
                 cell.delegate = self
                 return cell
@@ -196,7 +197,9 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                     tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
                     cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
                 }
-                cell.setCarouselItems(with: [CarouselCVCellItem(title: "HotDesk-7", subtitle: "Today 9 AM to 10 AM", image: UIImage(named: "room-4")!), CarouselCVCellItem(title: "HotDesk-3", subtitle: "Today 2 PM to 5 PM", image: UIImage(named: "room-1")!)])
+                cell.identifier = "myDeskReservations"
+                cell.delegate = self 
+//                cell.setCarouselItems(with: [CarouselCVCellItem(title: "HotDesk-7", subtitle: "Today 9 AM to 10 AM", image: UIImage(named: "room-4")!), CarouselCVCellItem(title: "HotDesk-3", subtitle: "Today 2 PM to 5 PM", image: UIImage(named: "room-1")!)])
                 return cell
             } else if indexPath.row == 1 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
@@ -219,6 +222,7 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 for sr in self.serviceRequests {
                     carouselItems.append(CarouselCVCellItem(with: sr))
                 }
+                cell.identifier = "myServiceRequests"
                 cell.setCarouselItems(with: carouselItems)
                 cell.delegate = self
                 return cell
@@ -243,7 +247,8 @@ extension ProfileVC: SeeMoreTVCDelegate {
         case .none:
             return
         case .some(.bioInfo):
-            return
+            // clicked on settings
+            self.performSegue(withIdentifier: "toSettingsTVC", sender: nil)
         case .some(.myRoomReservations):
             self.performSegue(withIdentifier: "toMyReservationsListTVC", sender: "conferenceRooms")
         case .some(.myDeskReservations):
@@ -339,10 +344,53 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
 }
 
 extension ProfileVC: CarouselTVCellDelegate {
+    func titleForEmptyState(for identifier: String?) -> String {
+
+        if identifier == "myServiceRequests" {
+            return  "No Service Requests"
+        } else if identifier == "myDeskReservations" {
+               return "No Desk Reservations"
+        } else if identifier == "myRegisteredGuests" {
+            return "No Registered Guests"
+        } else if identifier == "myRoomReservations" {
+            return "No Room Reservations"
+        }
+        return ""
+    }
+    
+    func imageForEmptyState(for identifier: String?) -> UIImage {
+        if let identifier = identifier {
+            if identifier == "myServiceRequests" {
+                return UIImage(named: "serv-req-icon")!
+            } else if identifier == "myDeskReservations" {
+                return UIImage(named: "table-icon")!
+            } else if identifier == "myRegisteredGuests" {
+                return UIImage(named: "register-guest-icon")!
+            } else if identifier == "myRoomReservations" {
+                return UIImage(named: "reserve-icon")!
+            }
+        }
+        return UIImage()
+    }
+    
+    func isLoadingData(for identifier: String?) -> Bool {
+        if identifier == "myServiceRequests" {
+            return self.dataController?.serviceRequestLoading ?? false
+        } else if identifier == "myDeskReservations" {
+//            return self.dataController?.des
+            return false
+        } else if identifier == "myRegisteredGuests" {
+           return self.dataController?.registeredGuestLoading ?? false
+        } else if identifier == "myRoomReservations" {
+            return self.dataController?.roomReservationsLoading ?? false
+        }
+        return false
+    }
+    
     func didSelectCarouselCVCellItem(item: CarouselCVCellItem) {
-        if let guest = item.data as? AirGuestRegistration {
+        if let _ = item.data as? AirGuestRegistration {
             self.performSegue(withIdentifier: "ProfileVCtoMyGuestRegTVC", sender: nil)
-        } else if let serviceRequest = item.data as? AirServiceRequest {
+        } else if let _ = item.data as? AirServiceRequest {
             self.performSegue(withIdentifier: "ProfileVCtoMyServReqTVC", sender: nil)
         } else if let reservation = item.data as? AirConferenceRoomReservation {
             self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)

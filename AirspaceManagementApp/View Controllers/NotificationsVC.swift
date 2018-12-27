@@ -27,7 +27,7 @@ class NotificationsVC: UIViewController {
         self.tableView.allowsSelection = false
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
-        self.tableView.rowHeight = CGFloat(100)
+        self.tableView.rowHeight = CGFloat(75)
         self.tableView.estimatedRowHeight = UITableView.automaticDimension
         self.tableView.register(UINib(nibName: reuseID, bundle: nil), forCellReuseIdentifier: reuseID)
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
