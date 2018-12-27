@@ -11,43 +11,37 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="106" id="KGk-i7-Jjw" customClass="SeeMoreTVC" customModule="AirspaceManagementApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="345" height="106"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="115" id="KGk-i7-Jjw" customClass="SeeMoreTVC" customModule="AirspaceManagementApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="345" height="115"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="345" height="105.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="345" height="114.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQe-kZ-BKl" customClass="BorderButton" customModule="AirspaceManagementApp" customModuleProvider="target">
-                        <rect key="frame" x="15" y="5" width="315" height="48"/>
+                        <rect key="frame" x="26" y="32.5" width="293" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="MgT-gK-0bs"/>
+                        </constraints>
                         <state key="normal" title="Button"/>
                         <connections>
                             <action selector="didTapButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="TTn-7Z-uak"/>
                         </connections>
                     </button>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LVb-4o-yR1">
-                        <rect key="frame" x="15" y="53" width="315" height="47.5"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="VQe-kZ-BKl" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="0et-3W-EJp"/>
-                    <constraint firstItem="LVb-4o-yR1" firstAttribute="leading" secondItem="VQe-kZ-BKl" secondAttribute="leading" id="5g9-ig-zWz"/>
-                    <constraint firstItem="LVb-4o-yR1" firstAttribute="trailing" secondItem="VQe-kZ-BKl" secondAttribute="trailing" id="BlC-oc-0s5"/>
-                    <constraint firstItem="LVb-4o-yR1" firstAttribute="top" secondItem="VQe-kZ-BKl" secondAttribute="bottom" id="ICB-6I-JxR"/>
-                    <constraint firstAttribute="trailing" secondItem="VQe-kZ-BKl" secondAttribute="trailing" constant="15" id="UfU-7j-nEX"/>
-                    <constraint firstItem="VQe-kZ-BKl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="XYg-1s-Zbq"/>
-                    <constraint firstAttribute="bottom" secondItem="LVb-4o-yR1" secondAttribute="bottom" constant="5" id="c8l-Uj-y2Q"/>
-                    <constraint firstItem="LVb-4o-yR1" firstAttribute="height" secondItem="VQe-kZ-BKl" secondAttribute="height" id="ga5-lF-dCv"/>
-                    <constraint firstItem="LVb-4o-yR1" firstAttribute="width" secondItem="VQe-kZ-BKl" secondAttribute="width" id="wAn-dp-XOS"/>
-                    <constraint firstItem="VQe-kZ-BKl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="wdq-o2-6Xf"/>
+                    <constraint firstItem="VQe-kZ-BKl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="TNf-PS-BLX"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="VQe-kZ-BKl" secondAttribute="trailing" constant="10" id="eSe-nq-SDs"/>
+                    <constraint firstItem="VQe-kZ-BKl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="f61-j3-hat"/>
+                    <constraint firstItem="VQe-kZ-BKl" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="wy5-g2-6bn"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="button" destination="VQe-kZ-BKl" id="4ez-7B-GTL"/>
             </connections>
-            <point key="canvasLocation" x="157.59999999999999" y="181.70914542728636"/>
+            <point key="canvasLocation" x="157.59999999999999" y="177.66116941529236"/>
         </tableViewCell>
     </objects>
 </document>

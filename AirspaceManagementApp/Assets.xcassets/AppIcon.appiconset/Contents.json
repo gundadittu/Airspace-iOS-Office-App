@@ -111,6 +111,11 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "Icon copy.png",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
       "filename" : "Icon.png",
       "scale" : "1x"
     },

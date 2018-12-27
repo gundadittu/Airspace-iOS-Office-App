@@ -22,7 +22,7 @@ class NotificationsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "ALERTS"
+//        self.title = "ALERTS"
         self.navigationController?.navigationBar.topItem?.title = "Alerts"
 
         self.tableView.emptyDataSetSource = self
@@ -51,9 +51,14 @@ class NotificationsVC: UIViewController {
 }
 
 extension NotificationsVC: UITableViewDataSource {
+    func reloadTableView(){
+        let range = NSMakeRange(0, self.tableView.numberOfSections)
+        let sections = NSIndexSet(indexesIn: range)
+        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return notifications.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -75,7 +80,7 @@ extension NotificationsVC: NotificationVCDataControllerDelegate {
         self.tableView.spr_endRefreshing()
         if let notifications = notifications {
             self.notifications = notifications
-            self.tableView.reloadData()
+            self.reloadTableView()
         } else if let _ = error {
             // handle error
             return

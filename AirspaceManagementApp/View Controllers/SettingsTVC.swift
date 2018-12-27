@@ -41,7 +41,7 @@ class SettingsTVC: UITableViewController {
         SettingsTVCSection(title: "Privacy Policy", type: .privacyPolicy),
         SettingsTVCSection(title: "Acknowledgements", type: .acknowledgments),
         SettingsTVCSection(title: "Log Out", type: .logOut)]
-        self.tableView.register(UINib(nibName: "FormSubmitTVCell", bundle: nil), forCellReuseIdentifier: "FormSubmitTVCell")
+//        self.tableView.register(UINib(nibName: "FormSubmitTVCell", bundle: nil), forCellReuseIdentifier: "FormSubmitTVCell")
         self.tableView.separatorStyle = .none
     }
 
@@ -53,13 +53,6 @@ class SettingsTVC: UITableViewController {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        if (indexPath.section == (self.sections.count-1)) {
-            return false
-        }
-        return true 
-    }
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let section = sections[indexPath.section]
@@ -88,6 +81,8 @@ class SettingsTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = sections[indexPath.section]
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        cell.configureCell(with: section)
         guard let type = section.type else { return UITableViewCell() }
         switch type {
         case .reportBugs:
@@ -101,24 +96,24 @@ class SettingsTVC: UITableViewController {
         case .acknowledgments:
             break
         case .logOut:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell", for: indexPath) as? FormSubmitTVCell else { return UITableViewCell() }
-            cell.button.setTitle("Log Out", for: .normal)
-            return cell
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell", for: indexPath) as? FormSubmitTVCell else { return UITableViewCell() }
+//            cell.button.setTitle("Log Out", for: .normal)
+//            return cell
+            cell.textLabel?.textColor = .red
+            break
         }
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.configureCell(with: section)
         return cell
     }
 }
 
-extension SettingsTVC: SeeMoreTVCDelegate {
-    func didSelectSeeMore(for section: PageSection) {
-        // did click log out
-        UserAuth.shared.signOutUser() { error in
-            if let _ = error {
-                let banner = StatusBarNotificationBanner(title: "Error signing out.", style: .danger)
-                banner.show()
-            }
-        }
-    }
-}
+//extension SettingsTVC: SeeMoreTVCDelegate {
+//    func didSelectSeeMore(for section: PageSection) {
+//        // did click log out
+//        UserAuth.shared.signOutUser() { error in
+//            if let _ = error {
+//                let banner = StatusBarNotificationBanner(title: "Error signing out.", style: .danger)
+//                banner.show()
+//            }
+//        }
+//    }
+//}

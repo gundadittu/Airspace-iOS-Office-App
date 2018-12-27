@@ -34,7 +34,6 @@ class HomeTabBarController : UITabBarController {
             
     
             let alertNav = mainStoryboard.instantiateViewController(withIdentifier: "notificationNav") as! UINavigationController
-    
             alertNav.tabBarItem =  UITabBarItem(title: "ALERTS", image: UIImage(named: "alert-icon"), selectedImage: nil)
             let profileNav = mainStoryboard.instantiateViewController(withIdentifier: "profileNav") as! ProfileNavController
             profileNav.tabBarItem =  UITabBarItem(title: "PROFILE", image: UIImage(named: "profile-icon"), selectedImage: nil)

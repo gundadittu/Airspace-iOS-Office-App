@@ -9,6 +9,7 @@
 import UIKit
 import NVActivityIndicatorView
 import SwiftPullToRefresh
+import DZNEmptyDataSet
 
 class RoomListTVC: UITableViewController {
     
@@ -20,9 +21,11 @@ class RoomListTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Conference Rooms"
+        
+        self.tableView.emptyDataSetDelegate = self
+        self.tableView.emptyDataSetDelegate = self
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "ConferenceRoomTVCell", bundle: nil), forCellReuseIdentifier: "ConferenceRoomTVCell")
-        self.tableView.backgroundColor = UIColor.flatWhite
          self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(didClickFilter))
         
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
@@ -33,12 +36,13 @@ class RoomListTVC: UITableViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
+    }
+    
     @objc func didClickFilter() {
         self.navigationController?.popViewController(animated: true)
-    }
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -102,5 +106,38 @@ extension RoomListTVC: FindRoomVCDataControllerDelegate {
     
     func reloadTableView() {
         self.tableView.reloadData()
+    }
+}
+
+extension RoomListTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 20) ?? UIFont.systemFont(ofSize: 20)] as [NSAttributedString.Key : Any]
+        if let isLoading = self.dataController?.isLoading,
+            isLoading == true {
+            let attributedString = NSMutableAttributedString(string: "", attributes: attrs)
+            return attributedString
+        } else {
+            return NSMutableAttributedString(string: "No rooms!", attributes: attrs)
+        }
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 15) ?? UIFont.systemFont(ofSize: 15)] as [NSAttributedString.Key : Any]
+        if let isLoading = self.dataController?.isLoading,
+            isLoading == true {
+            let attributedString = NSMutableAttributedString(string: "", attributes: attrs)
+            return attributedString
+        } else {
+            return NSMutableAttributedString(string: "Even Indiana Jones couldn't find anything with that criteria.", attributes: attrs)
+        }
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        if let isLoading = self.dataController?.isLoading,
+            isLoading == true {
+            return UIImage()
+        } else {
+            return UIImage(named: "indiana")
+        }
     }
 }

@@ -51,6 +51,7 @@ class RoomReservationVC: UIViewController {
         self.tableView.register(UINib(nibName: "FormTVCell", bundle: nil), forCellReuseIdentifier: "FormTVCell")
         self.tableView.register(UINib(nibName: "ConferenceRoomDetailedTVC", bundle: nil), forCellReuseIdentifier: "ConferenceRoomDetailedTVC")
         self.tableView.register(UINib(nibName: "FormSubmitTVCell", bundle: nil), forCellReuseIdentifier: "FormSubmitTVCell")
+        self.tableView.register(UINib(nibName: "SeeMoreTVC", bundle: nil), forCellReuseIdentifier: "SeeMoreTVC")
 
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -161,10 +162,13 @@ extension RoomReservationVC: UITableViewDelegate, UITableViewDataSource {
             }
             topCell = cell
         case .cancelReservation:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC") as? SeeMoreTVC else {
                 return UITableViewCell()
             }
-            cell.configureCell(with: section, delegate: self)
+            cell.delegate = self
+            cell.button.layer.borderWidth = CGFloat(0)
+            cell.button.setTitle("Cancel Reservation", for: .normal)
+            cell.button.setTitleColor(.red, for: .normal)
             return cell
         case .saveChanges:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
@@ -348,6 +352,13 @@ extension RoomReservationVC: DateTimeInputVCDelegate, TextInputVCDelegate, Choos
                 }
             }
         }
+}
+
+extension RoomReservationVC: SeeMoreTVCDelegate {
+    func didSelectSeeMore(for section: PageSection) {
+        // cancel button
+        self.handleCancellation()
+    }
 }
 
 extension RoomReservationVC: FormTVCellDelegate {

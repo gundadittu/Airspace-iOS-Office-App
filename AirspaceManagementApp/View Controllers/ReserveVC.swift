@@ -27,7 +27,7 @@ class ReserveVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "RESERVE"
+//        self.title = "RESERVE"
         self.navigationController?.navigationBar.topItem?.title = "Reserve"
 
         self.tableView.delegate = self
@@ -59,6 +59,7 @@ class ReserveVC: UIViewController {
         
         control.addTarget(self, action: #selector(ReserveVC.controlValueChanged(_:)), for: .valueChanged)
         topVIew.addSubview(control)
+        
         self.sections = self.roomSections
         
         self.updateQuickReserveTimeRangeOptions()
@@ -76,7 +77,7 @@ class ReserveVC: UIViewController {
             self.type = .hotDesks
         }
         self.updateQuickReserveTimeRangeOptions()
-        self.tableView.reloadData()
+        self.reloadTableView()
     }
     
     func updateQuickReserveTimeRangeOptions() {
@@ -112,11 +113,17 @@ class ReserveVC: UIViewController {
             }
             self.timeRangeOptions = timeRangeOptionsArr
         }
-        self.tableView.reloadData()
+        self.reloadTableView()
     }
 }
 
 extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
+    
+    func reloadTableView() {
+        let range = NSMakeRange(0, self.tableView.numberOfSections)
+        let sections = NSIndexSet(indexesIn: range)
+        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let currSectionType = sections[section].type else { return nil }
@@ -374,7 +381,7 @@ extension ReserveVC: DateTimeInputVCDelegate {
         switch self.type {
         case .conferenceRooms:
             self.allRoomsStartDate = date
-            self.tableView.reloadData()
+            self.reloadTableView()
         case .hotDesks:
             break
         }
@@ -402,7 +409,7 @@ extension ReserveVC {
                 return
             } else if let rooms = rooms {
                 self.allConferenceRooms = rooms
-                self.tableView.reloadData()
+                self.reloadTableView()
             } else {
                 // handle error
                 return

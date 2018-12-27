@@ -31,7 +31,7 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "PROFILE"
+//        self.title = "PROFILE"
         self.navigationController?.navigationBar.topItem?.title = "Profile"
 
         self.tableView.dataSource = self
@@ -42,7 +42,9 @@ class ProfileVC: UIViewController {
         self.tableView.register(UINib(nibName: "SeeMoreTVC", bundle: nil), forCellReuseIdentifier: "SeeMoreTVC")
         self.tableView.allowsSelection = false
         
-        self.dataController = ProfileVCDataController(delegate: self)
+        if self.dataController == nil {
+            self.dataController = ProfileVCDataController(delegate: self)
+        }
         
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
@@ -55,9 +57,16 @@ class ProfileVC: UIViewController {
     func loadData(){
         self.dataController?.loadData()
     }
+    
 }
 
 extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
+    
+    func reloadTableView(){
+        let range = NSMakeRange(0, self.tableView.numberOfSections)
+        let sections = NSIndexSet(indexesIn: range)
+        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let currSection = sections[section]
@@ -154,8 +163,8 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 cell.identifier = "myRoomReservations"
+                cell.delegate = self
                 cell.setCarouselItems(with: carouselItems)
-                cell.delegate = self 
                 return cell
             } else if indexPath.row == 1 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
@@ -178,8 +187,8 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                     carouselItems.append(CarouselCVCellItem(with: guest))
                 }
                 cell.identifier = "myRegisteredGuests"
-                cell.setCarouselItems(with: carouselItems)
                 cell.delegate = self
+                cell.setCarouselItems(with: carouselItems)
                 return cell
             } else if indexPath.row == 1 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
@@ -199,7 +208,7 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 cell.identifier = "myDeskReservations"
                 cell.delegate = self 
-//                cell.setCarouselItems(with: [CarouselCVCellItem(title: "HotDesk-7", subtitle: "Today 9 AM to 10 AM", image: UIImage(named: "room-4")!), CarouselCVCellItem(title: "HotDesk-3", subtitle: "Today 2 PM to 5 PM", image: UIImage(named: "room-1")!)])
+                cell.setCarouselItems(with: [CarouselCVCellItem(title: "HotDesk-7", subtitle: "Today 9 AM to 10 AM", image: UIImage(named: "room-4")!), CarouselCVCellItem(title: "HotDesk-3", subtitle: "Today 2 PM to 5 PM", image: UIImage(named: "room-1")!)])
                 return cell
             } else if indexPath.row == 1 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
@@ -223,8 +232,8 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                     carouselItems.append(CarouselCVCellItem(with: sr))
                 }
                 cell.identifier = "myServiceRequests"
-                cell.setCarouselItems(with: carouselItems)
                 cell.delegate = self
+                cell.setCarouselItems(with: carouselItems)
                 return cell
             } else if indexPath.row == 1 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
@@ -339,7 +348,7 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
         if (self.dataController?.isLoading == false) {
             self.tableView.spr_endRefreshing()
         }
-        self.tableView.reloadData()
+        self.reloadTableView()
     }
 }
 

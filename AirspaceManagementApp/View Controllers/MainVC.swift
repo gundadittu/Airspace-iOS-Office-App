@@ -72,7 +72,7 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "HOME"
+//        self.title = "HOME"
         self.navigationController?.navigationBar.topItem?.title = "Home"
 
         self.tableView.delegate = self
@@ -138,6 +138,12 @@ extension MainVC: UITableViewDelegate {
 }
 
 extension MainVC: UITableViewDataSource {
+    
+    func reloadTableView(from start: Int? = nil, to end: Int? = nil){
+        let range = NSMakeRange(start ?? 0, end ?? self.tableView.numberOfSections)
+        let sections = NSIndexSet(indexesIn: range)
+        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionObj = self.sections[section]
@@ -207,8 +213,8 @@ extension MainVC: UITableViewDataSource {
                 carouselItems.append(item)
             }
             cell.identifier = "todayReservations"
-            cell.setCarouselItems(with: [])
             cell.delegate = self
+            cell.setCarouselItems(with: carouselItems)
             return cell
         }
         return UITableViewCell()
@@ -238,7 +244,7 @@ extension MainVC: UITableViewDataSource {
 extension MainVC: MainVCDataControllerDelegate {
     func didUpdateSections(with sections: [MainVCSection]) {
         self.sections = sections
-        self.tableView.reloadData()
+        self.reloadTableView()
     }
     
     func didUpdateReservationsToday(with error: Error?) {
@@ -254,7 +260,7 @@ extension MainVC: MainVCDataControllerDelegate {
         } else {
             let data = self.dataController?.reservationsToday ?? []
             self.reservationsToday = data
-            self.tableView.reloadData()
+            self.reloadTableView(from: 0, to: 1)
         }
     }
     
