@@ -145,6 +145,9 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
         case .quickReserveDesk:
             return false
         case .allRooms:
+            if indexPath.row == 0 {
+                return false 
+            }
             break
         case .allDesks:
             break

@@ -31,7 +31,7 @@ enum FindRoomVCSectionType {
     case duration
     case capacity
     case amenities
-//    case submit
+    case submit
 //    case repeatEvent
 //    case note
 //    case title
@@ -40,13 +40,11 @@ enum FindRoomVCSectionType {
 
 class FindRoomVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var sections = [ FindRoomVCSection(title: "I need a room in", buttonTitle: "Choose Office", type: .office), FindRoomVCSection(title: "starting at", buttonTitle: "Select Time", type: .startTime), FindRoomVCSection(title: "for around", buttonTitle: "Choose Duration", type: .duration), FindRoomVCSection(title: "and it needs to fit (optional)", buttonTitle: "Choose # of People", type: .capacity), FindRoomVCSection(title: "and it needs to have (optional)", buttonTitle: " Pick Amenities", type: .amenities)]
+    var sections = [ FindRoomVCSection(title: "I need a room in", buttonTitle: "Choose Office", type: .office), FindRoomVCSection(title: "starting at", buttonTitle: "Select Time", type: .startTime), FindRoomVCSection(title: "for around", buttonTitle: "Choose Duration", type: .duration), FindRoomVCSection(title: "and it needs to fit (optional)", buttonTitle: "Choose # of People", type: .capacity), FindRoomVCSection(title: "and it needs to have (optional)", buttonTitle: " Pick Amenities", type: .amenities), FindRoomVCSection(title: "Find Available Rooms", buttonTitle: "Find Available Rooms", type: .submit)]
     var loadingIndicator: NVActivityIndicatorView?
     var dataController: FindRoomVCDataController?
     var shouldAutomaticallySubmit = false
-    
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var bottomViewBtn: UIButton!
+ 
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -66,20 +64,6 @@ class FindRoomVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         if dataController == nil {
             self.dataController = FindRoomVCDataController(delegate: self)
         }
-        
-        self.bottomViewBtn.setTitleColor(.white, for: .normal)
-        self.bottomView.backgroundColor = globalColor
-        self.bottomView.layer.shadowColor = UIColor.black.cgColor
-        self.bottomView.layer.shadowOpacity = 0.5
-        self.bottomView.layer.shadowOffset = CGSize.zero
-        self.bottomView.layer.shadowRadius = 2
-    }
-    
-    @IBAction func bottomViewBtnTapped(_ sender: Any) {
-        guard (self.loadingIndicator?.isAnimating == false ||  self.loadingIndicator == nil) else {
-            return
-        }
-        self.dataController?.submitData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -114,7 +98,10 @@ class FindRoomVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
+        let section = self.sections[indexPath.row]
+        if section.type == .submit {
+            return UITableView.automaticDimension
+        }
         return CGFloat(110)
     }
     
@@ -156,6 +143,12 @@ class FindRoomVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             }
         case .none:
             break
+        case .submit:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
+                return UITableViewCell()
+            }
+            cell.configureCell(with: section, delegate: self)
+            return cell
         }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormTVCell") as? FormTVCell else {
             return UITableViewCell()
@@ -203,6 +196,8 @@ extension FindRoomVC: FormTVCellDelegate {
              self.performSegue(withIdentifier: "FindRoomVCtoChooseTVC", sender: ChooseTVCType.roomAmenities)
         case .none:
             break
+        case .submit:
+            self.dataController?.submitData()
         }
         return
     }

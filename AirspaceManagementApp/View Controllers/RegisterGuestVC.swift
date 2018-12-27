@@ -30,20 +30,19 @@ enum RegisterGuestVCSectionType {
     case name
     case dateTime
     case email
+    case submit
     case none
 }
 
 class RegisterGuestVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var sections = [RegisterGuestVCSection(title: "I have a guest visiting", buttonTitle: "Choose Office", type: .office),RegisterGuestVCSection(title: "Their name is", buttonTitle: "Enter Name", type: .name), RegisterGuestVCSection(title: "They are visiting", buttonTitle: "Choose Date & Time", type: .dateTime), RegisterGuestVCSection(title: "Their email is (optional)", buttonTitle: "Enter Email", type: .email)]
+    var sections = [RegisterGuestVCSection(title: "I have a guest visiting", buttonTitle: "Choose Office", type: .office),RegisterGuestVCSection(title: "Their name is", buttonTitle: "Enter Name", type: .name), RegisterGuestVCSection(title: "They are visiting", buttonTitle: "Choose Date & Time", type: .dateTime), RegisterGuestVCSection(title: "Their email is (optional)", buttonTitle: "Enter Email", type: .email),
+        RegisterGuestVCSection(title: "Register Guest", buttonTitle: "Register Guest", type: .submit)]
     var dataController: RegisterGuestTVCDataController?
     let datePicker: UIDatePicker = UIDatePicker()
     let tempInput = UITextField( frame:CGRect.zero )
     var loadingIndicator: NVActivityIndicatorView?
     
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var bottomViewBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,16 +59,6 @@ class RegisterGuestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.view.addSubview(self.loadingIndicator!)
         
         self.dataController = RegisterGuestTVCDataController(delegate: self)
-        
-        self.bottomViewBtn.setTitleColor(.white, for: .normal)
-        self.bottomView.backgroundColor = globalColor
-        self.bottomView.layer.shadowColor = UIColor.black.cgColor
-        self.bottomView.layer.shadowOpacity = 0.5
-        self.bottomView.layer.shadowOffset = CGSize.zero
-        self.bottomView.layer.shadowRadius = 2
-    }
-    @IBAction func didtapBottonViewBTN(_ sender: Any) {
-        self.dataController?.submitFormData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -152,6 +141,12 @@ class RegisterGuestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             return cell
         case .none:
             break
+        case .submit:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
+                return UITableViewCell()
+            }
+            cell.configureCell(with: section, delegate: self)
+            return cell
         }
         return UITableViewCell()
     }
@@ -181,6 +176,8 @@ extension RegisterGuestVC: FormTVCellDelegate {
 //            self.showGuestEmailAlert()
         case .none:
             return
+        case .submit:
+            self.dataController?.submitFormData()
         }
     }
     

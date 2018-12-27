@@ -46,11 +46,6 @@ class RoomReservationVC: UIViewController {
     var conferenceRoomReservation: AirConferenceRoomReservation?
     var existingResDisplayStartDate = Date() // date used to display existing reservations for room
     
-    
-//    @IBOutlet weak var bottomView: UIView!
-//    @IBOutlet weak var bottomViewBtn: UIButton!
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(UINib(nibName: "FormTVCell", bundle: nil), forCellReuseIdentifier: "FormTVCell")
@@ -79,18 +74,7 @@ class RoomReservationVC: UIViewController {
         }
         self.dataController?.setConferenceRoomReservation(with: reservation)
         self.existingResDisplayStartDate = reservation.startingDate?.getBeginningOfDay ?? Date()
-        
-//        self.bottomViewBtn.setTitleColor(.white, for: .normal)
-//        self.bottomView.backgroundColor = globalColor
-//        self.bottomView.layer.shadowColor = UIColor.black.cgColor
-//        self.bottomView.layer.shadowOpacity = 0.5
-//        self.bottomView.layer.shadowOffset = CGSize.zero
-//        self.bottomView.layer.shadowRadius = 2
     }
-    
-//    @IBAction func didTapBottomViewBtn(_ sender: Any) {
-//        self.dataController?.submitData()
-//    }
     
 }
 
@@ -136,7 +120,7 @@ extension RoomReservationVC: UITableViewDelegate, UITableViewDataSource {
             if let conferenceRoom = self.dataController?.conferenceRoom,
                 let start = self.dataController?.selectedStartDate,
                 let end = self.dataController?.selectedEndDate {
-                cell.whenDateBtn.isEnabled = false
+//                cell.whenDateBtn.isEnabled = false
                 cell.conferenceRoomReservation = self.conferenceRoomReservation
                 cell.configureCell(with: conferenceRoom, for: start, newReservationStartDate: start, newReservationEndDate: end)
             }
@@ -262,9 +246,15 @@ extension RoomReservationVC: RoomReservationVCDataControllerDelegate {
             let banner = NotificationBanner(title: "Woops!", subtitle: "We are unable to modify your reservation currently. Try again later.", leftView: nil, rightView: nil, style: .warning, colors: nil)
             banner.show()
         } else {
-            let alertController = CFAlertViewController(title: "Blast off! 🚀", message: "We were able to update your reservation.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
-            let action = CFAlertAction(title: "Great!", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil) { (action) in
-                self.navigationController?.popViewController(animated: true)
+            let alertController = CFAlertViewController(title: "Get Working!🤟🏼 ", message: "Your reservations has been updated.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+            
+            let action = CFAlertAction(title: "Sounds Good", style: .Default, alignment: .right, backgroundColor: globalColor, textColor: nil) { (action) in
+                for controller in self.navigationController!.viewControllers as Array {
+                    if controller.isKind(of: ReserveVC.self) {
+                        self.navigationController!.popToViewController(controller, animated: true)
+                        break
+                    }
+                }
             }
             alertController.addAction(action)
             self.present(alertController, animated: true)

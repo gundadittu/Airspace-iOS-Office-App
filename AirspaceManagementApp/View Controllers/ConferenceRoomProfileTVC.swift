@@ -19,6 +19,7 @@ enum ConferenceRoomProfileSectionType {
     case eventName
     case eventDescription
     case inviteOthers
+    case submit
     case none
 }
 
@@ -37,7 +38,7 @@ class ConferenceRoomProfileSection : PageSection {
 
 class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var sections = [ConferenceRoomProfileSection(title: "Bio", buttonTitle: nil, type: .bio), ConferenceRoomProfileSection(title: "", buttonTitle: nil, type: .createCalendarEvent), ConferenceRoomProfileSection(title: "Add Event Name (optional)", buttonTitle: "Enter Name", type: .eventName), ConferenceRoomProfileSection(title: "Add Event Description (optional)", buttonTitle: "Enter Description", type: .eventDescription), ConferenceRoomProfileSection(title: "Invite Others (optional)", buttonTitle: "Choose Attendees", type: .inviteOthers)]
+    var sections = [ConferenceRoomProfileSection(title: "Bio", buttonTitle: nil, type: .bio), ConferenceRoomProfileSection(title: "", buttonTitle: nil, type: .createCalendarEvent), ConferenceRoomProfileSection(title: "Add Event Name (optional)", buttonTitle: "Enter Name", type: .eventName), ConferenceRoomProfileSection(title: "Add Event Description (optional)", buttonTitle: "Enter Description", type: .eventDescription), ConferenceRoomProfileSection(title: "Invite Others (optional)", buttonTitle: "Choose Attendees", type: .inviteOthers), ConferenceRoomProfileSection(title: "Reserve Room", buttonTitle: "Reserve Room", type: .submit)]
     var loadingIndicator: NVActivityIndicatorView?
     var dataController: ConferenceRoomProfileDataController?
     var conferenceRoom: AirConferenceRoom?
@@ -46,8 +47,8 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
     var endDate: Date?
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var bottomViewBtn: UIButton!
+//    @IBOutlet weak var bottomView: UIView!
+//    @IBOutlet weak var bottomViewBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +60,6 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false
-        
         
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.tableView.addSubview(self.loadingIndicator!)
@@ -84,18 +84,18 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
             self.dataController?.setSelectedEndDate(with: endDate)
         }
         
-        self.bottomViewBtn.setTitleColor(.white, for: .normal)
-        self.bottomView.backgroundColor = globalColor
-        self.bottomView.layer.shadowColor = UIColor.black.cgColor
-        self.bottomView.layer.shadowOpacity = 0.5
-        self.bottomView.layer.shadowOffset = CGSize.zero
-        self.bottomView.layer.shadowRadius = 2
+//        self.bottomViewBtn.setTitleColor(.white, for: .normal)
+//        self.bottomView.backgroundColor = globalColor
+//        self.bottomView.layer.shadowColor = UIColor.black.cgColor
+//        self.bottomView.layer.shadowOpacity = 0.5
+//        self.bottomView.layer.shadowOffset = CGSize.zero
+//        self.bottomView.layer.shadowRadius = 2
     }
     
     
-    @IBAction func bottomViewBtnTapped(_ sender: Any) {
-        self.dataController?.submitData()
-    }
+//    @IBAction func bottomViewBtnTapped(_ sender: Any) {
+//        self.dataController?.submitData()
+//    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDateInputVC",
@@ -172,6 +172,8 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
             return 1
         case .inviteOthers:
             return 1
+        case .submit:
+            return 1
         }
     }
     
@@ -240,6 +242,12 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
             }
             cell.configureCell(with: section, delegate: self)
             return cell
+        case .submit:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
+                return UITableViewCell()
+            }
+            cell.configureCell(with: section, delegate: self)
+            return cell
         }
         return UITableViewCell()
     }
@@ -270,6 +278,8 @@ extension ConferenceRoomProfileTVC: FormTVCellDelegate {
             }
         case .none:
             return
+        case .submit:
+            self.dataController?.submitData()
         }
     }
 }
@@ -282,19 +292,12 @@ extension ConferenceRoomProfileTVC: ConferenceRoomProfileDataControllerDelegate 
             alertController.addAction(action)
             self.present(alertController, animated: true)
         } else {
-            let alertController = CFAlertViewController(title: "Get Working!🤟🏼 ", message: "Your reservations has been confirmed.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
-            
-            let action = CFAlertAction(title: "Sounds Good", style: .Default, alignment: .right, backgroundColor: globalColor, textColor: nil) { (action) in
-                for controller in self.navigationController!.viewControllers as Array {
-                    if controller.isKind(of: ReserveVC.self) {
-                        self.navigationController!.popToViewController(controller, animated: true)
-                        break
-                    }
-                }
+            let alertController = CFAlertViewController(title: "Blast off! 🚀", message: "Your reservation is confirmed.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+            let action = CFAlertAction(title: "Great!", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil) { (action) in
+                self.navigationController?.popViewController(animated: true)
             }
             alertController.addAction(action)
-            self.present(alertController, animated: true)
-        }
+            self.present(alertController, animated: true)        }
     }
     
     func reloadTableView() {

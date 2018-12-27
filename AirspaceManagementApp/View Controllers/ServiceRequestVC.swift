@@ -30,17 +30,15 @@ enum ServiceRequestVCSectionType {
     case serviceType
     case image
     case note
+    case submit
     case none
 }
 
 class ServiceRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var bottomViewBtn: UIButton!
     
-    
-    var sections = [ServiceRequestVCSection(title: "There's an issue in", buttonTitle: "Choose Office", type: .location), ServiceRequestVCSection(title: "There's an issue with", buttonTitle: "Choose Issue", type: .serviceType), ServiceRequestVCSection(title: "Add a note (optional)", buttonTitle: "Tell us more", type: .note), ServiceRequestVCSection(title: "Add an image (optional)", buttonTitle: "Choose Image", type: .image)]
+    var sections = [ServiceRequestVCSection(title: "There's an issue in", buttonTitle: "Choose Office", type: .location), ServiceRequestVCSection(title: "There's an issue with", buttonTitle: "Choose Issue", type: .serviceType), ServiceRequestVCSection(title: "Add a note (optional)", buttonTitle: "Tell us more", type: .note), ServiceRequestVCSection(title: "Add an image (optional)", buttonTitle: "Choose Image", type: .image), ServiceRequestVCSection(title: "Submit Service Request", buttonTitle: "Submit Service Request", type: .submit)]
     var loadingIndicator: NVActivityIndicatorView?
     var imagePicker = UIImagePickerController()
     var dataController: ServiceRequestVCDataController?
@@ -61,17 +59,6 @@ class ServiceRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         self.view.addSubview(self.loadingIndicator!)
         
         self.dataController = ServiceRequestVCDataController(delegate: self)
-        
-        self.bottomViewBtn.setTitleColor(.white, for: .normal)
-        self.bottomView.backgroundColor = globalColor
-        self.bottomView.layer.shadowColor = UIColor.black.cgColor
-        self.bottomView.layer.shadowOpacity = 0.5
-        self.bottomView.layer.shadowOffset = CGSize.zero
-        self.bottomView.layer.shadowRadius = 2
-    }
-    
-    @IBAction func didTapBottomViewBtn(_ sender: Any) {
-        self.dataController?.submitFormData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -127,6 +114,12 @@ class ServiceRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             } else {
                 section.selectedButtonTitle = nil
             }
+        case .submit:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
+                return UITableViewCell()
+            }
+            cell.configureCell(with: section, delegate: self)
+            return cell
         }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormTVCell") as? FormTVCell else {
             return UITableViewCell()
@@ -154,6 +147,8 @@ extension ServiceRequestVC: FormTVCellDelegate {
             return
         case .note:
             self.performSegue(withIdentifier: "ServiceRequestVCtoTextInputVC", sender: nil)
+        case .submit:
+            self.dataController?.submitFormData()
         }
     }
     

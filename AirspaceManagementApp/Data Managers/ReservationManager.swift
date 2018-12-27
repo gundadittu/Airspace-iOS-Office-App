@@ -17,7 +17,8 @@ class ReservationManager {
     lazy var functions = Functions.functions()
     let storageRef = Storage.storage().reference()
     
-    func createConferenceRoomReservation(startTime: Date, endTime: Date, conferenceRoomUID: String, shouldCreateCalendarEvent: Bool, reservationTitle: String, note: String?, attendees: [AirUser], completionHandler: @escaping (Error?) -> Void) {
+    func createConferenceRoomReservation(startTime: Date, endTime: Date, conferenceRoomUID: String, shouldCreateCalendarEvent: Bool, reservationTitle: String?, note: String?, attendees: [AirUser], completionHandler: @escaping (Error?) -> Void) {
+        
         let startTimeString = startTime.serverTimestampString
         let endTimeString = endTime.serverTimestampString
         let attendeesArray = attendees.map { (user) -> [String: String] in
@@ -36,7 +37,7 @@ class ReservationManager {
         }
     }
     
-    func updateConferenceRoomReservation(reservationUID: String, startTime: Date, endTime: Date, reservationTitle: String, note: String, attendees: [AirUser], completionHandler: @escaping (Error?) -> Void) {
+    func updateConferenceRoomReservation(reservationUID: String, startTime: Date, endTime: Date, reservationTitle: String?, note: String?, attendees: [AirUser], completionHandler: @escaping (Error?) -> Void) {
         let attendeesArray = attendees.map { (user) -> [String: String] in
             var dict = [String:String]()
             dict["email"] = user.email
