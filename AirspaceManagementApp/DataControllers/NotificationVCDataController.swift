@@ -11,6 +11,7 @@ import Foundation
 class NotificationVCDataController {
     var delegate: NotificationVCDataControllerDelegate?
     var notifications = [AirNotification]()
+    var isLoading = false
     
     public init(delegate: NotificationVCDataControllerDelegate) {
         self.delegate = delegate
@@ -18,8 +19,10 @@ class NotificationVCDataController {
     }
     
     func loadNotifications() {
+        self.isLoading = true
         self.delegate?.startLoadingIndicator()
         NotificationManager.shared.getUsersNotifications { (notifications, error) in
+            self.isLoading = false
             self.delegate?.stopLoadingIndicator()
             if let error = error {
                 self.delegate?.didLoadNotifications(nil, with: error)

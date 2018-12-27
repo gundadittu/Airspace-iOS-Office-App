@@ -56,7 +56,7 @@ class QuickAction: NSObject {
 
 class MainVC: UIViewController {
     
-    var sections = [MainVCSection(title: "Quick Actions", type: .quickActions), MainVCSection(title: "Today's Reservations", type: .reservationsToday)]
+    var sections = [MainVCSection(title: "Today's Reservations", type: .reservationsToday), MainVCSection(title: "Quick Actions", type: .quickActions)]
     var quickActionsList = [QuickAction(title: "Find a conference room", subtitle:"Find a meeting space.", icon:"reserve-icon", color: nil, type: .reserveRoom),
                             QuickAction(title: "Find a hot desk", subtitle:"Find a space to get working.", icon:"table-icon", color: nil, type: .reserveDesk),
                             QuickAction(title: "Submit a service request", subtitle:"Let us know if something needs servicing.", icon:"serv-req-icon", color: nil, type: .submitTicket),
@@ -207,7 +207,7 @@ extension MainVC: UITableViewDataSource {
                 carouselItems.append(item)
             }
             cell.identifier = "todayReservations"
-            cell.setCarouselItems(with: carouselItems)
+            cell.setCarouselItems(with: [])
             cell.delegate = self
             return cell
         }
@@ -268,16 +268,23 @@ extension MainVC: MainVCDataControllerDelegate {
 }
 
 extension MainVC: CarouselTVCellDelegate {
+    func descriptionForEmptyState(for identifier: String?) -> String {
+        if identifier == "todayReservations" {
+            return "Dive into work!"
+        }
+        return ""
+    }
+    
     func titleForEmptyState(for identifier: String?) -> String {
         if identifier == "todayReservations" {
-            return "You have no reservations today."
+            return "No Reservations Today."
         }
         return ""
     }
     
     func imageForEmptyState(for identifier: String?) -> UIImage {
         if identifier == "todayReservations" {
-            return UIImage(named: "reserve-icon")!
+            return UIImage(named: "snorkel")!
         }
         return UIImage()
     }

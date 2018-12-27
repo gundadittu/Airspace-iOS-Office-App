@@ -45,6 +45,7 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
     var existingResDisplayStartDate = Date() // date used to display existing reservations for room
     var startDate: Date?
     var endDate: Date?
+    var shouldScrollToMorningTime = false
     
     @IBOutlet weak var tableView: UITableView!
 //    @IBOutlet weak var bottomView: UIView!
@@ -188,6 +189,7 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
             let conferenceRoom = self.conferenceRoom else {
                 return UITableViewCell()
             }
+            cell.shouldScrollToMorning = self.shouldScrollToMorningTime
             cell.configureCell(with: conferenceRoom, for: existingResDisplayStartDate, newReservationStartDate: self.dataController?.selectedStartDate, newReservationEndDate: self.dataController?.selectedEndDate)
             cell.setDelegate(with: self)
             return cell

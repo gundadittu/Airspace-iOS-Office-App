@@ -45,7 +45,9 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
     var topOffset = CGFloat(30)
     var newResStartDate: Date?
     var newResEndDate: Date?
-
+    var currentTimeIndexPath: IndexPath?
+    var shouldScrollToMorning = false
+    
     static var staticMinimumTimeSlotViewWidth = CGFloat(40)
     static var staticInitialTimeSlotViewWidth = CGFloat(60)
     var initialTimeSlotViewWidth: CGFloat {
@@ -69,6 +71,17 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         gradient.frame = self.bannerImage.bounds
         gradient.colors = [UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.clear.cgColor]
         self.bannerImage.layer.mask = gradient
+    }
+    
+    public func loadCurrentTimeIndexPath() {
+        var currentIndex = 0
+        for hourSegment in self.hourSegments {
+            let dateInterval = DateInterval(start: hourSegment, duration: TimeInterval(3599))
+            if dateInterval.contains(Date()) {
+                self.currentTimeIndexPath = IndexPath(row: currentIndex, section: 0)
+            }
+            currentIndex += 1
+        }
     }
     
     @IBAction func didTapWhenDateBtn(_ sender: Any) {
@@ -108,6 +121,11 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         reservationRangeStartDateComponents.setValue(0, for: .nanosecond)
     
         // sets start time and end time for the time frame that we are trying to display EXISTING reservations for
+        if !date.isToday,
+            !date.isInRange(date: self.timeRangeStartDate, and: self.timeRangeEndDate) {
+            self.shouldScrollToMorning = true
+        }
+
         if let reservationRangeStartDate = reservationRangeStartDateComponents.date {
             let reservationRangeEndDate = reservationRangeStartDate.addingTimeInterval(TimeInterval(60*60*24))
             self.timeRangeStartDate = reservationRangeStartDate
@@ -121,8 +139,13 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         } else {
             self.whenDateBtn.setTitle(date.localizedMedDateDescription, for: .normal)
         }
+        
         self.populateHourSegmentsAndDates(with: date)
         
+        if date.isToday {
+            self.loadCurrentTimeIndexPath()
+        }
+
         // Remove existing time slot view (given tag 1), so that new one can be configured 
         self.selectedTimeSlotView = nil
         self.collectionView.viewWithTag(1)?.removeFromSuperview()
@@ -189,7 +212,22 @@ extension ConferenceRoomDetailedTVC: UICollectionViewDelegate, UICollectionViewD
             self.selectedTimeSlotView == nil {
             self.addNewReservationRangeView(at: newResStartDate, to: newResEndDate)
         }
+        
+        if !self.timeRangeStartDate.isToday,
+            self.shouldScrollToMorning == true {
+            self.shouldScrollToMorning = false
+            self.collectionView.scrollToItem(at: IndexPath(row: 7, section: 0), at: .left, animated: true)
+        } else if let currentTimeIndexPath = self.currentTimeIndexPath {
+            var row = 0
+            while (row < currentTimeIndexPath.row) {
+                self.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: false)
+                row = row+2
+            }
+            self.currentTimeIndexPath = nil
+            self.collectionView.scrollToItem(at: currentTimeIndexPath, at: .left, animated: true)
+        }
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.hourSegments.count
@@ -200,10 +238,16 @@ extension ConferenceRoomDetailedTVC: UICollectionViewDelegate, UICollectionViewD
             return UICollectionViewCell()
         }
         cell.configure(with: self.hourSegments[indexPath.row], with: self.reservations)
+        let interval = DateInterval(start: cell.startingDate!, end: cell.endingDate!)
+        if interval.contains(Date()) {
+            cell.titleLabel.textColor = globalColor
+            self.currentTimeIndexPath = indexPath
+        }
         
         // Ensures that the selectedTimeSlotView's minimum width translates to 15 minutes
         let cellWidth = cell.frame.width
         let initialWidth = (cellWidth/60)*15
+        
         ConferenceRoomDetailedTVC.staticMinimumTimeSlotViewWidth = initialWidth
         
         return cell

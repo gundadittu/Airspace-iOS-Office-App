@@ -11,6 +11,7 @@ import UIKit
 import NotificationBannerSwift
 import NVActivityIndicatorView
 import CFAlertViewController
+import DZNEmptyDataSet
 
 class FindRoomVCSection: PageSection {
     var title = ""
@@ -48,6 +49,8 @@ class FindRoomVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         super.viewDidLoad()
         self.title = "Find a Conference Room"
         
+        self.tableView.emptyDataSetDelegate = self
+        self.tableView.emptyDataSetDelegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(UINib(nibName: "FormTVCell", bundle: nil), forCellReuseIdentifier: "FormTVCell")
@@ -224,5 +227,38 @@ extension FindRoomVC: FindRoomVCDataControllerDelegate {
 extension FindRoomVC: DateTimeInputVCDelegate {
     func didSaveInput(with date: Date, and identifier: String?) {
         self.dataController?.setSelectedStartDate(with: date)
+    }
+}
+
+extension FindRoomVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 20) ?? UIFont.systemFont(ofSize: 20)] as [NSAttributedString.Key : Any]
+        if let isLoading = self.dataController?.isLoading,
+            isLoading == true {
+            let attributedString = NSMutableAttributedString(string: "", attributes: attrs)
+            return attributedString
+        } else {
+            return NSMutableAttributedString(string: "No alerts!", attributes: attrs)
+        }
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 15) ?? UIFont.systemFont(ofSize: 15)] as [NSAttributedString.Key : Any]
+        if let isLoading = self.dataController?.isLoading,
+            isLoading == true {
+            let attributedString = NSMutableAttributedString(string: "", attributes: attrs)
+            return attributedString
+        } else {
+            return NSMutableAttributedString(string: "Even Indiana Jones couldn't find anything with that criteria.", attributes: attrs)
+        }
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        if let isLoading = self.dataController?.isLoading,
+            isLoading == true {
+            return UIImage()
+        } else {
+            return UIImage(named: "sheep")
+        }
     }
 }

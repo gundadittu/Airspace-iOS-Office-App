@@ -29,15 +29,15 @@ class MainVCDataController {
         self.loadTodayReservations()
     }
     
-    public func updateSections() {
-        if self.reservationsToday.count == 0 {
-            let sections = [MainVCSection(title: "Quick Actions", type: .quickActions)]
-            self.delegate?.didUpdateSections(with: sections)
-        } else {
-            let sections = [MainVCSection(title: "Today's Reservations", type: .reservationsToday), MainVCSection(title: "Quick Actions", type: .quickActions)]
-            self.delegate?.didUpdateSections(with: sections)
-        }
-    }
+//    public func updateSections() {
+//        if self.reservationsToday.count == 0 {
+//            let sections = [MainVCSection(title: "Quick Actions", type: .quickActions)]
+//            self.delegate?.didUpdateSections(with: sections)
+//        } else {
+//            let sections = [MainVCSection(title: "Today's Reservations", type: .reservationsToday), MainVCSection(title: "Quick Actions", type: .quickActions)]
+//            self.delegate?.didUpdateSections(with: sections)
+//        }
+//    }
     
     public func loadTodayReservations() {
         self.loadingTodayReservations = true
@@ -51,7 +51,7 @@ class MainVCDataController {
                 self.reservationsToday = reservations
                 self.delegate?.didUpdateReservationsToday(with: nil)
             }
-            self.updateSections()
+//            self.updateSections()
         }
     }
 }

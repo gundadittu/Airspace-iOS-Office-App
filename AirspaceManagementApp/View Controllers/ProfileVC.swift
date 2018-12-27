@@ -344,6 +344,10 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
 }
 
 extension ProfileVC: CarouselTVCellDelegate {
+    func descriptionForEmptyState(for identifier: String?) -> String {
+        return ""
+    }
+    
     func titleForEmptyState(for identifier: String?) -> String {
 
         if identifier == "myServiceRequests" {
@@ -361,13 +365,13 @@ extension ProfileVC: CarouselTVCellDelegate {
     func imageForEmptyState(for identifier: String?) -> UIImage {
         if let identifier = identifier {
             if identifier == "myServiceRequests" {
-                return UIImage(named: "serv-req-icon")!
+                return UIImage(named: "no-requests")!
             } else if identifier == "myDeskReservations" {
-                return UIImage(named: "table-icon")!
+                return UIImage(named: "no-reservations")!
             } else if identifier == "myRegisteredGuests" {
-                return UIImage(named: "register-guest-icon")!
+                return UIImage(named: "no-guests")!
             } else if identifier == "myRoomReservations" {
-                return UIImage(named: "reserve-icon")!
+                return UIImage(named: "no-reservations")!
             }
         }
         return UIImage()

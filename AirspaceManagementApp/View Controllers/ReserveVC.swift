@@ -314,6 +314,10 @@ extension ReserveVC: SeeMoreTVCDelegate {
 }
 
 extension ReserveVC: CarouselTVCellDelegate {
+    func descriptionForEmptyState(for identifier: String?) -> String {
+        return ""
+    }
+    
     
     // Empty state not required, since all FormTVCells on this page contain static content
     func titleForEmptyState(for identifier: String?) -> String {

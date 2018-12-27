@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import NVActivityIndicatorView
 import SwiftPullToRefresh
+import DZNEmptyDataSet
 
 class NotificationsVC: UIViewController {
     
@@ -24,6 +25,8 @@ class NotificationsVC: UIViewController {
         self.title = "ALERTS"
         self.navigationController?.navigationBar.topItem?.title = "Alerts"
 
+        self.tableView.emptyDataSetSource = self
+        self.tableView.emptyDataSetDelegate = self
         self.tableView.allowsSelection = false
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
@@ -50,7 +53,7 @@ class NotificationsVC: UIViewController {
 extension NotificationsVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notifications.count
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -85,5 +88,39 @@ extension NotificationsVC: NotificationVCDataControllerDelegate {
     
     func stopLoadingIndicator() {
         self.loadingIndicator?.stopAnimating()
+    }
+}
+
+extension NotificationsVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 20) ?? UIFont.systemFont(ofSize: 20)] as [NSAttributedString.Key : Any]
+        if let isLoading = self.dataController?.isLoading,
+            isLoading == true {
+            let attributedString = NSMutableAttributedString(string: "", attributes: attrs)
+            return attributedString
+        } else {
+            return NSMutableAttributedString(string: "No alerts!", attributes: attrs)
+        }
+    }
+    
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 15) ?? UIFont.systemFont(ofSize: 15)] as [NSAttributedString.Key : Any]
+        if let isLoading = self.dataController?.isLoading,
+            isLoading == true {
+            let attributedString = NSMutableAttributedString(string: "", attributes: attrs)
+            return attributedString
+        } else {
+            return NSMutableAttributedString(string: "Now, go wool the world!", attributes: attrs)
+        }
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        if let isLoading = self.dataController?.isLoading,
+            isLoading == true {
+            return UIImage()
+        } else {
+            return UIImage(named: "sheep")
+        }
     }
 }

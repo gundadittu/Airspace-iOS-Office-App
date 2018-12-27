@@ -12,6 +12,7 @@ import DZNEmptyDataSet
 protocol CarouselTVCellDelegate {
     func didSelectCarouselCVCellItem(item: CarouselCVCellItem)
     func titleForEmptyState(for identifier: String?) -> String
+    func descriptionForEmptyState(for identifier: String?) -> String
     func imageForEmptyState(for identifier: String?) -> UIImage
     func isLoadingData(for identifier: String?) -> Bool
 }
@@ -77,7 +78,7 @@ extension CarouselTVCell: UICollectionViewDelegate, UICollectionViewDelegateFlow
             inset = max(inset, 0.0)
             return UIEdgeInsets(top: 0.0, left: inset, bottom: 0.0, right: 0.0)
         }
-        return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        return UIEdgeInsets(top: 0.0, left: 10.0, bottom: 0.0, right: 10.0)
     }
 }
 
@@ -157,6 +158,19 @@ extension CarouselTVCell: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource{
             return attributedString
         } else {
             let text = self.delegate?.titleForEmptyState(for: self.identifier)
+            return NSMutableAttributedString(string: text ?? "", attributes: attrs)
+        }
+    }
+    
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 15) ?? UIFont.systemFont(ofSize: 15)] as [NSAttributedString.Key : Any]
+        if let isLoading = self.delegate?.isLoadingData(for: self.identifier),
+            isLoading == true {
+            let attributedString = NSMutableAttributedString(string: "", attributes: attrs)
+            return attributedString
+        } else {
+            let text = self.delegate?.descriptionForEmptyState(for: self.identifier)
             return NSMutableAttributedString(string: text ?? "", attributes: attrs)
         }
     }

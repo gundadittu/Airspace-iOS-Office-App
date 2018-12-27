@@ -16,7 +16,7 @@ class FindRoomVCDataController {
     var selectedCapacity: Int?
     var selectedAmenities: [RoomAmenity]?
     var shouldAutomaticallySubmit = false
-    
+    var isLoading = false
     var delegate: FindRoomVCDataControllerDelegate?
     
     public init(delegate: FindRoomVCDataControllerDelegate, shouldAutomaticallySubmit: Bool = false) {
@@ -100,8 +100,10 @@ class FindRoomVCDataController {
                 self.delegate?.didFindAvailableConferenceRooms(rooms: nil, error: error as Error)
                 return
         }
+        self.isLoading = true
         self.delegate?.startLoadingIndicator()
         FindRoomManager.shared.findAvailableConferenceRooms(officeUID: officeUID, startDate: startDate, duration: duration, amenities: self.selectedAmenities, capacity: self.selectedCapacity) { (rooms, error) in
+            self.isLoading = false 
             self.delegate?.stopLoadingIndicator()
             if let error = error {
                 self.delegate?.didFindAvailableConferenceRooms(rooms: nil, error: error)
