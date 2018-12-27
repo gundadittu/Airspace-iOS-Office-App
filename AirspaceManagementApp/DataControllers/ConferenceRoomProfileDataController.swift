@@ -77,8 +77,15 @@ class ConferenceRoomProfileDataController {
         }
         let createCalendarEvent = self.shouldCreateCalendarEvent ?? false
         
+        var title = ""
+        if let eventName = self.eventName {
+            title = eventName
+        } else if let room = self.conferenceRoom,
+            let roomName = room.name  {
+            title = roomName
+        }
         self.delegate?.startLoadingIndicator()
-        ReservationManager.shared.createConferenceRoomReservation(startTime: startTime, endTime: endTime, conferenceRoomUID: conferenceRoomUID, shouldCreateCalendarEvent: createCalendarEvent, reservationTitle: self.eventName, note: self.eventDescription, attendees: self.invitedUsers) { (error) in
+        ReservationManager.shared.createConferenceRoomReservation(startTime: startTime, endTime: endTime, conferenceRoomUID: conferenceRoomUID, shouldCreateCalendarEvent: createCalendarEvent, reservationTitle: title, note: self.eventDescription, attendees: self.invitedUsers) { (error) in
             self.delegate?.stopLoadingIndicator()
             if let error = error {
                 self.delegate?.didFinishSubmittingData(withError: error)

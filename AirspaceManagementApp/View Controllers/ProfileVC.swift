@@ -18,6 +18,7 @@ class ProfileVC: UIViewController {
     var serviceRequests = [AirServiceRequest]()
     var roomReservations = [AirConferenceRoomReservation]()
     var loadingIndicator: NVActivityIndicatorView?
+    var profileImage: UIImage?
     
     var sections = [ProfileSection(title: "Bio", seeMoreTitle: "Edit Bio",type: .bioInfo),
                     ProfileSection(title: "My Reserved Rooms", seeMoreTitle: "See More", type: .myRoomReservations),
@@ -45,6 +46,18 @@ class ProfileVC: UIViewController {
         
         let settings = UIBarButtonItem(image: UIImage(named: "settings-icon"), style: .plain, target: self, action: #selector(ProfileVC.didTapSettings))
         self.navigationItem.rightBarButtonItem  = settings
+        
+        self.loadProfileImage()
+    }
+    
+    func loadProfileImage() {
+        guard let uid = UserAuth.shared.uid else { return }
+        UserManager.shared.getProfileImage(for: uid) { (image, _) in
+            if let image = image {
+                self.profileImage = image
+                self.tableView.reloadData()
+            }
+        }
     }
     
     @objc func didTapSettings() {
@@ -138,7 +151,8 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                     tableView.register(UINib(nibName: "BioTVCell", bundle: nil), forCellReuseIdentifier: "BioTVCell")
                     cell = tableView.dequeueReusableCell(withIdentifier: "BioTVCell", for: indexPath) as! BioTVCell
                 }
-                cell.profileImg.image = UIImage(named: "profile-image")
+//                cell.profileImg.image = UIImage(named: "profile-image")
+                cell.setProfileImage(with: self.profileImage)
                 cell.mainLbl.text = UserAuth.shared.displayName
                 cell.subtitleLbl.text = UserAuth.shared.email
                 return cell

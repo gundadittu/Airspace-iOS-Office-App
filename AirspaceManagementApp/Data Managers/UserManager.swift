@@ -8,10 +8,48 @@
 
 import Foundation
 import FirebaseFunctions
+import FirebaseStorage
 
 class UserManager {
     static let shared = UserManager()
     lazy var functions = Functions.functions()
+    let storageRef = Storage.storage().reference()
+
+    func getProfileImage(for user: AirUser, completionHandler: @escaping (UIImage?, Error?) -> Void) {
+        // Create a reference to the file you want to download
+        guard let uid = user.uid as? String else {
+            completionHandler(nil, NSError())
+            return
+        }
+        let profileRef = storageRef.child("userProfileImages/\(uid).jpg")
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        profileRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                completionHandler(nil, error)
+            } else if let data = data {
+                // Data for "images/island.jpg" is returned
+                let image = UIImage(data: data)
+                completionHandler(image, nil)
+            }
+        }
+    }
+    
+    func getProfileImage(for uid: String, completionHandler: @escaping (UIImage?, Error?) -> Void) {
+        // Create a reference to the file you want to download
+        let profileRef = storageRef.child("userProfileImages/\(uid).jpg")
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        profileRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                completionHandler(nil, error)
+            } else if let data = data {
+                // Data for "images/island.jpg" is returned
+                let image = UIImage(data: data)
+                completionHandler(image, nil)
+            }
+        }
+    }
     
     func getCurrentUsersOffices(completionHandler: @escaping ([AirOffice]?, Error?) -> Void) {
         functions.httpsCallable("getCurrentUsersOffices").call([:]) { (result, error) in

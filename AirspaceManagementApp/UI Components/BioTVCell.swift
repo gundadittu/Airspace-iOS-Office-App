@@ -19,12 +19,12 @@ class BioTVCell: UITableViewCell {
         self.profileImg.layer.cornerRadius = self.profileImg.frame.height/2
         self.profileImg.layer.masksToBounds = false
         self.profileImg.clipsToBounds = true
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        self.profileImg.layer.borderWidth = CGFloat(1)
+        self.profileImg.layer.borderColor = UIColor.lightGray.cgColor
     }
     
+    func setProfileImage(with image: UIImage?) {
+        let image = image ?? UIImage(named: "user-placeholder")
+        self.profileImg.image = image
+    }
 }
