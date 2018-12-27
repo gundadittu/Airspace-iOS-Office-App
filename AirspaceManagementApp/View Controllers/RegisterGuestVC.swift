@@ -12,28 +12,6 @@ import NotificationBannerSwift
 import NVActivityIndicatorView
 import CFAlertViewController
 
-class RegisterGuestVCSection: PageSection {
-    var title = ""
-    var buttonTitle = ""
-    var selectedButtonTitle: String?
-    var type: RegisterGuestVCSectionType = .none
-    
-    public init(title: String, buttonTitle: String, type: RegisterGuestVCSectionType) {
-        self.title = title
-        self.buttonTitle = buttonTitle
-        self.type = type
-    }
-}
-
-enum RegisterGuestVCSectionType {
-    case office
-    case name
-    case dateTime
-    case email
-    case submit
-    case none
-}
-
 class RegisterGuestVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var sections = [RegisterGuestVCSection(title: "I have a guest visiting", buttonTitle: "Choose Office", type: .office),RegisterGuestVCSection(title: "Their name is", buttonTitle: "Enter Name", type: .name), RegisterGuestVCSection(title: "They are visiting", buttonTitle: "Choose Date & Time", type: .dateTime), RegisterGuestVCSection(title: "Their email is (optional)", buttonTitle: "Enter Email", type: .email),
         RegisterGuestVCSection(title: "Register Guest", buttonTitle: "Register Guest", type: .submit)]

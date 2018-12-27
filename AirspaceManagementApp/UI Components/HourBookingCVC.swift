@@ -59,7 +59,6 @@ class HourBookingCVC: UICollectionViewCell {
             var startPoint = CGFloat(0)
             if ((resStartDate < startDate && resEndDate < startDate) || (resStartDate > endDate && resEndDate > endDate)) {
                 // reservation does not fall in time range
-//                createPanGestureRecognizer(targetView: self.contentView)
                 continue
             } else if ((resStartDate < startDate) && (resEndDate > startDate && resEndDate < endDate)) {
                 // reservation's startDate not within interval

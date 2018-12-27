@@ -1,5 +1,5 @@
 //
-//  NavLoadingIndicator.swift
+//  NavLoadingIndicatorExtension.swift
 //  AirspaceManagementApp
 //
 //  Created by Aditya Gunda on 12/25/18.

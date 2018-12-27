@@ -35,8 +35,6 @@ class MyGuestRegTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "My Registered Guests"
-//        self.tableView.separatorStyle = .none
-        
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         
@@ -48,7 +46,6 @@ class MyGuestRegTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         let currSection = self.sections[section]
         switch currSection.type {
         case .upcoming:

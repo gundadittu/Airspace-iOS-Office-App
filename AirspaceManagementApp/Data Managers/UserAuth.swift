@@ -43,13 +43,6 @@ class UserAuth {
         return Auth.auth().currentUser?.uid
     }
     
-//    public init() {
-//        let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-//            // ...
-//        }
-//    }
-    
-    // remove default admin case 
     var currUserType: UserType? = .tenantEmployee
     
     func signInUser(email: String, password: String, completionHandler: @escaping (User?, NSError?)->Void) {

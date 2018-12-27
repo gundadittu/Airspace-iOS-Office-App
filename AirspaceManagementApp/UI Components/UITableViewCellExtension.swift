@@ -13,7 +13,6 @@ extension UITableViewCell {
     
     func configureCell(with user: AirUser, accessoryType: UITableViewCell.AccessoryType = .disclosureIndicator ) {
         self.accessoryType = accessoryType
-        // configure image
         self.textLabel?.text = user.displayName ?? "No name"
         self.detailTextLabel?.text = user.email ?? "No email provided"
         // show proper profile image
@@ -24,7 +23,7 @@ extension UITableViewCell {
         self.accessoryType = .disclosureIndicator
         self.textLabel?.text = building.name ?? "No building name"
         self.detailTextLabel?.text = building.address ?? "No address provided"
-        // show proper  image
+        // show proper image
         self.imageView?.image = UIImage(named: "user-placeholder")!
     }
     
@@ -50,13 +49,7 @@ extension UITableViewCell {
     }
     
     func configureCell(with notification: AirNotification) {
-        guard let uid = notification.uid,
-            let type = notification.type,
-            let readStatus = notification.readStatus,
-            let data = notification.data else {
-            // handle error state cell
-            return
-        }
+        guard let type = notification.type else { return }
         switch type {
         case .serviceRequestUpdate:
             self.textLabel?.text = type.title

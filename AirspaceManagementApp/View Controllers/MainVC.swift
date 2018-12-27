@@ -73,7 +73,8 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "HOME"
-        
+        self.navigationController?.navigationBar.topItem?.title = "Home"
+
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none

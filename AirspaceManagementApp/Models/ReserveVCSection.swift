@@ -1,5 +1,5 @@
 //
-//  ReserveSection.swift
+//  ReserveVCSection.swift
 //  AirspaceManagementApp
 //
 //  Created by Aditya Gunda on 10/28/18.

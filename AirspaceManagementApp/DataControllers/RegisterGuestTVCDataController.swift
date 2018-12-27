@@ -9,12 +9,6 @@
 import Foundation
 import NotificationBannerSwift
 
-protocol RegisterGuestTVCDataControllerDelegate {
-    func didFinishSubmittingData(withError: Error?)
-    func toggleLoadingIndicator()
-    func reloadTableView()
-}
-
 enum DataSubmissionError: Error {
     case missingRequiredInput
     case invalidInput

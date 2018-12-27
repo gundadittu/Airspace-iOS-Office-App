@@ -9,13 +9,6 @@
 import Foundation
 import NotificationBannerSwift
 
-protocol FindRoomVCDataControllerDelegate {
-    func didFindAvailableConferenceRooms(rooms: [AirConferenceRoom]?, error: Error?)
-    func startLoadingIndicator()
-    func stopLoadingIndicator()
-    func reloadTableView()
-}
-
 class FindRoomVCDataController {
     var selectedOffice: AirOffice?
     var selectedDuration: Duration? = .fifteen

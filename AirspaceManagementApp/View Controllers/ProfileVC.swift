@@ -32,11 +32,11 @@ class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "PROFILE"
+        self.navigationController?.navigationBar.topItem?.title = "Profile"
+
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.separatorStyle = .none
-//        self.tableView.rowHeight = UITableView.automaticDimension
-//        self.tableView.estimatedRowHeight = UITableView.automaticDimension
         self.tableView.register(UINib(nibName: "BioTVCell", bundle: nil), forCellReuseIdentifier: "BioTVCell")
         self.tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
         self.tableView.register(UINib(nibName: "SeeMoreTVC", bundle: nil), forCellReuseIdentifier: "SeeMoreTVC")
@@ -62,25 +62,6 @@ class ProfileVC: UIViewController {
     
     @objc func didTapSettings() {
         self.performSegue(withIdentifier: "toSettingsTVC", sender: nil)
-    }
-    
-    func showUnregisterGuestAlert(guest: AirGuestRegistration) {
-        guard let guestUID = guest.uid else { return }
-            let alertController = UIAlertController(title: "Manage Registered Guest: \(guest.guestName ?? "No Guest Name Provided")", message: nil, preferredStyle: .actionSheet)
-            let unregisterAction = UIAlertAction(title: "Unregister Guest", style: .destructive) { (action) in
-                RegisterGuestManager.shared.cancelRegisteredGuest(registeredGuestUID: guestUID, completionHandler: { (error) in
-                    if let _ = error {
-                        let banner = NotificationBanner(title: "Oh no!", subtitle: "There was an issue unregistering your guest.", leftView: nil, rightView: nil, style: .danger, colors: nil)
-                        banner.show()
-                    } else {
-                        self.dataController?.loadData()
-                    }
-                })
-            }
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-            alertController.addAction(unregisterAction)
-            alertController.addAction(cancelAction)
-            self.present(alertController, animated: true)
     }
 }
 
@@ -157,13 +138,6 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.subtitleLbl.text = UserAuth.shared.email
                 return cell
             }
-//            else if indexPath.row == 1 {
-//                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
-//                    return UITableViewCell()
-//                }
-//                cell.configureCell(with: currSection, buttonTitle: currSection.seeMoreTitle ?? "More", delegate: self)
-//                return cell
-//            }
         case .myRoomReservations?:
             if indexPath.row == 0 {
                 var cell = CarouselTVCell()
@@ -255,25 +229,6 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.configureCell(with: currSection, buttonTitle: currSection.seeMoreTitle ?? "More", delegate: self)
                 return cell
             }
-            
-//            if indexPath.row == 0 {
-//            var cell = CarouselTVCell()
-//            if let tvCell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as? CarouselTVCell  {
-//                cell = tvCell
-//            } else {
-//                tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
-//                cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
-//            }
-//
-//            cell.setCarouselItems(with: [CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "room-2")!), CarouselCVCellItem(title: "title", subtitle: "subtitle", image: UIImage(named: "room-4")!)])
-//            return cell
-//            } else if indexPath.row == 1 {
-//                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
-//                    return UITableViewCell()
-//                }
-//                cell.configureCell(with: currSection, buttonTitle: currSection.seeMoreTitle ?? "More", delegate: self)
-//                return cell
-//            }
         case .none:
             break
         }
@@ -332,8 +287,6 @@ extension ProfileVC: SeeMoreTVCDelegate {
     }
 }
 
-// toMyReservationsListTVC
-
 extension ProfileVC: ProfileVCDataControllerDelegate {
     
     func didFinishUploadingNewImage(with error: Error?) {
@@ -388,7 +341,9 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
 extension ProfileVC: CarouselTVCellDelegate {
     func didSelectCarouselCVCellItem(item: CarouselCVCellItem) {
         if let guest = item.data as? AirGuestRegistration {
-            self.showUnregisterGuestAlert(guest: guest)
+            self.performSegue(withIdentifier: "ProfileVCtoMyGuestRegTVC", sender: nil)
+        } else if let serviceRequest = item.data as? AirServiceRequest {
+            self.performSegue(withIdentifier: "ProfileVCtoMyServReqTVC", sender: nil)
         } else if let reservation = item.data as? AirConferenceRoomReservation {
             self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)
         }

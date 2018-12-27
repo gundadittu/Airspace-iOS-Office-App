@@ -60,7 +60,6 @@ class UserManager {
             
             guard let result = result,
                 let officeData = result.data as? [[String: Any]]  else {
-                    // proper error handling
                     completionHandler(nil, NSError())
                     return
             }

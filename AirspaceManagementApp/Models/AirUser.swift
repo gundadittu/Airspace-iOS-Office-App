@@ -28,13 +28,6 @@ class AirUser: NSObject {
         }
         
         self.fillData(dict: dictionary)
-        //        self.addListener()
-    }
-    
-    public init?(uid: String) {
-        super.init()
-        self.uid = uid
-        //        self.addListener()
     }
     
     func fillData(dict dictionary: [String: Any]) {
@@ -55,22 +48,6 @@ class AirUser: NSObject {
         
         if let uid = dictionary["uid"] as? String {
             self.uid = uid
-        }
-    }
-    
-    func addListener() {
-        guard let uid = self.uid else { return }
-        db.collection("users").document(uid)
-            .addSnapshotListener { documentSnapshot, error in
-                guard let document = documentSnapshot else {
-                    print("Error fetching document: \(error!)")
-                    return
-                }
-                let source = document.metadata.hasPendingWrites ? "Local" : "Server"
-                print("\(source) data: \(document.data() ?? [:])")
-                if let data = document.data() {
-                    self.fillData(dict: data)
-                }
         }
     }
 }

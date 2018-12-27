@@ -10,13 +10,6 @@ import Foundation
 import UIKit
 import FirebaseStorage
 
-protocol ProfileVCDataControllerDelegate {
-    func didUpdateCarouselData()
-    func didFinishUploadingNewImage(with error: Error?)
-    func startLoadingIndicator()
-    func stopLoadingIndicator()
-}
-
 class ProfileVCDataController {
     var upcomingGuests = [AirGuestRegistration]()
     var pastGuests = [AirGuestRegistration]()

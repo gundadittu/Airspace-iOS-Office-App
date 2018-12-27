@@ -8,14 +8,6 @@
 
 import Foundation
 
-
-protocol ConferenceRoomProfileDataControllerDelegate {
-    func didFinishSubmittingData(withError error: Error?)
-    func startLoadingIndicator()
-    func stopLoadingIndicator()
-    func reloadTableView()
-}
-
 class ConferenceRoomProfileDataController {
     var conferenceRoom: AirConferenceRoom?
     var selectedStartDate: Date?

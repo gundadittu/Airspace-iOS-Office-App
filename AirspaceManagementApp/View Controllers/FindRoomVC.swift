@@ -32,9 +32,6 @@ enum FindRoomVCSectionType {
     case capacity
     case amenities
     case submit
-//    case repeatEvent
-//    case note
-//    case title
     case none
 }
 

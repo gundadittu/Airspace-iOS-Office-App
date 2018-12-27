@@ -22,7 +22,9 @@ class NotificationsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "ALERTS"
-        self.tableView.delegate = self
+        self.navigationController?.navigationBar.topItem?.title = "Alerts"
+
+        self.tableView.allowsSelection = false
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
         self.tableView.rowHeight = CGFloat(100)
@@ -42,18 +44,6 @@ class NotificationsVC: UIViewController {
                  self?.tableView.spr_endRefreshing()
             }
         }
-    }
-}
-
-extension NotificationsVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-//        let notification = self.notifications[indexPath.row]
-//        guard let notificationType = notification.type else { return }
-//        switch notificationType {
-//        case .serviceRequestStatusChange:
-//            return
-//        }
     }
 }
 

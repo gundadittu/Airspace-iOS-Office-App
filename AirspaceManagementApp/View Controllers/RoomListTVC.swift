@@ -56,12 +56,6 @@ class RoomListTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.performSegue(withIdentifier: "RoomListTVCtoConferenceRoomProfileTVC", sender: self.conferenceRooms[indexPath.row])
-//        let modal = ConferenceRoomProfileTVC()
-//        modal.conferenceRoom = self.conferenceRooms[indexPath.row]
-//        let transitionDelegate = DeckTransitioningDelegate()
-//        modal.transitioningDelegate = transitionDelegate
-//        modal.modalPresentationStyle = .custom
-//        present(modal, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -109,5 +103,4 @@ extension RoomListTVC: FindRoomVCDataControllerDelegate {
     func reloadTableView() {
         self.tableView.reloadData()
     }
-    
 }

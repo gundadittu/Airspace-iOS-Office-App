@@ -16,11 +16,6 @@ class NotificationTVCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
     func configure(with notification: AirNotification) {
         self.titleLabel.text = notification.title ?? "No title provided"
         self.subtitleLabel.text = notification.body ?? "No body provided"

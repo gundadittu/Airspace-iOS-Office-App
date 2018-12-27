@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+class SpaceInfoTVCDataController {
+    var delegate: SpaceInfoTVCDataControllerDelegate?
+    
+    public init(delegate: SpaceInfoTVCDataControllerDelegate) {
+        self.delegate = delegate 
+    }
+}

@@ -22,7 +22,6 @@ class NotificationManager {
             
             guard let result = result,
                 let notificationData = result.data as? [[String: Any]]  else {
-                    // proper error handling
                     completionHandler(nil, NSError())
                     return
             }

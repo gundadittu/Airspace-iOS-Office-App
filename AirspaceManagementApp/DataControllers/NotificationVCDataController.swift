@@ -8,12 +8,6 @@
 
 import Foundation
 
-protocol NotificationVCDataControllerDelegate {
-    func didLoadNotifications(_ notifications: [AirNotification]?, with error: Error?)
-    func startLoadingIndicator()
-    func stopLoadingIndicator()
-}
-
 class NotificationVCDataController {
     var delegate: NotificationVCDataControllerDelegate?
     var notifications = [AirNotification]()

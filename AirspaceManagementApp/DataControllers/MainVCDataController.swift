@@ -8,12 +8,6 @@
 
 import Foundation
 
-protocol MainVCDataControllerDelegate {
-    func didUpdateReservationsToday(with error: Error?)
-    func startLoadingIndicator()
-    func stopLoadingIndicator()
-}
-
 class MainVCDataController {
     var reservationsToday = [AirReservation]()
     var delegate: MainVCDataControllerDelegate?

@@ -10,13 +10,6 @@ import Foundation
 import UIKit
 import NotificationBannerSwift
 
-protocol ServiceRequestVCDataControllerDelegate {
-    func didFinishSubmittingData(withError error: Error?)
-    func startLoadingIndicator()
-    func stopLoadingIndicator()
-    func reloadTableView()
-}
-
 class ServiceRequestVCDataController {
     var delegate: ServiceRequestVCDataControllerDelegate?
     var selectedOffice: AirOffice?

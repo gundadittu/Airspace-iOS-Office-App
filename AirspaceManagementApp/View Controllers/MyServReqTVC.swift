@@ -49,7 +49,6 @@ class MyServReqTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         let currSection = self.sections[section]
         switch currSection.type {
         case .open:

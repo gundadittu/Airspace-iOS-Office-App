@@ -20,12 +20,6 @@ class AirConferenceRoomReservation : AirReservation {
     var host: AirUser?
     var invitedUsers = [AirUser]()
     
-//    public init?(startingDate: Date, endDate: Date, conferenceRoom: AirConferenceRoom?) {
-//        self.startingDate = startingDate
-//        self.endDate = endDate
-//        self.conferenceRoom = conferenceRoom
-//    }
-    
     public init?(dict: [String: Any]) {
         if let uid = dict["uid"] as? String {
             self.uid = uid

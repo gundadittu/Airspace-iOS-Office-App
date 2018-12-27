@@ -15,13 +15,14 @@ class ServiceRequestManager {
     lazy var functions = Functions.functions()
     let storageRef = Storage.storage().reference()
 
-    // pass image
     func createServiceRequest(officeUID: String, issueType: String, note: String?, image: UIImage?, completionHandler: @escaping (Error?) -> Void) {
         functions.httpsCallable("createServiceRequest").call(["officeUID":officeUID, "issueType": issueType, "note": note]) { (result, error) in
             if error != nil {
                 completionHandler(error)
                 return
             }
+            
+            // upload image
             if let image = image,
             let resultData = result?.data as? [String: Any],
             let id = resultData["id"] as? String {

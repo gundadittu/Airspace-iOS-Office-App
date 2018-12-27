@@ -104,7 +104,6 @@ class LoginVC : UIViewController, UITextFieldDelegate {
     
     private func loadVideo() {
         
-        //this line is important to prevent background music stop
         do {
             try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: .mixWithOthers )
         } catch { }

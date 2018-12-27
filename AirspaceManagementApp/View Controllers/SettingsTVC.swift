@@ -11,8 +11,6 @@ import SafariServices
 import NotificationBannerSwift
 
 enum SettingsTVCSectionType {
-    case primaryOffice
-    case shouldCreateCalendarInvites
     case reportBugs
     case suggestFeatures
     case terms
@@ -43,10 +41,9 @@ class SettingsTVC: UITableViewController {
         SettingsTVCSection(title: "Privacy Policy", type: .privacyPolicy),
         SettingsTVCSection(title: "Acknowledgements", type: .acknowledgments),
         SettingsTVCSection(title: "Log Out", type: .logOut)]
-        self.tableView.register(UINib(nibName: "SeeMoreTVC", bundle: nil), forCellReuseIdentifier: "SeeMoreTVC")
-
+        self.tableView.register(UINib(nibName: "FormSubmitTVCell", bundle: nil), forCellReuseIdentifier: "FormSubmitTVCell")
+        self.tableView.separatorStyle = .none
     }
-
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
@@ -55,16 +52,19 @@ class SettingsTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
+    
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        if (indexPath.section == (self.sections.count-1)) {
+            return false
+        }
+        return true 
+    }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let section = sections[indexPath.section]
         guard let type = section.type else { return }
         switch type {
-        case .primaryOffice:
-            break
-        case .shouldCreateCalendarInvites:
-            break
         case .reportBugs:
             break
         case .suggestFeatures:
@@ -90,10 +90,6 @@ class SettingsTVC: UITableViewController {
         let section = sections[indexPath.section]
         guard let type = section.type else { return UITableViewCell() }
         switch type {
-        case .primaryOffice:
-            break
-        case .shouldCreateCalendarInvites:
-            break
         case .reportBugs:
             break
         case .suggestFeatures:
@@ -105,8 +101,8 @@ class SettingsTVC: UITableViewController {
         case .acknowledgments:
             break
         case .logOut:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else { return UITableViewCell() }
-            cell.configureCell(with: sections[indexPath.section], delegate: self)
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell", for: indexPath) as? FormSubmitTVCell else { return UITableViewCell() }
+            cell.button.setTitle("Log Out", for: .normal)
             return cell
         }
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)

@@ -38,7 +38,6 @@ class RegisterGuestManager {
                 let guestData = result.data as? [String: Any],
             let upcoming = guestData["upcoming"] as? [[String: Any]],
             let past = guestData["past"] as? [[String: Any]] else {
-                    // proper error handling
                     completionHandler(nil, nil, NSError())
                     return
             }

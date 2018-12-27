@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import ChameleonFramework
 
 protocol ConferenceRoomDetailedTVCDelegate {
     func didTapWhenDateButton()
@@ -17,7 +16,6 @@ protocol ConferenceRoomDetailedTVCDelegate {
     func stopLoadingIndicator()
     func didChooseNewDates(start: Date, end: Date)
     func didFindConflict()
-//    func didUpdateExResStartDate(with date: Date)
 }
 
 class ConferenceRoomDetailedTVC: UITableViewCell {
@@ -71,15 +69,6 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         gradient.frame = self.bannerImage.bounds
         gradient.colors = [UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.clear.cgColor]
         self.bannerImage.layer.mask = gradient
-        
-//        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ConferenceRoomDetailedTVC.handleLongPressGesture(_:)))
-//        longPressGestureRecognizer.name = "longPress"
-//        longPressGestureRecognizer.cancelsTouchesInView = false
-//        longPressGestureRecognizer.minimumPressDuration = 0.5
-//        longPressGestureRecognizer.delegate = self
-//        self.collectionView.addGestureRecognizer(longPressGestureRecognizer)
-        
-//        self.updateReservationTimeFrame()
     }
     
     @IBAction func didTapWhenDateBtn(_ sender: Any) {
@@ -193,10 +182,6 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
 }
 
 extension ConferenceRoomDetailedTVC: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-//    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//    
-//    }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let newResStartDate = self.newResStartDate,
@@ -379,27 +364,6 @@ extension ConferenceRoomDetailedTVC {
         self.bannerImage.addSubview(view)
     }
     
-//    @objc func clearNewResData() {
-//        self.collectionView.viewWithTag(1)?.removeFromSuperview()
-//        self.selectedTimeSlotView = nil
-//        self.newResStartDate = nil
-//        self.newResEndDate = nil
-//        self.updateDateLabel()
-//        self.collectionView.isScrollEnabled = true
-//        self.collectionView.reloadData()
-//    }
-    
-//    func updateDateLabel() {
-//        guard let start = self.newResStartDate,
-//            let end = self.newResEndDate else {
-//                self.dateLabel.text = "Long press a time to create a reservation"
-//                self.clearBtn.isHidden = true
-//                return
-//        }
-//        self.clearBtn.isHidden = false
-//        self.dateLabel.text = start.localizedShortTimeDescription+" to "+end.localizedShortTimeDescription
-//    }
-    
     func addNewReservationRangeView(at startDate: Date, to endDate: Date) {
 
         var startDateCellIndex: Int?
@@ -479,7 +443,39 @@ extension ConferenceRoomDetailedTVC {
         }
         
         self.selectedTimeSlotView = view
-        
+    }
+    
+    // Code for dragging seletected time frame box over colelction view
+    //        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ConferenceRoomDetailedTVC.handleLongPressGesture(_:)))
+    //        longPressGestureRecognizer.name = "longPress"
+    //        longPressGestureRecognizer.cancelsTouchesInView = false
+    //        longPressGestureRecognizer.minimumPressDuration = 0.5
+    //        longPressGestureRecognizer.delegate = self
+    //        self.collectionView.addGestureRecognizer(longPressGestureRecognizer)
+    
+    //        self.updateReservationTimeFrame()
+    
+    //    @objc func clearNewResData() {
+    //        self.collectionView.viewWithTag(1)?.removeFromSuperview()
+    //        self.selectedTimeSlotView = nil
+    //        self.newResStartDate = nil
+    //        self.newResEndDate = nil
+    //        self.updateDateLabel()
+    //        self.collectionView.isScrollEnabled = true
+    //        self.collectionView.reloadData()
+    //    }
+    
+    //    func updateDateLabel() {
+    //        guard let start = self.newResStartDate,
+    //            let end = self.newResEndDate else {
+    //                self.dateLabel.text = "Long press a time to create a reservation"
+    //                self.clearBtn.isHidden = true
+    //                return
+    //        }
+    //        self.clearBtn.isHidden = false
+    //        self.dateLabel.text = start.localizedShortTimeDescription+" to "+end.localizedShortTimeDescription
+    //    }
+    
 //        let leftView = UIView()
 //        leftView.frame = CGRect(x: 0, y: 0, width: view.frame.width/2, height: view.frame.height)
         
@@ -745,31 +741,4 @@ extension ConferenceRoomDetailedTVC {
 //            return true
 //        }
 //    }
-}
 
-extension UIView {
-    
-    func animateTo(frame: CGRect, withDuration duration: TimeInterval, completion: ((Bool) -> Void)? = nil) {
-        guard let _ = superview else {
-            return
-        }
-        
-        let xScale = frame.size.width / self.frame.size.width
-        let yScale = frame.size.height / self.frame.size.height
-        let x = frame.origin.x + (self.frame.width * xScale)/2
-        let y = frame.origin.y + (self.frame.height * yScale)/2
-        UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
-            self.layer.position = CGPoint(x: x, y: y)
-            self.transform = self.transform.scaledBy(x: xScale, y: yScale)
-        }, completion: completion)
-    }
-}
-
-extension UIView {
-    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
-    }
-}

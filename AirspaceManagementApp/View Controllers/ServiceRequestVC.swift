@@ -12,28 +12,6 @@ import NotificationBannerSwift
 import NVActivityIndicatorView
 import CFAlertViewController
 
-class ServiceRequestVCSection: PageSection {
-    var title = ""
-    var buttonTitle = ""
-    var selectedButtonTitle: String?
-    var type: ServiceRequestVCSectionType = .none
-    
-    public init(title: String, buttonTitle: String, type: ServiceRequestVCSectionType) {
-        self.title = title
-        self.buttonTitle = buttonTitle
-        self.type = type
-    }
-}
-
-enum ServiceRequestVCSectionType {
-    case location
-    case serviceType
-    case image
-    case note
-    case submit
-    case none
-}
-
 class ServiceRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!

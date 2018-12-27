@@ -14,8 +14,6 @@ class TextCVCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        self.contentView.layer.borderColor = globalColor.cgColor
-//        self.contentView.layer.borderWidth = CGFloat(0.5)
         self.contentView.layer.cornerRadius = CGFloat(5)
         self.contentView.layer.backgroundColor = globalColor.cgColor
         self.titleLabel.textColor = .white

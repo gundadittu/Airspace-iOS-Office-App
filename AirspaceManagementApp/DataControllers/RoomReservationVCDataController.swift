@@ -8,13 +8,6 @@
 
 import Foundation
 
-protocol RoomReservationVCDataControllerDelegate {
-    func didFinishSubmittingData(withError error: Error?)
-    func startLoadingIndicator()
-    func stopLoadingIndicator()
-    func reloadTableView()
-}
-
 class RoomReservationVCDataController {
     var conferenceRoom: AirConferenceRoom?
     var selectedStartDate: Date?

@@ -249,7 +249,6 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
             cell.configureCell(with: section, delegate: self)
             return cell
         }
-        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

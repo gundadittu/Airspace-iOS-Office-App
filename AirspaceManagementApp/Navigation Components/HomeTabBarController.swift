@@ -22,15 +22,13 @@ class HomeTabBarController : UITabBarController {
         
         switch UserAuth.shared.currUserType {
         case .admin?:
-           // need to return error
             break
         case .receptionist?:
             break
         case .tenantEmployee?:
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let mainNav = mainStoryboard.instantiateViewController(withIdentifier: "mainNav") as! HomeNavController
-            let homeIcon = UIImage(named: "home-icon")
-            mainNav.tabBarItem =  UITabBarItem(title: "HOME", image: homeIcon, selectedImage: nil)
+            mainNav.tabBarItem =  UITabBarItem(title: "HOME", image: UIImage(named: "home-icon"), selectedImage: nil)
             let reserveNav = mainStoryboard.instantiateViewController(withIdentifier: "reserveNav") as! ReserveNavController
             reserveNav.tabBarItem = UITabBarItem(title: "RESERVE", image: UIImage(named: "reserve-icon-tab"), selectedImage: nil)
             
@@ -42,7 +40,7 @@ class HomeTabBarController : UITabBarController {
             profileNav.tabBarItem =  UITabBarItem(title: "PROFILE", image: UIImage(named: "profile-icon"), selectedImage: nil)
 
             let array: [UIViewController] = [mainNav, reserveNav, alertNav, profileNav]
-            self.setViewControllers(array, animated: true)
+            self.setViewControllers(array, animated: false)
             break
         case .tenantAdmin?:
             break
