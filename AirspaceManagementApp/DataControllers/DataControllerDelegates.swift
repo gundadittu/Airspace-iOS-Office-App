@@ -59,6 +59,7 @@ protocol MainVCDataControllerDelegate {
     func didUpdateReservationsToday(with error: Error?)
     func startLoadingIndicator()
     func stopLoadingIndicator()
+    func didUpdateSections(with sections: [MainVCSection])
 }
 
 protocol SpaceInfoTVCDataControllerDelegate {

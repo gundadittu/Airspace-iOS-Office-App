@@ -215,7 +215,15 @@ extension MainVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (indexPath.section == 0) ? CGFloat(80) : CGFloat(200)
+        let section = sections[indexPath.section]
+        switch section.type {
+        case .quickActions:
+            return CGFloat(80)
+        case .reservationsToday:
+            return CGFloat(200)
+        case .none:
+            return CGFloat(0)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -228,6 +236,11 @@ extension MainVC: UITableViewDataSource {
 }
 
 extension MainVC: MainVCDataControllerDelegate {
+    func didUpdateSections(with sections: [MainVCSection]) {
+        self.sections = sections
+        self.tableView.reloadData()
+    }
+    
     func didUpdateReservationsToday(with error: Error?) {
         
         if let bool = self.dataController?.isLoading,
