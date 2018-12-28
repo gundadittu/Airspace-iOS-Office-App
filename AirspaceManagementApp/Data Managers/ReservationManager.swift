@@ -105,7 +105,9 @@ class ReservationManager {
     }
     
     func getUsersReservationsForToday(completionHandler: @escaping ([AirReservation]?, Error?) -> Void) {
-        functions.httpsCallable("getUsersReservationsForToday").call { (result, error) in
+        let rangeStartString = Date().serverTimestampString
+        let rangeEndString = Date().endOfDay.serverTimestampString
+        functions.httpsCallable("getUsersReservationsForRange").call(["rangeStart": rangeStartString,"rangeEnd": rangeEndString]) { (result, error) in
             if let error = error {
                 completionHandler(nil, error)
             } else if let result = result,

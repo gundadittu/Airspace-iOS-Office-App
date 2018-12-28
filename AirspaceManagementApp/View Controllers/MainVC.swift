@@ -59,9 +59,9 @@ class MainVC: UIViewController {
     var sections = [MainVCSection(title: "Today's Reservations", type: .reservationsToday), MainVCSection(title: "Quick Actions", type: .quickActions)]
     var quickActionsList = [QuickAction(title: "Find a conference room", subtitle:"Find a meeting space.", icon:"reserve-icon", color: nil, type: .reserveRoom),
                             QuickAction(title: "Find a hot desk", subtitle:"Find a space to get working.", icon:"table-icon", color: nil, type: .reserveDesk),
+                             QuickAction(title: "View events", subtitle:"See what's going on in your offices.", icon:"events-icon", color: nil, type: .viewEvents),
                             QuickAction(title: "Submit a service request", subtitle:"Let us know if something needs servicing.", icon:"serv-req-icon", color: nil, type: .submitTicket),
                             QuickAction(title: "Register a guest", subtitle:"We'll let you know when your guest arrives.", icon:"register-guest-icon", color: nil, type: .registerGuest),
-                            QuickAction(title: "View events", subtitle:"See what's going on in your building.", icon:"events-icon", color: nil, type: .viewEvents),
                             QuickAction(title: "Space info", subtitle:"Learn more about your building.", icon:"space-info-icon", color: nil, type: .spaceInfo)]
 //    var yelpRestaurants = [CarouselCVCellItem]()
     var loadingIndicator: NVActivityIndicatorView?
@@ -72,7 +72,6 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.title = "HOME"
         self.navigationController?.navigationBar.topItem?.title = "Home"
 
         self.tableView.delegate = self
@@ -82,12 +81,12 @@ class MainVC: UIViewController {
         
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         
-        self.tableView.spr_setTextHeader {
-            self.dataController?.loadData()
-        }
-        
         if (dataController == nil) {
             self.dataController = MainVCDataController(delegate: self)
+        }
+        
+        self.tableView.spr_setTextHeader {
+            self.dataController?.loadData()
         }
     }
     
@@ -126,7 +125,7 @@ extension MainVC: UITableViewDelegate {
         case .registerGuest:
             self.performSegue(withIdentifier: "MainVCtoRegisterGuestVC", sender: nil)
         case .viewEvents:
-            break
+            self.performSegue(withIdentifier: "toEventsTVC", sender: nil)
         case .spaceInfo:
             self.performSegue(withIdentifier: "toSpaceInfoTVC", sender: nil)
         case .none:
