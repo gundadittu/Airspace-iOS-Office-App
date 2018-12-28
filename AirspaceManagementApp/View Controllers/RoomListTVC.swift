@@ -111,24 +111,22 @@ extension RoomListTVC: FindRoomVCDataControllerDelegate {
 
 extension RoomListTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 20) ?? UIFont.systemFont(ofSize: 20)] as [NSAttributedString.Key : Any]
         if let isLoading = self.dataController?.isLoading,
             isLoading == true {
-            let attributedString = NSMutableAttributedString(string: "", attributes: attrs)
+            let attributedString = NSMutableAttributedString(string: "", attributes: globalTextAttrs)
             return attributedString
         } else {
-            return NSMutableAttributedString(string: "No rooms!", attributes: attrs)
+            return NSMutableAttributedString(string: "No rooms!", attributes: globalTextAttrs)
         }
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 15) ?? UIFont.systemFont(ofSize: 15)] as [NSAttributedString.Key : Any]
         if let isLoading = self.dataController?.isLoading,
             isLoading == true {
-            let attributedString = NSMutableAttributedString(string: "", attributes: attrs)
+            let attributedString = NSMutableAttributedString(string: "", attributes: globalTextAttrs)
             return attributedString
         } else {
-            return NSMutableAttributedString(string: "Even Indiana Jones couldn't find anything with that criteria.", attributes: attrs)
+            return NSMutableAttributedString(string: "Even Indiana Jones couldn't find anything with that criteria.", attributes: globalTextAttrs)
         }
     }
     

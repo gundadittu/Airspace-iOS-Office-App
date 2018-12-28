@@ -19,9 +19,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQe-kZ-BKl" customClass="BorderButton" customModule="AirspaceManagementApp" customModuleProvider="target">
-                        <rect key="frame" x="26" y="32.5" width="293" height="50"/>
+                        <rect key="frame" x="26" y="37.5" width="293" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="50" id="MgT-gK-0bs"/>
+                            <constraint firstAttribute="height" constant="40" id="MgT-gK-0bs"/>
                         </constraints>
                         <state key="normal" title="Button"/>
                         <connections>

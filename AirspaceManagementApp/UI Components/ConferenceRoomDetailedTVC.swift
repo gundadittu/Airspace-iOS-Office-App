@@ -401,8 +401,7 @@ extension ConferenceRoomDetailedTVC {
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
-        let attrs = [NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 15.0)!, NSAttributedString.Key.paragraphStyle: paragraph]
-        let attributedString = NSMutableAttributedString(string: string, attributes: attrs)
+        let attributedString = NSMutableAttributedString(string: string, attributes: globalTextAttrs)
         label.attributedText = attributedString
         view.addSubview(label)
         self.bannerImage.addSubview(view)

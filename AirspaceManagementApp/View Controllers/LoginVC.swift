@@ -19,6 +19,7 @@ import NotificationBannerSwift
 class LoginVC : UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var usernameTextField: JVFloatLabeledTextField!
+    @IBOutlet weak var backgroundImageVIew: UIImageView!
     @IBOutlet weak var passwordTextField: JVFloatLabeledTextField!
     @IBOutlet weak var signInButton: FlatButton!
     var player: AVPlayer?
@@ -30,15 +31,18 @@ class LoginVC : UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loadVideo()
+//        self.loadVideo()
         usernameTextField.tintColor = globalColor
         passwordTextField.tintColor = globalColor
         forgotPasswordBtn.setTitleColor(.white, for: .normal)
         passwordTextField.isSecureTextEntry = true
-        signInButton.color = globalColor
-        signInButton.cornerRadius = 25
+        signInButton.setTitleColor(globalColor, for: .normal)
+        signInButton.color = .white
+        signInButton.cornerRadius = 0
         signInButton.highlightedColor = globalColor
-
+        
+        self.backgroundImageVIew.image = UIImage(named: "gradient")!
+        self.backgroundImageVIew.frame = self.view.frame
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem, queue: .main) { _ in
             self.player?.seek(to: CMTime.zero)
             self.player?.play()
@@ -101,7 +105,7 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         
         self.loadingIndicator?.startAnimating()
         UserAuth.shared.signInUser(email: email, password: password) { (user, error) in
-            if let error = error {
+            if let _ = error {
                 self.loadingIndicator?.stopAnimating()
                 let banner = NotificationBanner(title: "Oh no!", subtitle: "There was an issue logging you in. Please check your credentials and try again.", leftView: nil, rightView: nil, style: .danger, colors: nil)
                 banner.show()
@@ -158,24 +162,24 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         return emailTest.evaluate(with: text)
     }
     
-    private func loadVideo() {
-        
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: .mixWithOthers )
-        } catch { }
-        
-        let path = Bundle.main.path(forResource: "background-video", ofType:"mp4")
-        
-        self.player = AVPlayer(url: NSURL(fileURLWithPath: path!) as URL)
-        let playerLayer = AVPlayerLayer(player: player!)
-        
-        playerLayer.frame = self.view.frame
-        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        playerLayer.zPosition = -1
-        
-        self.view.layer.addSublayer(playerLayer)
-        
-        player?.seek(to: CMTime.zero)
-        player?.play()
-    }
+//    private func loadVideo() {
+//
+//        do {
+//            try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: .mixWithOthers )
+//        } catch { }
+//
+//        let path = Bundle.main.path(forResource: "background-video", ofType:"mp4")
+//
+//        self.player = AVPlayer(url: NSURL(fileURLWithPath: path!) as URL)
+//        let playerLayer = AVPlayerLayer(player: player!)
+//
+//        playerLayer.frame = self.view.frame
+//        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+//        playerLayer.zPosition = -1
+//
+//        self.view.layer.addSublayer(playerLayer)
+//
+//        player?.seek(to: CMTime.zero)
+//        player?.play()
+//    }
 }

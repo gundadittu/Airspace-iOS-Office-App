@@ -98,20 +98,18 @@ extension EventsTVC: EventsTVCellDelegate {
 
 extension EventsTVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 20) ?? UIFont.systemFont(ofSize: 20)] as [NSAttributedString.Key : Any]
         if self.dataController?.isLoading ?? false {
-            return NSMutableAttributedString(string: "Loading...", attributes: attrs)
+            return NSMutableAttributedString(string: "Loading...", attributes: globalTextAttrs)
         }
-        return NSMutableAttributedString(string: "No upcoming events.", attributes: attrs)
+        return NSMutableAttributedString(string: "No upcoming events.", attributes: globalTextAttrs)
     }
     
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 15) ?? UIFont.systemFont(ofSize: 15)] as [NSAttributedString.Key : Any]
         if self.dataController?.isLoading ?? false {
-            return NSMutableAttributedString(string: "", attributes: attrs)
+            return NSMutableAttributedString(string: "", attributes: globalTextAttrs)
         }
-        return NSMutableAttributedString(string: "Come back tomorrow.", attributes: attrs)
+        return NSMutableAttributedString(string: "Come back tomorrow.", attributes: globalTextAttrs)
     }
     
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {

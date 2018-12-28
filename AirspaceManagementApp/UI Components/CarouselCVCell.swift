@@ -27,6 +27,11 @@ class CarouselCVCell: UICollectionViewCell {
         self.contentView.layer.cornerRadius = 10.0
         self.contentView.layer.masksToBounds = true
         self.bannerImage.addBlackGradientLayer(frame: self.frame, colors: [.clear,.black])
+        
+        self.contentView.layer.shadowColor = UIColor.black.cgColor
+        self.contentView.layer.shadowOpacity = 1
+        self.contentView.layer.shadowOffset = CGSize.zero
+        self.contentView.layer.shadowRadius = 10
     }
     
     func configureInfo(with object: CarouselCVCellItem) {

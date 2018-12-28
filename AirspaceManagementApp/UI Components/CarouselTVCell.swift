@@ -151,27 +151,25 @@ extension CarouselTVCell: UICollectionViewDataSource {
 
 extension CarouselTVCell: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource{
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 20) ?? UIFont.systemFont(ofSize: 20)] as [NSAttributedString.Key : Any]
         if let isLoading = self.delegate?.isLoadingData(for: self.identifier),
             isLoading == true {
-            let attributedString = NSMutableAttributedString(string: "Loading...", attributes: attrs)
+            let attributedString = NSMutableAttributedString(string: "Loading...", attributes: globalTextAttrs)
             return attributedString
         } else {
             let text = self.delegate?.titleForEmptyState(for: self.identifier)
-            return NSMutableAttributedString(string: text ?? "", attributes: attrs)
+            return NSMutableAttributedString(string: text ?? "", attributes: globalTextAttrs)
         }
     }
     
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 15) ?? UIFont.systemFont(ofSize: 15)] as [NSAttributedString.Key : Any]
         if let isLoading = self.delegate?.isLoadingData(for: self.identifier),
             isLoading == true {
-            let attributedString = NSMutableAttributedString(string: "", attributes: attrs)
+            let attributedString = NSMutableAttributedString(string: "", attributes: globalTextAttrs)
             return attributedString
         } else {
             let text = self.delegate?.descriptionForEmptyState(for: self.identifier)
-            return NSMutableAttributedString(string: text ?? "", attributes: attrs)
+            return NSMutableAttributedString(string: text ?? "", attributes: globalTextAttrs)
         }
     }
 

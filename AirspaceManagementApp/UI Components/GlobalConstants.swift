@@ -17,3 +17,5 @@ let globalColor = UIColor(hexString: "f07c94")!
 func getGlobalLoadingIndicator(in view: UIView, with color: UIColor = globalColor, and size: CGFloat = 60, yOffset: CGFloat = 30) ->  NVActivityIndicatorView {
     return NVActivityIndicatorView(frame: CGRect(x: (view.frame.width/2)-(size/2), y: (view.frame.height/2)-yOffset, width: size, height: size), type: .circleStrokeSpin, color: color, padding: nil)
 }
+
+let globalTextAttrs: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Regular", size: 15) ?? UIFont.systemFont(ofSize: 15)]

@@ -41,20 +41,17 @@ class NotificationsVC: UIViewController {
         }
         
         self.tableView.spr_setTextHeader { [weak self] in
-            if let _ = self?.dataController {
-                self?.dataController?.loadNotifications()
-            } else {
-                 self?.tableView.spr_endRefreshing()
-            }
+            self?.dataController?.loadNotifications()
         }
     }
 }
 
 extension NotificationsVC: UITableViewDataSource {
     func reloadTableView(){
-        let range = NSMakeRange(0, self.tableView.numberOfSections)
-        let sections = NSIndexSet(indexesIn: range)
-        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+//        let range = NSMakeRange(0, self.tableView.numberOfSections)
+//        let sections = NSIndexSet(indexesIn: range)
+//        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+        self.tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -98,25 +95,23 @@ extension NotificationsVC: NotificationVCDataControllerDelegate {
 
 extension NotificationsVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 20) ?? UIFont.systemFont(ofSize: 20)] as [NSAttributedString.Key : Any]
         if let isLoading = self.dataController?.isLoading,
             isLoading == true {
-            let attributedString = NSMutableAttributedString(string: "", attributes: attrs)
+            let attributedString = NSMutableAttributedString(string: "", attributes: globalTextAttrs)
             return attributedString
         } else {
-            return NSMutableAttributedString(string: "No alerts!", attributes: attrs)
+            return NSMutableAttributedString(string: "No alerts!", attributes: globalTextAttrs)
         }
     }
     
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 15) ?? UIFont.systemFont(ofSize: 15)] as [NSAttributedString.Key : Any]
         if let isLoading = self.dataController?.isLoading,
             isLoading == true {
-            let attributedString = NSMutableAttributedString(string: "", attributes: attrs)
+            let attributedString = NSMutableAttributedString(string: "", attributes: globalTextAttrs)
             return attributedString
         } else {
-            return NSMutableAttributedString(string: "Now, go wool the world!", attributes: attrs)
+            return NSMutableAttributedString(string: "Now, go wool the world!", attributes: globalTextAttrs)
         }
     }
     

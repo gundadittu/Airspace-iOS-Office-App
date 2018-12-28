@@ -12,67 +12,89 @@ import UIKit
 extension UITableViewCell {
     
     func configureCell(with user: AirUser, accessoryType: UITableViewCell.AccessoryType = .disclosureIndicator ) {
+        
         self.accessoryType = accessoryType
-        self.textLabel?.text = user.displayName ?? "No name"
-        self.detailTextLabel?.text = user.email ?? "No email provided"
+        let text = user.displayName ?? "No name"
+        let detailText = user.email ?? "No email provided"
+        self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
+        self.detailTextLabel?.attributedText = NSMutableAttributedString(string: detailText, attributes: globalTextAttrs)
         // show proper profile image
-        self.imageView?.image = UIImage(named: "user-placeholder")!
+//        self.imageView?.image = UIImage(named: "user-placeholder")!
     }
     
     func configureCell(with building: AirBuilding) {
+
         self.accessoryType = .disclosureIndicator
-        self.textLabel?.text = building.name ?? "No building name"
-        self.detailTextLabel?.text = building.address ?? "No address provided"
+        let text = building.name ?? "No building name"
+        let detailText = building.address ?? "No address provided"
+        self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
+        self.detailTextLabel?.attributedText = NSMutableAttributedString(string: detailText, attributes: globalTextAttrs)
         // show proper image
-        self.imageView?.image = UIImage(named: "user-placeholder")!
+//        self.imageView?.image = UIImage(named: "user-placeholder")!
     }
     
     func configureCell(with company: AirCompany) {
+
         self.accessoryType = .disclosureIndicator
-        self.textLabel?.text = company.name ?? "No company name"
+        let text = company.name ?? "No company name"
+        self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
         // self.detailTextLabel?.text = company.address ?? "No address provided"
         // show proper  image
-        self.imageView?.image = UIImage(named: "user-placeholder")!
+//        self.imageView?.image = UIImage(named: "user-placeholder")!
     }
     
     func configureCell(with office: AirOffice) {
+        
         self.accessoryType = .disclosureIndicator
-        self.textLabel?.text = office.name ?? "No office name"
-        self.detailTextLabel?.text = office.building?.name ?? "No building name provided"
+        let text = office.name ?? "No office name"
+        let detailText = (office.building?.name ?? "No building name provided")
+        self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
+        self.detailTextLabel?.attributedText = NSMutableAttributedString(string: detailText, attributes: globalTextAttrs)
+        
         // show proper  image
-        self.imageView?.image = UIImage(named: "user-placeholder")!
+//        self.imageView?.image = UIImage(named: "user-placeholder")!
     }
     
     func configureCell(with guest: AirGuestRegistration) {
-        self.textLabel?.text = guest.guestName ?? "No guest name"
-        self.detailTextLabel?.text = (guest.expectedVisitDate?.localizedDescription ?? "No visiting date")+" at "+(guest.visitingOffice?.name ?? "No visiting office")
+        let text = guest.guestName ?? "No guest name"
+        let detailText = (guest.expectedVisitDate?.localizedDescription ?? "No visiting date")+" at "+(guest.visitingOffice?.name ?? "No visiting office")
+        self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
+        self.detailTextLabel?.attributedText = NSMutableAttributedString(string: detailText, attributes: globalTextAttrs)
     }
     
-    func configureCell(with notification: AirNotification) {
-        guard let type = notification.type else { return }
-        switch type {
-        case .serviceRequestUpdate:
-            self.textLabel?.text = type.title
-            self.detailTextLabel?.text = "service request subtitle"
-            self.imageView?.image = UIImage(named: "serv-req-icon")
-        case .arrivedGuestUpdate:
-            self.textLabel?.text = type.title
-            self.detailTextLabel?.text = "guest subtitle"
-            self.imageView?.image = UIImage(named: "register-guest-icon")
-        }
-    }
+//    func configureCell(with notification: AirNotification) {
+//        guard let type = notification.type else { return
+//    
+//        switch type {
+//        case .serviceRequestUpdate:
+//            let text = type.title
+//            let detailText = "service request subtitle"
+//            self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: attrs)
+//            self.detailTextLabel?.attributedText = NSMutableAttributedString(string: detailText, attributes: attrs)
+//            self.imageView?.image = UIImage(named: "serv-req-icon")
+//        case .arrivedGuestUpdate:
+//            let text = type.title
+//            let detailText = "guest subtitle"
+//            self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: attrs)
+//            self.detailTextLabel?.attributedText = NSMutableAttributedString(string: detailText, attributes: attrs)
+//            self.imageView?.image = UIImage(named: "register-guest-icon")
+//        }
+//    }
 
     
     func configureCell(with srType: ServiceRequestTypeItem) {
-        self.textLabel?.text = srType.title
+        let text = srType.title
+        self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
     }
     
     func configureCell(with duration: Duration) {
-        self.textLabel?.text = duration.description
+        let text = duration.description
+        self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
     }
     
     func configureCell(with amenity: RoomAmenity, selected: Bool) {
-        self.textLabel?.text = amenity.description
+        let text = amenity.description
+        self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
         self.accessoryType = (selected == true) ? .checkmark : .none
     }
     
@@ -83,30 +105,38 @@ extension UITableViewCell {
             return
         }
         self.textLabel?.text = "\(capacity) people"
+        
+        let text = "\(capacity) people"
+        self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
     }
     
     func configureCell(with sr: AirServiceRequest) {
-        self.textLabel?.text = sr.issueType?.title ?? "No Title Provided"
         var detailText = ""
         detailText += (sr.timestamp?.localizedDescription ?? "No Time") + " • " + (sr.office?.name ?? "No Office")
         if let note = sr.note {
             detailText += " • "+note
         }
-        self.detailTextLabel?.text = detailText
+        
+        let text = sr.issueType?.title ?? "No Title Provided"
+        self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
+        self.detailTextLabel?.attributedText = NSMutableAttributedString(string: detailText, attributes: globalTextAttrs)
     }
     
     func configureCell(with section: SettingsTVCSection) {
+        
         self.textLabel?.text = section.title ?? "No Title Provided"
+        let text = section.title ?? "No Title Provided"
+        self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
         self.accessoryType = .disclosureIndicator
     }
     
     func configureCell(with reservation: AirReservation) {
         if let reservation = reservation as? AirConferenceRoomReservation {
-            self.textLabel?.text = reservation.conferenceRoom?.name ?? "No Name"
             var subtitleString = (reservation.startingDate?.localizedDescription ?? "No Start Date")
             subtitleString += " to "
             subtitleString += (reservation.endDate?.localizedDescriptionNoDate ?? "No End Date")
-            self.detailTextLabel?.text = subtitleString
+            self.textLabel?.attributedText = NSMutableAttributedString(string: reservation.conferenceRoom?.name ?? "No Name", attributes: globalTextAttrs)
+            self.detailTextLabel?.attributedText = NSMutableAttributedString(string: subtitleString, attributes: globalTextAttrs)
             self.accessoryType = .disclosureIndicator
         } else if let reservation = reservation as? AirDeskReservation {
             return
