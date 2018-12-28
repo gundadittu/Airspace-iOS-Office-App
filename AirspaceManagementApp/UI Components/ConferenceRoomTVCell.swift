@@ -107,17 +107,17 @@ class ConferenceRoomTVCell: UITableViewCell {
             }
         }
         let view = UIView()
-        let viewWidth = self.bannerImage.frame.width/2
+        let viewWidth = self.bannerImage.frame.width/(2.2)
         let viewHeight = self.bannerImage.frame.height/5
         view.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: viewWidth, height: viewHeight)
         view.backgroundColor = backgroundColor
         view.roundCorners(corners: UIRectCorner.bottomRight, radius: CGFloat(10))
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        let label = UILabel(frame: CGRect(x: 10, y: 0, width: view.frame.width, height: view.frame.height))
         label.textColor = .white
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
-        let attributedString = NSMutableAttributedString(string: string, attributes: globalTextAttrs)
+        let attributedString = NSMutableAttributedString(string: string, attributes: globalWhiteTextAttrs)
         label.attributedText = attributedString
         view.addSubview(label)
         self.bannerImage.addSubview(view)
