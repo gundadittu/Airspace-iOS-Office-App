@@ -36,10 +36,6 @@ class ReserveVC: UIViewController {
         self.tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
         self.tableView.register(UINib(nibName: "SeeMoreTVC", bundle: nil), forCellReuseIdentifier: "SeeMoreTVC")
         self.tableView.register(UINib(nibName: "ConferenceRoomTVCell", bundle: nil), forCellReuseIdentifier: "ConferenceRoomTVCell")
-
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
-        self.tableView.addSubview(self.loadingIndicator!)
-        self.tableView.bringSubviewToFront(self.loadingIndicator!)
         
         self.tableView.spr_setTextHeader { [weak self] in
             self?.loadData()
@@ -61,6 +57,10 @@ class ReserveVC: UIViewController {
         topVIew.addSubview(control)
         
         self.sections = self.roomSections
+        
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView, yOffset: 100)
+        self.loadingIndicator?.tag = 33
+        self.tableView.addSubview(self.loadingIndicator!)
         
         self.updateQuickReserveTimeRangeOptions()
         
