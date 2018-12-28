@@ -13,6 +13,8 @@ import AVFoundation
 import JVFloatLabeledTextField
 import SwiftyButton
 import NVActivityIndicatorView
+import CFAlertViewController
+import NotificationBannerSwift
 
 class LoginVC : UIViewController, UITextFieldDelegate {
 
@@ -56,6 +58,7 @@ class LoginVC : UIViewController, UITextFieldDelegate {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+        self.loadingIndicator?.stopAnimating()
     }
 
     @objc func keyboardWillShow(sender: NSNotification) {
@@ -64,7 +67,7 @@ class LoginVC : UIViewController, UITextFieldDelegate {
     
     // add functionality here
     @IBAction func forgotPasswordBtnTapped(_ sender: Any) {
-        return
+        self.showForgotPasswordOptions()
     }
     
     @objc func keyboardWillHide(sender: NSNotification) {
@@ -87,19 +90,72 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         
         // Add logic to make sure fields are not blank, etc.
         guard let email = usernameTextField.text,
-            let password = passwordTextField.text else {
-                // Add error alert
+            let password = passwordTextField.text,
+            self.isValidEmail(text: email) == true else {
+                let alertController = CFAlertViewController(title: "Looks like you forgot something...", message: "Make sure to include a valid email and password.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+                let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil, handler: nil)
+                alertController.addAction(action)
+                self.present(alertController, animated: true)
                 return
         }
         
         self.loadingIndicator?.startAnimating()
         UserAuth.shared.signInUser(email: email, password: password) { (user, error) in
-            self.loadingIndicator?.stopAnimating()
-            if user == nil || error != nil {
-                // add error alert otherwise
+            if let error = error {
+                self.loadingIndicator?.stopAnimating()
+                let banner = NotificationBanner(title: "Oh no!", subtitle: "There was an issue logging you in. Please check your credentials and try again.", leftView: nil, rightView: nil, style: .danger, colors: nil)
+                banner.show()
+                return
             }
-            // user will be taken to appropriate page automatically (listener active in App Delegate)
+            // else user will be taken to appropriate page automatically (listener active in App Delegate)
         }
+    }
+    
+    func showForgotPasswordOptions() {
+        let alert = UIAlertController(title: "Forgot Password?", message: "Just enter your email and we'll send you a link to reset your password.", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let action = UIAlertAction(title: "Reset", style: .default) { (_) in
+            if let tf = alert.textFields?[0] {
+                let email = tf.text
+                self.sendPasswordResetEmail(with: email)
+            }
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(action)
+        self.present(alert, animated: true)
+    }
+    
+    func sendPasswordResetEmail(with email: String?) {
+        guard let email = email, self.isValidEmail(text: email) == true else {
+            let alertController = CFAlertViewController(title: "Looks like you forgot something...", message: "Make sure to include a valid email before requesting a reset link.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+            let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil, handler: nil)
+            alertController.addAction(action)
+            self.present(alertController, animated: true)
+            return
+        }
+        self.loadingIndicator?.startAnimating()
+        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+            self.loadingIndicator?.stopAnimating()
+            if let _ = error {
+                let alertController = CFAlertViewController(title: "Oh no..", message: "We were unable to send you a link to reset your password.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+                let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil, handler: nil)
+                alertController.addAction(action)
+                self.present(alertController, animated: true)
+            } else {
+                let alertController = CFAlertViewController(title: "Check your inbox!", message: "We've sent a link to reset your password to your email.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
+                let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil, handler: nil)
+                alertController.addAction(action)
+                self.present(alertController, animated: true)
+            }
+        }
+    }
+    
+    func isValidEmail(text: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: text)
     }
     
     private func loadVideo() {

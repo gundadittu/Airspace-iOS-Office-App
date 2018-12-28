@@ -22,9 +22,11 @@ class HomeTabBarController : UITabBarController {
         
         switch UserAuth.shared.currUserType {
         case .admin?:
-            break
+            let vc = InvalidUserVCViewController()
+            UIApplication.shared.keyWindow?.rootViewController = vc
         case .receptionist?:
-            break
+            let vc = InvalidUserVCViewController()
+            UIApplication.shared.keyWindow?.rootViewController = vc
         case .tenantEmployee?:
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let mainNav = mainStoryboard.instantiateViewController(withIdentifier: "mainNav") as! HomeNavController
@@ -40,13 +42,32 @@ class HomeTabBarController : UITabBarController {
 
             let array: [UIViewController] = [mainNav, reserveNav, alertNav, profileNav]
             self.setViewControllers(array, animated: false)
-            break
         case .tenantAdmin?:
-            break
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let mainNav = mainStoryboard.instantiateViewController(withIdentifier: "mainNav") as! HomeNavController
+            mainNav.tabBarItem =  UITabBarItem(title: "HOME", image: UIImage(named: "home-icon"), selectedImage: nil)
+            let reserveNav = mainStoryboard.instantiateViewController(withIdentifier: "reserveNav") as! ReserveNavController
+            reserveNav.tabBarItem = UITabBarItem(title: "RESERVE", image: UIImage(named: "reserve-icon-tab"), selectedImage: nil)
+            
+            
+            let alertNav = mainStoryboard.instantiateViewController(withIdentifier: "notificationNav") as! UINavigationController
+            alertNav.tabBarItem =  UITabBarItem(title: "ALERTS", image: UIImage(named: "alert-icon"), selectedImage: nil)
+            let profileNav = mainStoryboard.instantiateViewController(withIdentifier: "profileNav") as! ProfileNavController
+            profileNav.tabBarItem =  UITabBarItem(title: "PROFILE", image: UIImage(named: "profile-icon"), selectedImage: nil)
+            
+            let array: [UIViewController] = [mainNav, reserveNav, alertNav, profileNav]
+            self.setViewControllers(array, animated: false)
         case .landlord?:
-            break
+            let vc = InvalidUserVCViewController()
+            UIApplication.shared.keyWindow?.rootViewController = vc
+//            let array: [UIViewController] = [vc]
+//            self.setViewControllers(array, animated: false)
         case .none:
-            break
+            let vc = InvalidUserVCViewController()
+            UIApplication.shared.keyWindow?.rootViewController = vc
+//            let array: [UIViewController] = [vc]
+//            self.setViewControllers(array, animated: false)
+
         }
     }
 }

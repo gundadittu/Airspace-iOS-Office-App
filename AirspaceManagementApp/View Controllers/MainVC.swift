@@ -253,8 +253,7 @@ extension MainVC: MainVCDataControllerDelegate {
             self.tableView.spr_endRefreshing()
         }
         
-        if let error = error {
-            // handle error
+        if let _ = error {
             return
         } else {
             let data = self.dataController?.reservationsToday ?? []

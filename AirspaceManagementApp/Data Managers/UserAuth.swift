@@ -43,7 +43,25 @@ class UserAuth {
         return Auth.auth().currentUser?.uid
     }
     
-    var currUserType: UserType? = .tenantEmployee
+    var currUserType: UserType?
+    
+    func populateUserType(completionHandler: @escaping (UserType?) -> Void) {
+        guard let uid = self.uid else {
+            completionHandler(nil)
+            return
+        }
+        functions.httpsCallable("getUserProfile").call(["userUID":uid]) { (result, error) in
+            print(result?.data)
+            if let resultData = result?.data as? [String: Any],
+                let typeString = resultData["type"] as? String,
+                let userType = UserType(rawValue: typeString) {
+                self.currUserType = userType
+                completionHandler(userType)
+            } else {
+                completionHandler(nil)
+            }
+        }
+    }
     
     func signInUser(email: String, password: String, completionHandler: @escaping (User?, NSError?)->Void) {
         Auth.auth().signIn(withEmail: email, password: password) { (userResult, error) in

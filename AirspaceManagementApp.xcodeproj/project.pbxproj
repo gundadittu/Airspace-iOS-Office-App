@@ -113,6 +113,7 @@
 		04F6B6FA21D5EFAD00A05E9C /* EventsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F6B6F821D5EFAD00A05E9C /* EventsTVCell.swift */; };
 		04F6B6FB21D5EFAD00A05E9C /* EventsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F6B6F921D5EFAD00A05E9C /* EventsTVCell.xib */; };
 		04F6B6FD21D6156A00A05E9C /* EventProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F6B6FC21D6156A00A05E9C /* EventProfileTVC.swift */; };
+		04F6B6FF21D62C4400A05E9C /* InvalidUserVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F6B6FE21D62C4400A05E9C /* InvalidUserVCViewController.swift */; };
 		F87A05D304A682B44682A1E3 /* Pods_AirspaceManagementApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 656D2D1C7F3AAF0303853BEC /* Pods_AirspaceManagementApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -226,6 +227,7 @@
 		04F6B6F821D5EFAD00A05E9C /* EventsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTVCell.swift; sourceTree = "<group>"; };
 		04F6B6F921D5EFAD00A05E9C /* EventsTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventsTVCell.xib; sourceTree = "<group>"; };
 		04F6B6FC21D6156A00A05E9C /* EventProfileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventProfileTVC.swift; sourceTree = "<group>"; };
+		04F6B6FE21D62C4400A05E9C /* InvalidUserVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidUserVCViewController.swift; sourceTree = "<group>"; };
 		5E480989A434A67B50C0463B /* Pods-AirspaceManagementApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirspaceManagementApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp.debug.xcconfig"; sourceTree = "<group>"; };
 		656D2D1C7F3AAF0303853BEC /* Pods_AirspaceManagementApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirspaceManagementApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAE9B2D98373D08D679AE48C /* Pods-AirspaceManagementApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirspaceManagementApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirspaceManagementApp/Pods-AirspaceManagementApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				04110D6921D4A67F00A07DB7 /* SpaceInfoTVC.swift */,
 				04F6B6F421D5E76B00A05E9C /* EventsTVC.swift */,
 				04F6B6FC21D6156A00A05E9C /* EventProfileTVC.swift */,
+				04F6B6FE21D62C4400A05E9C /* InvalidUserVCViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -705,6 +708,7 @@
 				04CE40C821D3085A002279DF /* AirDesk.swift in Sources */,
 				040E989721A3B7B900143CA5 /* FormSubmitTVCell.swift in Sources */,
 				0422BB1F21A4F66C00F9CD64 /* AirUser.swift in Sources */,
+				04F6B6FF21D62C4400A05E9C /* InvalidUserVCViewController.swift in Sources */,
 				040E989421A3B1FF00143CA5 /* RegisterGuestTVCDataController.swift in Sources */,
 				0476C1E621B0E77900ED87F8 /* ServiceRequestVCDataController.swift in Sources */,
 				0422BB2921A5169100F9CD64 /* DateExtensions.swift in Sources */,

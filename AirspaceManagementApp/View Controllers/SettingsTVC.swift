@@ -75,7 +75,12 @@ class SettingsTVC: UITableViewController {
         case .acknowledgments:
             break
         case .logOut:
-          break
+            UserAuth.shared.signOutUser() { error in
+                if let _ = error {
+                    let banner = StatusBarNotificationBanner(title: "Error signing out.", style: .danger)
+                    banner.show()
+                }
+            }
         }
     }
     

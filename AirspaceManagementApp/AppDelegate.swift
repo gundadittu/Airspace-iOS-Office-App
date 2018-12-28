@@ -26,37 +26,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             var viewController: UIViewController? = nil
             if user != nil {
-                // Signed in, load appropriate user UI
-                 viewController = mainStoryboard.instantiateViewController(withIdentifier: "home") as! UITabBarController
                 
-                if #available(iOS 10.0, *) {
-                    // For iOS 10 display notification (sent via APNS)
-                    UNUserNotificationCenter.current().delegate = self
-                    
-                    let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-                    UNUserNotificationCenter.current().requestAuthorization(
-                        options: authOptions,
-                        completionHandler: {_, _ in })
-                } else {
-                    let settings: UIUserNotificationSettings =
-                        UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-                    application.registerUserNotificationSettings(settings)
-                }
-                
-                application.registerForRemoteNotifications()
+                UserAuth.shared.populateUserType(completionHandler: { (_) in
+                    // Signed in, load appropriate user UI based on user type
+                    viewController = mainStoryboard.instantiateViewController(withIdentifier: "home") as! UITabBarController
+                    UIApplication.shared.keyWindow?.rootViewController = viewController
+                    if #available(iOS 10.0, *) {
+                        // For iOS 10 display notification (sent via APNS)
+                        UNUserNotificationCenter.current().delegate = self
+                        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+                        UNUserNotificationCenter.current().requestAuthorization(
+                            options: authOptions,
+                            completionHandler: {_, _ in })
+                        } else {
+                            let settings: UIUserNotificationSettings =
+                                    UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+                            application.registerUserNotificationSettings(settings)
+                            application.registerForRemoteNotifications()
+                        }
+                })
                 
             } else {
                 // Not signed in, load Login VC
                 viewController = mainStoryboard.instantiateViewController(withIdentifier: "loginVC") as! LoginVC
+                UIApplication.shared.keyWindow?.rootViewController = viewController
             }
-            UIApplication.shared.keyWindow?.rootViewController = viewController
         }
+        
         UINavigationBar.appearance().titleTextAttributes =    [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 20) ?? UIFont.systemFont(ofSize: 20)]
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 10) ??
             UIFont.systemFont(ofSize: 10)], for: .normal)
         
         Messaging.messaging().delegate = self
-        
         return true
     }
 }

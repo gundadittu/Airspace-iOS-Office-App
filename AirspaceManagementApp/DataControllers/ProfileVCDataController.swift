@@ -84,7 +84,7 @@ class ProfileVCDataController {
             self.delegate?.stopLoadingIndicator()
             self.registeredGuestLoading = false
             // HANDLE ERROR
-            if let error = error {
+            if let _ = error {
                 return
             }
             
@@ -138,8 +138,7 @@ class ProfileVCDataController {
         ReservationManager.shared.getAllConferenceRoomReservationsForUser { (upcoming, past, error) in
             self.roomReservationsLoading = false
             self.delegate?.stopLoadingIndicator()
-            if let error = error {
-                // handle error
+            if let _ = error {
                 return
             }
             if let upcoming = upcoming {

@@ -404,8 +404,7 @@ extension ReserveVC {
         FindRoomManager.shared.getAllConferenceRoomsForUser { (rooms, error) in
             self.tableView.spr_endRefreshing()
             self.loadingIndicator?.stopAnimating()
-            if let error = error {
-                // handle error
+            if let _ = error {
                 return
             } else if let rooms = rooms {
                 self.allConferenceRooms = rooms
