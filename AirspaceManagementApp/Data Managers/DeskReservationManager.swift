@@ -23,7 +23,7 @@ class DeskReservationManager {
         let endTimeString = endTime.serverTimestampString
         
         let parameters = ["shouldCreateCalendarEvent": shouldCreateCalendarEvent, "startTime": startTimeString, "endTime": endTimeString, "hotDeskUID": hotDeskUID] as [String: Any]
-        functions.httpsCallable("createConferenceRoomReservation").call(parameters) { (result, error) in
+        functions.httpsCallable("createHotDeskReservation").call(parameters) { (result, error) in
             if let error = error {
                 completionHandler(error)
             } else {

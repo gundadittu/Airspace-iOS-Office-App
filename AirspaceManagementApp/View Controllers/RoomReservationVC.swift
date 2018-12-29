@@ -39,7 +39,7 @@ class RoomReservationVCSection: PageSection {
 class RoomReservationVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    var sections = [RoomReservationVCSection(title: "Bio", buttonTitle: nil, type: .bio), RoomReservationVCSection(title: "Change Event Name", buttonTitle: "Enter Name", type: .eventName), RoomReservationVCSection(title: "Change Event Description (optional)", buttonTitle: "Enter Description", type: .eventDescription), RoomReservationVCSection(title: "Modify Attendees", buttonTitle: "Choose Attendees", type: .inviteOthers), RoomReservationVCSection(title: "Cancel Reservation", buttonTitle: "", type: .cancelReservation), RoomReservationVCSection(title: "Save Changes", buttonTitle: "", type: .saveChanges)]
+    var sections = [RoomReservationVCSection(title: "Bio", buttonTitle: nil, type: .bio), RoomReservationVCSection(title: "Change Event Name", buttonTitle: "Enter Name", type: .eventName), RoomReservationVCSection(title: "Change Event Description (optional)", buttonTitle: "Enter Description", type: .eventDescription), RoomReservationVCSection(title: "Modify Attendees", buttonTitle: "Choose Attendees", type: .inviteOthers), RoomReservationVCSection(title: "Save Changes", buttonTitle: "", type: .saveChanges), RoomReservationVCSection(title: "Cancel Reservation", buttonTitle: "", type: .cancelReservation)]
     
     var loadingIndicator: NVActivityIndicatorView?
     var dataController: RoomReservationVCDataController?
@@ -61,7 +61,7 @@ class RoomReservationVC: UIViewController {
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.tableView.addSubview(self.loadingIndicator!)
         
-        self.title = "My Reservation"
+        self.title = "My Room Reservation"
         
         self.tableView.spr_setTextHeader { [weak self] in
             self?.tableView.reloadData()
@@ -165,6 +165,7 @@ extension RoomReservationVC: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC") as? SeeMoreTVC else {
                 return UITableViewCell()
             }
+            cell.sectionObj = section
             cell.delegate = self
             cell.button.layer.borderWidth = CGFloat(0)
             cell.button.setTitle("Cancel Reservation", for: .normal)

@@ -50,8 +50,9 @@ class MainVCDataController {
             } else if let reservations = reservations {
                 self.reservationsToday = reservations
                 self.delegate?.didUpdateReservationsToday(with: nil)
+            } else {
+                self.delegate?.didUpdateReservationsToday(with: NSError())
             }
-//            self.updateSections()
         }
     }
 }

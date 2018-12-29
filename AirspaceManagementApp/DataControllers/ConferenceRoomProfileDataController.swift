@@ -29,12 +29,10 @@ class ConferenceRoomProfileDataController {
     
     public func setSelectedStartDate(with date: Date?) {
         self.selectedStartDate = date
-//        self.delegate?.reloadTableView()
     }
     
     public func setSelectedEndDate(with date: Date?) {
         self.selectedEndDate = date
-//        self.delegate?.reloadTableView()
     }
     
     public func setEventName(with name: String) {

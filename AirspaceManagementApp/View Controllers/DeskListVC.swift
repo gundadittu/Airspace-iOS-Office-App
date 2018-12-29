@@ -1,8 +1,8 @@
 //
-//  RoomListTVC.swift
+//  DeskListVC.swift
 //  AirspaceManagementApp
 //
-//  Created by Aditya Gunda on 12/20/18.
+//  Created by Aditya Gunda on 12/28/18.
 //  Copyright © 2018 Aditya Gunda. All rights reserved.
 //
 
@@ -11,22 +11,22 @@ import NVActivityIndicatorView
 import SwiftPullToRefresh
 import DZNEmptyDataSet
 
-class RoomListTVC: UITableViewController {
+class DeskListVC: UITableViewController {
     
-    var conferenceRooms = [AirConferenceRoom]()
+    var hotDesks = [AirDesk]()
     var startingDate = Date()
-    var dataController: FindRoomVCDataController?
+    var dataController: FindDeskVCDataController?
     var loadingIndicator: NVActivityIndicatorView?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Conference Rooms"
+        self.title = "Hot Desks"
         
         self.tableView.emptyDataSetDelegate = self
         self.tableView.emptyDataSetDelegate = self
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "ConferenceRoomTVCell", bundle: nil), forCellReuseIdentifier: "ConferenceRoomTVCell")
-         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(didClickFilter))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(didClickFilter))
         
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
@@ -44,29 +44,29 @@ class RoomListTVC: UITableViewController {
     @objc func didClickFilter() {
         self.navigationController?.popViewController(animated: true)
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return conferenceRooms.count
+        return hotDesks.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ConferenceRoomTVCell", for: indexPath) as? ConferenceRoomTVCell else {
             return UITableViewCell()
         }
-        cell.configureCell(with: self.conferenceRooms[indexPath.row], startingAt: self.dataController?.selectedStartDate ?? Date(), delegate: self)
-        return cell 
+        cell.configureCell(with: self.hotDesks[indexPath.row], startingAt: self.dataController?.selectedStartDate ?? Date(), delegate: self)
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.performSegue(withIdentifier: "RoomListTVCtoConferenceRoomProfileTVC", sender: self.conferenceRooms[indexPath.row])
+        self.performSegue(withIdentifier: "toHotDeskProfileVC", sender: self.hotDesks[indexPath.row])
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "RoomListTVCtoConferenceRoomProfileTVC",
-            let destination = segue.destination as? ConferenceRoomProfileTVC,
-            let room = sender as? AirConferenceRoom {
-            destination.conferenceRoom = room
+        if segue.identifier == "toHotDeskProfileVC",
+            let destination = segue.destination as? HotDeskProfileVC,
+            let desk = sender as? AirDesk {
+            destination.hotDesk = desk
             
             // auto-populate fields if applicable
             if let dataController = self.dataController,
@@ -81,21 +81,24 @@ class RoomListTVC: UITableViewController {
     
 }
 
-extension RoomListTVC: ConferenceRoomTVCellDelegate {
+extension DeskListVC: ConferenceRoomTVCellDelegate {
     func didSelectCollectionView(for desk: AirDesk) {
-        return
+         self.performSegue(withIdentifier: "toHotDeskProfileVC", sender: desk)
     }
     
     func didSelectCollectionView(for room: AirConferenceRoom) {
-        self.performSegue(withIdentifier: "RoomListTVCtoConferenceRoomProfileTVC", sender: room)
+       return
     }
 }
 
-extension RoomListTVC: FindRoomVCDataControllerDelegate {
-    func didFindAvailableConferenceRooms(rooms: [AirConferenceRoom]?, error: Error?) {
-        // handle error
-        if let rooms = rooms {
-            self.conferenceRooms = rooms
+extension DeskListVC: FindDeskVCDataControllerDelegate {
+    func didFindAvailableDesks(desks: [AirDesk]?, error: Error?) {
+        if let desks = desks {
+            self.hotDesks = desks
+            self.tableView.reloadData()
+        } else {
+            // handle error
+            return
         }
     }
     
@@ -113,14 +116,14 @@ extension RoomListTVC: FindRoomVCDataControllerDelegate {
     }
 }
 
-extension RoomListTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+extension DeskListVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         if let isLoading = self.dataController?.isLoading,
             isLoading == true {
             let attributedString = NSMutableAttributedString(string: "", attributes: globalTextAttrs)
             return attributedString
         } else {
-            return NSMutableAttributedString(string: "No rooms!", attributes: globalTextAttrs)
+            return NSMutableAttributedString(string: "No desks!", attributes: globalTextAttrs)
         }
     }
     

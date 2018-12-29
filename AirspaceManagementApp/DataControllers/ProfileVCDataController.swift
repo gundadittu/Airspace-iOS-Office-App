@@ -20,6 +20,9 @@ class ProfileVCDataController {
     
     var upcomingReservations = [AirConferenceRoomReservation]()
     var pastReservations = [AirConferenceRoomReservation]()
+    
+    var upcomingDeskReservations = [AirDeskReservation]()
+    var pastDeskReservations = [AirDeskReservation]()
 
     var profileImage: UIImage?
     var delegate: ProfileVCDataControllerDelegate?
@@ -44,6 +47,7 @@ class ProfileVCDataController {
     var serviceRequestLoading = false
     var registeredGuestLoading = false
     var roomReservationsLoading = false
+    var deskReservationsLoading = false
     
     public init(delegate: ProfileVCDataControllerDelegate) {
         self.delegate = delegate
@@ -55,6 +59,7 @@ class ProfileVCDataController {
         self.loadServiceRequests()
         self.loadConferenceRoomReservations()
         self.loadProfileImage()
+        self.loadHotDeskReservations()
     }
     
     func loadServiceRequests() {
@@ -63,7 +68,7 @@ class ProfileVCDataController {
         ServiceRequestManager.shared.getAllServiceRequests { (open, pending, closed, error) in
             self.serviceRequestLoading = false
             self.delegate?.stopLoadingIndicator()
-            //Handle error 
+         
             if let open = open {
                 self.openSR = open
             }
@@ -83,10 +88,6 @@ class ProfileVCDataController {
         RegisterGuestManager.shared.getUsersRegisteredGuests { (upcoming, past, error) in
             self.delegate?.stopLoadingIndicator()
             self.registeredGuestLoading = false
-            // HANDLE ERROR
-            if let _ = error {
-                return
-            }
             
             if let upcoming = upcoming {
                 self.upcomingGuests = upcoming
@@ -105,8 +106,8 @@ class ProfileVCDataController {
             self.profileImageLoading = false 
             if let image = image {
                 self.profileImage = image
-                self.delegate?.didUpdateCarouselData()
             }
+            self.delegate?.didUpdateCarouselData()
         }
     }
     
@@ -138,14 +139,27 @@ class ProfileVCDataController {
         ReservationManager.shared.getAllConferenceRoomReservationsForUser { (upcoming, past, error) in
             self.roomReservationsLoading = false
             self.delegate?.stopLoadingIndicator()
-            if let _ = error {
-                return
-            }
             if let upcoming = upcoming {
                 self.upcomingReservations = upcoming
             }
             if let past = past {
                 self.pastReservations = past
+            }
+            self.delegate?.didUpdateCarouselData()
+        }
+    }
+    
+    func loadHotDeskReservations() {
+        self.deskReservationsLoading = true
+        self.delegate?.startLoadingIndicator()
+        DeskReservationManager.shared.getAllHotDeskReservationsForUser { (upcoming, past, error) in
+            self.deskReservationsLoading = false
+            self.delegate?.stopLoadingIndicator()
+            if let upcoming = upcoming {
+                self.upcomingDeskReservations = upcoming
+            }
+            if let past = past {
+                self.pastDeskReservations = past
             }
             self.delegate?.didUpdateCarouselData()
         }

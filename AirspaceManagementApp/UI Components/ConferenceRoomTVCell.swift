@@ -11,6 +11,13 @@ import ChameleonFramework
 
 protocol ConferenceRoomTVCellDelegate {
     func didSelectCollectionView(for room: AirConferenceRoom)
+    func didSelectCollectionView(for desk: AirDesk)
+}
+
+enum ConferenceRoomTVCellType: String {
+    case conferenceRooms = "conferenceRooms"
+    case hotDesks = "hotDesks"
+    case none
 }
 
 class ConferenceRoomTVCell: UITableViewCell {
@@ -22,11 +29,14 @@ class ConferenceRoomTVCell: UITableViewCell {
     
     var hourSegments = [Date]()
     var hourSegmentsCount = 12
-    var reservations = [AirConferenceRoomReservation]()
+    var reservations = [AirReservation]()
+//    var deskReservations = [AirDeskReservation]()
     var conferenceRoom: AirConferenceRoom?
+    var hotDesk: AirDesk?
     var timeRangeStartDate = Date()
     var timeRangeEndDate = Date()
     var delegate: ConferenceRoomTVCellDelegate?
+    var type: ConferenceRoomTVCellType = .none
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,18 +51,49 @@ class ConferenceRoomTVCell: UITableViewCell {
         self.bannerImage.layer.mask = gradient
     }
     
-    func configureCell(with room: AirConferenceRoom, startingAt reservationRangeStartDate: Date?, delegate: ConferenceRoomTVCellDelegate, hourSegmentCount: Int = 12) {
+    private func configure(startingAt reservationRangeStartDate: Date?, delegate: ConferenceRoomTVCellDelegate, hourSegmentCount: Int = 12) {
         self.delegate = delegate
         self.hourSegmentsCount = hourSegmentCount
         
         self.populateHourSegmentsAndDates(with: reservationRangeStartDate)
+
+        self.loadReservationData()
+    }
+    
+    func configureCell(with desk: AirDesk, startingAt reservationRangeStartDate: Date?, delegate: ConferenceRoomTVCellDelegate, hourSegmentCount: Int = 12) {
+        self.type = .hotDesks
+        self.hotDesk = desk
         
+        self.configure(startingAt: reservationRangeStartDate, delegate: delegate)
+
+        if let image = desk.image {
+            self.bannerImage.image = image
+        }
+        
+        self.titleLabel.text = desk.name ?? "No Name Provided"
+        var subtitleText = ""
+        if let offices = desk.offices {
+            let officesStringArr = offices.map { (office) -> String in
+                return office.name ?? "No office name"
+            }
+            subtitleText += officesStringArr.joined(separator: ", ")
+        }
+        
+        let secondSubtitleText = ""
+        self.subtitleLabel.text = subtitleText
+        self.secondSubtitleLabel.text = secondSubtitleText
+    }
+    
+    func configureCell(with room: AirConferenceRoom, startingAt reservationRangeStartDate: Date?, delegate: ConferenceRoomTVCellDelegate, hourSegmentCount: Int = 12) {
+        self.type = .conferenceRooms
         self.conferenceRoom = room
+        
+        self.configure(startingAt: reservationRangeStartDate, delegate: delegate)
         
         if let image = room.image {
             self.bannerImage.image = image
         }
-
+        
         self.titleLabel.text = room.name ?? "No Name Provided"
         var subtitleText = ""
         if let capacity = room.capacity {
@@ -75,7 +116,6 @@ class ConferenceRoomTVCell: UITableViewCell {
         }
         self.subtitleLabel.text = subtitleText
         self.secondSubtitleLabel.text = secondSubtitleText
-        self.loadReservationData()
     }
     
     func addColorStatusBar() {
@@ -99,6 +139,7 @@ class ConferenceRoomTVCell: UITableViewCell {
                 }
             }
         }
+        
         if isBusy == false {
             if let date = nextStartDate {
                  string = "Available till \(date.localizedShortTimeDescription)"
@@ -107,17 +148,19 @@ class ConferenceRoomTVCell: UITableViewCell {
             }
         }
         let view = UIView()
-        let viewWidth = self.bannerImage.frame.width/(2.2)
+        let viewWidth = self.bannerImage.frame.width/(2.5)
         let viewHeight = self.bannerImage.frame.height/5
         view.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: viewWidth, height: viewHeight)
         view.backgroundColor = backgroundColor
         view.roundCorners(corners: UIRectCorner.bottomRight, radius: CGFloat(10))
-        let label = UILabel(frame: CGRect(x: 10, y: 0, width: view.frame.width, height: view.frame.height))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         label.textColor = .white
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
-        let attributedString = NSMutableAttributedString(string: string, attributes: globalWhiteTextAttrs)
+        var localAttrs = globalWhiteTextAttrs
+        localAttrs[NSAttributedString.Key.paragraphStyle] = paragraph
+        let attributedString = NSMutableAttributedString(string: string, attributes: localAttrs)
         label.attributedText = attributedString
         view.addSubview(label)
         self.bannerImage.addSubview(view)
@@ -140,8 +183,11 @@ extension ConferenceRoomTVCell: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let room = self.conferenceRoom else { return }
-        self.delegate?.didSelectCollectionView(for: room)
+        if let room = self.conferenceRoom {
+            self.delegate?.didSelectCollectionView(for: room)
+        } else if let desk = self.hotDesk {
+            self.delegate?.didSelectCollectionView(for: desk)
+        }
     }
 }
 
@@ -205,16 +251,35 @@ extension ConferenceRoomTVCell {
     func loadReservationData() {
         // add loading indicator
         // add correct parameters below
-        guard let roomUID = self.conferenceRoom?.uid else { return }
-        ReservationManager.shared.getReservationsForConferenceRoom(startDate: timeRangeStartDate, endDate: timeRangeEndDate, conferenceRoomUID: roomUID) { (reservations, error) in
-            if let _ = error {
-                // handle error
-                return
-            } else if let reservations = reservations {
-                self.reservations = reservations
-                self.addColorStatusBar()
-                self.collectionView.reloadData()
+        
+        switch self.type {
+            
+        case .hotDesks:
+            guard let deskUID = self.hotDesk?.uid else { return }
+            DeskReservationManager.shared.getReservationsForHotDesk(startDate: timeRangeStartDate, endDate: timeRangeEndDate, deskUID: deskUID) { (reservations, error) in
+                if let _ = error {
+                    // handle error
+                    return
+                } else if let reservations = reservations {
+                    self.reservations = reservations
+                    self.addColorStatusBar()
+                    self.collectionView.reloadData()
+                }
             }
+        case .conferenceRooms:
+            guard let roomUID = self.conferenceRoom?.uid else { return }
+            ReservationManager.shared.getReservationsForConferenceRoom(startDate: timeRangeStartDate, endDate: timeRangeEndDate, conferenceRoomUID: roomUID) { (reservations, error) in
+                if let _ = error {
+                    // handle error
+                    return
+                } else if let reservations = reservations {
+                    self.reservations = reservations
+                    self.addColorStatusBar()
+                    self.collectionView.reloadData()
+                }
+            }
+        case .none:
+            return
         }
     }
 }

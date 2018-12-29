@@ -45,11 +45,9 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
     var existingResDisplayStartDate = Date() // date used to display existing reservations for room
     var startDate: Date?
     var endDate: Date?
-    var shouldScrollToMorningTime = false
+//    var shouldScrollToMorningTime = false
     
     @IBOutlet weak var tableView: UITableView!
-//    @IBOutlet weak var bottomView: UIView!
-//    @IBOutlet weak var bottomViewBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,19 +82,8 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
         if let endDate = self.endDate {
             self.dataController?.setSelectedEndDate(with: endDate)
         }
-        
-//        self.bottomViewBtn.setTitleColor(.white, for: .normal)
-//        self.bottomView.backgroundColor = globalColor
-//        self.bottomView.layer.shadowColor = UIColor.black.cgColor
-//        self.bottomView.layer.shadowOpacity = 0.5
-//        self.bottomView.layer.shadowOffset = CGSize.zero
-//        self.bottomView.layer.shadowRadius = 2
+
     }
-    
-    
-//    @IBAction func bottomViewBtnTapped(_ sender: Any) {
-//        self.dataController?.submitData()
-//    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDateInputVC",
@@ -117,6 +104,7 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
                 } else {
                     destination.initialDate = self.existingResDisplayStartDate
                 }
+                
             } else if (identifier == "chooseEndDate") {
                 destination.mode = .time
                 
@@ -181,15 +169,16 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return false
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = sections[indexPath.section]
         switch section.type {
         case .bio:
             guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ConferenceRoomDetailedTVC", for: indexPath) as? ConferenceRoomDetailedTVC,
-            let conferenceRoom = self.conferenceRoom else {
-                return UITableViewCell()
+                let conferenceRoom = self.conferenceRoom else {
+                    return UITableViewCell()
             }
-            cell.shouldScrollToMorning = self.shouldScrollToMorningTime
+//            cell.shouldScrollToMorning = self.shouldScrollToMorningTime
             cell.configureCell(with: conferenceRoom, for: existingResDisplayStartDate, newReservationStartDate: self.dataController?.selectedStartDate, newReservationEndDate: self.dataController?.selectedEndDate)
             cell.setDelegate(with: self)
             return cell
@@ -295,10 +284,19 @@ extension ConferenceRoomProfileTVC: ConferenceRoomProfileDataControllerDelegate 
         } else {
             let alertController = CFAlertViewController(title: "Blast off! 🚀", message: "Your reservation is confirmed.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
             let action = CFAlertAction(title: "Great!", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil) { (action) in
-                self.navigationController?.popViewController(animated: true)
+              
+                // pops back to ReserveVC
+                for controller in self.navigationController!.viewControllers as Array {
+                    if controller.isKind(of: ReserveVC.self) {
+                        self.navigationController!.popToViewController(controller, animated: true)
+                        break
+                    }
+                }
+                
             }
             alertController.addAction(action)
-            self.present(alertController, animated: true)        }
+            self.present(alertController, animated: true)
+        }
     }
     
     func reloadTableView() {

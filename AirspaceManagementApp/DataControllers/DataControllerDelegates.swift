@@ -35,6 +35,13 @@ protocol FindRoomVCDataControllerDelegate {
     func reloadTableView()
 }
 
+protocol FindDeskVCDataControllerDelegate {
+    func didFindAvailableDesks(desks: [AirDesk]?, error: Error?)
+    func startLoadingIndicator()
+    func stopLoadingIndicator()
+    func reloadTableView()
+}
+
 protocol ConferenceRoomProfileDataControllerDelegate {
     func didFinishSubmittingData(withError error: Error?)
     func startLoadingIndicator()

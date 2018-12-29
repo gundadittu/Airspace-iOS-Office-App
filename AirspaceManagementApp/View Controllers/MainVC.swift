@@ -131,7 +131,7 @@ extension MainVC: UITableViewDelegate {
         case .none:
             break
         case .reserveDesk:
-            break
+            self.performSegue(withIdentifier: "toFindDeskVC", sender: nil)
         }
     }
 }
@@ -236,6 +236,10 @@ extension MainVC: UITableViewDataSource {
         let destination = segue.destination as? RoomReservationVC,
             let roomRes = sender as? AirConferenceRoomReservation {
             destination.conferenceRoomReservation = roomRes
+        } else if segue.identifier == "toDeskReservationVC",
+            let destination = segue.destination as? DeskReservationVC,
+            let deskRes = sender as? AirDeskReservation {
+            destination.hotDeskReservation = deskRes
         }
     }
 }
@@ -248,18 +252,19 @@ extension MainVC: MainVCDataControllerDelegate {
     
     func didUpdateReservationsToday(with error: Error?) {
         
-        if let bool = self.dataController?.isLoading,
-            bool == false {
+        if let bool = self.dataController?.isLoading {
+            if bool == false {
+                self.tableView.spr_endRefreshing()
+            }
+        } else {
             self.tableView.spr_endRefreshing()
         }
         
-        if let _ = error {
-            return
-        } else {
+        if error == nil {
             let data = self.dataController?.reservationsToday ?? []
             self.reservationsToday = data
-            self.reloadTableView(from: 0, to: 1)
         }
+        self.reloadTableView(from: 0, to: 1)
     }
     
     func startLoadingIndicator() {
@@ -308,6 +313,8 @@ extension MainVC: CarouselTVCellDelegate {
             self.performSegue(withIdentifier: "ProfileVCtoMyServReqTVC", sender: nil)
         } else if let reservation = item.data as? AirConferenceRoomReservation {
             self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)
+        } else if let reservation = item.data as? AirDeskReservation {
+            self.performSegue(withIdentifier: "toDeskReservationVC", sender: reservation)
         }
     }
 }

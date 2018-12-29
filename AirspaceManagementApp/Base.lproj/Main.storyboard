@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hOP-0z-CJD">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,7 +23,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="Zsc-MH-O45">
-                                <rect key="frame" x="20" y="116" width="335" height="335"/>
+                                <rect key="frame" x="20" y="132.5" width="335" height="302"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textLogo" translatesAutoresizingMaskIntoConstraints="NO" id="yiy-C6-wAQ">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="128"/>
@@ -32,19 +32,19 @@
                                         </constraints>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9XQ-Kn-EKC" customClass="JVFloatLabeledTextField">
-                                        <rect key="frame" x="0.0" y="151" width="335" height="46.5"/>
+                                        <rect key="frame" x="0.0" y="151" width="335" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Wx-e0-8Xl" customClass="JVFloatLabeledTextField">
-                                        <rect key="frame" x="0.0" y="220.5" width="335" height="46.5"/>
+                                        <rect key="frame" x="0.0" y="204" width="335" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dgi-YQ-8ui" customClass="FlatButton" customModule="SwiftyButton">
-                                        <rect key="frame" x="0.0" y="290" width="335" height="45"/>
+                                        <rect key="frame" x="0.0" y="257" width="335" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="0Ko-P4-h99"/>
                                         </constraints>
@@ -69,7 +69,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYe-DA-K2b">
-                                <rect key="frame" x="118" y="466" width="139" height="36"/>
+                                <rect key="frame" x="118" y="449.5" width="139" height="36"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                 <state key="normal" title="Forgot password?"/>
                                 <connections>
@@ -99,6 +99,85 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
+        </scene>
+        <!--InitialVC-->
+        <scene sceneID="1Oc-3m-Qya">
+            <objects>
+                <viewController id="hOP-0z-CJD" customClass="InitialVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rbt-OE-PVz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="XT8-nh-f7V"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1kQ-vn-V6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-302" y="848"/>
+        </scene>
+        <!--Find DeskVC-->
+        <scene sceneID="1r8-Hk-Xc4">
+            <objects>
+                <viewController id="1pX-ao-eft" customClass="FindDeskVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZnL-IC-nFn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z37-Ql-F31">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="z37-Ql-F31" firstAttribute="leading" secondItem="OlO-gh-xem" secondAttribute="leading" id="7uP-D4-fcT"/>
+                            <constraint firstItem="z37-Ql-F31" firstAttribute="top" secondItem="OlO-gh-xem" secondAttribute="top" id="Qdv-tV-LBb"/>
+                            <constraint firstItem="z37-Ql-F31" firstAttribute="trailing" secondItem="OlO-gh-xem" secondAttribute="trailing" id="cYL-6F-qvd"/>
+                            <constraint firstItem="z37-Ql-F31" firstAttribute="bottom" secondItem="OlO-gh-xem" secondAttribute="bottom" id="fw4-3e-o6Q"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="OlO-gh-xem"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="z37-Ql-F31" id="fxw-VV-djr"/>
+                        <segue destination="mPb-M9-6s1" kind="show" identifier="toChooseTVC" id="wNU-mI-gNH"/>
+                        <segue destination="haf-Jb-7Zd" kind="show" identifier="toDateTimeInputVC" id="TbY-BI-Q8i"/>
+                        <segue destination="Zn1-Bz-xcQ" kind="show" identifier="toDeskListVC" id="IVc-pw-pdN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iRy-wR-fvS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4150" y="2583"/>
+        </scene>
+        <!--Hot Desk ProfileVC-->
+        <scene sceneID="AVl-P8-fug">
+            <objects>
+                <viewController id="ycT-um-H37" customClass="HotDeskProfileVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="blf-LN-Sco">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yJh-iy-SCv">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="EmW-i9-Bqc" firstAttribute="trailing" secondItem="yJh-iy-SCv" secondAttribute="trailing" id="bRq-IH-qTK"/>
+                            <constraint firstItem="EmW-i9-Bqc" firstAttribute="bottom" secondItem="yJh-iy-SCv" secondAttribute="bottom" id="oVu-ca-5N4"/>
+                            <constraint firstItem="yJh-iy-SCv" firstAttribute="top" secondItem="EmW-i9-Bqc" secondAttribute="top" id="pqr-mj-MIv"/>
+                            <constraint firstItem="yJh-iy-SCv" firstAttribute="leading" secondItem="EmW-i9-Bqc" secondAttribute="leading" id="tgg-jp-saK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="EmW-i9-Bqc"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="yJh-iy-SCv" id="bAn-sQ-DoU"/>
+                        <segue destination="haf-Jb-7Zd" kind="show" identifier="toDateInputVC" id="Yv1-GA-ZIH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EzD-Up-pHM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6009" y="-563"/>
         </scene>
         <!--EventsTVC-->
         <scene sceneID="Oqj-vA-O6E">
@@ -199,6 +278,37 @@
             </objects>
             <point key="canvasLocation" x="4128.8000000000002" y="-516.79160419790105"/>
         </scene>
+        <!--Desk ListVC-->
+        <scene sceneID="K6h-uX-6OU">
+            <objects>
+                <tableViewController id="Zn1-Bz-xcQ" customClass="DeskListVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8Yx-Ms-Lj6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="HIx-Vt-aiO">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HIx-Vt-aiO" id="5Ww-J5-G1O">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Zn1-Bz-xcQ" id="oGf-Oj-2E2"/>
+                            <outlet property="delegate" destination="Zn1-Bz-xcQ" id="I92-jy-G8s"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="ycT-um-H37" kind="show" identifier="toHotDeskProfileVC" id="OkQ-pF-A73"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PsA-nW-VwT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3982" y="3404"/>
+        </scene>
         <!--Home Tab Bar Controller-->
         <scene sceneID="JVA-ts-9Pp">
             <objects>
@@ -298,6 +408,9 @@
                         <segue destination="qkS-K9-EPy" kind="show" identifier="toRoomReservationVC" id="lPI-wf-qzA"/>
                         <segue destination="9tK-7d-buM" kind="show" identifier="toSpaceInfoTVC" id="Z9T-kD-Mp5"/>
                         <segue destination="yfX-1P-6Ix" kind="show" identifier="toEventsTVC" id="dBa-mP-1Km"/>
+                        <segue destination="ycT-um-H37" kind="show" identifier="toHotDeskProfileVC" id="HhH-ow-cCg"/>
+                        <segue destination="VR0-vt-wLd" kind="show" identifier="toDeskReservationVC" id="8Dh-Ob-iMo"/>
+                        <segue destination="1pX-ao-eft" kind="show" identifier="toFindDeskVC" id="hS2-gp-soT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0XN-hf-Ju0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -370,6 +483,7 @@
                         <segue destination="Pky-iX-fSo" kind="show" identifier="toSettingsTVC" id="AVp-iv-oIo"/>
                         <segue destination="qkS-K9-EPy" kind="show" identifier="toRoomReservationVC" id="7oR-mF-K1e"/>
                         <segue destination="edN-D2-GTQ" kind="show" identifier="toMyReservationsListTVC" id="LSa-iT-DwI"/>
+                        <segue destination="VR0-vt-wLd" kind="show" identifier="toDeskReservationVC" id="mpk-vD-G6J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i9X-cb-seD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -504,6 +618,8 @@
                         <segue destination="eLi-oy-IVa" kind="show" identifier="toConferenceRoomProfileTVC" id="vLk-3V-1hZ"/>
                         <segue destination="haf-Jb-7Zd" kind="show" identifier="toDateInputVC" id="5ra-Sn-Psd"/>
                         <segue destination="U0G-q0-d36" kind="show" identifier="ReserveVCtoFindRoomTVC" id="LxT-o5-97Q"/>
+                        <segue destination="ycT-um-H37" kind="show" identifier="toHotDeskProfileVC" id="cZ5-af-4zJ"/>
+                        <segue destination="1pX-ao-eft" kind="show" identifier="toFindDeskVC" id="Rry-8f-dV1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xoQ-M6-mCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -634,6 +750,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w8s-yt-qof" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4787" y="3200"/>
+        </scene>
+        <!--Desk ReservationVC-->
+        <scene sceneID="442-Ph-Ow5">
+            <objects>
+                <viewController id="VR0-vt-wLd" customClass="DeskReservationVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ldr-3F-Usc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sCP-gA-66x">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gVO-W5-RLB" firstAttribute="bottom" secondItem="sCP-gA-66x" secondAttribute="bottom" id="dHJ-Q8-gQU"/>
+                            <constraint firstItem="gVO-W5-RLB" firstAttribute="trailing" secondItem="sCP-gA-66x" secondAttribute="trailing" id="fos-pB-T1V"/>
+                            <constraint firstItem="sCP-gA-66x" firstAttribute="leading" secondItem="gVO-W5-RLB" secondAttribute="leading" id="iDP-Qx-gVR"/>
+                            <constraint firstItem="sCP-gA-66x" firstAttribute="top" secondItem="gVO-W5-RLB" secondAttribute="top" id="wAv-YO-5Sb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gVO-W5-RLB"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="sCP-gA-66x" id="dwX-Dg-GcV"/>
+                        <segue destination="haf-Jb-7Zd" kind="show" identifier="toDateInputVC" id="aVz-0w-RKD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A8k-6N-37d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5834" y="3493"/>
         </scene>
         <!--Room ReservationVC-->
         <scene sceneID="bWF-mb-mdi">
@@ -985,10 +1132,13 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="1Pu-07-iuP"/>
-        <segue reference="S8f-5f-7q6"/>
-        <segue reference="o8o-5D-OJi"/>
+        <segue reference="PpA-1h-ZrX"/>
+        <segue reference="aVz-0w-RKD"/>
         <segue reference="BE0-wO-9YW"/>
-        <segue reference="fh5-IF-Ycf"/>
+        <segue reference="vLk-3V-1hZ"/>
         <segue reference="lPI-wf-qzA"/>
+        <segue reference="8Dh-Ob-iMo"/>
+        <segue reference="HhH-ow-cCg"/>
+        <segue reference="hS2-gp-soT"/>
     </inferredMetricsTieBreakers>
 </document>

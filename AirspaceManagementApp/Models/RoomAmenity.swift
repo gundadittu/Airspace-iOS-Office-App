@@ -9,15 +9,24 @@
 import Foundation
 
 enum RoomAmenity: String, CaseIterable {
-    case appleTV = "appletv"
-    case whiteBoard = "whiteboard"
+    case whiteBoard = "whiteBoard"
+    case conferenceCallPhone = "conferenceCallPhone"
+    case largeMonitor = "largeMonitor"
+    case screenSharing = "screenSharing"
+    case videoConferencing = "videoConferencing"
     
     var description: String {
         switch self {
-        case .appleTV:
-            return "Apple TV"
         case .whiteBoard:
             return "White Board"
+        case .conferenceCallPhone:
+            return "Conferece Call Phone"
+        case .largeMonitor:
+            return "Large Monitor"
+        case .screenSharing:
+            return "Screen Sharing"
+        case .videoConferencing:
+            return "Video Conferencing"
         }
     }
 }

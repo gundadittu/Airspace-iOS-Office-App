@@ -12,8 +12,8 @@ protocol ChooseTVCDelegate {
     func didSelectUser(landlord: AirUser)
     func didSelectBuilding(building: AirBuilding)
     func didSelectOffice(office: AirOffice)
-    func didSelectSRType(type: ServiceRequestTypeItem)
     func didSelectDuration(duration: Duration)
+    func didSelectSRType(type: ServiceRequestTypeItem)
     func didSelectCapacity(number: Int)
     func didSelectRoomAmenities(amenities: [RoomAmenity])
     func didChooseEmployees(employees: [AirUser])
@@ -29,13 +29,14 @@ extension ChooseTVCDelegate {
     func didSelectOffice(office: AirOffice) {
         // Makes method optional to implement
     }
-    func didSelectSRType(type: ServiceRequestTypeItem) {
-        // Makes method optional to implement
-    }
-    
     func didSelectDuration(duration: Duration) {
         // Makes method optional to implement
     }
+    
+    func didSelectSRType(type: ServiceRequestTypeItem) {
+        // Makes method optional to implement
+    }
+
     func didSelectCapacity(number: Int) {
         // Makes method optional to implement
     }

@@ -19,6 +19,7 @@ class ProfileVC: UIViewController {
     var upcomingGuests = [AirGuestRegistration]()
     var serviceRequests = [AirServiceRequest]()
     var roomReservations = [AirConferenceRoomReservation]()
+    var deskReservations = [AirDeskReservation]()
     var loadingIndicator: NVActivityIndicatorView?
     var profileImage: UIImage?
     var imagePicker = UIImagePickerController()
@@ -57,7 +58,6 @@ class ProfileVC: UIViewController {
     func loadData(){
         self.dataController?.loadData()
     }
-    
 }
 
 extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
@@ -207,8 +207,15 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as! CarouselTVCell
                 }
                 cell.identifier = "myDeskReservations"
-                cell.delegate = self 
-                cell.setCarouselItems(with: [CarouselCVCellItem(title: "HotDesk-7", subtitle: "Today 9 AM to 10 AM", image: UIImage(named: "room-4")!), CarouselCVCellItem(title: "HotDesk-3", subtitle: "Today 2 PM to 5 PM", image: UIImage(named: "room-1")!)])
+                cell.delegate = self
+                
+                var carouselItems = [CarouselCVCellItem]()
+                for deskRes in self.deskReservations {
+                    let item = CarouselCVCellItem(with: deskRes)
+                    carouselItems.append(item)
+                }
+                
+                cell.setCarouselItems(with: carouselItems)
                 return cell
             } else if indexPath.row == 1 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
@@ -261,7 +268,7 @@ extension ProfileVC: SeeMoreTVCDelegate {
         case .some(.myRoomReservations):
             self.performSegue(withIdentifier: "toMyReservationsListTVC", sender: "conferenceRooms")
         case .some(.myDeskReservations):
-            return
+            self.performSegue(withIdentifier: "toMyReservationsListTVC", sender: "hotDesks")
         case .some(.myServiceRequests):
             self.performSegue(withIdentifier: "ProfileVCtoMyServReqTVC", sender: nil)
         case .some(.myRegisteredGuests):
@@ -296,7 +303,14 @@ extension ProfileVC: SeeMoreTVCDelegate {
             if identifier == "conferenceRooms" {
                 destination.upcoming = self.dataController?.upcomingReservations ?? []
                 destination.past = self.dataController?.pastReservations ?? []
+            } else if identifier == "hotDesks" {
+                destination.upcoming = self.dataController?.upcomingDeskReservations ?? []
+                destination.past = self.dataController?.pastDeskReservations ?? []
             }
+        } else if segue.identifier == "toDeskReservationVC",
+            let destination = segue.destination as? DeskReservationVC,
+            let reservation = sender as? AirDeskReservation {
+            destination.hotDeskReservation = reservation
         }
     }
 }
@@ -341,9 +355,14 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
         if let upcomingRes = self.dataController?.upcomingReservations {
             self.roomReservations = upcomingRes
         }
+        if let upcomingDeskRes = self.dataController?.upcomingDeskReservations {
+            self.deskReservations = upcomingDeskRes
+        }
+        
         if let profileImage = self.dataController?.profileImage {
             self.profileImage = profileImage
         }
+        
         
         if (self.dataController?.isLoading == false) {
             self.tableView.spr_endRefreshing()
@@ -360,13 +379,13 @@ extension ProfileVC: CarouselTVCellDelegate {
     func titleForEmptyState(for identifier: String?) -> String {
 
         if identifier == "myServiceRequests" {
-            return  "No Service Requests"
+            return  "No Active Service Requests"
         } else if identifier == "myDeskReservations" {
-               return "No Desk Reservations"
+               return "No Upcoming Desk Reservations"
         } else if identifier == "myRegisteredGuests" {
-            return "No Registered Guests"
+            return "No Upcoming Registered Guests"
         } else if identifier == "myRoomReservations" {
-            return "No Room Reservations"
+            return "No Upcoming Room Reservations"
         }
         return ""
     }
@@ -390,8 +409,7 @@ extension ProfileVC: CarouselTVCellDelegate {
         if identifier == "myServiceRequests" {
             return self.dataController?.serviceRequestLoading ?? false
         } else if identifier == "myDeskReservations" {
-//            return self.dataController?.des
-            return false
+            return self.dataController?.deskReservationsLoading ?? false
         } else if identifier == "myRegisteredGuests" {
            return self.dataController?.registeredGuestLoading ?? false
         } else if identifier == "myRoomReservations" {
@@ -407,6 +425,8 @@ extension ProfileVC: CarouselTVCellDelegate {
             self.performSegue(withIdentifier: "ProfileVCtoMyServReqTVC", sender: nil)
         } else if let reservation = item.data as? AirConferenceRoomReservation {
             self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)
+        } else if let reservation = item.data as? AirDeskReservation {
+            self.performSegue(withIdentifier: "toDeskReservationVC", sender: reservation)
         }
     }
 }

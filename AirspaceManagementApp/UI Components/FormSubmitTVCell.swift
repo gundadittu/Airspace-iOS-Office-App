@@ -45,7 +45,32 @@ class FormSubmitTVCell: UITableViewCell {
         self.button.setTitle(object.title, for: .normal)
     }
     
+    func configureCell(with object: FindDeskVCSection, delegate: FormTVCellDelegate) {
+        self.delegate = delegate
+        self.sectionObject = object
+        self.button.setTitle(object.buttonTitle, for: .normal)
+    }
+    
+    func configureCell(with object: HotDeskProfileSection, delegate: FormTVCellDelegate) {
+        self.delegate = delegate
+        self.sectionObject = object
+        self.button.setTitle(object.title, for: .normal)
+    }
+    
     func configureCell(with object: RoomReservationVCSection, delegate: FormTVCellDelegate) {
+        self.delegate = delegate
+        self.sectionObject = object
+        self.button.setTitle(object.title, for: .normal)
+        if object.type == .cancelReservation {
+            button.color = .flatRed
+            button.highlightedColor = .flatRed
+        } else {
+            button.color = globalColor
+            button.highlightedColor = globalColor
+        }
+    }
+    
+    func configureCell(with object: DeskReservationVCSection, delegate: FormTVCellDelegate) {
         self.delegate = delegate
         self.sectionObject = object
         self.button.setTitle(object.title, for: .normal)

@@ -25,27 +25,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             var viewController: UIViewController? = nil
+            
             if user != nil {
-                
-                UserAuth.shared.populateUserType(completionHandler: { (_) in
-                    // Signed in, load appropriate user UI based on user type
-                    viewController = mainStoryboard.instantiateViewController(withIdentifier: "home") as! UITabBarController
-                    UIApplication.shared.keyWindow?.rootViewController = viewController
-                    if #available(iOS 10.0, *) {
-                        // For iOS 10 display notification (sent via APNS)
-                        UNUserNotificationCenter.current().delegate = self
-                        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-                        UNUserNotificationCenter.current().requestAuthorization(
-                            options: authOptions,
-                            completionHandler: {_, _ in })
+                    UserAuth.shared.populateUserType(completionHandler: { (_) in
+                        // Signed in, load appropriate user UI based on user type
+                        viewController = mainStoryboard.instantiateViewController(withIdentifier: "home") as! UITabBarController
+                        UIApplication.shared.keyWindow?.rootViewController = viewController
+                        if #available(iOS 10.0, *) {
+                            // For iOS 10 display notification (sent via APNS)
+                            UNUserNotificationCenter.current().delegate = self
+                            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+                            UNUserNotificationCenter.current().requestAuthorization(
+                                options: authOptions,
+                                completionHandler: {_, _ in })
                         } else {
                             let settings: UIUserNotificationSettings =
-                                    UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+                                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
                             application.registerUserNotificationSettings(settings)
                             application.registerForRemoteNotifications()
                         }
-                })
-                
+                    })
             } else {
                 // Not signed in, load Login VC
                 viewController = mainStoryboard.instantiateViewController(withIdentifier: "loginVC") as! LoginVC

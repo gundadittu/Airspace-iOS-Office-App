@@ -117,9 +117,9 @@ class ReservationManager {
                     if let _ = reservationDict["roomUID"] as? String,
                         let room = AirConferenceRoomReservation(dict: reservationDict) {
                         reservations.append(room)
-                    } else if let _ = reservationDict["deskUID"] as? String {
-                        // create AirDeskRes
-                        return
+                    } else if let _ = reservationDict["deskUID"] as? String,
+                         let desk = AirDeskReservation(dict: reservationDict) {
+                        reservations.append(desk)
                     }
                 }
                 completionHandler(reservations, nil)

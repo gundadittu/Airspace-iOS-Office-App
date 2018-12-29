@@ -239,8 +239,7 @@ class ChooseTVC: UITableViewController {
         case .some(.offices):
             break
         case .some(.serviceRequestType):
-            return ServiceRequestTypeController.shared.sections[section].items.count
-            
+            return ServiceRequestTypeItem.allCases.count
         case .some(.duration):
             return Duration.allCases.count
         case .some(.capacity):
@@ -277,10 +276,8 @@ class ChooseTVC: UITableViewController {
                 cell.configureCell(with: list[indexPath.row])
             }
         case .some(.serviceRequestType):
-            let section = ServiceRequestTypeController.shared.sections[indexPath.section]
-            if let item = section.items[indexPath.row] {
-                cell.configureCell(with: item)
-            }
+            let item = ServiceRequestTypeItem.allCases[indexPath.row]
+            cell.configureCell(with: item)
         case .some(.duration):
             let dur = Duration.allCases[indexPath.row]
             cell.configureCell(with: dur)
@@ -331,10 +328,8 @@ class ChooseTVC: UITableViewController {
                 self.delegate?.didSelectOffice(office: list[indexPath.row])
             }
         case .some(.serviceRequestType):
-            let section = ServiceRequestTypeController.shared.sections[indexPath.section]
-            if let item = section.items[indexPath.row] {
-                self.delegate?.didSelectSRType(type: item)
-            }
+            let item = ServiceRequestTypeItem.allCases[indexPath.row]
+            self.delegate?.didSelectSRType(type: item)
             self.navigationController?.popViewController(animated: true)
         case .some(.duration):
             self.navigationController?.popViewController(animated: true)

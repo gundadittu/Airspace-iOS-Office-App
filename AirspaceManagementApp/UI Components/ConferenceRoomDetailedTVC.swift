@@ -28,16 +28,17 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
     @IBOutlet weak var secondSubtitleLabel: UILabel!
     
     @IBOutlet weak var selectedStartDateBtn: UIButton!
-    
     @IBOutlet weak var selectedEndDateBtn: UIButton!
-    
-    
     
     var hourSegments = [Date]()
     var hourSegmentsCount = 24 // one whole day
-    var reservations = [AirConferenceRoomReservation]()
+    var reservations = [AirReservation]()
+    
     var conferenceRoom: AirConferenceRoom?
     var conferenceRoomReservation: AirConferenceRoomReservation?
+    var hotDesk: AirDesk?
+    var hotDeskReservation: AirDeskReservation?
+    
     var timeRangeStartDate = Date()
     var timeRangeEndDate = Date()
     var delegate: ConferenceRoomDetailedTVCDelegate?
@@ -99,8 +100,7 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         self.delegate = delegate
     }
     
-    func configureCell(with room: AirConferenceRoom, for date: Date, newReservationStartDate: Date?, newReservationEndDate: Date?) {
-        
+    private func configureCell(for date: Date, newReservationStartDate: Date?, newReservationEndDate: Date?) {
         var conflict = false
         if let start = newReservationStartDate,
             let end = newReservationEndDate {
@@ -119,13 +119,13 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         reservationRangeStartDateComponents.setValue(0, for: .minute)
         reservationRangeStartDateComponents.setValue(0, for: .second)
         reservationRangeStartDateComponents.setValue(0, for: .nanosecond)
-    
+        
         // sets start time and end time for the time frame that we are trying to display EXISTING reservations for
         if !date.isToday,
             !date.isInRange(date: self.timeRangeStartDate, and: self.timeRangeEndDate) {
             self.shouldScrollToMorning = true
         }
-
+        
         if let reservationRangeStartDate = reservationRangeStartDateComponents.date {
             let reservationRangeEndDate = reservationRangeStartDate.addingTimeInterval(TimeInterval(60*60*24))
             self.timeRangeStartDate = reservationRangeStartDate
@@ -145,8 +145,8 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         if date.isToday {
             self.loadCurrentTimeIndexPath()
         }
-
-        // Remove existing time slot view (given tag 1), so that new one can be configured 
+        
+        // Remove existing time slot view (given tag 1), so that new one can be configured
         self.selectedTimeSlotView = nil
         self.collectionView.viewWithTag(1)?.removeFromSuperview()
         
@@ -165,9 +165,38 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
             self.newResEndDate = nil
             self.selectedEndDateBtn.setTitle("Choose", for: .normal)
         }
+    }
     
+    func configureCell(with desk: AirDesk, for date: Date, newReservationStartDate: Date?, newReservationEndDate: Date?) {
+        self.hotDesk = desk
+        self.conferenceRoom = nil
         
+        self.configureCell(for: date, newReservationStartDate: newReservationStartDate, newReservationEndDate: newReservationEndDate)
+
+        if let image = desk.image {
+            self.bannerImage.image = image
+        }
+        
+        self.titleLabel.text = desk.name ?? "No Name Provided"
+        var subtitleText = ""
+        if let offices = desk.offices {
+            let officesStringArr = offices.map { (office) -> String in
+                return office.name ?? "No office name"
+            }
+            subtitleText += officesStringArr.joined(separator: ", ")
+        }
+        
+        self.subtitleLabel.text = subtitleText
+        self.secondSubtitleLabel.isHidden = true
+        self.loadHotDeskReservationData()
+    }
+    
+    func configureCell(with room: AirConferenceRoom, for date: Date, newReservationStartDate: Date?, newReservationEndDate: Date?) {
+       
         self.conferenceRoom = room
+        self.hotDesk = nil
+        
+        self.configureCell(for: date, newReservationStartDate: newReservationStartDate, newReservationEndDate: newReservationEndDate)
         
         if let image = room.image {
             self.bannerImage.image = image
@@ -200,7 +229,8 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         }
         self.subtitleLabel.text = subtitleText
         self.secondSubtitleLabel.text = secondSubtitleText
-        self.loadReservationData()
+        self.secondSubtitleLabel.isHidden = false
+        self.loadConferenceRoomReservationData()
     }
 }
 
@@ -220,7 +250,7 @@ extension ConferenceRoomDetailedTVC: UICollectionViewDelegate, UICollectionViewD
         } else if let currentTimeIndexPath = self.currentTimeIndexPath {
             var row = 0
             while (row < currentTimeIndexPath.row) {
-                self.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: false)
+                self.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: true)
                 row = row+2
             }
             self.currentTimeIndexPath = nil
@@ -306,7 +336,31 @@ extension ConferenceRoomDetailedTVC {
         self.collectionView.reloadData()
     }
     
-    func loadReservationData() {
+    func loadHotDeskReservationData(){
+        self.delegate?.startLoadingIndicator()
+        guard let deskUID = self.hotDesk?.uid else { return }
+        DeskReservationManager.shared.getReservationsForHotDesk(startDate: timeRangeStartDate, endDate: timeRangeEndDate, deskUID: deskUID) { (reservations, error) in
+            self.delegate?.stopLoadingIndicator()
+            if let _ = error {
+                // handle error
+                return
+            } else if let reservations = reservations {
+                self.reservations = reservations
+                self.addColorStatusBar()
+                // handle any conflicts now with new reservation data
+                if let start = self.newResStartDate,
+                    let end = self.newResEndDate {
+                    if self.checkForConflicts(start: start, end: end) == true,
+                        let desk = self.hotDesk {
+                        self.configureCell(with:desk, for: self.timeRangeStartDate, newReservationStartDate: start, newReservationEndDate: end)
+                    }
+                }
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    func loadConferenceRoomReservationData() {
         self.delegate?.startLoadingIndicator()
         guard let roomUID = self.conferenceRoom?.uid else { return }
         ReservationManager.shared.getReservationsForConferenceRoom(startDate: timeRangeStartDate, endDate: timeRangeEndDate, conferenceRoomUID: roomUID) { (reservations, error) in
@@ -333,17 +387,19 @@ extension ConferenceRoomDetailedTVC {
     func checkForConflicts(start: Date, end: Date) -> Bool{
         for reservation in self.reservations {
             if let interval = reservation.getDateInterval() {
+                
                 if let currRes = self.conferenceRoomReservation,
                     reservation.uid == currRes.uid {
                     continue
-                } else {
-                    if interval.contains(start) {
-                        return true
-                    } else if interval.contains(end) {
-                        return true
-                    } else if ((start < interval.start) && (interval.end < end)) {
-                        return true
-                    }
+                } else if let currRes = self.hotDeskReservation,
+                    reservation.uid == currRes.uid {
+                    continue
+                } else if interval.contains(start) {
+                    return true
+                } else if interval.contains(end) {
+                    return true
+                } else if ((start < interval.start) && (interval.end < end)) {
+                    return true
                 }
             }
         }
@@ -354,7 +410,6 @@ extension ConferenceRoomDetailedTVC {
         for reservation in self.reservations {
             if let interval = reservation.getDateInterval() {
                 if interval.contains(date) {
-                    print(interval)
                     return true
                 }
             }
@@ -391,17 +446,19 @@ extension ConferenceRoomDetailedTVC {
             }
         }
         let view = UIView()
-        let viewWidth = self.bannerImage.frame.width/(2.2)
-        let viewHeight = self.bannerImage.frame.height/5
+        let viewWidth = self.bannerImage.frame.width/(2.5)
+        let viewHeight = self.bannerImage.frame.height/6
         view.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: viewWidth, height: viewHeight)
         view.backgroundColor = backgroundColor
         view.roundCorners(corners: UIRectCorner.bottomRight, radius: CGFloat(10))
-        let label = UILabel(frame: CGRect(x: 10, y: 0, width: view.frame.width, height: view.frame.height))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         label.textColor = .white
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
-        let attributedString = NSMutableAttributedString(string: string, attributes: globalWhiteTextAttrs)
+        var localAttrs = globalWhiteTextAttrs
+        localAttrs[NSAttributedString.Key.paragraphStyle] = paragraph
+        let attributedString = NSMutableAttributedString(string: string, attributes: localAttrs)
         label.attributedText = attributedString
         view.addSubview(label)
         self.bannerImage.addSubview(view)

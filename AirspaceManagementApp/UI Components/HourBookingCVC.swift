@@ -16,7 +16,7 @@ class HourBookingCVC: UICollectionViewCell {
     var endingDate: Date?
     static let staticTopOffset = CGFloat(30)
     let topOffset = staticTopOffset
-    var allReservations = [AirConferenceRoomReservation]()
+    var allReservations = [AirReservation]()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,7 +24,7 @@ class HourBookingCVC: UICollectionViewCell {
         self.backgroundImage.image = UIImage(named: "hourCellBackground")
     }
     
-    public func configure(with date: Date, with reservations: [AirConferenceRoomReservation]) {
+    public func configure(with date: Date, with reservations: [AirReservation]) {
         self.startingDate = date
         self.endingDate = date.addingTimeInterval(TimeInterval(3599))
        
@@ -41,7 +41,7 @@ class HourBookingCVC: UICollectionViewCell {
         self.titleLabel.text = dateString
     }
     
-    public func setExistingReservations(with reservations: [AirConferenceRoomReservation]) {
+    public func setExistingReservations(with reservations: [AirReservation]) {
         self.allReservations = reservations
         for reservation in reservations {
             guard let resStartDate = reservation.startingDate,

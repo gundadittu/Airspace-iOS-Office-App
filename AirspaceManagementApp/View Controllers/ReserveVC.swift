@@ -22,12 +22,13 @@ class ReserveVC: UIViewController {
     var timeRangeOptions = [CarouselCVCellItem]()
     var type = ReserveVCConfiguration.conferenceRooms
     var allConferenceRooms = [AirConferenceRoom]()
+    var allHotDesks = [AirDesk]()
     var loadingIndicator: NVActivityIndicatorView?
     var allRoomsStartDate = Date()
+    var allDesksStartDate = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.title = "RESERVE"
         self.navigationController?.navigationBar.topItem?.title = "Reserve"
 
         self.tableView.delegate = self
@@ -77,6 +78,7 @@ class ReserveVC: UIViewController {
             self.type = .hotDesks
         }
         self.updateQuickReserveTimeRangeOptions()
+        self.loadData()
         self.reloadTableView()
     }
     
@@ -120,9 +122,10 @@ class ReserveVC: UIViewController {
 extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
     
     func reloadTableView() {
-        let range = NSMakeRange(0, self.tableView.numberOfSections)
-        let sections = NSIndexSet(indexesIn: range)
-        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+//        let range = NSMakeRange(0, self.tableView.numberOfSections)
+//        let sections = NSIndexSet(indexesIn: range)
+//        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+        self.tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -160,6 +163,9 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
             }
             break
         case .allDesks:
+            if indexPath.row == 0 {
+                return false
+            }
             break
         }
         return true
@@ -181,7 +187,8 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
             let room = self.allConferenceRooms[indexPath.row-1]
             self.performSegue(withIdentifier: "toConferenceRoomProfileTVC", sender: room)
         case .allDesks:
-             break
+            let desk = self.allHotDesks[indexPath.row-1]
+            self.performSegue(withIdentifier: "toHotDeskProfileVC", sender: desk)
         }
     }
     
@@ -199,12 +206,6 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
             return CGFloat(100)
         case .reserveRoom:
             return CGFloat(100)
-//        case .recentReservations:
-//            return CGFloat(200)
-//        case .freeToday:
-//            break
-//        case .onYourFloor:
-//            return CGFloat(200)
         case .quickReserveDesk:
             return CGFloat(120)
         case .allRooms:
@@ -228,7 +229,7 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
         case .some(.allRooms):
             return (self.allConferenceRooms.count + 1)
         case .some(.allDesks):
-            break
+            return (self.allHotDesks.count + 1)
         case .some(.quickReserveRoom):
             break
         case .some(.reserveDesk):
@@ -292,9 +293,20 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
         case .allDesks:
-            break
+            if indexPath.row == 0 {
+                guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ChooseDateTVCell", for: indexPath) as? ChooseDateCell else {
+                    return UITableViewCell()
+                }
+                cell.setCell(with: self.allDesksStartDate, and: self)
+                return cell
+            } else {
+                guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ConferenceRoomTVCell", for: indexPath) as? ConferenceRoomTVCell else {
+                    return UITableViewCell()
+                }
+                cell.configureCell(with: self.allHotDesks[indexPath.row-1], startingAt: self.allDesksStartDate, delegate: self)
+                return cell
+            }
         }
-        return UITableViewCell()
     }
 }
 
@@ -309,7 +321,7 @@ extension ReserveVC: SeeMoreTVCDelegate {
         case .quickReserveDesk:
             break
         case .reserveDesk:
-            break
+            self.performSegue(withIdentifier: "toFindDeskVC", sender: nil)
         case .reserveRoom:
             self.performSegue(withIdentifier: "ReserveVCtoFindRoomTVC", sender: nil)
         case .allRooms:
@@ -324,7 +336,6 @@ extension ReserveVC: CarouselTVCellDelegate {
     func descriptionForEmptyState(for identifier: String?) -> String {
         return ""
     }
-    
     
     // Empty state not required, since all FormTVCells on this page contain static content
     func titleForEmptyState(for identifier: String?) -> String {
@@ -344,7 +355,7 @@ extension ReserveVC: CarouselTVCellDelegate {
             case .conferenceRooms:
                 self.performSegue(withIdentifier: "ReserveVCtoFindRoomTVC", sender: duration)
             case .hotDesks:
-                break
+                self.performSegue(withIdentifier: "toFindDeskVC", sender: duration)
             }
         }
     }
@@ -370,8 +381,21 @@ extension ReserveVC: CarouselTVCellDelegate {
                 destination.initialDate = self.allRoomsStartDate
                 destination.delegate = self
             case .hotDesks:
-                break
+                destination.minimumDate = Date()
+                destination.initialDate = self.allDesksStartDate
+                destination.delegate = self
             }
+        } else if segue.identifier == "toHotDeskProfileVC",
+            let destination = segue.destination as? HotDeskProfileVC,
+            let desk = sender as? AirDesk {
+            destination.existingResDisplayStartDate = self.allDesksStartDate
+            destination.hotDesk = desk
+        } else if segue.identifier == "toFindDeskVC",
+            let destination = segue.destination as? FindDeskVC,
+            let duration = sender as? Duration {
+            let dataController = FindDeskVCDataController(delegate: destination, shouldAutomaticallySubmit: true)
+            dataController.setSelectedDuration(with: duration)
+            destination.dataController = dataController
         }
     }
 }
@@ -383,7 +407,8 @@ extension ReserveVC: DateTimeInputVCDelegate {
             self.allRoomsStartDate = date
             self.reloadTableView()
         case .hotDesks:
-            break
+            self.allDesksStartDate = date
+            self.reloadTableView()
         }
     }
 }
@@ -395,7 +420,24 @@ extension ReserveVC {
         case .conferenceRooms:
             loadAllConferenceRooms()
         case .hotDesks:
-            break
+            loadAllHotDesks()
+        }
+    }
+    
+    func loadAllHotDesks() {
+        self.loadingIndicator?.startAnimating()
+        FindDeskManager.shared.getAllHotDesksForUser { (desks, error) in
+            self.tableView.spr_endRefreshing()
+            self.loadingIndicator?.stopAnimating()
+            if let _ = error {
+                return
+            } else if let desks = desks {
+                self.allHotDesks = desks
+                self.reloadTableView()
+            } else {
+                // handle error
+                return
+            }
         }
     }
 
@@ -418,6 +460,12 @@ extension ReserveVC {
 }
 
 extension ReserveVC: ConferenceRoomTVCellDelegate {
+    // Clicked on a cell in list of ALL desks
+    func didSelectCollectionView(for desk: AirDesk) {
+         self.performSegue(withIdentifier: "toHotDeskProfileTVC", sender: desk)
+    }
+    
+    // Clicked on a cell in list of ALL rooms
     func didSelectCollectionView(for room: AirConferenceRoom) {
         //perform segue to room profile
         self.performSegue(withIdentifier: "toConferenceRoomProfileTVC", sender: room)

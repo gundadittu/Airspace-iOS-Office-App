@@ -131,15 +131,15 @@ extension UITableViewCell {
     }
     
     func configureCell(with reservation: AirReservation) {
+        var subtitleString = (reservation.startingDate?.localizedDescription ?? "No Start Date")
+        subtitleString += " to "
+        subtitleString += (reservation.endDate?.localizedDescriptionNoDate ?? "No End Date")
+        self.detailTextLabel?.attributedText = NSMutableAttributedString(string: subtitleString, attributes: globalTextAttrs)
+        self.accessoryType = .disclosureIndicator
         if let reservation = reservation as? AirConferenceRoomReservation {
-            var subtitleString = (reservation.startingDate?.localizedDescription ?? "No Start Date")
-            subtitleString += " to "
-            subtitleString += (reservation.endDate?.localizedDescriptionNoDate ?? "No End Date")
             self.textLabel?.attributedText = NSMutableAttributedString(string: reservation.conferenceRoom?.name ?? "No Name", attributes: globalTextAttrs)
-            self.detailTextLabel?.attributedText = NSMutableAttributedString(string: subtitleString, attributes: globalTextAttrs)
-            self.accessoryType = .disclosureIndicator
         } else if let reservation = reservation as? AirDeskReservation {
-            return
+            self.textLabel?.attributedText = NSMutableAttributedString(string: reservation.desk?.name ?? "No Name", attributes: globalTextAttrs)
         }
     }
 }
