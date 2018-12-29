@@ -75,12 +75,7 @@ class SettingsTVC: UITableViewController {
         case .acknowledgments:
             break
         case .logOut:
-            UserAuth.shared.signOutUser() { error in
-                if let _ = error {
-                    let banner = StatusBarNotificationBanner(title: "Error signing out.", style: .danger)
-                    banner.show()
-                }
-            }
+            self.showLogOutAlert()
         }
     }
     
@@ -108,6 +103,22 @@ class SettingsTVC: UITableViewController {
             break
         }
         return cell
+    }
+    
+    func showLogOutAlert() {
+        let alert = UIAlertController(title: "Logging Out", message: "Are you sure you want to log out?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let action = UIAlertAction(title: "Log Out", style: .default) { (_) in
+            UserAuth.shared.signOutUser() { error in
+                if let _ = error {
+                    let banner = StatusBarNotificationBanner(title: "Error signing out.", style: .danger)
+                    banner.show()
+                }
+            }
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(action)
+        self.present(alert, animated: true)
     }
 }
 

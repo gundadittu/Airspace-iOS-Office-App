@@ -12,7 +12,7 @@ target 'AirspaceManagementApp' do
   pod 'Firebase/Storage'
   pod 'Firebase/Functions'
   pod 'Firebase/Firestore'
-  pod 'FirebaseUI'
+  pod 'FirebaseUI/Storage'
   pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
   pod 'Alamofire', '~> 4.7'
   pod 'JVFloatLabeledTextField'

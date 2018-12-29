@@ -31,7 +31,6 @@ class LoginVC : UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.loadVideo()
         usernameTextField.tintColor = globalColor
         passwordTextField.tintColor = globalColor
         forgotPasswordBtn.setTitleColor(.white, for: .normal)
