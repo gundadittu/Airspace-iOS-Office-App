@@ -32,14 +32,8 @@ class DeskReservationManager {
         }
     }
     
-    func updateConferenceRoomReservation(reservationUID: String, startTime: Date, endTime: Date, reservationTitle: String?, note: String?, attendees: [AirUser], completionHandler: @escaping (Error?) -> Void) {
-        let attendeesArray = attendees.map { (user) -> [String: String] in
-            var dict = [String:String]()
-            dict["email"] = user.email
-            dict["uid"] = user.uid
-            return dict
-        }
-        functions.httpsCallable("updateConferenceRoomReservation").call(["reservationUID": reservationUID, "startTime": startTime.serverTimestampString, "endTime": endTime.serverTimestampString, "reservationTitle": reservationTitle, "note": note, "attendees": attendeesArray]) { (result, error) in
+    func updateHotDeskReservation(reservationUID: String, startTime: Date, endTime: Date, completionHandler: @escaping (Error?) -> Void) {
+        functions.httpsCallable("updateHotDeskReservation").call(["reservationUID": reservationUID, "startTime": startTime.serverTimestampString, "endTime": endTime.serverTimestampString]) { (result, error) in
             if let error = error {
                 completionHandler(error)
             } else {
@@ -49,15 +43,15 @@ class DeskReservationManager {
         
     }
     
-    func getReservationsForConferenceRoom(startDate: Date, endDate: Date, conferenceRoomUID: String, completionHandler: @escaping ([AirConferenceRoomReservation]?, Error?) -> Void) {
-        functions.httpsCallable("getReservationsForConferenceRoom").call(["startDate":startDate.serverTimestampString,"endDate": endDate.serverTimestampString,"roomUID": conferenceRoomUID]) { (result, error) in
+    func getReservationsForHotDesk(startDate: Date, endDate: Date, deskUID: String, completionHandler: @escaping ([AirDeskReservation]?, Error?) -> Void) {
+        functions.httpsCallable("getReservationsForHotDesk").call(["startDate":startDate.serverTimestampString,"endDate": endDate.serverTimestampString,"deskUID": deskUID]) { (result, error) in
             if let error = error {
                 completionHandler(nil, error)
             } else if let result = result,
                 let resultData = result.data as? [[String: Any]]  {
-                var reservations = [AirConferenceRoomReservation]()
+                var reservations = [AirDeskReservation]()
                 for item in resultData {
-                    if let res = AirConferenceRoomReservation(dict: item) {
+                    if let res = AirDeskReservation(dict: item) {
                         reservations.append(res)
                     }
                 }
@@ -68,8 +62,8 @@ class DeskReservationManager {
         }
     }
     
-    func getAllConferenceRoomReservationsForUser(completionHandler: @escaping ([AirConferenceRoomReservation]?, [AirConferenceRoomReservation]?, Error?) -> Void) {
-        functions.httpsCallable("getAllConferenceRoomReservationsForUser").call { (result, error) in
+    func getAllHotDeskReservationsForUser(completionHandler: @escaping ([AirDeskReservation]?, [AirDeskReservation]?, Error?) -> Void) {
+        functions.httpsCallable("getAllHotDeskReservationsForUser").call { (result, error) in
             if let error = error {
                 completionHandler(nil, nil, error)
             } else if let result = result,
@@ -77,16 +71,16 @@ class DeskReservationManager {
                 let upcoming = resultData["upcoming"] as? [[String: Any]],
                 let past = resultData["past"] as? [[String: Any]]  {
                 
-                var upcomingReservations = [AirConferenceRoomReservation]()
+                var upcomingReservations = [AirDeskReservation]()
                 for item in upcoming {
-                    if let res = AirConferenceRoomReservation(dict: item) {
+                    if let res = AirDeskReservation(dict: item) {
                         upcomingReservations.append(res)
                     }
                 }
                 
-                var pastReservations = [AirConferenceRoomReservation]()
+                var pastReservations = [AirDeskReservation]()
                 for item in past {
-                    if let res = AirConferenceRoomReservation(dict: item) {
+                    if let res = AirDeskReservation(dict: item) {
                         pastReservations.append(res)
                     }
                 }
@@ -98,33 +92,8 @@ class DeskReservationManager {
         }
     }
     
-    func getUsersReservationsForToday(completionHandler: @escaping ([AirReservation]?, Error?) -> Void) {
-        let rangeStartString = Date().serverTimestampString
-        let rangeEndString = Date().endOfDay.serverTimestampString
-        functions.httpsCallable("getUsersReservationsForRange").call(["rangeStart": rangeStartString,"rangeEnd": rangeEndString]) { (result, error) in
-            if let error = error {
-                completionHandler(nil, error)
-            } else if let result = result,
-                let resultData = result.data as? [[String: Any]] {
-                var reservations = [AirReservation]()
-                for reservationDict in resultData {
-                    if let _ = reservationDict["roomUID"] as? String,
-                        let room = AirConferenceRoomReservation(dict: reservationDict) {
-                        reservations.append(room)
-                    } else if let _ = reservationDict["deskUID"] as? String {
-                        // create AirDeskRes
-                        return
-                    }
-                }
-                completionHandler(reservations, nil)
-            } else {
-                completionHandler(nil, NSError())
-            }
-        }
-    }
-    
-    func cancelRoomReservation(reservationUID: String, completionHandler: @escaping (Error?)->Void) {
-        functions.httpsCallable("cancelRoomReservation").call(["reservationUID":reservationUID]) { (result, error) in
+    func cancelHotDeskReservation(reservationUID: String, completionHandler: @escaping (Error?)->Void) {
+        functions.httpsCallable("cancelHotDeskReservation").call(["reservationUID":reservationUID]) { (result, error) in
             completionHandler(error)
         }
     }

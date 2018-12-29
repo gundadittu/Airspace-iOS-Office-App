@@ -10,6 +10,7 @@
 		0407E04F21840BE100C516BC /* background-video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0407E04E21840BE000C516BC /* background-video.mp4 */; };
 		0407E0512184190500C516BC /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0407E0502184190500C516BC /* GlobalConstants.swift */; };
 		040C548121D70F2200745CAB /* DeskReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040C548021D70F2200745CAB /* DeskReservationManager.swift */; };
+		040C548321D7192800745CAB /* FindDeskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040C548221D7192800745CAB /* FindDeskManager.swift */; };
 		040E988A21A38C3C00143CA5 /* RegisterGuestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E988921A38C3C00143CA5 /* RegisterGuestVC.swift */; };
 		040E988E21A3A7D400143CA5 /* FormTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E988C21A3A7D400143CA5 /* FormTVCell.swift */; };
 		040E988F21A3A7D400143CA5 /* FormTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040E988D21A3A7D400143CA5 /* FormTVCell.xib */; };
@@ -122,6 +123,7 @@
 		0407E04E21840BE000C516BC /* background-video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-video.mp4"; sourceTree = "<group>"; };
 		0407E0502184190500C516BC /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		040C548021D70F2200745CAB /* DeskReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskReservationManager.swift; sourceTree = "<group>"; };
+		040C548221D7192800745CAB /* FindDeskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindDeskManager.swift; sourceTree = "<group>"; };
 		040E988921A38C3C00143CA5 /* RegisterGuestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGuestVC.swift; sourceTree = "<group>"; };
 		040E988C21A3A7D400143CA5 /* FormTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTVCell.swift; sourceTree = "<group>"; };
 		040E988D21A3A7D400143CA5 /* FormTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FormTVCell.xib; sourceTree = "<group>"; };
@@ -419,12 +421,13 @@
 				0422BB2A21A525B400F9CD64 /* RegisterGuestManager.swift */,
 				046CC9B821D068B200DC1993 /* NotificationManager.swift */,
 				0429F22921CF48CA00BAECAA /* OfficeManager.swift */,
-				04C7134221CC864200F3D62F /* ReservationManager.swift */,
 				044F8E61218BF26000E84B0F /* UserAuth.swift */,
-				04C7133221C9B8DE00F3D62F /* FindRoomManager.swift */,
 				0422BB2421A4FB2700F9CD64 /* UserManager.swift */,
 				04D8D6942183E68B0079380F /* Yelp.swift */,
 				04F6B6F021D5E35400A05E9C /* EventManager.swift */,
+				04C7133221C9B8DE00F3D62F /* FindRoomManager.swift */,
+				040C548221D7192800745CAB /* FindDeskManager.swift */,
+				04C7134221CC864200F3D62F /* ReservationManager.swift */,
 				040C548021D70F2200745CAB /* DeskReservationManager.swift */,
 			);
 			path = "Data Managers";
@@ -693,6 +696,7 @@
 				0455209A217548F50033D33B /* AppDelegate.swift in Sources */,
 				04F6B6F521D5E76B00A05E9C /* EventsTVC.swift in Sources */,
 				04CE40C021D2D8CC002279DF /* NavLoadingIndicatorExtension.swift in Sources */,
+				040C548321D7192800745CAB /* FindDeskManager.swift in Sources */,
 				0413D2CF21C889D200E2C5F3 /* MyServReqTVC.swift in Sources */,
 				04C7133B21CC453C00F3D62F /* RoomListTVC.swift in Sources */,
 				046CC9B921D068B200DC1993 /* NotificationManager.swift in Sources */,

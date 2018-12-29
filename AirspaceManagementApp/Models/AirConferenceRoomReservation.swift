@@ -7,44 +7,16 @@
 //
 
 import Foundation
-import FirebaseFirestore
 
 class AirConferenceRoomReservation : AirReservation {
-    var uid: String?
-    var startingDate: Date?
-    var endDate: Date?
     var note: String?
     var conferenceRoom: AirConferenceRoom?
     var conferenceRoomUID: String?
     var title: String?
-    var host: AirUser?
     var invitedUsers = [AirUser]()
     
-    public init?(dict: [String: Any]) {
-        if let uid = dict["uid"] as? String {
-            self.uid = uid
-        } else {
-            print("No uid found for conference room reservation")
-            return nil
-        }
-        
-        if let timestampDict = dict["startDate"] as? [String:Any],
-            let seconds = timestampDict["_seconds"] as? Int64,
-            let nanoseconds = timestampDict["_nanoseconds"] as? Int32 {
-            self.startingDate = Timestamp(seconds: seconds, nanoseconds: nanoseconds).dateValue()
-        } else {
-            print("No startDate found for conference room reservation")
-            return nil
-        }
-        
-        if let timestampDict = dict["endDate"] as? [String:Any],
-            let seconds = timestampDict["_seconds"] as? Int64,
-            let nanoseconds = timestampDict["_nanoseconds"] as? Int32 {
-            self.endDate = Timestamp(seconds: seconds, nanoseconds: nanoseconds).dateValue()
-        } else {
-            print("No endDate found for conference room reservation")
-            return nil
-        }
+    override public init?(dict: [String: Any]) {
+        super.init(dict: dict)
         
         if let note = dict["note"] as? String {
             self.note = note
@@ -72,13 +44,6 @@ class AirConferenceRoomReservation : AirReservation {
             print("No conferenceRoom found for conference room reservation")
         }
         
-        if let hostDict = dict["host"] as? [String: Any],
-            let hostUser = AirUser(dictionary: hostDict) {
-            self.host = hostUser
-        } else {
-            print("No host found for conference room reservation")
-        }
-        
         if let attendees = dict["attendees"] as? [[String: Any]] {
             var attendeeArray = [AirUser]()
             for userDict in attendees {
@@ -90,12 +55,5 @@ class AirConferenceRoomReservation : AirReservation {
         } else {
             print("No attendees found for conference room reservation")
         }
-    }
-    
-    func getDateInterval() -> DateInterval? {
-        guard let startDate = self.startingDate, let endDate = self.endDate else {
-            return nil
-        }
-        return DateInterval(start: startDate, end: endDate)
     }
 }
