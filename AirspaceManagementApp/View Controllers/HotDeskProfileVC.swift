@@ -238,7 +238,7 @@ extension HotDeskProfileVC: ConferenceRoomDetailedTVCDelegate, HotDeskProfileDat
             let alertController = CFAlertViewController(title: "Blast off! 🚀", message: "Your reservation is confirmed.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
             let action = CFAlertAction(title: "Great!", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil) { (action) in
                 
-                // pops back to ReserveVC
+                // pops back to ReserveVC or MainVC based on origin
                 for controller in self.navigationController!.viewControllers as Array {
                     if controller.isKind(of: ReserveVC.self) {
                         self.navigationController!.popToViewController(controller, animated: true)

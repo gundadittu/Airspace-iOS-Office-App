@@ -17,7 +17,6 @@ class AirServiceRequest: NSObject {
     var status: ServiceRequestStatus?
     var office: AirOffice?
     var title: String?
-//    var user
     
     public init?(dict: [String: Any]) {
         if let itString = dict["issueType"] as? String,

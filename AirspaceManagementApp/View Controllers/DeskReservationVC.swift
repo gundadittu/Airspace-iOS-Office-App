@@ -11,26 +11,6 @@ import NVActivityIndicatorView
 import CFAlertViewController
 import NotificationBannerSwift
 
-enum DeskReservationVCSectionType {
-    case bio
-    case cancelReservation
-    case saveChanges
-    case none
-}
-
-class DeskReservationVCSection: PageSection {
-    var type: DeskReservationVCSectionType = .none
-    var buttonTitle = ""
-    var selectedButtonTitle: String?
-    var title: String?
-    
-    public init(title: String, buttonTitle: String?, type: DeskReservationVCSectionType) {
-        self.title = title
-        self.type = type
-        self.buttonTitle = buttonTitle ?? ""
-    }
-}
-
 class DeskReservationVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!

@@ -35,7 +35,6 @@ class EventManager {
     }
     
     public func getProfileImage(for uid: String, completionHandler: @escaping (UIImage?, Error?) -> Void) {
-        // Create a reference to the file you want to download
         let profileRef = storageRef.child("userProfileImages/\(uid).jpg")
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
@@ -43,7 +42,6 @@ class EventManager {
             if let error = error {
                 completionHandler(nil, error)
             } else if let data = data {
-                // Data for "images/island.jpg" is returned
                 let image = UIImage(data: data)
                 completionHandler(image, nil)
             }

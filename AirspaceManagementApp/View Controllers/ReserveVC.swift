@@ -121,11 +121,13 @@ class ReserveVC: UIViewController {
 
 extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
     
-    func reloadTableView() {
-//        let range = NSMakeRange(0, self.tableView.numberOfSections)
-//        let sections = NSIndexSet(indexesIn: range)
-//        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
-        self.tableView.reloadData()
+    func reloadTableView(with set: IndexSet? = nil) {
+        if let set = set {
+            self.tableView.reloadSections(set, with: .automatic)
+        } else {
+            let set: IndexSet = [2]
+            self.tableView.reloadSections(set, with: .automatic)
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

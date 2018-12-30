@@ -10,22 +10,6 @@ import UIKit
 import NotificationBannerSwift
 import NVActivityIndicatorView
 
-enum MyGuestRegTVCType {
-    case upcoming
-    case past
-    case none
-}
-
-class MyGuestRegTVCSection: PageSection {
-    var title: String?
-    var type: MyGuestRegTVCType = .none
-    
-    public init(title: String, type: MyGuestRegTVCType) {
-        self.title = title
-        self.type = type
-    }
-}
-
 class MyGuestRegTVC: UITableViewController {
     let sections = [MyGuestRegTVCSection(title: "Upcoming", type: .upcoming), MyGuestRegTVCSection(title: "Past", type: .past)]
     var upcomingGuests = [AirGuestRegistration]()

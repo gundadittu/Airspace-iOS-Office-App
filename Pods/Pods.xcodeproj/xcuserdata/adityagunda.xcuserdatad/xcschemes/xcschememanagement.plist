@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Alamofire.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>BetterSegmentedControl.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -90,11 +85,6 @@
 			<false/>
 		</dict>
 		<key>JVFloatLabeledTextField.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Kingfisher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

@@ -68,7 +68,6 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         self.view.frame.origin.y = -125 // Move view 150 points upward
     }
     
-    // add functionality here
     @IBAction func forgotPasswordBtnTapped(_ sender: Any) {
         self.showForgotPasswordOptions()
     }
@@ -93,7 +92,9 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         
         // Add logic to make sure fields are not blank, etc.
         guard let email = usernameTextField.text,
+            email != "",
             let password = passwordTextField.text,
+            password != "",
             self.isValidEmail(text: email) == true else {
                 let alertController = CFAlertViewController(title: "Looks like you forgot something...", message: "Make sure to include a valid email and password.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
                 let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil, handler: nil)
@@ -110,7 +111,7 @@ class LoginVC : UIViewController, UITextFieldDelegate {
                 banner.show()
                 return
             }
-            // else user will be taken to appropriate page automatically (listener active in App Delegate)
+            // if there is no error user will be taken to appropriate page automatically (listener active in App Delegate)
         }
     }
     
@@ -160,7 +161,9 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: text)
     }
-    
+}
+
+
 //    private func loadVideo() {
 //
 //        do {
@@ -181,4 +184,3 @@ class LoginVC : UIViewController, UITextFieldDelegate {
 //        player?.seek(to: CMTime.zero)
 //        player?.play()
 //    }
-}

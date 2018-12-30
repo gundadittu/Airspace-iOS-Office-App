@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (4.8.0)
   - BetterSegmentedControl (1.0.3)
   - BoringSSL (10.0.6):
     - BoringSSL/Implementation (= 10.0.6)
@@ -159,7 +158,6 @@ PODS:
   - gRPC-Core/Interface (1.14.0)
   - GTMSessionFetcher/Core (1.2.1)
   - JVFloatLabeledTextField (1.2.1)
-  - Kingfisher (4.10.1)
   - leveldb-library (1.20)
   - MarqueeLabel/Swift (3.2.0)
   - nanopb (0.3.901):
@@ -183,7 +181,6 @@ PODS:
   - SwiftyButton (0.8.2)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.7)
   - BetterSegmentedControl (~> 1.0)
   - CFAlertViewController
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
@@ -197,7 +194,6 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseUI/Storage
   - JVFloatLabeledTextField
-  - Kingfisher (~> 4.0)
   - NotificationBannerSwift
   - NVActivityIndicatorView
   - SwiftDate (~> 5.0)
@@ -206,7 +202,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Alamofire
     - BetterSegmentedControl
     - BoringSSL
     - CFAlertViewController
@@ -233,7 +228,6 @@ SPEC REPOS:
     - gRPC-Core
     - GTMSessionFetcher
     - JVFloatLabeledTextField
-    - Kingfisher
     - leveldb-library
     - MarqueeLabel
     - nanopb
@@ -256,7 +250,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ViccAlexander/Chameleon.git
 
 SPEC CHECKSUMS:
-  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   BetterSegmentedControl: 4e3bd0bd517b0f6077c9e17f5663a01cff48e2c5
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   CFAlertViewController: a27cf0512d0fa9ef6a3b966862039c295fb0ef69
@@ -284,7 +277,6 @@ SPEC CHECKSUMS:
   gRPC-Core: f4836515817c0eb479aeeb9cc27c91c4ba62a9f6
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   JVFloatLabeledTextField: cfc44e3c4d493b2ed92ede8035e8e89c2912ba64
-  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MarqueeLabel: 440a502b91a9179bd98f9fff00ba1150650a1c0e
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
@@ -297,6 +289,6 @@ SPEC CHECKSUMS:
   SwiftPullToRefresh: 7949588ace920cc6898b57799d7f5cd5db9ea9a3
   SwiftyButton: 5b0ef314e9cf61cf8a83e456ddd1ea1f53f30598
 
-PODFILE CHECKSUM: f37af1f42cb2305bc405cc87ed4b34cc933f580e
+PODFILE CHECKSUM: 3a3c24759d1c29d22fb782e537510c9a852d758f
 
 COCOAPODS: 1.5.3

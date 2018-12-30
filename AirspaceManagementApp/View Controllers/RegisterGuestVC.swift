@@ -145,20 +145,75 @@ extension RegisterGuestVC: FormTVCellDelegate {
             self.performSegue(withIdentifier: "RegisterGuestVCtoChooseTVC", sender: ChooseTVCType.offices)
         case .name:
             self.performSegue(withIdentifier: "RegisterGuestVCtoTextInputVC", sender: "name")
-//            self.showGuestNameAlert()
         case .dateTime:
             self.performSegue(withIdentifier: "RegisterGuestVCtoDateTimeInputVC", sender: nil)
-//            self.showDatePicker()
         case .email:
             self.performSegue(withIdentifier: "RegisterGuestVCtoTextInputVC", sender: "email")
-//            self.showGuestEmailAlert()
         case .none:
             return
         case .submit:
             self.dataController?.submitFormData()
         }
     }
+}
+
+extension RegisterGuestVC: ChooseTVCDelegate {
     
+    // Delegate function is called when user selects office in ChooseTVC
+    func didSelectOffice(office: AirOffice) {
+        self.dataController?.setSelectedOffice(as: office)
+    }
+}
+
+extension RegisterGuestVC: RegisterGuestTVCDataControllerDelegate {
+    func reloadTableView() {
+        self.tableView.reloadData()
+    }
+    
+    func toggleLoadingIndicator() {
+        guard let la = self.loadingIndicator else { return }
+        if la.isAnimating {
+            self.loadingIndicator?.stopAnimating()
+        } else {
+            self.loadingIndicator?.startAnimating()
+        }
+    }
+    
+    // Delegate function is called when network request finishes submitting form data
+    func didFinishSubmittingData(withError error: Error?) {
+        if let _ = error {
+            let banner = StatusBarNotificationBanner(title: "Error registering your guest.", style: .danger, colors: nil)
+            banner.show()
+        } else {
+            let alertController = CFAlertViewController(title: "Your guest has been registered!", message: "We'll let you know when they arrive.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+            let action = CFAlertAction(title: "Cool", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil) { (action) in
+                self.navigationController?.popViewController(animated: true)
+            }
+            alertController.addAction(action)
+            self.present(alertController, animated: true)
+        }
+        NotificationManager.shared.requestPermission()
+    }
+}
+
+extension RegisterGuestVC: TextInputVCDelegate {
+    func didSaveInput(with text: String, and identifier: String?) {
+        if let identifier = identifier {
+            if identifier == "name" {
+                self.dataController?.setGuestName(as: text)
+            } else if identifier == "email" {
+                self.dataController?.setGuestEmail(as: text)
+            }
+        }
+    }
+}
+
+extension RegisterGuestVC: DateTimeInputVCDelegate {
+    func didSaveInput(with date: Date, and identifier: String?) {
+        self.dataController?.setGuestVistDate(as: date)
+    }
+}
+
 //    func showDatePicker() {
 //        datePicker.datePickerMode = .dateAndTime
 //        datePicker.minimumDate = Date()
@@ -228,61 +283,3 @@ extension RegisterGuestVC: FormTVCellDelegate {
 //        //finally presenting the dialog box
 //        self.present(alertController, animated: true, completion: nil)
 //    }
-}
-
-extension RegisterGuestVC: ChooseTVCDelegate {
-    
-    // Delegate function is called when user selects office in ChooseTVC
-    func didSelectOffice(office: AirOffice) {
-        self.dataController?.setSelectedOffice(as: office)
-    }
-}
-
-extension RegisterGuestVC: RegisterGuestTVCDataControllerDelegate {
-    func reloadTableView() {
-        self.tableView.reloadData()
-    }
-    
-    func toggleLoadingIndicator() {
-        guard let la = self.loadingIndicator else { return }
-        if la.isAnimating {
-            self.loadingIndicator?.stopAnimating()
-        } else {
-            self.loadingIndicator?.startAnimating()
-        }
-    }
-    
-    // Delegate function is called when network request finishes submitting form data
-    func didFinishSubmittingData(withError error: Error?) {
-        if let _ = error {
-            let banner = StatusBarNotificationBanner(title: "Error registering your guest.", style: .danger, colors: nil)
-            banner.show()
-        } else {
-            let alertController = CFAlertViewController(title: "Your guest has been registered!", message: "We'll let you know when they arrive.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
-            let action = CFAlertAction(title: "Cool", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil) { (action) in
-                self.navigationController?.popViewController(animated: true)
-            }
-            alertController.addAction(action)
-            self.present(alertController, animated: true)
-        }
-        NotificationManager.shared.requestPermission()
-    }
-}
-
-extension RegisterGuestVC: TextInputVCDelegate {
-    func didSaveInput(with text: String, and identifier: String?) {
-        if let identifier = identifier {
-            if identifier == "name" {
-                self.dataController?.setGuestName(as: text)
-            } else if identifier == "email" {
-                self.dataController?.setGuestEmail(as: text)
-            }
-        }
-    }
-}
-
-extension RegisterGuestVC: DateTimeInputVCDelegate {
-    func didSaveInput(with date: Date, and identifier: String?) {
-        self.dataController?.setGuestVistDate(as: date)
-    }
-}

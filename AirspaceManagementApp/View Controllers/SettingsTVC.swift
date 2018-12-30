@@ -11,26 +11,6 @@ import SafariServices
 import NotificationBannerSwift
 import MessageUI
 
-enum SettingsTVCSectionType {
-    case notifications
-    case contact
-    case terms
-    case privacyPolicy
-    case acknowledgments
-    case logOut
-    case version
-}
-
-class SettingsTVCSection: PageSection {
-    var title: String?
-    var type: SettingsTVCSectionType?
-    
-    public init(title: String, type: SettingsTVCSectionType) {
-        self.title = title
-        self.type = type
-    }
-}
-
 class SettingsTVC: UITableViewController, MFMailComposeViewControllerDelegate {
     var sections = [SettingsTVCSection]()
     
@@ -130,15 +110,3 @@ class SettingsTVC: UITableViewController, MFMailComposeViewControllerDelegate {
         controller.dismiss(animated: true)
     }
 }
-
-//extension SettingsTVC: SeeMoreTVCDelegate {
-//    func didSelectSeeMore(for section: PageSection) {
-//        // did click log out
-//        UserAuth.shared.signOutUser() { error in
-//            if let _ = error {
-//                let banner = StatusBarNotificationBanner(title: "Error signing out.", style: .danger)
-//                banner.show()
-//            }
-//        }
-//    }
-//}

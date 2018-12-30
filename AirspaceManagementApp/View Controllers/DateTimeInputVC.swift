@@ -9,17 +9,6 @@
 import UIKit
 import SwiftDate
 
-protocol DateTimeInputVCDelegate {
-    func didSaveInput(with date: Date, and identifier: String?)
-    func changeInDate(interval: TimeInterval, and identifier: String?)
-}
-
-extension DateTimeInputVCDelegate {
-    func changeInDate(interval: TimeInterval, and identifier: String?) {
-        // makes method optional
-    }
-}
-
 class DateTimeInputVC: UIViewController {
     
     @IBOutlet weak var dateTimePicker: UIDatePicker!

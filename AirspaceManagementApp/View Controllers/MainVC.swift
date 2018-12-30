@@ -11,49 +11,6 @@ import UIKit
 import NVActivityIndicatorView
 import SwiftPullToRefresh
 
-enum MainVCSectionType {
-    case quickActions
-    case reservationsToday
-//    case nearbyEats
-    case none
-}
-
-class MainVCSection: PageSection {
-    var title = ""
-    var type: MainVCSectionType = .none
-    
-    public init(title: String, type: MainVCSectionType) {
-        self.title = title
-        self.type = type
-    }
-}
-
-enum QuickActionType {
-    case reserveRoom
-    case reserveDesk
-    case submitTicket
-    case registerGuest
-    case viewEvents
-    case spaceInfo
-    case none
-}
-
-class QuickAction: NSObject {
-    var title: String!
-    var icon: UIImage?
-    var subtitle: String?
-    var color: UIColor?
-    var type: QuickActionType
-    
-    public init(title: String, subtitle: String, icon: String, color: UIColor?, type: QuickActionType?) {
-        self.title = title
-        self.subtitle = subtitle
-        self.icon = UIImage(named: icon)
-        self.color = color ?? .black
-        self.type = type ?? QuickActionType.none
-    }
-}
-
 class MainVC: UIViewController {
     
     var sections = [MainVCSection(title: "Today's Reservations", type: .reservationsToday), MainVCSection(title: "Quick Actions", type: .quickActions)]

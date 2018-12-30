@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol TextInputVCDelegate {
-    func didSaveInput(with text: String, and identifier: String?)
-}
-
 class TextInputVC: UIViewController {
 
     @IBOutlet var textView: UITextView!

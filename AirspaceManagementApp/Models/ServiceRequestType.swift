@@ -74,29 +74,3 @@ enum ServiceRequestTypeItem: String, CaseIterable {
         }
     }
 }
-
-//class ServiceRequestTypeSection {
-//    var title: String?
-//    var items = [ServiceRequestTypeItem?]()
-//
-//    public init(title: String, items: [ServiceRequestTypeItem?]) {
-//        self.title = title
-//        self.items = items
-//    }
-//
-//}
-
-//class ServiceRequestTypeController {
-//    static let shared = ServiceRequestTypeController()
-//    var sections = [ServiceRequestTypeSection]()
-//
-//    public init() {
-//        let coffeeItems = [ServiceRequestTypeItem(rawValue: "coffeeRefill")]
-//        let coffeeSection = ServiceRequestTypeSection(title: "Coffee", items: coffeeItems)
-//        sections.append(coffeeSection)
-//        let furnitureItems = [ServiceRequestTypeItem(rawValue: "deskRepair")]
-//        let furnitureSection = ServiceRequestTypeSection(title: "Furniture", items: furnitureItems)
-//        sections.append(furnitureSection)
-//    }
-//
-//}

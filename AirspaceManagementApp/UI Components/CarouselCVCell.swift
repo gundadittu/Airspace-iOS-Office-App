@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 enum CarouselCVCellItemType {
     case regular
@@ -23,7 +22,6 @@ class CarouselCVCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         self.contentView.layer.cornerRadius = 10.0
         self.contentView.layer.masksToBounds = true
         self.bannerImage.addBlackGradientLayer(frame: self.frame, colors: [.clear,.black])
@@ -39,8 +37,9 @@ class CarouselCVCell: UICollectionViewCell {
         self.subtitleLabel.text = object.subtitle
         if let image = object.bannerImage {
             self.bannerImage.image = image
-        } else if let url = object.bannerURL {
-            self.bannerImage.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+        } else if let _ = object.bannerURL {
+//            self.bannerImage.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+            return
         } else {
             self.bannerImage.isHidden = true
         }

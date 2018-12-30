@@ -22,7 +22,6 @@ class NotificationsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.title = "ALERTS"
         self.navigationController?.navigationBar.topItem?.title = "Alerts"
 
         self.tableView.emptyDataSetSource = self
@@ -66,7 +65,6 @@ extension NotificationsVC: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as? NotificationTVCell else {
             return UITableViewCell()
         }
-        // need to write configureCell function
         cell.configure(with: notifications[indexPath.row])
         return cell
     }

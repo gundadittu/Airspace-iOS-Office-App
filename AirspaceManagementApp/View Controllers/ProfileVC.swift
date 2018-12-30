@@ -32,7 +32,6 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.title = "PROFILE"
         self.navigationController?.navigationBar.topItem?.title = "Profile"
 
         self.tableView.dataSource = self
@@ -106,20 +105,6 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let currSection = sections[section]
-//        guard let type = currSection.type else { return 0 }
-//        switch type {
-//        case .bioInfo:
-//            break
-//        case .myRoomReservations:
-//            break
-//        case .myDeskReservations:
-//            break
-//        case .myServiceRequests:
-//            break
-//        case .myRegisteredGuests:
-//            break
-//        }
         return 2
     }
     
@@ -145,7 +130,6 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                     return UITableViewCell()
                 }
                 cell.configureCell(with: currSection, buttonTitle: "Settings", delegate: self)
-//                cell.button.setTitle("Settings", for: .normal)
                 return cell
             }
         case .myRoomReservations?:

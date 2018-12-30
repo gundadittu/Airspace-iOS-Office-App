@@ -13,29 +13,6 @@ import SwiftPullToRefresh
 import NotificationBannerSwift
 import CFAlertViewController
 
-enum RoomReservationVCSectionType {
-    case bio
-    case eventName
-    case eventDescription
-    case inviteOthers
-    case cancelReservation
-    case saveChanges
-    case none
-}
-
-class RoomReservationVCSection: PageSection {
-    var type: RoomReservationVCSectionType = .none
-    var buttonTitle = ""
-    var selectedButtonTitle: String?
-    var title: String?
-    
-    public init(title: String, buttonTitle: String?, type: RoomReservationVCSectionType) {
-        self.title = title
-        self.type = type
-        self.buttonTitle = buttonTitle ?? ""
-    }
-}
-
 class RoomReservationVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -387,7 +364,7 @@ extension RoomReservationVC: DateTimeInputVCDelegate, TextInputVCDelegate, Choos
 
 extension RoomReservationVC: SeeMoreTVCDelegate {
     func didSelectSeeMore(for section: PageSection) {
-        // cancel button
+        // cancel button tapped
         self.handleCancellation()
     }
 }

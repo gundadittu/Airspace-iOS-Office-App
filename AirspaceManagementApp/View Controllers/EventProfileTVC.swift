@@ -8,12 +8,6 @@
 
 import UIKit
 
-enum EventProfileTVCSectionType {
-    case bio
-    case description
-    case none
-}
-
 class EventProfileTVC: UITableViewController {
     var sections = [EventProfileTVCSectionType.bio, EventProfileTVCSectionType.description]
     var event: AirEvent?

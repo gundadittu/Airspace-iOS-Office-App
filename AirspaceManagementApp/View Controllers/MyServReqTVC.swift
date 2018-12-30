@@ -10,23 +10,6 @@ import UIKit
 import NVActivityIndicatorView
 import NotificationBannerSwift
 
-enum MyServReqTVCType {
-    case open
-    case pending
-    case closed
-    case none
-}
-
-class MyServReqTVCSection: PageSection {
-    var title: String?
-    var type: MyServReqTVCType = .none
-    
-    public init(title: String, type: MyServReqTVCType) {
-        self.title = title
-        self.type = type
-    }
-}
-
 class MyServReqTVC: UITableViewController {
     let sections = [MyServReqTVCSection(title: "Received", type: .open), MyServReqTVCSection(title: "In Progress", type: .pending), MyServReqTVCSection(title: "Finished", type: .closed)]
     var openSR = [AirServiceRequest]()

@@ -28,7 +28,6 @@ class UserManager {
             if let error = error {
                 completionHandler(nil, error)
             } else if let data = data {
-                // Data for "images/island.jpg" is returned
                 let image = UIImage(data: data)
                 completionHandler(image, nil)
             }
@@ -44,7 +43,6 @@ class UserManager {
             if let error = error {
                 completionHandler(nil, error)
             } else if let data = data {
-                // Data for "images/island.jpg" is returned
                 let image = UIImage(data: data)
                 completionHandler(image, nil)
             }

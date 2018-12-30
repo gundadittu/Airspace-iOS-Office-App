@@ -37,10 +37,7 @@ class EventsTVC: UITableViewController {
     }
     
     func reloadTableView(from start: Int? = nil, to end: Int? = nil){
-//        let range = NSMakeRange(start ?? 0, end ?? self.tableView.numberOfSections)
-//        let sections = NSIndexSet(indexesIn: range)
-//        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
-        self.tableView.reloadData()
+       self.tableView.reloadData()
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

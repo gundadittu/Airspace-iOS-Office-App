@@ -13,29 +13,6 @@ import SwiftPullToRefresh
 import NotificationBannerSwift
 import CFAlertViewController
 
-enum ConferenceRoomProfileSectionType {
-    case bio
-    case createCalendarEvent
-    case eventName
-    case eventDescription
-    case inviteOthers
-    case submit
-    case none
-}
-
-class ConferenceRoomProfileSection : PageSection {
-    var title = ""
-    var buttonTitle = ""
-    var selectedButtonTitle: String?
-    var type: ConferenceRoomProfileSectionType = .none
-    
-    public init(title: String, buttonTitle: String?, type: ConferenceRoomProfileSectionType) {
-        self.title = title
-        self.type = type
-        self.buttonTitle = buttonTitle ?? ""
-    }
-}
-
 class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var sections = [ConferenceRoomProfileSection(title: "Bio", buttonTitle: nil, type: .bio), ConferenceRoomProfileSection(title: "", buttonTitle: nil, type: .createCalendarEvent), ConferenceRoomProfileSection(title: "Add Event Name (optional)", buttonTitle: "Enter Name", type: .eventName), ConferenceRoomProfileSection(title: "Add Event Description (optional)", buttonTitle: "Enter Description", type: .eventDescription), ConferenceRoomProfileSection(title: "Invite Others (optional)", buttonTitle: "Choose Attendees", type: .inviteOthers), ConferenceRoomProfileSection(title: "Reserve Room", buttonTitle: "Reserve Room", type: .submit)]
@@ -45,7 +22,6 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
     var existingResDisplayStartDate = Date() // date used to display existing reservations for room
     var startDate: Date?
     var endDate: Date?
-//    var shouldScrollToMorningTime = false
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -178,7 +154,6 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
                 let conferenceRoom = self.conferenceRoom else {
                     return UITableViewCell()
             }
-//            cell.shouldScrollToMorning = self.shouldScrollToMorningTime
             cell.configureCell(with: conferenceRoom, for: existingResDisplayStartDate, newReservationStartDate: self.dataController?.selectedStartDate, newReservationEndDate: self.dataController?.selectedEndDate)
             cell.setDelegate(with: self)
             return cell
@@ -285,7 +260,7 @@ extension ConferenceRoomProfileTVC: ConferenceRoomProfileDataControllerDelegate 
             let alertController = CFAlertViewController(title: "Blast off! 🚀", message: "Your reservation is confirmed.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
             let action = CFAlertAction(title: "Great!", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil) { (action) in
               
-                // pops back to ReserveVC
+                // pops back to ReserveVC or MainVC based on origin
                 for controller in self.navigationController!.viewControllers as Array {
                     if controller.isKind(of: ReserveVC.self) {
                         self.navigationController!.popToViewController(controller, animated: true)
@@ -398,6 +373,8 @@ extension ConferenceRoomProfileTVC: DateTimeInputVCDelegate, TextInputVCDelegate
         self.dataController?.setShouldCreateCalendarEvent(with: value)
     }
 }
+
+// End of ConferenceRoomProfileTVC
 
 protocol ConferenceRoomProfileSwitchCellDelegate {
     func switchDidChangeValue(to value: Bool)

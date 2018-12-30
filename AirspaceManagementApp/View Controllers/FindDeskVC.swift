@@ -10,27 +10,6 @@ import UIKit
 import NVActivityIndicatorView
 import NotificationBannerSwift
 
-class FindDeskVCSection: PageSection {
-    var title = ""
-    var buttonTitle = ""
-    var selectedButtonTitle: String?
-    var type: FindDeskVCSectionType = .none
-    
-    public init(title: String, buttonTitle: String, type: FindDeskVCSectionType) {
-        self.title = title
-        self.buttonTitle = buttonTitle
-        self.type = type
-    }
-}
-
-enum FindDeskVCSectionType {
-    case office
-    case startTime
-    case duration
-    case submit
-    case none
-}
-
 class FindDeskVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -43,8 +22,7 @@ class FindDeskVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Find a Hot Desk"
-
-       
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(UINib(nibName: "FormTVCell", bundle: nil), forCellReuseIdentifier: "FormTVCell")

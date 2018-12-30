@@ -60,14 +60,9 @@ class HomeTabBarController : UITabBarController {
         case .landlord?:
             let vc = InvalidUserVCViewController()
             UIApplication.shared.keyWindow?.rootViewController = vc
-//            let array: [UIViewController] = [vc]
-//            self.setViewControllers(array, animated: false)
         case .none:
             let vc = InvalidUserVCViewController()
             UIApplication.shared.keyWindow?.rootViewController = vc
-//            let array: [UIViewController] = [vc]
-//            self.setViewControllers(array, animated: false)
-
         }
     }
 }

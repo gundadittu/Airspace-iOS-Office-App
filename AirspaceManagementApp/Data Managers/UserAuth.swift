@@ -51,7 +51,6 @@ class UserAuth {
             return
         }
         functions.httpsCallable("getUserProfile").call(["userUID":uid]) { (result, error) in
-            print(result?.data)
             if let resultData = result?.data as? [String: Any],
                 let typeString = resultData["type"] as? String,
                 let userType = UserType(rawValue: typeString) {
@@ -70,7 +69,6 @@ class UserAuth {
                 completionHandler(nil, error! as NSError)
                 return
             }
-//        Need to set user type, otherwise return error
             completionHandler(user, nil)
         }
     }

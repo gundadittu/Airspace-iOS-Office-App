@@ -12,29 +12,6 @@ import NotificationBannerSwift
 import NVActivityIndicatorView
 import CFAlertViewController
 
-class FindRoomVCSection: PageSection {
-    var title = ""
-    var buttonTitle = ""
-    var selectedButtonTitle: String?
-    var type: FindRoomVCSectionType = .none
-    
-    public init(title: String, buttonTitle: String, type: FindRoomVCSectionType) {
-        self.title = title
-        self.buttonTitle = buttonTitle
-        self.type = type
-    }
-}
-
-enum FindRoomVCSectionType {
-    case office
-    case startTime
-    case duration
-    case capacity
-    case amenities
-    case submit
-    case none
-}
-
 class FindRoomVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var sections = [ FindRoomVCSection(title: "I need a room in", buttonTitle: "Choose Office", type: .office), FindRoomVCSection(title: "starting at", buttonTitle: "Select Time", type: .startTime), FindRoomVCSection(title: "for around", buttonTitle: "Choose Duration", type: .duration), FindRoomVCSection(title: "and it needs to fit (optional)", buttonTitle: "Choose # of People", type: .capacity), FindRoomVCSection(title: "and it needs to have (optional)", buttonTitle: " Pick Amenities", type: .amenities), FindRoomVCSection(title: "Find Available Rooms", buttonTitle: "Find Available Rooms", type: .submit)]
