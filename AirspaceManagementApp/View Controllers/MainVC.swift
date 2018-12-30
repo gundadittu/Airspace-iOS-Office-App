@@ -138,11 +138,14 @@ extension MainVC: UITableViewDelegate {
 
 extension MainVC: UITableViewDataSource {
     
-    func reloadTableView(from start: Int? = nil, to end: Int? = nil){
-        let range = NSMakeRange(start ?? 0, end ?? self.tableView.numberOfSections)
-        let sections = NSIndexSet(indexesIn: range)
-        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+    func reloadTableView(with set: IndexSet? = nil) {
+        if let set = set {
+            self.tableView.reloadSections(set, with: .automatic)
+        } else {
+            self.tableView.reloadData()
+        }
     }
+    
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionObj = self.sections[section]
@@ -264,7 +267,9 @@ extension MainVC: MainVCDataControllerDelegate {
             let data = self.dataController?.reservationsToday ?? []
             self.reservationsToday = data
         }
-        self.reloadTableView(from: 0, to: 1)
+        let sectionToReload = 0
+        let indexSet: IndexSet = [sectionToReload]
+        self.tableView.reloadSections(indexSet, with: .automatic)
     }
     
     func startLoadingIndicator() {
@@ -314,7 +319,7 @@ extension MainVC: CarouselTVCellDelegate {
         } else if let reservation = item.data as? AirConferenceRoomReservation {
             self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)
         } else if let reservation = item.data as? AirDeskReservation {
-            self.performSegue(withIdentifier: "toDeskReservationVC", sender: reservation)
+            self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)
         }
     }
 }

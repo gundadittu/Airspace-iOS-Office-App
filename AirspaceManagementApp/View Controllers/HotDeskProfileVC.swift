@@ -151,7 +151,12 @@ extension HotDeskProfileVC: UITableViewDataSource, UITableViewDelegate {
             cell.setDelegate(with: self)
             return cell
         case .createCalendarEvent:
-            return UITableViewCell()
+            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as? DeskSwitchCell else {
+                return UITableViewCell()
+            }
+            cell.delegate = self
+            self.dataController?.setShouldCreateCalendarEvent(with: cell.switchBtn.isOn)
+            return cell
         case .submit:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "FormSubmitTVCell") as? FormSubmitTVCell else {
                 return UITableViewCell()
@@ -217,7 +222,7 @@ extension HotDeskProfileVC: ConferenceRoomDetailedTVCDelegate, HotDeskProfileDat
     
     func didFindConflict() {
         let alertController = CFAlertViewController(title: "Oh no!", message: "This desk is not available during the selected time frame.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
-        let action = CFAlertAction(title: "Ok 😕", style: .Default, alignment: .left, backgroundColor: globalColor, textColor: .black, handler: nil)
+        let action = CFAlertAction(title: "Ok 😕", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: .black, handler: nil)
         alertController.addAction(action)
         self.present(alertController, animated: true)
     }
@@ -226,20 +231,22 @@ extension HotDeskProfileVC: ConferenceRoomDetailedTVCDelegate, HotDeskProfileDat
         if let _ = error {
             let alertController = CFAlertViewController(title: "Oh no!🤯", message: "There was an issue reserving this desk.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
             
-            let action = CFAlertAction(title: "Ok", style: .Default, alignment: .left, backgroundColor: .red, textColor: .black, handler: nil)
+            let action = CFAlertAction(title: "Ok", style: .Default, alignment: .justified, backgroundColor: .red, textColor: .black, handler: nil)
             alertController.addAction(action)
             self.present(alertController, animated: true)
         } else {
-            let alertController = CFAlertViewController(title: "Blast off! 🚀", message: "Your reservation is confirmed.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
-            let action = CFAlertAction(title: "Great!", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil) { (action) in
+            let alertController = CFAlertViewController(title: "Blast off! 🚀", message: "Your reservation is confirmed.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+            let action = CFAlertAction(title: "Great!", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil) { (action) in
                 
                 // pops back to ReserveVC
                 for controller in self.navigationController!.viewControllers as Array {
                     if controller.isKind(of: ReserveVC.self) {
                         self.navigationController!.popToViewController(controller, animated: true)
-                        break
+                    } else if controller.isKind(of: MainVC.self) {
+                        self.navigationController!.popToViewController(controller, animated: true)
                     }
                 }
+                NotificationManager.shared.requestPermission()
             }
             alertController.addAction(action)
             self.present(alertController, animated: true)
@@ -285,4 +292,30 @@ extension HotDeskProfileVC: DateTimeInputVCDelegate {
             }
         }
     }
+}
+
+extension HotDeskProfileVC: DeskSwitchCellDelegate {
+    func didChangeSwitchValue(to value: Bool) {
+        self.dataController?.setShouldCreateCalendarEvent(with: value)
+    }
+}
+
+protocol DeskSwitchCellDelegate  {
+    func didChangeSwitchValue(to value: Bool)
+}
+
+class DeskSwitchCell: UITableViewCell {
+    
+    @IBOutlet weak var switchBtn: UISwitch!
+    var delegate: DeskSwitchCellDelegate?
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.switchBtn.onTintColor = globalColor
+    }
+    
+    @IBAction func switchBtnToggled(_ sender: Any) {
+        guard let sender = sender as? UISwitch else { return }
+        self.delegate?.didChangeSwitchValue(to: sender.isOn)
+    }
+    
 }

@@ -23,7 +23,7 @@ class RoomListTVC: UITableViewController {
         self.title = "Conference Rooms"
         
         self.tableView.emptyDataSetDelegate = self
-        self.tableView.emptyDataSetDelegate = self
+        self.tableView.emptyDataSetSource = self
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "ConferenceRoomTVCell", bundle: nil), forCellReuseIdentifier: "ConferenceRoomTVCell")
          self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(didClickFilter))
@@ -117,10 +117,10 @@ extension RoomListTVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         if let isLoading = self.dataController?.isLoading,
             isLoading == true {
-            let attributedString = NSMutableAttributedString(string: "", attributes: globalTextAttrs)
+            let attributedString = NSMutableAttributedString(string: "", attributes: globalBoldTextAttrs)
             return attributedString
         } else {
-            return NSMutableAttributedString(string: "No rooms!", attributes: globalTextAttrs)
+            return NSMutableAttributedString(string: "No rooms!", attributes: globalBoldTextAttrs)
         }
     }
     

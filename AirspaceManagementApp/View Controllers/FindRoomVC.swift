@@ -205,6 +205,9 @@ extension FindRoomVC: FindRoomVCDataControllerDelegate {
         if error == nil,
             let rooms = rooms {
             self.performSegue(withIdentifier: "FindRoomVCtoRoomListTVC", sender: rooms)
+        } else {
+            let banner = NotificationBanner(title: "Darn it!", subtitle: "There was an issue loading available rooms. Please try again later.", leftView: nil, rightView: nil, style: .danger, colors: nil)
+            banner.show()
         }
     }
     

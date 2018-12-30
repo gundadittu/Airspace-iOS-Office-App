@@ -259,12 +259,13 @@ extension RegisterGuestVC: RegisterGuestTVCDataControllerDelegate {
             banner.show()
         } else {
             let alertController = CFAlertViewController(title: "Your guest has been registered!", message: "We'll let you know when they arrive.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
-            let action = CFAlertAction(title: "Cool", style: .Default, alignment: .right, backgroundColor: globalColor, textColor: nil) { (action) in
+            let action = CFAlertAction(title: "Cool", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil) { (action) in
                 self.navigationController?.popViewController(animated: true)
             }
             alertController.addAction(action)
             self.present(alertController, animated: true)
         }
+        NotificationManager.shared.requestPermission()
     }
 }
 

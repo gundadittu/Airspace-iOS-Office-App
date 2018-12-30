@@ -123,11 +123,21 @@ extension UITableViewCell {
     }
     
     func configureCell(with section: SettingsTVCSection) {
-        
-        self.textLabel?.text = section.title ?? "No Title Provided"
+
         let text = section.title ?? "No Title Provided"
         self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
         self.accessoryType = .disclosureIndicator
+        
+        if let type = section.type {
+            if type == .logOut {
+                self.textLabel?.textColor = .red
+                var attributes = globalTextAttrs
+                attributes[.foregroundColor] = UIColor.red
+                self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: attributes)
+            } else if type == .version {
+                self.accessoryType = .none
+            }
+        }
     }
     
     func configureCell(with reservation: AirReservation) {

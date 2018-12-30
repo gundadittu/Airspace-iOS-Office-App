@@ -278,21 +278,22 @@ extension ConferenceRoomProfileTVC: ConferenceRoomProfileDataControllerDelegate 
         if let _ = error {
             let alertController = CFAlertViewController(title: "Oh no!🤯", message: "There was an issue reserving this room.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
             
-            let action = CFAlertAction(title: "Ok", style: .Default, alignment: .left, backgroundColor: .red, textColor: .black, handler: nil)
+            let action = CFAlertAction(title: "Ok", style: .Default, alignment: .justified, backgroundColor: .red, textColor: .black, handler: nil)
             alertController.addAction(action)
             self.present(alertController, animated: true)
         } else {
-            let alertController = CFAlertViewController(title: "Blast off! 🚀", message: "Your reservation is confirmed.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
-            let action = CFAlertAction(title: "Great!", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil) { (action) in
+            let alertController = CFAlertViewController(title: "Blast off! 🚀", message: "Your reservation is confirmed.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+            let action = CFAlertAction(title: "Great!", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil) { (action) in
               
                 // pops back to ReserveVC
                 for controller in self.navigationController!.viewControllers as Array {
                     if controller.isKind(of: ReserveVC.self) {
                         self.navigationController!.popToViewController(controller, animated: true)
-                        break
+                    } else if controller.isKind(of: MainVC.self) {
+                        self.navigationController!.popToViewController(controller, animated: true)
                     }
                 }
-                
+                NotificationManager.shared.requestPermission()
             }
             alertController.addAction(action)
             self.present(alertController, animated: true)
@@ -310,7 +311,7 @@ extension ConferenceRoomProfileTVC: ConferenceRoomDetailedTVCDelegate {
     
     func didFindConflict() {
         let alertController = CFAlertViewController(title: "Oh no!", message: "This conference room is not available during the selected time frame.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
-        let action = CFAlertAction(title: "Ok 😕", style: .Default, alignment: .left, backgroundColor: globalColor, textColor: .black, handler: nil)
+        let action = CFAlertAction(title: "Ok 😕", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: .black, handler: nil)
         alertController.addAction(action)
         self.present(alertController, animated: true)
     }

@@ -95,18 +95,44 @@ class ConferenceRoomTVCell: UITableViewCell {
         }
         
         self.titleLabel.text = room.name ?? "No Name Provided"
+//        var subtitleText = ""
+//        if let capacity = room.capacity {
+//            subtitleText += "Seats \(capacity) • "
+//        }
+//        if let offices = room.offices {
+//            let officesStringArr = offices.map { (office) -> String in
+//                return office.name ?? "No office name"
+//            }
+//            subtitleText += officesStringArr.joined(separator: ", ")
+//        }
+//
+//        var secondSubtitleText = ""
+//        if let amenities = room.amenities {
+//            let amenitiesStringArr = amenities.map { (amenity) -> String in
+//                return amenity.description
+//            }
+//            let amenitiesString = amenitiesStringArr.joined(separator: " • ")
+//            secondSubtitleText += amenitiesString
+//        }
+//        self.subtitleLabel.text = subtitleText
+//        self.secondSubtitleLabel.text = secondSubtitleText
         var subtitleText = ""
-        if let capacity = room.capacity {
-            subtitleText += "Seats \(capacity) • "
-        }
         if let offices = room.offices {
             let officesStringArr = offices.map { (office) -> String in
                 return office.name ?? "No office name"
             }
             subtitleText += officesStringArr.joined(separator: ", ")
         }
+        if let address = room.address {
+            let splitAddress = address.split(separator: ",")
+            subtitleText += " • "
+            subtitleText += String(splitAddress.first ?? "")
+        }
         
         var secondSubtitleText = ""
+        if let capacity = room.capacity {
+            secondSubtitleText += "Seats \(capacity) • "
+        }
         if let amenities = room.amenities {
             let amenitiesStringArr = amenities.map { (amenity) -> String in
                 return amenity.description
@@ -116,6 +142,7 @@ class ConferenceRoomTVCell: UITableViewCell {
         }
         self.subtitleLabel.text = subtitleText
         self.secondSubtitleLabel.text = secondSubtitleText
+        self.secondSubtitleLabel.isHidden = false
     }
     
     func addColorStatusBar() {

@@ -79,6 +79,7 @@ extension EventsTVC: EventsTVCDataControllerDelegate {
             self.events = events
             self.reloadTableView()
         }
+        NotificationManager.shared.requestPermission()
     }
 }
 
@@ -99,9 +100,9 @@ extension EventsTVC: EventsTVCellDelegate {
 extension EventsTVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         if self.dataController?.isLoading ?? false {
-            return NSMutableAttributedString(string: "Loading...", attributes: globalTextAttrs)
+            return NSMutableAttributedString(string: "Loading...", attributes: globalBoldTextAttrs)
         }
-        return NSMutableAttributedString(string: "No upcoming events.", attributes: globalTextAttrs)
+        return NSMutableAttributedString(string: "No upcoming events.", attributes: globalBoldTextAttrs)
     }
     
     

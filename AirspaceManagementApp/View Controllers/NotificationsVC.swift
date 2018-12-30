@@ -82,6 +82,7 @@ extension NotificationsVC: NotificationVCDataControllerDelegate {
             // handle error
             return
         }
+        NotificationManager.shared.requestPermission()
     }
     
     func startLoadingIndicator() {
@@ -97,10 +98,10 @@ extension NotificationsVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         if let isLoading = self.dataController?.isLoading,
             isLoading == true {
-            let attributedString = NSMutableAttributedString(string: "", attributes: globalTextAttrs)
+            let attributedString = NSMutableAttributedString(string: "", attributes: globalBoldTextAttrs)
             return attributedString
         } else {
-            return NSMutableAttributedString(string: "No alerts!", attributes: globalTextAttrs)
+            return NSMutableAttributedString(string: "No alerts!", attributes: globalBoldTextAttrs)
         }
     }
     

@@ -102,8 +102,10 @@ class ProfileVCDataController {
     func loadProfileImage() {
         guard let uid = UserAuth.shared.uid else { return }
         self.profileImageLoading = true
+        self.delegate?.startLoadingIndicator()
         UserManager.shared.getProfileImage(for: uid) { (image, _) in
-            self.profileImageLoading = false 
+            self.profileImageLoading = false
+            self.delegate?.stopLoadingIndicator()
             if let image = image {
                 self.profileImage = image
             }

@@ -97,15 +97,22 @@ class MyGuestRegTVC: UITableViewController {
         case .none:
             break
         }
-        guard let item = guest, let guestUID = item.uid else { return }
+        guard let item = guest, let guestUID = item.uid else {
+            // handle error
+            return
+        }
         
         let alertController = UIAlertController(title: "Manage Registered Guest: \(item.guestName ?? "No Guest Name Provided")", message: nil, preferredStyle: .actionSheet)
         let unregisterAction = UIAlertAction(title: "Unregister Guest", style: .destructive) { (action) in
+            self.loadingIndicator?.startAnimating()
             RegisterGuestManager.shared.cancelRegisteredGuest(registeredGuestUID: guestUID, completionHandler: { (error) in
+                self.loadingIndicator?.stopAnimating()
                 if let _ = error {
                     let banner = NotificationBanner(title: "Oh no!", subtitle: "There was an issue unregistering your guest.", leftView: nil, rightView: nil, style: .danger, colors: nil)
                     banner.show()
                 } else {
+                    let banner = NotificationBanner(title: "Yahtzee!", subtitle: "Your guest has been unregistered.", leftView: nil, rightView: nil, style: .success, colors: nil)
+                    banner.show()
                     self.loadData()
                 }
             })

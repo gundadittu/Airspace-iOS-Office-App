@@ -20,7 +20,7 @@ class InvalidUserVCViewController: UIViewController {
         super.viewDidAppear(animated)
         let alertController = CFAlertViewController(title: "Oops!", message: "Our iOS app is currently only available to Airspace office tenants.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
         alertController.shouldDismissOnBackgroundTap = false
-        let action = CFAlertAction(title: "Log Out", style: .Default, alignment: .left, backgroundColor: globalColor, textColor: nil) { (action) in
+        let action = CFAlertAction(title: "Log Out", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil) { (action) in
             UserAuth.shared.signOutUser(completionHandler: { (_) in
                 return
             })

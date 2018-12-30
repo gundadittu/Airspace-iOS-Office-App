@@ -153,11 +153,11 @@ extension CarouselTVCell: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource{
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         if let isLoading = self.delegate?.isLoadingData(for: self.identifier),
             isLoading == true {
-            let attributedString = NSMutableAttributedString(string: "Loading...", attributes: globalTextAttrs)
+            let attributedString = NSMutableAttributedString(string: "Loading...", attributes: globalBoldTextAttrs)
             return attributedString
         } else {
             let text = self.delegate?.titleForEmptyState(for: self.identifier)
-            return NSMutableAttributedString(string: text ?? "", attributes: globalTextAttrs)
+            return NSMutableAttributedString(string: text ?? "", attributes: globalBoldTextAttrs)
         }
     }
     

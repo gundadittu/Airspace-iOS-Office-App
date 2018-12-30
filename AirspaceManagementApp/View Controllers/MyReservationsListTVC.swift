@@ -65,14 +65,14 @@ class MyReservationsListTVC: UITableViewController {
             if let reservation = self.upcoming[indexPath.row] as? AirConferenceRoomReservation {
                 self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)
             } else if let reservation = self.upcoming[indexPath.row] as? AirDeskReservation {
-                return
+                 self.performSegue(withIdentifier: "toDeskReservationVC", sender: reservation)
             }
         } else if indexPath.section == 1 {
             // past
             if let reservation = self.past[indexPath.row] as? AirConferenceRoomReservation {
                 self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)
             } else if let reservation = self.past[indexPath.row] as? AirDeskReservation {
-                return
+                  self.performSegue(withIdentifier: "toDeskReservationVC", sender: reservation)
             }
         }
     }
@@ -82,6 +82,10 @@ class MyReservationsListTVC: UITableViewController {
             let destination = segue.destination as? RoomReservationVC,
             let reservation = sender as? AirConferenceRoomReservation {
             destination.conferenceRoomReservation = reservation
+        } else if segue.identifier == "toDeskReservationVC",
+            let destination = segue.destination as? DeskReservationVC,
+            let reservation = sender as? AirDeskReservation {
+            destination.hotDeskReservation = reservation
         }
     }
 }

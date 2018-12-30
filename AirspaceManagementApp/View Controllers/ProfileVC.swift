@@ -62,10 +62,12 @@ class ProfileVC: UIViewController {
 
 extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
     
-    func reloadTableView(){
-        let range = NSMakeRange(0, self.tableView.numberOfSections)
-        let sections = NSIndexSet(indexesIn: range)
-        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+    func reloadTableView(with set: IndexSet? = nil) {
+        if let set = set {
+            self.tableView.reloadSections(set, with: .automatic)
+        } else {
+            self.tableView.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -303,9 +305,11 @@ extension ProfileVC: SeeMoreTVCDelegate {
             if identifier == "conferenceRooms" {
                 destination.upcoming = self.dataController?.upcomingReservations ?? []
                 destination.past = self.dataController?.pastReservations ?? []
+                destination.titleString = "My Room Reservations"
             } else if identifier == "hotDesks" {
                 destination.upcoming = self.dataController?.upcomingDeskReservations ?? []
                 destination.past = self.dataController?.pastDeskReservations ?? []
+                destination.titleString = "My Desk Reservations"
             }
         } else if segue.identifier == "toDeskReservationVC",
             let destination = segue.destination as? DeskReservationVC,
@@ -321,13 +325,13 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
         if let _ = error {
             let alertController = CFAlertViewController(title: "Oh no!🤯", message: "There was an issue uploading your new profile picture.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
             
-            let action = CFAlertAction(title: "Ok", style: .Default, alignment: .left, backgroundColor: .red, textColor: .black, handler: nil)
+            let action = CFAlertAction(title: "Ok", style: .Default, alignment: .justified, backgroundColor: .red, textColor: .black, handler: nil)
             alertController.addAction(action)
             self.present(alertController, animated: true)
         } else {
             let alertController = CFAlertViewController(title: "Rock on!🤟🏼 ", message: "Your profile picture was updated.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
             
-            let action = CFAlertAction(title: "Sounds Good", style: .Default, alignment: .right, backgroundColor: globalColor, textColor: nil, handler: nil)
+            let action = CFAlertAction(title: "Sounds Good", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil, handler: nil)
             alertController.addAction(action)
             self.present(alertController, animated: true)
         }
@@ -344,6 +348,9 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
     func didUpdateCarouselData() {
         if let upcomingGuests = self.dataController?.upcomingGuests {
             self.upcomingGuests = upcomingGuests
+            let sectionToReload = 4
+            let indexSet: IndexSet = [sectionToReload]
+            self.tableView.reloadSections(indexSet, with: .automatic)
         }
         if let open = self.dataController?.openSR,
             let pending = self.dataController?.closedSR {
@@ -351,16 +358,29 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
             array.append(contentsOf: open)
             array.append(contentsOf: pending)
             self.serviceRequests = array
+            let sectionToReload = 3
+            let indexSet: IndexSet = [sectionToReload]
+            self.tableView.reloadSections(indexSet, with: .automatic)
         }
         if let upcomingRes = self.dataController?.upcomingReservations {
             self.roomReservations = upcomingRes
+            let sectionToReload = 1
+            let indexSet: IndexSet = [sectionToReload]
+            self.tableView.reloadSections(indexSet, with: .automatic)
         }
         if let upcomingDeskRes = self.dataController?.upcomingDeskReservations {
             self.deskReservations = upcomingDeskRes
+            let sectionToReload = 2
+            let indexSet: IndexSet = [sectionToReload]
+            self.tableView.reloadSections(indexSet, with: .automatic)
         }
         
         if let profileImage = self.dataController?.profileImage {
             self.profileImage = profileImage
+            
+            let sectionToReload = 0
+            let indexSet: IndexSet = [sectionToReload]
+            self.tableView.reloadSections(indexSet, with: .automatic)
         }
         
         

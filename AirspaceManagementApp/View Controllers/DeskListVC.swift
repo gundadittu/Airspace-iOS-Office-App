@@ -23,7 +23,7 @@ class DeskListVC: UITableViewController {
         self.title = "Hot Desks"
         
         self.tableView.emptyDataSetDelegate = self
-        self.tableView.emptyDataSetDelegate = self
+        self.tableView.emptyDataSetSource = self
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "ConferenceRoomTVCell", bundle: nil), forCellReuseIdentifier: "ConferenceRoomTVCell")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(didClickFilter))
@@ -120,10 +120,10 @@ extension DeskListVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         if let isLoading = self.dataController?.isLoading,
             isLoading == true {
-            let attributedString = NSMutableAttributedString(string: "", attributes: globalTextAttrs)
+            let attributedString = NSMutableAttributedString(string: "", attributes: globalBoldTextAttrs)
             return attributedString
         } else {
-            return NSMutableAttributedString(string: "No desks!", attributes: globalTextAttrs)
+            return NSMutableAttributedString(string: "No desks!", attributes: globalBoldTextAttrs)
         }
     }
     

@@ -183,6 +183,7 @@ class HourBookingCVC: UICollectionViewCell {
         super.prepareForReuse()
         self.titleLabel.text = ""
         self.titleLabel.textColor = .black
+        self.allReservations = [AirReservation]()
         for view in self.subviews where view.tag == 2 {
             view.removeFromSuperview()
         }

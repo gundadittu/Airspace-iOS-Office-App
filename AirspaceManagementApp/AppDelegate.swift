@@ -31,19 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         // Signed in, load appropriate user UI based on user type
                         viewController = mainStoryboard.instantiateViewController(withIdentifier: "home") as! UITabBarController
                         UIApplication.shared.keyWindow?.rootViewController = viewController
-                        if #available(iOS 10.0, *) {
-                            // For iOS 10 display notification (sent via APNS)
-                            UNUserNotificationCenter.current().delegate = self
-                            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-                            UNUserNotificationCenter.current().requestAuthorization(
-                                options: authOptions,
-                                completionHandler: {_, _ in })
-                        } else {
-                            let settings: UIUserNotificationSettings =
-                                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-                            application.registerUserNotificationSettings(settings)
-                            application.registerForRemoteNotifications()
-                        }
                     })
             } else {
                 // Not signed in, load Login VC

@@ -95,8 +95,8 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         guard let email = usernameTextField.text,
             let password = passwordTextField.text,
             self.isValidEmail(text: email) == true else {
-                let alertController = CFAlertViewController(title: "Looks like you forgot something...", message: "Make sure to include a valid email and password.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
-                let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil, handler: nil)
+                let alertController = CFAlertViewController(title: "Looks like you forgot something...", message: "Make sure to include a valid email and password.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+                let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil, handler: nil)
                 alertController.addAction(action)
                 self.present(alertController, animated: true)
                 return
@@ -131,8 +131,8 @@ class LoginVC : UIViewController, UITextFieldDelegate {
     
     func sendPasswordResetEmail(with email: String?) {
         guard let email = email, self.isValidEmail(text: email) == true else {
-            let alertController = CFAlertViewController(title: "Looks like you forgot something...", message: "Make sure to include a valid email before requesting a reset link.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
-            let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil, handler: nil)
+            let alertController = CFAlertViewController(title: "Looks like you forgot something...", message: "Make sure to include a valid email before requesting a reset link.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+            let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil, handler: nil)
             alertController.addAction(action)
             self.present(alertController, animated: true)
             return
@@ -141,13 +141,13 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             self.loadingIndicator?.stopAnimating()
             if let _ = error {
-                let alertController = CFAlertViewController(title: "Oh no..", message: "We were unable to send you a link to reset your password.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
-                let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil, handler: nil)
+                let alertController = CFAlertViewController(title: "Oh no..", message: "We were unable to send you a link to reset your password.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+                let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil, handler: nil)
                 alertController.addAction(action)
                 self.present(alertController, animated: true)
             } else {
-                let alertController = CFAlertViewController(title: "Check your inbox!", message: "We've sent a link to reset your password to your email.", textAlignment: .center, preferredStyle: .alert, didDismissAlertHandler: nil)
-                let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .center, backgroundColor: globalColor, textColor: nil, handler: nil)
+                let alertController = CFAlertViewController(title: "Check your inbox!", message: "We've sent a link to reset your password to your email.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+                let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil, handler: nil)
                 alertController.addAction(action)
                 self.present(alertController, animated: true)
             }

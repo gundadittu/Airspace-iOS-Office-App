@@ -8,6 +8,7 @@
 
 import UIKit
 import NVActivityIndicatorView
+import NotificationBannerSwift
 
 class FindDeskVCSection: PageSection {
     var title = ""
@@ -165,6 +166,9 @@ extension FindDeskVC: FindDeskVCDataControllerDelegate {
             let desks = desks {
             // fix segue name
             self.performSegue(withIdentifier: "toDeskListVC", sender: desks)
+        } else {
+            let banner = NotificationBanner(title: "Darn it!", subtitle: "There was an issue loading available desks. Please try again later.", leftView: nil, rightView: nil, style: .danger, colors: nil)
+            banner.show()
         }
     }
     

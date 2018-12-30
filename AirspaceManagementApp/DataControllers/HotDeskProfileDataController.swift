@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 protocol HotDeskProfileDataControllerDelegate {
     func didFinishSubmittingData(withError error: Error?)
