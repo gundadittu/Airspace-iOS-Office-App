@@ -276,7 +276,7 @@ extension MainVC: CarouselTVCellDelegate {
         } else if let reservation = item.data as? AirConferenceRoomReservation {
             self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)
         } else if let reservation = item.data as? AirDeskReservation {
-            self.performSegue(withIdentifier: "toRoomReservationVC", sender: reservation)
+            self.performSegue(withIdentifier: "toDeskReservationVC", sender: reservation)
         }
     }
 }

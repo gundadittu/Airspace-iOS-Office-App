@@ -20,7 +20,7 @@ enum RoomAmenity: String, CaseIterable {
         case .whiteBoard:
             return "White Board"
         case .conferenceCallPhone:
-            return "Conferece Call Phone"
+            return "Conference Call Phone"
         case .largeMonitor:
             return "Large Monitor"
         case .screenSharing:

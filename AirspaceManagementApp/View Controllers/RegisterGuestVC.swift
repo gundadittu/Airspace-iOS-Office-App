@@ -51,8 +51,10 @@ class RegisterGuestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             destination.delegate = self
             if identifier == "name" {
                 destination.title = "Enter Name"
+                destination.initialText = self.dataController?.guestName ?? ""
             } else if identifier == "email" {
                 destination.title = "Enter Email"
+               destination.initialText = self.dataController?.guestEmail ?? ""
             }
         } else if segue.identifier == "RegisterGuestVCtoDateTimeInputVC",
             let destination = segue.destination as? DateTimeInputVC {

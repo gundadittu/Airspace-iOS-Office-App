@@ -125,7 +125,7 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
         if let set = set {
             self.tableView.reloadSections(set, with: .automatic)
         } else {
-            let set: IndexSet = [2]
+            let set: IndexSet = [0,1,2]
             self.tableView.reloadSections(set, with: .automatic)
         }
     }

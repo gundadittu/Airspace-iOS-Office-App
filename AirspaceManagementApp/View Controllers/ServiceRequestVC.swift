@@ -41,9 +41,13 @@ class ServiceRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ServiceRequestVCtoChooseTVC",
-            let destination = segue.destination as? ChooseTVC {
-            destination.type = sender as? ChooseTVCType
+            let destination = segue.destination as? ChooseTVC,
+            let type = sender as? ChooseTVCType {
+            destination.type = type
             destination.delegate = self
+            if type == .serviceRequestType {
+                destination.selectedServiceTypeItem = self.dataController?.issueType
+            }
         } else if segue.identifier ==  "ServiceRequestVCtoTextInputVC",
             let destination = segue.destination as? TextInputVC {
             destination.title = "Add a Note"

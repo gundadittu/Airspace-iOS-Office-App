@@ -10,7 +10,7 @@ import UIKit
 
 class TextInputVC: UIViewController {
 
-    @IBOutlet var textView: UITextView!
+    @IBOutlet weak var textView: UITextView!
     var delegate: TextInputVCDelegate?
     var initialText: String?
     var identifier: String? 

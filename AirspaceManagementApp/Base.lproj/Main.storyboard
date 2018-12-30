@@ -946,20 +946,33 @@
         <scene sceneID="cex-Ak-tXO">
             <objects>
                 <viewController id="eQ7-Na-JM3" customClass="TextInputVC" customModule="AirspaceManagementApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <textView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="xLw-0c-Df9">
+                    <view key="view" contentMode="scaleToFill" id="YNb-xi-jdc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tSB-nU-qWo">
+                                <rect key="frame" x="10" y="64" width="355" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="21"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="25"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
+                        <constraints>
+                            <constraint firstItem="tSB-nU-qWo" firstAttribute="top" secondItem="NRR-dv-8hy" secondAttribute="top" id="8gV-H7-Mi8"/>
+                            <constraint firstItem="tSB-nU-qWo" firstAttribute="bottom" secondItem="NRR-dv-8hy" secondAttribute="bottom" id="9Al-rv-hhf"/>
+                            <constraint firstItem="NRR-dv-8hy" firstAttribute="trailing" secondItem="tSB-nU-qWo" secondAttribute="trailing" constant="10" id="AD2-WR-f8i"/>
+                            <constraint firstItem="tSB-nU-qWo" firstAttribute="leading" secondItem="NRR-dv-8hy" secondAttribute="leading" constant="10" id="C3g-7s-UwM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="NRR-dv-8hy"/>
+                    </view>
                     <connections>
-                        <outlet property="textView" destination="xLw-0c-Df9" id="Guf-KM-HAL"/>
+                        <outlet property="textView" destination="tSB-nU-qWo" id="qTg-Tp-J7Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3kS-4n-QZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5190" y="755"/>
+            <point key="canvasLocation" x="5189.6000000000004" y="754.27286356821594"/>
         </scene>
         <!--Date Time InputVC-->
         <scene sceneID="p6F-IQ-N6a">
@@ -1171,12 +1184,12 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="1Pu-07-iuP"/>
-        <segue reference="PpA-1h-ZrX"/>
-        <segue reference="aVz-0w-RKD"/>
-        <segue reference="BE0-wO-9YW"/>
+        <segue reference="Wy7-hw-B7D"/>
+        <segue reference="cxF-zx-cdi"/>
+        <segue reference="zWd-J1-tuq"/>
         <segue reference="vLk-3V-1hZ"/>
-        <segue reference="BA3-TL-khd"/>
-        <segue reference="gmU-oB-dfp"/>
+        <segue reference="lPI-wf-qzA"/>
+        <segue reference="8Dh-Ob-iMo"/>
         <segue reference="HhH-ow-cCg"/>
         <segue reference="hS2-gp-soT"/>
     </inferredMetricsTieBreakers>

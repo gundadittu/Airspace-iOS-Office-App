@@ -26,6 +26,7 @@ class ChooseTVC: UITableViewController {
     var data = [AnyObject]()
     var selectedAmenities = [RoomAmenity]()
     var selectedEmployees = [AirUser]()
+    var selectedServiceTypeItem: ServiceRequestTypeItem?
     var loadingIndicator: NVActivityIndicatorView?
     var delegate: ChooseTVCDelegate?
     var officeObj: AirOffice?
@@ -174,53 +175,10 @@ class ChooseTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        switch self.type {
-//        case .landlords?:
-//            break
-//        case .none:
-//            break
-//        case .some(.buildings):
-//            break
-//        case .some(.offices):
-//            break
-//        case .some(.serviceRequestType):
-//            return ServiceRequestTypeController.shared.sections[section].title
-//        case .some(.duration):
-//            break
-//        case .some(.capacity):
-//            break
-//        case .some(.roomAmenities):
-//            break
-//        case .some(.employees):
-//            break
-//        }
         return nil
     }
     
-    // MARK: - Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
-//        switch self.type {
-//        case .landlords?:
-//           break
-//        case .none:
-//            break
-//        case .some(.buildings):
-//            break
-//        case .some(.offices):
-//            break
-//        case .some(.serviceRequestType):
-//            return ServiceRequestTypeController.shared.sections.count
-//
-//        case .some(.duration):
-//            break
-//        case .some(.capacity):
-//            break
-//        case .some(.roomAmenities):
-//            break
-//        case .some(.employees):
-//            break
-//        }
         return 1
     }
     
@@ -255,9 +213,6 @@ class ChooseTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ChooseCell")
-        //        if let dqcell = tableView.dequeueReusableCell(withIdentifier: "ChooseCell", for: indexPath) as? UITableViewCell {
-        //            cell = dqcell
-        //        }
         
         switch self.type {
         case .landlords?:
@@ -267,9 +222,6 @@ class ChooseTVC: UITableViewController {
         case .none:
             return cell
         case .some(.buildings):
-//            if let list = self.data as? [AirBuilding] {
-//                cell.configureCell(with: list[indexPath.row])
-//            }
             break
         case .some(.offices):
             if let list = self.data as? [AirOffice] {
@@ -277,7 +229,7 @@ class ChooseTVC: UITableViewController {
             }
         case .some(.serviceRequestType):
             let item = ServiceRequestTypeItem.allCases[indexPath.row]
-            cell.configureCell(with: item)
+            cell.configureCell(with: item, and: (self.selectedServiceTypeItem?.rawValue == item.rawValue))
         case .some(.duration):
             let dur = Duration.allCases[indexPath.row]
             cell.configureCell(with: dur)

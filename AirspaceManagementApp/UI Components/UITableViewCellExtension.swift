@@ -82,9 +82,12 @@ extension UITableViewCell {
 //    }
 
     
-    func configureCell(with srType: ServiceRequestTypeItem) {
+    func configureCell(with srType: ServiceRequestTypeItem, and selected: Bool = false) {
         let text = srType.title
         self.textLabel?.attributedText = NSMutableAttributedString(string: text, attributes: globalTextAttrs)
+        if selected == true {
+            self.accessoryType = .checkmark
+        }
     }
     
     func configureCell(with duration: Duration) {
