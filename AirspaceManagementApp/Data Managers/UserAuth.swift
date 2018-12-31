@@ -44,13 +44,10 @@ class UserAuth {
     }
     
     var currUserType: UserType?
+
     
     func populateUserType(completionHandler: @escaping (UserType?) -> Void) {
-        guard let uid = self.uid else {
-            completionHandler(nil)
-            return
-        }
-        functions.httpsCallable("getUserProfile").call(["userUID":uid]) { (result, error) in
+        functions.httpsCallable("getUserType").call { (result, error) in
             if let resultData = result?.data as? [String: Any],
                 let typeString = resultData["type"] as? String,
                 let userType = UserType(rawValue: typeString) {
@@ -70,6 +67,14 @@ class UserAuth {
                 return
             }
             completionHandler(user, nil)
+
+//            self.populateUserType(completionHandler: { (type) in
+//                if (type == nil) {
+//                    completionHandler(nil, NSError())
+//                } else {
+//                    completionHandler(user, nil)
+//                }
+//            })
         }
     }
     

@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
+import FirebaseMessaging
 import UserNotifications
 import NotificationBannerSwift
 

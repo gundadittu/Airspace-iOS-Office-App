@@ -63,7 +63,7 @@ class FindRoomVCDataController {
     
     public func setSelectedDuration(with duration: Duration) {
         self.selectedDuration = duration
-//        self.delegate?.reloadTableView()
+        self.delegate?.reloadTableView()
     }
     
     public func setSelectedStartDate(with date: Date) {

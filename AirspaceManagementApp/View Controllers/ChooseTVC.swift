@@ -37,7 +37,7 @@ class ChooseTVC: UITableViewController {
             let _ = self.delegate else {
                 fatalError("Did not provide a type and/or delegate for ChooseTVC")
         }
-        self.title = (type == .roomAmenities) ? "Choose Room Amenities": "Choose a \(type.rawValue)"
+        self.title = getTitle(with: type)
         self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
         self.view.addSubview(self.loadingIndicator!)
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChooseCell")
@@ -56,6 +56,28 @@ class ChooseTVC: UITableViewController {
             self.tableView.allowsMultipleSelection = false
 //             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(didClickClear))
         }
+    }
+    
+    func getTitle(with type: ChooseTVCType) -> String {
+        switch type{
+        case .landlords:
+            break
+        case .buildings:
+            break
+        case .offices:
+            break
+        case .serviceRequestType:
+            break
+        case .duration:
+            break
+        case .capacity:
+            break
+        case .roomAmenities:
+            return "Choose Room Amenities"
+        case .employees:
+            return "Choose Attendees"
+        }
+        return "Choose a \(type.rawValue)"
     }
     
     @objc func didClickSave() {
@@ -92,48 +114,23 @@ class ChooseTVC: UITableViewController {
     func loadData() {
         switch self.type {
         case .landlords?:
-//            self.loadingIndicator?.startAnimating()
-//            UserManager.shared.getAllLandlords() { (list, error) in
-//                self.loadingIndicator?.stopAnimating()
-//                if let _ = error {
-//                    var banner: StatusBarNotificationBanner?
-//                    banner = StatusBarNotificationBanner(title: "Error loading landlords.", style: .danger)
-//                    banner?.show()
-//                }
-//                if let list = list {
-//                    self.data = list
-//                    self.tableView.reloadData()
-//                }
-//            }
             break
         case .none:
             return
         case .some(.buildings):
-            self.loadingIndicator?.startAnimating()
-//            BuildingManager.shared.getAllBuildings() { (list, error) in
-//                self.loadingIndicator?.stopAnimating()
+//            self.loadingIndicator?.startAnimating()
+//            UserManager.shared.getCurrentUsersOffices { (offices, error) in
 //                if let _ = error {
-//                    var banner: StatusBarNotificationBanner?
-//                    banner = StatusBarNotificationBanner(title: "Error loading buildings.", style: .danger)
-//                    banner?.show()
+//                    let banner = StatusBarNotificationBanner(title: "Error loading Offices.", style: .danger)
+//                    banner.show()
+//                    return
 //                }
-//                if let list = list {
-//                    self.data = list
+//
+//                if let offices = offices {
+//                   self.data = offices
 //                    self.tableView.reloadData()
 //                }
 //            }
-            UserManager.shared.getCurrentUsersOffices { (offices, error) in
-                if let _ = error {
-                    let banner = StatusBarNotificationBanner(title: "Error loading Offices.", style: .danger)
-                    banner.show()
-                    return
-                }
-
-                if let offices = offices {
-                   self.data = offices
-                    self.tableView.reloadData()
-                }
-            }
             break
         case .some(.offices):
             self.loadingIndicator?.startAnimating()
