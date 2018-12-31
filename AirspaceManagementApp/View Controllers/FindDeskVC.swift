@@ -77,7 +77,8 @@ extension FindDeskVC: UITableViewDelegate, UITableViewDataSource {
             }
         case .startTime:
             if let date = self.dataController?.selectedStartDate {
-                section.selectedButtonTitle = date.localizedDescription
+                let dateString = date.localizedMedDateDescription+" at "+date.localizedDescriptionNoDate
+                section.selectedButtonTitle = dateString
             } else {
                 section.selectedButtonTitle = nil
             }

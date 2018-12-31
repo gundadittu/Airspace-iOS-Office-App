@@ -367,7 +367,7 @@ extension ReserveVC: CarouselTVCellDelegate {
             let destination = segue.destination as? FindRoomVC,
             let duration = sender as? Duration {
             let dataController = FindRoomVCDataController(delegate: destination, shouldAutomaticallySubmit: true)
-            dataController.setSelectedDuration(with: duration)
+            dataController.selectedDuration = duration
             destination.dataController = dataController
         } else if segue.identifier == "toConferenceRoomProfileTVC",
             let destination = segue.destination as? ConferenceRoomProfileTVC,
@@ -396,7 +396,7 @@ extension ReserveVC: CarouselTVCellDelegate {
             let destination = segue.destination as? FindDeskVC,
             let duration = sender as? Duration {
             let dataController = FindDeskVCDataController(delegate: destination, shouldAutomaticallySubmit: true)
-            dataController.setSelectedDuration(with: duration)
+            dataController.selectedDuration = duration
             destination.dataController = dataController
         }
     }

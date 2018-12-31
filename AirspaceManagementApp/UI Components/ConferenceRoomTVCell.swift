@@ -243,7 +243,7 @@ extension ConferenceRoomTVCell {
         let firstDate = timeRangeStartDate
         var firstDateComponents =  Calendar.current.dateComponents(in: TimeZone.current, from: firstDate)
         if self.timeRangeStartDate.isToday == false {
-            firstDateComponents.setValue(0, for: .hour)
+            firstDateComponents.setValue(7, for: .hour)
         }
         firstDateComponents.setValue(0, for: .minute)
         firstDateComponents.setValue(0, for: .second)
