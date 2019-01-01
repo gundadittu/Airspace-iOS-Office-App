@@ -640,8 +640,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="LN1-db-f9l" firstAttribute="bottom" secondItem="81E-Es-QMx" secondAttribute="bottom" id="063-Hh-ORa"/>
+                            <constraint firstItem="LN1-db-f9l" firstAttribute="trailing" secondItem="TB1-OY-z8X" secondAttribute="trailing" constant="10" id="GwT-pK-1Cm"/>
                             <constraint firstItem="81E-Es-QMx" firstAttribute="leading" secondItem="LN1-db-f9l" secondAttribute="leading" id="IT3-i4-liD"/>
-                            <constraint firstItem="LN1-db-f9l" firstAttribute="trailing" secondItem="TB1-OY-z8X" secondAttribute="trailing" constant="10" id="cJY-o9-Sqe"/>
                             <constraint firstItem="81E-Es-QMx" firstAttribute="top" secondItem="TB1-OY-z8X" secondAttribute="bottom" constant="10" id="ibC-AP-xBR"/>
                             <constraint firstItem="TB1-OY-z8X" firstAttribute="leading" secondItem="LN1-db-f9l" secondAttribute="leading" constant="10" id="k0Z-L6-h9g"/>
                             <constraint firstItem="81E-Es-QMx" firstAttribute="trailing" secondItem="LN1-db-f9l" secondAttribute="trailing" id="uuW-i0-82F"/>
@@ -1183,14 +1183,14 @@
         <image name="textLogo" width="353" height="197"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1Pu-07-iuP"/>
+        <segue reference="LxT-o5-97Q"/>
         <segue reference="Wy7-hw-B7D"/>
-        <segue reference="cxF-zx-cdi"/>
+        <segue reference="5ra-Sn-Psd"/>
         <segue reference="zWd-J1-tuq"/>
         <segue reference="vLk-3V-1hZ"/>
         <segue reference="lPI-wf-qzA"/>
-        <segue reference="8Dh-Ob-iMo"/>
-        <segue reference="HhH-ow-cCg"/>
-        <segue reference="hS2-gp-soT"/>
+        <segue reference="mpk-vD-G6J"/>
+        <segue reference="cZ5-af-4zJ"/>
+        <segue reference="Rry-8f-dV1"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -133,7 +133,7 @@ extension DeskListVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
             let attributedString = NSMutableAttributedString(string: "", attributes: globalTextAttrs)
             return attributedString
         } else {
-            return NSMutableAttributedString(string: "Even Indiana Jones couldn't find anything with that criteria.", attributes: globalTextAttrs)
+            return NSMutableAttributedString(string: "We couldn't find anything that meets your criteria.", attributes: globalTextAttrs)
         }
     }
     
@@ -142,7 +142,7 @@ extension DeskListVC: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
             isLoading == true {
             return UIImage()
         } else {
-            return UIImage(named: "indiana")
+            return UIImage(named: "telescope")
         }
     }
 }
