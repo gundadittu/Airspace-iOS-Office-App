@@ -52,7 +52,6 @@ class ReservationManager {
                 completionHandler(nil)
             }
         }
-        
     }
     
     func getReservationsForConferenceRoom(startDate: Date, endDate: Date, conferenceRoomUID: String, completionHandler: @escaping ([AirConferenceRoomReservation]?, Error?) -> Void) {

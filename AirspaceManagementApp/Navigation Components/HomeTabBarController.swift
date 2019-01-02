@@ -30,14 +30,31 @@ class HomeTabBarController : UITabBarController {
         case .tenantEmployee?:
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let mainNav = mainStoryboard.instantiateViewController(withIdentifier: "mainNav") as! HomeNavController
+            if let rootVC = mainNav.viewControllers.first as? MainVC {
+                let dataController = MainVCDataController(delegate: rootVC)
+                rootVC.dataController = dataController
+            }
             mainNav.tabBarItem =  UITabBarItem(title: "HOME", image: UIImage(named: "home-icon"), selectedImage: nil)
             let reserveNav = mainStoryboard.instantiateViewController(withIdentifier: "reserveNav") as! ReserveNavController
             reserveNav.tabBarItem = UITabBarItem(title: "RESERVE", image: UIImage(named: "reserve-icon-tab"), selectedImage: nil)
-            
-    
+            if let rootVC = reserveNav.viewControllers.first as? ReserveVC {
+                let dataController = ReserveVCDataController(delegate: rootVC)
+                rootVC.dataController = dataController
+            }
+
             let alertNav = mainStoryboard.instantiateViewController(withIdentifier: "notificationNav") as! UINavigationController
             alertNav.tabBarItem =  UITabBarItem(title: "ALERTS", image: UIImage(named: "alert-icon"), selectedImage: nil)
+            if let rootVC = alertNav.viewControllers.first as? NotificationsVC {
+                let dataController = NotificationVCDataController(delegate: rootVC)
+                rootVC.dataController = dataController
+            }
+            
             let profileNav = mainStoryboard.instantiateViewController(withIdentifier: "profileNav") as! ProfileNavController
+            if let rootVC = profileNav.viewControllers.first as? ProfileVC {
+                let dataController = ProfileVCDataController(delegate: rootVC)
+                rootVC.dataController = dataController
+            }
+            
             profileNav.tabBarItem =  UITabBarItem(title: "PROFILE", image: UIImage(named: "profile-icon"), selectedImage: nil)
 
             let array: [UIViewController] = [mainNav, reserveNav, alertNav, profileNav]

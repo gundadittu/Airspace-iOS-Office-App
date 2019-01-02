@@ -11,6 +11,7 @@ import UIKit
 import BetterSegmentedControl
 import NVActivityIndicatorView
 import SwiftPullToRefresh
+import NotificationBannerSwift
 
 class ReserveVC: UIViewController {
     
@@ -26,6 +27,7 @@ class ReserveVC: UIViewController {
     var loadingIndicator: NVActivityIndicatorView?
     var allRoomsStartDate = Date()
     var allDesksStartDate = Date()
+    var dataController: ReserveVCDataController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +40,12 @@ class ReserveVC: UIViewController {
         self.tableView.register(UINib(nibName: "SeeMoreTVC", bundle: nil), forCellReuseIdentifier: "SeeMoreTVC")
         self.tableView.register(UINib(nibName: "ConferenceRoomTVCell", bundle: nil), forCellReuseIdentifier: "ConferenceRoomTVCell")
         
+        if self.dataController == nil {
+            self.dataController = ReserveVCDataController(delegate: self)
+        }
+        
         self.tableView.spr_setTextHeader { [weak self] in
-            self?.loadData()
+            self?.dataController?.loadData(for: self?.type)
         }
         
         let control = BetterSegmentedControl(
@@ -64,8 +70,6 @@ class ReserveVC: UIViewController {
         self.tableView.addSubview(self.loadingIndicator!)
         
         self.updateQuickReserveTimeRangeOptions()
-        
-        self.loadAllConferenceRooms()
     }
     
     @objc func controlValueChanged(_ sender: BetterSegmentedControl) {
@@ -78,8 +82,7 @@ class ReserveVC: UIViewController {
             self.type = .hotDesks
         }
         self.updateQuickReserveTimeRangeOptions()
-        self.loadData()
-        self.reloadTableView()
+//        self.dataController?.loadData(for: self.type)
     }
     
     func updateQuickReserveTimeRangeOptions() {
@@ -122,11 +125,13 @@ class ReserveVC: UIViewController {
 extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
     
     func reloadTableView(with set: IndexSet? = nil) {
-        if let set = set {
-            self.tableView.reloadSections(set, with: .automatic)
-        } else {
-            let set: IndexSet = [0,1,2]
-            self.tableView.reloadSections(set, with: .automatic)
+        if let tableView = self.tableView {
+            if let set = set {
+                tableView.reloadSections(set, with: .automatic)
+            } else {
+                let set: IndexSet = [0,1,2]
+                tableView.reloadSections(set, with: .automatic)
+            }
         }
     }
     
@@ -415,50 +420,86 @@ extension ReserveVC: DateTimeInputVCDelegate {
     }
 }
 
-extension ReserveVC {
+extension ReserveVC: ReserveVCDataControllerDelegate {
     
-    func loadData() {
-        switch self.type {
-        case .conferenceRooms:
-            loadAllConferenceRooms()
-        case .hotDesks:
-            loadAllHotDesks()
-        }
+    func startLoadingIndicator() {
+        self.loadingIndicator?.startAnimating()
     }
     
-    func loadAllHotDesks() {
-        self.loadingIndicator?.startAnimating()
-        FindDeskManager.shared.getAllHotDesksForUser { (desks, error) in
-            self.tableView.spr_endRefreshing()
+    func stopLoadingIndicator() {
+        if self.dataController?.isLoading == false  {
             self.loadingIndicator?.stopAnimating()
-            if let _ = error {
-                return
-            } else if let desks = desks {
-                self.allHotDesks = desks
-                self.reloadTableView()
-            } else {
-                // handle error
-                return
-            }
         }
     }
-
-    func loadAllConferenceRooms() {
-        self.loadingIndicator?.startAnimating()
-        FindRoomManager.shared.getAllConferenceRoomsForUser { (rooms, error) in
-            self.tableView.spr_endRefreshing()
-            self.loadingIndicator?.stopAnimating()
-            if let _ = error {
-                return
-            } else if let rooms = rooms {
-                self.allConferenceRooms = rooms
+    
+    func didLoadData(allRooms: [AirConferenceRoom]?, allDesks: [AirDesk]?, with error: Error?) {
+        if let _ = error {
+            let banner = NotificationBanner(title: "Zoinks!", subtitle: "We were unable to load your conference rooms and desk. Please try again later.", leftView: nil, rightView: nil, style: .success, colors: nil)
+            banner.show()
+        }
+        if let allRooms = allRooms {
+            self.allConferenceRooms = allRooms
+            if self.type == .conferenceRooms {
                 self.reloadTableView()
-            } else {
-                // handle error
-                return
             }
         }
+        
+        if let allDesks = allDesks {
+            self.allHotDesks = allDesks
+            if self.type == .hotDesks {
+                self.reloadTableView()
+            }
+        }
+        
+        if self.dataController?.isLoading == false,
+            let tableView = self.tableView {
+            tableView.spr_endRefreshing()
+        }
     }
+    
+    
+//    func loadData() {
+//        switch self.type {
+//        case .conferenceRooms:
+//            loadAllConferenceRooms()
+//        case .hotDesks:
+//            loadAllHotDesks()
+//        }
+//    }
+//
+//    func loadAllHotDesks() {
+//        self.loadingIndicator?.startAnimating()
+//        FindDeskManager.shared.getAllHotDesksForUser { (desks, error) in
+//            self.tableView.spr_endRefreshing()
+//            self.loadingIndicator?.stopAnimating()
+//            if let _ = error {
+//                return
+//            } else if let desks = desks {
+//                self.allHotDesks = desks
+//                self.reloadTableView()
+//            } else {
+//                // handle error
+//                return
+//            }
+//        }
+//    }
+//
+//    func loadAllConferenceRooms() {
+//        self.loadingIndicator?.startAnimating()
+//        FindRoomManager.shared.getAllConferenceRoomsForUser { (rooms, error) in
+//            self.tableView.spr_endRefreshing()
+//            self.loadingIndicator?.stopAnimating()
+//            if let _ = error {
+//                return
+//            } else if let rooms = rooms {
+//                self.allConferenceRooms = rooms
+//                self.reloadTableView()
+//            } else {
+//                // handle error
+//                return
+//            }
+//        }
+//    }
 }
 
 extension ReserveVC: ConferenceRoomTVCellDelegate {

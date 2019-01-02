@@ -74,14 +74,37 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         self.bannerImage.layer.mask = gradient
     }
     
-    public func loadCurrentTimeIndexPath() {
+    public func loadCurrentTimeIndexPath(date: Date) {
         var currentIndex = 0
-        for hourSegment in self.hourSegments {
-            let dateInterval = DateInterval(start: hourSegment, duration: TimeInterval(3599))
-            if dateInterval.contains(Date()) {
-                self.currentTimeIndexPath = IndexPath(row: currentIndex, section: 0)
+        
+        if let existingRes = self.conferenceRoomReservation,
+            let startDate = existingRes.startingDate {
+            for hourSegment in self.hourSegments {
+                let dateInterval = DateInterval(start: hourSegment, duration: TimeInterval(3599))
+                if dateInterval.contains(startDate) {
+                    self.currentTimeIndexPath = IndexPath(row: currentIndex, section: 0)
+                }
+                currentIndex += 1
             }
-            currentIndex += 1
+        } else if let existingRes = self.hotDeskReservation,
+            let startDate = existingRes.startingDate {
+            for hourSegment in self.hourSegments {
+                let dateInterval = DateInterval(start: hourSegment, duration: TimeInterval(3599))
+                if dateInterval.contains(startDate) {
+                    self.currentTimeIndexPath = IndexPath(row: currentIndex, section: 0)
+                }
+                currentIndex += 1
+            }
+        } else if date.isToday {
+            for hourSegment in self.hourSegments {
+                let dateInterval = DateInterval(start: hourSegment, duration: TimeInterval(3599))
+                if dateInterval.contains(Date()) {
+                    self.currentTimeIndexPath = IndexPath(row: currentIndex, section: 0)
+                }
+                currentIndex += 1
+            }
+        } else {
+            self.currentTimeIndexPath = nil
         }
     }
     
@@ -121,11 +144,7 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         reservationRangeStartDateComponents.setValue(0, for: .nanosecond)
         
         // sets start time and end time for the time frame that we are trying to display EXISTING reservations for
-        if !date.isToday,
-            !date.isInRange(date: self.timeRangeStartDate, and: self.timeRangeEndDate) {
-            self.shouldScrollToMorning = true
-        }
-        
+     
         if let reservationRangeStartDate = reservationRangeStartDateComponents.date {
             let reservationRangeEndDate = reservationRangeStartDate.addingTimeInterval(TimeInterval(60*60*24))
             self.timeRangeStartDate = reservationRangeStartDate
@@ -142,8 +161,11 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         
         self.populateHourSegmentsAndDates(with: date)
         
-        if date.isToday {
-            self.loadCurrentTimeIndexPath()
+        if self.conferenceRoomReservation != nil || self.hotDeskReservation != nil || date.isToday {
+            self.loadCurrentTimeIndexPath(date: date)
+        } else if !date.isToday,
+            !date.isInRange(date: self.timeRangeStartDate, and: self.timeRangeEndDate) {
+            self.shouldScrollToMorning = true
         }
         
         // Remove existing time slot view (given tag 1), so that new one can be configured
@@ -253,8 +275,8 @@ extension ConferenceRoomDetailedTVC: UICollectionViewDelegate, UICollectionViewD
                 self.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: true)
                 row = row+2
             }
-            self.currentTimeIndexPath = nil
             self.collectionView.scrollToItem(at: currentTimeIndexPath, at: .left, animated: true)
+            self.currentTimeIndexPath = nil
         }
     }
     
@@ -271,7 +293,6 @@ extension ConferenceRoomDetailedTVC: UICollectionViewDelegate, UICollectionViewD
         let interval = DateInterval(start: cell.startingDate!, end: cell.endingDate!)
         if interval.contains(Date()) {
             cell.titleLabel.textColor = globalColor
-            self.currentTimeIndexPath = indexPath
         }
         
         // Ensures that the selectedTimeSlotView's minimum width translates to 15 minutes
@@ -342,7 +363,7 @@ extension ConferenceRoomDetailedTVC {
         DeskReservationManager.shared.getReservationsForHotDesk(startDate: timeRangeStartDate, endDate: timeRangeEndDate, deskUID: deskUID) { (reservations, error) in
             self.delegate?.stopLoadingIndicator()
             if let _ = error {
-                // handle error
+                self.addErrorStatusBar()
                 return
             } else if let reservations = reservations {
                 self.reservations = reservations
@@ -366,7 +387,7 @@ extension ConferenceRoomDetailedTVC {
         ReservationManager.shared.getReservationsForConferenceRoom(startDate: timeRangeStartDate, endDate: timeRangeEndDate, conferenceRoomUID: roomUID) { (reservations, error) in
             self.delegate?.stopLoadingIndicator()
             if let _ = error {
-                // handle error
+                self.addErrorStatusBar()
                 return
             } else if let reservations = reservations {
                 self.reservations = reservations
@@ -446,7 +467,29 @@ extension ConferenceRoomDetailedTVC {
             }
         }
         let view = UIView()
-        let viewWidth = self.bannerImage.frame.width/(2.5)
+        let viewWidth = self.bannerImage.frame.width/(2.3)
+        let viewHeight = self.bannerImage.frame.height/6
+        view.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: viewWidth, height: viewHeight)
+        view.backgroundColor = backgroundColor
+        view.roundCorners(corners: UIRectCorner.bottomRight, radius: CGFloat(10))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        label.textColor = .white
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        var localAttrs = globalWhiteTextAttrs
+        localAttrs[NSAttributedString.Key.paragraphStyle] = paragraph
+        let attributedString = NSMutableAttributedString(string: string, attributes: localAttrs)
+        label.attributedText = attributedString
+        view.addSubview(label)
+        self.bannerImage.addSubview(view)
+    }
+    
+    func addErrorStatusBar() {
+        let string = "Unable to load reservation data"
+        let backgroundColor = UIColor.flatRed
+        let view = UIView()
+        let viewWidth = self.bannerImage.frame.width/(1.5)
         let viewHeight = self.bannerImage.frame.height/6
         view.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: viewWidth, height: viewHeight)
         view.backgroundColor = backgroundColor

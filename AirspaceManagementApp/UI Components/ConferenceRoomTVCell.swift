@@ -146,37 +146,58 @@ class ConferenceRoomTVCell: UITableViewCell {
     }
     
     func addColorStatusBar() {
-        var string = ""
-        var backgroundColor = UIColor.flatGreenDark
-        var nextStartDate: Date?
-        var isBusy = false
-        for reservation in reservations {
-            if let startDate = reservation.startingDate,
-                let endDate = reservation.endDate {
-                let dateInterval = DateInterval(start: startDate, end: endDate)
-                let currDate = Date()
-                if dateInterval.contains(currDate) {
-                  string = "Busy till \(endDate.localizedShortTimeDescription)"
-                isBusy = true
-                  backgroundColor = UIColor.flatRedDark
-                }
-                if nextStartDate == nil,
-                    startDate > Date() {
+            var string = ""
+            var backgroundColor = UIColor.flatGreenDark
+            var nextStartDate: Date?
+            var isBusy = false
+            for reservation in reservations {
+                if let startDate = reservation.startingDate,
+                    let endDate = reservation.endDate {
+                    let dateInterval = DateInterval(start: startDate, end: endDate)
+                    let currDate = Date()
+                    if dateInterval.contains(currDate) {
+                        string = "Busy till \(endDate.localizedShortTimeDescription)"
+                        isBusy = true
+                        backgroundColor = UIColor.flatRedDark
+                    }
+                    if nextStartDate == nil,
+                        startDate > Date() {
                         nextStartDate = startDate
+                    }
                 }
             }
-        }
-        
-        if isBusy == false {
-            if let date = nextStartDate {
-                 string = "Available till \(date.localizedShortTimeDescription)"
-            } else {
-                 string = "Available all day"
+            if isBusy == false {
+                if let date = nextStartDate {
+                    string = "Available till \(date.localizedShortTimeDescription)"
+                } else {
+                    string = "Available all day"
+                }
             }
-        }
+            let view = UIView()
+            let viewWidth = self.bannerImage.frame.width/(2.3)
+            let viewHeight = self.bannerImage.frame.height/6
+            view.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: viewWidth, height: viewHeight)
+            view.backgroundColor = backgroundColor
+            view.roundCorners(corners: UIRectCorner.bottomRight, radius: CGFloat(10))
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+            label.textColor = .white
+            
+            let paragraph = NSMutableParagraphStyle()
+            paragraph.alignment = .center
+            var localAttrs = globalWhiteTextAttrs
+            localAttrs[NSAttributedString.Key.paragraphStyle] = paragraph
+            let attributedString = NSMutableAttributedString(string: string, attributes: localAttrs)
+            label.attributedText = attributedString
+            view.addSubview(label)
+            self.bannerImage.addSubview(view)
+    }
+    
+    func addErrorStatusBar() {
+        let string = "Unable to load reservation data"
+        let backgroundColor = UIColor.flatRed
         let view = UIView()
-        let viewWidth = self.bannerImage.frame.width/(2.5)
-        let viewHeight = self.bannerImage.frame.height/5
+        let viewWidth = self.bannerImage.frame.width/(1.5)
+        let viewHeight = self.bannerImage.frame.height/6
         view.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: viewWidth, height: viewHeight)
         view.backgroundColor = backgroundColor
         view.roundCorners(corners: UIRectCorner.bottomRight, radius: CGFloat(10))
@@ -285,7 +306,7 @@ extension ConferenceRoomTVCell {
             guard let deskUID = self.hotDesk?.uid else { return }
             DeskReservationManager.shared.getReservationsForHotDesk(startDate: timeRangeStartDate, endDate: timeRangeEndDate, deskUID: deskUID) { (reservations, error) in
                 if let _ = error {
-                    // handle error
+                    self.addErrorStatusBar()
                     return
                 } else if let reservations = reservations {
                     self.reservations = reservations
@@ -297,7 +318,7 @@ extension ConferenceRoomTVCell {
             guard let roomUID = self.conferenceRoom?.uid else { return }
             ReservationManager.shared.getReservationsForConferenceRoom(startDate: timeRangeStartDate, endDate: timeRangeEndDate, conferenceRoomUID: roomUID) { (reservations, error) in
                 if let _ = error {
-                    // handle error
+                    self.addErrorStatusBar()
                     return
                 } else if let reservations = reservations {
                     self.reservations = reservations

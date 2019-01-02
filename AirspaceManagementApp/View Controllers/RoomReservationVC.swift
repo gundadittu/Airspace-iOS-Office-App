@@ -248,12 +248,7 @@ extension RoomReservationVC: RoomReservationVCDataControllerDelegate {
             let alertController = CFAlertViewController(title: "Get Working!🤟🏼 ", message: "Your reservations has been updated.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
             
             let action = CFAlertAction(title: "Sounds Good", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil) { (action) in
-                for controller in self.navigationController!.viewControllers as Array {
-                    if controller.isKind(of: ReserveVC.self) {
-                        self.navigationController!.popToViewController(controller, animated: true)
-                        break
-                    }
-                }
+                self.navigationController!.popViewController(animated: true)
             }
             alertController.addAction(action)
             self.present(alertController, animated: true)

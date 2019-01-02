@@ -62,10 +62,12 @@ class ProfileVC: UIViewController {
 extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
     
     func reloadTableView(with set: IndexSet? = nil) {
-        if let set = set {
-            self.tableView.reloadSections(set, with: .automatic)
-        } else {
-            self.tableView.reloadData()
+        if let tableView = self.tableView {
+            if let set = set {
+                tableView.reloadSections(set, with: .automatic)
+            } else {
+               tableView.reloadData()
+            }
         }
     }
     
@@ -334,7 +336,7 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
             self.upcomingGuests = upcomingGuests
             let sectionToReload = 4
             let indexSet: IndexSet = [sectionToReload]
-            self.tableView.reloadSections(indexSet, with: .automatic)
+            self.reloadTableView(with: indexSet)
         }
         if let open = self.dataController?.openSR,
             let pending = self.dataController?.closedSR {
@@ -344,19 +346,19 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
             self.serviceRequests = array
             let sectionToReload = 3
             let indexSet: IndexSet = [sectionToReload]
-            self.tableView.reloadSections(indexSet, with: .automatic)
+            self.reloadTableView(with: indexSet)
         }
         if let upcomingRes = self.dataController?.upcomingReservations {
             self.roomReservations = upcomingRes
             let sectionToReload = 1
             let indexSet: IndexSet = [sectionToReload]
-            self.tableView.reloadSections(indexSet, with: .automatic)
+            self.reloadTableView(with: indexSet)
         }
         if let upcomingDeskRes = self.dataController?.upcomingDeskReservations {
             self.deskReservations = upcomingDeskRes
             let sectionToReload = 2
             let indexSet: IndexSet = [sectionToReload]
-            self.tableView.reloadSections(indexSet, with: .automatic)
+            self.reloadTableView(with: indexSet)
         }
         
         if let profileImage = self.dataController?.profileImage {
@@ -364,14 +366,14 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
             
             let sectionToReload = 0
             let indexSet: IndexSet = [sectionToReload]
-            self.tableView.reloadSections(indexSet, with: .automatic)
+            self.reloadTableView(with: indexSet)
         }
         
         
-        if (self.dataController?.isLoading == false) {
-            self.tableView.spr_endRefreshing()
+        if (self.dataController?.isLoading == false),
+            let tableView = self.tableView {
+            tableView.spr_endRefreshing()
         }
-        self.reloadTableView()
     }
 }
 

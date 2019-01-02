@@ -50,7 +50,9 @@ extension NotificationsVC: UITableViewDataSource {
 //        let range = NSMakeRange(0, self.tableView.numberOfSections)
 //        let sections = NSIndexSet(indexesIn: range)
 //        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
-        self.tableView.reloadData()
+        if let tableView = self.tableView {
+            tableView.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -72,7 +74,9 @@ extension NotificationsVC: UITableViewDataSource {
 
 extension NotificationsVC: NotificationVCDataControllerDelegate {
     func didLoadNotifications(_ notifications: [AirNotification]?, with error: Error?) {
-        self.tableView.spr_endRefreshing()
+        if let tableView = self.tableView {
+            tableView.spr_endRefreshing()
+        }
         if let notifications = notifications {
             self.notifications = notifications
             self.reloadTableView()

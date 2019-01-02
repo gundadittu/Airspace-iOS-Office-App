@@ -83,6 +83,7 @@
 		0478226721CCB8CA000A6FED /* ConferenceRoomProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0478226621CCB8CA000A6FED /* ConferenceRoomProfileTVC.swift */; };
 		0485C79A21D8F1E700CE69BB /* QuickActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485C79921D8F1E700CE69BB /* QuickActions.swift */; };
 		0485C79C21D8F3CC00CE69BB /* SharedUIDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485C79B21D8F3CC00CE69BB /* SharedUIDelegates.swift */; };
+		04993A0421DC53D50012BFE9 /* ReserveVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04993A0321DC53D50012BFE9 /* ReserveVCDataController.swift */; };
 		04A1741121A62439005D76D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04A1741021A62438005D76D2 /* GoogleService-Info.plist */; };
 		04C7132921C9762200F3D62F /* FindRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7132821C9762200F3D62F /* FindRoomVC.swift */; };
 		04C7132B21C9840A00F3D62F /* FindRoomVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7132A21C9840A00F3D62F /* FindRoomVCDataController.swift */; };
@@ -203,6 +204,7 @@
 		0478226621CCB8CA000A6FED /* ConferenceRoomProfileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceRoomProfileTVC.swift; sourceTree = "<group>"; };
 		0485C79921D8F1E700CE69BB /* QuickActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActions.swift; sourceTree = "<group>"; };
 		0485C79B21D8F3CC00CE69BB /* SharedUIDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedUIDelegates.swift; sourceTree = "<group>"; };
+		04993A0321DC53D50012BFE9 /* ReserveVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveVCDataController.swift; sourceTree = "<group>"; };
 		04A1740F21A60B10005D76D2 /* AirspaceManagementApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AirspaceManagementApp.entitlements; sourceTree = "<group>"; };
 		04A1741021A62438005D76D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04C7132821C9762200F3D62F /* FindRoomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRoomVC.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				043D3BB721D73D3400E833EF /* HotDeskProfileDataController.swift */,
 				043D3BBB21D7549600E833EF /* FindDeskVCDataController.swift */,
 				043D3BC121D787AF00E833EF /* DeskReservationVCDataController.swift */,
+				04993A0321DC53D50012BFE9 /* ReserveVCDataController.swift */,
 			);
 			path = DataControllers;
 			sourceTree = "<group>";
@@ -666,6 +669,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0422BB1B21A4F45500F9CD64 /* ChooseTVC.swift in Sources */,
+				04993A0421DC53D50012BFE9 /* ReserveVCDataController.swift in Sources */,
 				043D3BBA21D753F400E833EF /* FindDeskVC.swift in Sources */,
 				04110D7021D4D18100A07DB7 /* CarouselCVCellItem.swift in Sources */,
 				04C7134121CC6C8700F3D62F /* AirConferenceRoomReservation.swift in Sources */,
