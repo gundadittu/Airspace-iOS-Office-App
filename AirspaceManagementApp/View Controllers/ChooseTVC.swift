@@ -38,8 +38,11 @@ class ChooseTVC: UITableViewController {
                 fatalError("Did not provide a type and/or delegate for ChooseTVC")
         }
         self.title = getTitle(with: type)
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
-        self.view.addSubview(self.loadingIndicator!)
+        
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
+        
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChooseCell")
         self.loadData()
         

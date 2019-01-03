@@ -12,6 +12,7 @@ import BetterSegmentedControl
 import NVActivityIndicatorView
 import SwiftPullToRefresh
 import NotificationBannerSwift
+import Firebase
 
 class ReserveVC: UIViewController {
     
@@ -32,7 +33,6 @@ class ReserveVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = "Reserve"
-
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
@@ -65,9 +65,9 @@ class ReserveVC: UIViewController {
         
         self.sections = self.roomSections
         
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView, yOffset: 100)
-        self.loadingIndicator?.tag = 33
-        self.tableView.addSubview(self.loadingIndicator!)
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
         
         self.updateQuickReserveTimeRangeOptions()
     }
@@ -434,7 +434,7 @@ extension ReserveVC: ReserveVCDataControllerDelegate {
     
     func didLoadData(allRooms: [AirConferenceRoom]?, allDesks: [AirDesk]?, with error: Error?) {
         if let _ = error {
-            let banner = NotificationBanner(title: "Zoinks!", subtitle: "We were unable to load your conference rooms and desk. Please try again later.", leftView: nil, rightView: nil, style: .success, colors: nil)
+            let banner = NotificationBanner(title: "Zoinks!", subtitle: "We were unable to load your conference rooms and desk. Please try again later.", leftView: nil, rightView: nil, style: .danger, colors: nil)
             banner.show()
         }
         if let allRooms = allRooms {

@@ -38,7 +38,11 @@ class SpaceInfoTVC: UITableViewController {
         super.viewDidLoad()
         self.title = "Space Info"
         self.tableView.separatorStyle = .none
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
+        
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
+        
         self.tableView.register(UINib(nibName: "FormTVCell", bundle: nil), forCellReuseIdentifier: "FormTVCell")
         self.tableView.spr_setTextFooter {
             return

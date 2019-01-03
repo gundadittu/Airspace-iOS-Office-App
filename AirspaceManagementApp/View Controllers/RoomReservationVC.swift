@@ -36,8 +36,9 @@ class RoomReservationVC: UIViewController {
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false
         
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
-        self.tableView.addSubview(self.loadingIndicator!)
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
         
         self.title = "My Room Reservation"
         

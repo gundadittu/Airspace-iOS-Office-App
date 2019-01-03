@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>927508779333-0666u3kr7kfadvg68eg0k2h5kuqaahd8.apps.googleusercontent.com</string>
+	<string>927508779333-iicm0c8nftlu9fcklh0s5o2mj5pjs2ud.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.927508779333-0666u3kr7kfadvg68eg0k2h5kuqaahd8</string>
+	<string>com.googleusercontent.apps.927508779333-iicm0c8nftlu9fcklh0s5o2mj5pjs2ud</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDVifQ2Jjv7K5tdjZWN_1Ovb-9O6YeoYJo</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>AG.AirspaceMobileApp</string>
+	<string>com.airspace.management</string>
 	<key>PROJECT_ID</key>
 	<string>airspace-management-app</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:927508779333:ios:87b06958c03db6da</string>
+	<string>1:927508779333:ios:2e341b2473ca518f</string>
 	<key>DATABASE_URL</key>
 	<string>https://airspace-management-app.firebaseio.com</string>
 </dict>

@@ -28,8 +28,9 @@ class DeskListVC: UITableViewController {
         self.tableView.register(UINib(nibName: "ConferenceRoomTVCell", bundle: nil), forCellReuseIdentifier: "ConferenceRoomTVCell")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(didClickFilter))
         
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
-        self.view.addSubview(self.loadingIndicator!)
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
         
         self.tableView.spr_setTextHeader { [weak self] in
             self?.dataController?.submitData()

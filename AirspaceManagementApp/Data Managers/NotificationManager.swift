@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseAnalytics
 import FirebaseFunctions
 import CFAlertViewController
 import UserNotifications
@@ -136,6 +137,8 @@ class NotificationManager {
                                               backgroundColor: globalColor,
                                               textColor: nil,
                                               handler: { (action) in
+                                                
+                                                Analytics.logEvent("user-did-click-ask-me-now-for-notification-permissions", parameters: nil)
                                                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
                                                     return
                                                 }
@@ -147,7 +150,10 @@ class NotificationManager {
                                             alignment: .justified,
                                             backgroundColor: UIColor.flatWhiteDark,
                                             textColor: nil,
-                                            handler: nil)
+                                            handler: { (action) in
+                Analytics.logEvent("user-did-click-decide-later-for-notification-permissions", parameters: nil)
+            })
+                
             alertController.addAction(grantedAction)
             alertController.addAction(laterAction)
             

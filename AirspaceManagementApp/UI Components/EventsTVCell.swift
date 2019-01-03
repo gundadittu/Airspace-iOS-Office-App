@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseUI
 import FirebaseStorage
+import Kingfisher
 
 protocol EventsTVCellDelegate {
     func didTapCell(with event: AirEvent)
@@ -52,9 +53,10 @@ class EventsTVCell: UITableViewCell {
             self.addressLabel.isHidden = false
         }
         
-        guard let uid = event.uid else { return }
-        let imageRef = storageRef.child("eventPhotos/\(uid).jpg")
-        self.bannerImage.sd_setImage(with: imageRef, placeholderImage: UIImage(named: "placeholder")!)
+        if let imageURL = event.imageURL {
+            self.bannerImage.kf.indicatorType = .activity
+            self.bannerImage.kf.setImage(with: imageURL, placeholder: UIImage(named: "placeholder")!)
+        }
     }
     
     @objc func didTap(_ tapGesture: UITapGestureRecognizer) {

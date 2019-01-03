@@ -46,8 +46,9 @@ class ProfileVC: UIViewController {
             self.dataController = ProfileVCDataController(delegate: self)
         }
         
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
-        self.view.addSubview(self.loadingIndicator!)
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
         
         self.tableView.spr_setTextHeader { [weak self] in
             self?.loadData()
@@ -92,7 +93,7 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 0 {
             if let type = self.sections[indexPath.section].type,
                 (type == .myRegisteredGuests || type == .myServiceRequests || type == .bioInfo) {
-                return CGFloat(120)
+                return CGFloat(140)
             }
             return CGFloat(180)
         } else if indexPath.row == 1 {
@@ -313,6 +314,7 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
             
             let action = CFAlertAction(title: "Ok", style: .Default, alignment: .justified, backgroundColor: .red, textColor: .black, handler: nil)
             alertController.addAction(action)
+            
             self.present(alertController, animated: true)
         } else {
             let alertController = CFAlertViewController(title: "Rock on!🤟🏼 ", message: "Your profile picture was updated.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
@@ -451,6 +453,12 @@ extension ProfileVC {
         }))
         
         alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = self.view //to set the source of your alert
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0) // you can set this as per your requirement.
+            popoverController.permittedArrowDirections = [] //to hide the arrow of any particular direction
+        }
         
         self.present(alert, animated: true, completion: nil)
     }

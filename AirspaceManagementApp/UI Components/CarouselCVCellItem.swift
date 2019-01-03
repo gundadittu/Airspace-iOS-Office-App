@@ -62,14 +62,14 @@ class CarouselCVCellItem: NSObject {
             subtitleString += " to "
             subtitleString += (reservation.endDate?.localizedDescriptionNoDate ?? "No End Date")
             self.subtitle = subtitleString
-            self.bannerImage = reservation.conferenceRoom?.image
+            self.bannerURL = reservation.conferenceRoom?.imageURL
         } else if let reservation = reservation as? AirDeskReservation {
             self.title = reservation.desk?.name ?? "No name provided"
             var subtitleString = (reservation.startingDate?.localizedDescription ?? "No Start Date")
             subtitleString += " to "
             subtitleString += (reservation.endDate?.localizedDescriptionNoDate ?? "No End Date")
             self.subtitle = subtitleString
-            self.bannerImage = reservation.desk?.image
+            self.bannerURL = reservation.desk?.imageURL
         }
         self.type = .regular
         self.data = reservation

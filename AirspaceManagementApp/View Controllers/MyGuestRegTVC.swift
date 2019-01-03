@@ -9,6 +9,7 @@
 import UIKit
 import NotificationBannerSwift
 import NVActivityIndicatorView
+import DZNEmptyDataSet
 
 class MyGuestRegTVC: UITableViewController {
     let sections = [MyGuestRegTVCSection(title: "Upcoming", type: .upcoming), MyGuestRegTVCSection(title: "Past", type: .past)]
@@ -19,10 +20,16 @@ class MyGuestRegTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "My Registered Guests"
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
-        self.view.addSubview(self.loadingIndicator!)
         
-        loadData()
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
+        
+        self.tableView.separatorStyle = .none
+        self.tableView.emptyDataSetDelegate = self
+        self.tableView.emptyDataSetSource = self
+        
+        self.loadData()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -123,5 +130,19 @@ class MyGuestRegTVC: UITableViewController {
                 }
             }
         }
+    }
+}
+
+extension MyGuestRegTVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSMutableAttributedString(string: "No Registered Guests!", attributes: globalBoldTextAttrs)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSMutableAttributedString(string: "All guests that you register will show up here.", attributes: globalTextAttrs)
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "no-guests")
     }
 }

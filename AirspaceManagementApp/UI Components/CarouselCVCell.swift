@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 enum CarouselCVCellItemType {
     case regular
@@ -37,9 +38,9 @@ class CarouselCVCell: UICollectionViewCell {
         self.subtitleLabel.text = object.subtitle
         if let image = object.bannerImage {
             self.bannerImage.image = image
-        } else if let _ = object.bannerURL {
-//            self.bannerImage.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
-            return
+        } else if let imageURL = object.bannerURL {
+            self.bannerImage.kf.indicatorType = .activity
+            self.bannerImage.kf.setImage(with: imageURL, placeholder: UIImage(named: "placeholder")!)
         } else {
             self.bannerImage.isHidden = true
         }

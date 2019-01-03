@@ -8,6 +8,8 @@
 
 import UIKit
 import ChameleonFramework
+import Kingfisher
+import FirebaseUI
 
 protocol ConferenceRoomTVCellDelegate {
     func didSelectCollectionView(for room: AirConferenceRoom)
@@ -66,10 +68,11 @@ class ConferenceRoomTVCell: UITableViewCell {
         
         self.configure(startingAt: reservationRangeStartDate, delegate: delegate)
 
-        if let image = desk.image {
-            self.bannerImage.image = image
+        if let imageURL = desk.imageURL {
+            self.bannerImage.kf.indicatorType = .activity
+            self.bannerImage.kf.setImage(with: imageURL, placeholder: UIImage(named: "placeholder")!)
         }
-        
+    
         self.titleLabel.text = desk.name ?? "No Name Provided"
         var subtitleText = ""
         if let offices = desk.offices {
@@ -90,8 +93,9 @@ class ConferenceRoomTVCell: UITableViewCell {
         
         self.configure(startingAt: reservationRangeStartDate, delegate: delegate)
         
-        if let image = room.image {
-            self.bannerImage.image = image
+        if let imageURL = room.imageURL  {
+            self.bannerImage.kf.indicatorType = .activity
+            self.bannerImage.kf.setImage(with: imageURL, placeholder: UIImage(named: "placeholder")!)
         }
         
         self.titleLabel.text = room.name ?? "No Name Provided"

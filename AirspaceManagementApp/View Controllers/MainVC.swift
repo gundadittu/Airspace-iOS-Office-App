@@ -36,7 +36,9 @@ class MainVC: UIViewController {
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
         
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
         
         if (dataController == nil) {
             self.dataController = MainVCDataController(delegate: self)

@@ -124,7 +124,9 @@ class ProfileVCDataController {
         let profileRef = storageRef.child("userProfileImages/\(uid).jpg")
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        self.delegate?.startLoadingIndicator()
         let _ = profileRef.putData(data, metadata: nil) { (_, error) in
+            self.delegate?.stopLoadingIndicator()
             if let error = error {
                 self.delegate?.didFinishUploadingNewImage(with: error)
             } else {

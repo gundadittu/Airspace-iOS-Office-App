@@ -33,8 +33,9 @@ class RegisterGuestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false
         
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
-        self.view.addSubview(self.loadingIndicator!)
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
         
         self.dataController = RegisterGuestTVCDataController(delegate: self)
     }

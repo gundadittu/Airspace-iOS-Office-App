@@ -45,7 +45,8 @@ class CarouselTVCell: UITableViewCell {
         switch items[0].type  {
         case .regular?:
             let size = self.collectionView.superview?.bounds.size
-            let width = (size?.width ?? CGFloat(270)) - CGFloat(60)
+            
+            let width = (UIDevice.current.userInterfaceIdiom == .pad) ? CGFloat(330) :(size?.width ?? CGFloat(270)) - CGFloat(60)
             let height = (size?.height ?? CGFloat(170)) - CGFloat(20)
             flowLayout.itemSize = CGSize(width: width, height: height)
         case .quickReserve?:

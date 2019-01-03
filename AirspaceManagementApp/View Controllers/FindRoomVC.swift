@@ -32,8 +32,9 @@ class FindRoomVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false
 
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
-        self.view.addSubview(self.loadingIndicator!)
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
         
         if dataController == nil {
             self.dataController = FindRoomVCDataController(delegate: self)
@@ -172,7 +173,10 @@ extension FindRoomVC: FormTVCellDelegate {
         case .none:
             break
         case .submit:
-            self.dataController?.submitData()
+            if let loading = self.dataController?.isLoading,
+                loading == false {
+                self.dataController?.submitData()
+            }
         }
         return
     }

@@ -17,13 +17,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="d3l-zy-9Cm">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="d3l-zy-9Cm">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="697"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="d3l-zy-9Cm" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="M2b-QC-5au"/>
+                            <constraint firstAttribute="bottom" secondItem="d3l-zy-9Cm" secondAttribute="bottom" constant="-30" id="b5w-Gj-Ahx"/>
                             <constraint firstItem="d3l-zy-9Cm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="i1h-6Y-Zjf"/>
                             <constraint firstItem="d3l-zy-9Cm" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="qka-UJ-sYh"/>
                         </constraints>

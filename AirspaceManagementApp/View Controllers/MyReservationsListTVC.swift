@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 
 class MyReservationsListTVC: UITableViewController {
     
@@ -16,6 +17,9 @@ class MyReservationsListTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.emptyDataSetSource = self
+        self.tableView.emptyDataSetDelegate = self
+        self.tableView.separatorStyle = .none
         if let title = self.titleString {
             self.title = title
         } else {
@@ -87,5 +91,19 @@ class MyReservationsListTVC: UITableViewController {
             let reservation = sender as? AirDeskReservation {
             destination.hotDeskReservation = reservation
         }
+    }
+}
+
+extension MyReservationsListTVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSMutableAttributedString(string: "No reservations!", attributes: globalBoldTextAttrs)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSMutableAttributedString(string: "Any reservations you make will show up here.", attributes: globalTextAttrs)
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "no-reservations")
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol ConferenceRoomDetailedTVCDelegate {
     func didTapWhenDateButton()
@@ -195,8 +196,9 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         
         self.configureCell(for: date, newReservationStartDate: newReservationStartDate, newReservationEndDate: newReservationEndDate)
 
-        if let image = desk.image {
-            self.bannerImage.image = image
+        if let imageURL = desk.imageURL {
+            self.bannerImage.kf.indicatorType = .activity
+            self.bannerImage.kf.setImage(with: imageURL, placeholder: UIImage(named: "placeholder")!)
         }
         
         self.titleLabel.text = desk.name ?? "No Name Provided"
@@ -220,8 +222,9 @@ class ConferenceRoomDetailedTVC: UITableViewCell {
         
         self.configureCell(for: date, newReservationStartDate: newReservationStartDate, newReservationEndDate: newReservationEndDate)
         
-        if let image = room.image {
-            self.bannerImage.image = image
+        if let imageURL = room.imageURL {
+            self.bannerImage.kf.indicatorType = .activity
+            self.bannerImage.kf.setImage(with: imageURL, placeholder: UIImage(named: "placeholder")!)
         }
         
         self.titleLabel.text = room.name ?? "No Name Provided"

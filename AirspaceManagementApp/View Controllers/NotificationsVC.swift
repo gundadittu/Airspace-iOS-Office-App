@@ -32,8 +32,10 @@ class NotificationsVC: UIViewController {
         self.tableView.rowHeight = CGFloat(75)
         self.tableView.estimatedRowHeight = UITableView.automaticDimension
         self.tableView.register(UINib(nibName: reuseID, bundle: nil), forCellReuseIdentifier: reuseID)
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
-        self.tableView.addSubview(self.loadingIndicator!)
+        
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
         
         if self.dataController == nil {
             self.dataController = NotificationVCDataController(delegate: self)

@@ -10,7 +10,10 @@ PODS:
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
   - DZNEmptyDataSet (1.8.1)
+  - Fabric (1.9.0)
   - Firebase/Auth (5.15.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.2.0)
@@ -158,6 +161,7 @@ PODS:
   - gRPC-Core/Interface (1.14.0)
   - GTMSessionFetcher/Core (1.2.1)
   - JVFloatLabeledTextField (1.2.1)
+  - Kingfisher (5.0.1)
   - leveldb-library (1.20)
   - MarqueeLabel/Swift (3.2.0)
   - nanopb (0.3.901):
@@ -165,9 +169,9 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - NotificationBannerSwift (1.8.0):
+  - NotificationBannerSwift (2.0.1):
     - MarqueeLabel/Swift (~> 3.2.0)
-    - SnapKit (~> 4.0.1)
+    - SnapKit (~> 4.2.0)
   - NVActivityIndicatorView (4.5.1):
     - NVActivityIndicatorView/Presenter (= 4.5.1)
   - NVActivityIndicatorView/Presenter (4.5.1)
@@ -175,7 +179,7 @@ PODS:
   - SDWebImage (4.4.3):
     - SDWebImage/Core (= 4.4.3)
   - SDWebImage/Core (4.4.3)
-  - SnapKit (4.0.1)
+  - SnapKit (4.2.0)
   - SwiftDate (5.0.13)
   - SwiftPullToRefresh (3.0.1)
   - SwiftyButton (0.8.2)
@@ -184,7 +188,9 @@ DEPENDENCIES:
   - BetterSegmentedControl (~> 1.0)
   - CFAlertViewController
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
+  - Crashlytics (~> 3.12.0)
   - DZNEmptyDataSet
+  - Fabric (~> 1.9.0)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Firestore
@@ -194,6 +200,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseUI/Storage
   - JVFloatLabeledTextField
+  - Kingfisher (~> 5.0)
   - NotificationBannerSwift
   - NVActivityIndicatorView
   - SwiftDate (~> 5.0)
@@ -205,7 +212,9 @@ SPEC REPOS:
     - BetterSegmentedControl
     - BoringSSL
     - CFAlertViewController
+    - Crashlytics
     - DZNEmptyDataSet
+    - Fabric
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -228,6 +237,7 @@ SPEC REPOS:
     - gRPC-Core
     - GTMSessionFetcher
     - JVFloatLabeledTextField
+    - Kingfisher
     - leveldb-library
     - MarqueeLabel
     - nanopb
@@ -254,7 +264,9 @@ SPEC CHECKSUMS:
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   CFAlertViewController: a27cf0512d0fa9ef6a3b966862039c295fb0ef69
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
   FirebaseABTesting: 1f50b8d50f5e3469eea54e7463a7b7fe221d1f5e
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
@@ -277,18 +289,19 @@ SPEC CHECKSUMS:
   gRPC-Core: f4836515817c0eb479aeeb9cc27c91c4ba62a9f6
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   JVFloatLabeledTextField: cfc44e3c4d493b2ed92ede8035e8e89c2912ba64
+  Kingfisher: 4f771421b9208185217550528a06fd48756cb7c2
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MarqueeLabel: 440a502b91a9179bd98f9fff00ba1150650a1c0e
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  NotificationBannerSwift: 49fc4be7fabada55b189b50e72184c92edd5f7f7
+  NotificationBannerSwift: 007774aa590cc9680647b92b2f217bef5c00c32c
   NVActivityIndicatorView: ec34a7b88c51fab270004a1a1f32116e711010cd
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
-  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
   SwiftPullToRefresh: 7949588ace920cc6898b57799d7f5cd5db9ea9a3
   SwiftyButton: 5b0ef314e9cf61cf8a83e456ddd1ea1f53f30598
 
-PODFILE CHECKSUM: 3a3c24759d1c29d22fb782e537510c9a852d758f
+PODFILE CHECKSUM: 4bbf18a3ae6da831e49509818640b04085e4a0a7
 
 COCOAPODS: 1.5.3

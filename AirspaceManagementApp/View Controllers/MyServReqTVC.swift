@@ -9,6 +9,7 @@
 import UIKit
 import NVActivityIndicatorView
 import NotificationBannerSwift
+import DZNEmptyDataSet
 
 class MyServReqTVC: UITableViewController {
     let sections = [MyServReqTVCSection(title: "Received", type: .open), MyServReqTVCSection(title: "In Progress", type: .pending), MyServReqTVCSection(title: "Finished", type: .closed)]
@@ -20,9 +21,11 @@ class MyServReqTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "My Service Requests"
+        self.tableView.separatorStyle = .none
         
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
-        self.view.addSubview(self.loadingIndicator!)
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
         
         self.loadData()
     }
@@ -31,7 +34,7 @@ class MyServReqTVC: UITableViewController {
         return self.sections.count
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
         let currSection = self.sections[section]
         switch currSection.type {
         case .open:
@@ -128,5 +131,19 @@ class MyServReqTVC: UITableViewController {
             }
             self.tableView.reloadData()
         }
+    }
+}
+
+extension MyServReqTVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSMutableAttributedString(string: "No Service Requests!", attributes: globalBoldTextAttrs)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSMutableAttributedString(string: "All your submitted service requests will show up here.", attributes: globalTextAttrs)
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "no-requests")
     }
 }

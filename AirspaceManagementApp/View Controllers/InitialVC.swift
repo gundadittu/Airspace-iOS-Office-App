@@ -8,15 +8,15 @@
 
 import UIKit
 
-class InitialVC: UIViewController {
+class InitialVC: UIViewController {    
+    @IBOutlet weak var backgroundImage: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let imageView = UIImageView(image:  UIImage(named: "gradient")!)
-        imageView.frame = self.view.frame
-        self.view.addSubview(imageView)
         
         let loadingIndicator = getGlobalLoadingIndicator(in: self.view, with: .white)
         self.view.addSubview(loadingIndicator)
         loadingIndicator.startAnimating()
     }
+    
 }

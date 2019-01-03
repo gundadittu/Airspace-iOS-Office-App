@@ -30,7 +30,10 @@ class EventsTVC: UITableViewController {
             self.dataController?.loadData()
         }
         
-        self.loadingIndicator = getGlobalLoadingIndicator(in: self.tableView)
+        let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.loadingIndicator = loadingIndicator
+        self.view.addSubview(loadingIndicator)
+        
         if self.dataController == nil {
             self.dataController = EventsTVCDataController(delegate: self)
         }

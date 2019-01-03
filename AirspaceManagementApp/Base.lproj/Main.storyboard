@@ -107,13 +107,46 @@
                     <view key="view" contentMode="scaleToFill" id="Rbt-OE-PVz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="hL7-3x-Cau">
+                                <rect key="frame" x="0.0" y="-30" width="375" height="727"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zHa-W3-kW7">
+                                <rect key="frame" x="20" y="119.5" width="335" height="128"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textLogo" translatesAutoresizingMaskIntoConstraints="NO" id="nLR-GW-MSy">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="FTe-85-jUs"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="nLR-GW-MSy" secondAttribute="trailing" id="9D6-fp-ZaT"/>
+                                    <constraint firstItem="nLR-GW-MSy" firstAttribute="leading" secondItem="zHa-W3-kW7" secondAttribute="leading" id="pKD-wV-w12"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zHa-W3-kW7" firstAttribute="leading" secondItem="XT8-nh-f7V" secondAttribute="leading" constant="20" id="FVP-wN-hWt"/>
+                            <constraint firstItem="hL7-3x-Cau" firstAttribute="bottom" secondItem="XT8-nh-f7V" secondAttribute="bottom" constant="30" id="GmR-bw-GeZ"/>
+                            <constraint firstAttribute="trailing" secondItem="hL7-3x-Cau" secondAttribute="trailing" id="bRY-zz-311"/>
+                            <constraint firstItem="hL7-3x-Cau" firstAttribute="leading" secondItem="XT8-nh-f7V" secondAttribute="leading" id="fKL-ms-AOf"/>
+                            <constraint firstItem="zHa-W3-kW7" firstAttribute="centerX" secondItem="Rbt-OE-PVz" secondAttribute="centerX" id="hAR-8Y-d1L"/>
+                            <constraint firstItem="zHa-W3-kW7" firstAttribute="centerY" secondItem="Rbt-OE-PVz" secondAttribute="centerY" constant="-150" id="vll-1w-kDR"/>
+                            <constraint firstItem="XT8-nh-f7V" firstAttribute="trailing" secondItem="zHa-W3-kW7" secondAttribute="trailing" constant="20" id="xfM-bX-dvw"/>
+                            <constraint firstItem="hL7-3x-Cau" firstAttribute="top" secondItem="Rbt-OE-PVz" secondAttribute="top" constant="-30" id="y8y-wI-AHO"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="XT8-nh-f7V"/>
                     </view>
+                    <connections>
+                        <outlet property="backgroundImage" destination="hL7-3x-Cau" id="v9V-Z7-xTG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1kQ-vn-V6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-302" y="848"/>
+            <point key="canvasLocation" x="-303.19999999999999" y="847.82608695652175"/>
         </scene>
         <!--Find DeskVC-->
         <scene sceneID="1r8-Hk-Xc4">
@@ -536,6 +569,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TB1-OY-z8X">
+                                <rect key="frame" x="10" y="74" width="355" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Mk5-tv-tsF"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="81E-Es-QMx">
                                 <rect key="frame" x="0.0" y="124" width="375" height="543"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -629,21 +669,14 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TB1-OY-z8X">
-                                <rect key="frame" x="10" y="74" width="355" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="XaN-EB-GS5"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="LN1-db-f9l" firstAttribute="bottom" secondItem="81E-Es-QMx" secondAttribute="bottom" id="063-Hh-ORa"/>
-                            <constraint firstItem="LN1-db-f9l" firstAttribute="trailing" secondItem="TB1-OY-z8X" secondAttribute="trailing" constant="10" id="GwT-pK-1Cm"/>
+                            <constraint firstItem="TB1-OY-z8X" firstAttribute="leading" secondItem="LN1-db-f9l" secondAttribute="leading" constant="10" id="Hd9-IX-5Dz"/>
                             <constraint firstItem="81E-Es-QMx" firstAttribute="leading" secondItem="LN1-db-f9l" secondAttribute="leading" id="IT3-i4-liD"/>
                             <constraint firstItem="81E-Es-QMx" firstAttribute="top" secondItem="TB1-OY-z8X" secondAttribute="bottom" constant="10" id="ibC-AP-xBR"/>
-                            <constraint firstItem="TB1-OY-z8X" firstAttribute="leading" secondItem="LN1-db-f9l" secondAttribute="leading" constant="10" id="k0Z-L6-h9g"/>
+                            <constraint firstItem="LN1-db-f9l" firstAttribute="trailing" secondItem="TB1-OY-z8X" secondAttribute="trailing" constant="10" id="uTu-mE-eMT"/>
                             <constraint firstItem="81E-Es-QMx" firstAttribute="trailing" secondItem="LN1-db-f9l" secondAttribute="trailing" id="uuW-i0-82F"/>
                             <constraint firstItem="TB1-OY-z8X" firstAttribute="top" secondItem="LN1-db-f9l" secondAttribute="top" constant="10" id="yaD-zy-z41"/>
                         </constraints>
@@ -1180,6 +1213,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gradient" width="414" height="896"/>
         <image name="textLogo" width="353" height="197"/>
     </resources>
     <inferredMetricsTieBreakers>

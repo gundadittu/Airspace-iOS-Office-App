@@ -28,6 +28,7 @@
 		0413D2CB21C821F900E2C5F3 /* ServiceRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413D2CA21C821F900E2C5F3 /* ServiceRequestManager.swift */; };
 		0413D2CD21C8560900E2C5F3 /* AirServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413D2CC21C8560900E2C5F3 /* AirServiceRequest.swift */; };
 		0413D2CF21C889D200E2C5F3 /* MyServReqTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413D2CE21C889D200E2C5F3 /* MyServReqTVC.swift */; };
+		041B49BD21DE8078003C70B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 041B49BC21DE8078003C70B4 /* GoogleService-Info.plist */; };
 		0422BB1B21A4F45500F9CD64 /* ChooseTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB1A21A4F45500F9CD64 /* ChooseTVC.swift */; };
 		0422BB1D21A4F65300F9CD64 /* AirOffice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB1C21A4F65300F9CD64 /* AirOffice.swift */; };
 		0422BB1F21A4F66C00F9CD64 /* AirUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BB1E21A4F66C00F9CD64 /* AirUser.swift */; };
@@ -84,7 +85,6 @@
 		0485C79A21D8F1E700CE69BB /* QuickActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485C79921D8F1E700CE69BB /* QuickActions.swift */; };
 		0485C79C21D8F3CC00CE69BB /* SharedUIDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485C79B21D8F3CC00CE69BB /* SharedUIDelegates.swift */; };
 		04993A0421DC53D50012BFE9 /* ReserveVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04993A0321DC53D50012BFE9 /* ReserveVCDataController.swift */; };
-		04A1741121A62439005D76D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04A1741021A62438005D76D2 /* GoogleService-Info.plist */; };
 		04C7132921C9762200F3D62F /* FindRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7132821C9762200F3D62F /* FindRoomVC.swift */; };
 		04C7132B21C9840A00F3D62F /* FindRoomVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7132A21C9840A00F3D62F /* FindRoomVCDataController.swift */; };
 		04C7132D21C98AB800F3D62F /* Duration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7132C21C98AB800F3D62F /* Duration.swift */; };
@@ -147,6 +147,7 @@
 		0413D2CA21C821F900E2C5F3 /* ServiceRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequestManager.swift; sourceTree = "<group>"; };
 		0413D2CC21C8560900E2C5F3 /* AirServiceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirServiceRequest.swift; sourceTree = "<group>"; };
 		0413D2CE21C889D200E2C5F3 /* MyServReqTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyServReqTVC.swift; sourceTree = "<group>"; };
+		041B49BC21DE8078003C70B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0422BB1A21A4F45500F9CD64 /* ChooseTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTVC.swift; sourceTree = "<group>"; };
 		0422BB1C21A4F65300F9CD64 /* AirOffice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirOffice.swift; sourceTree = "<group>"; };
 		0422BB1E21A4F66C00F9CD64 /* AirUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirUser.swift; sourceTree = "<group>"; };
@@ -206,7 +207,6 @@
 		0485C79B21D8F3CC00CE69BB /* SharedUIDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedUIDelegates.swift; sourceTree = "<group>"; };
 		04993A0321DC53D50012BFE9 /* ReserveVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveVCDataController.swift; sourceTree = "<group>"; };
 		04A1740F21A60B10005D76D2 /* AirspaceManagementApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AirspaceManagementApp.entitlements; sourceTree = "<group>"; };
-		04A1741021A62438005D76D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04C7132821C9762200F3D62F /* FindRoomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRoomVC.swift; sourceTree = "<group>"; };
 		04C7132A21C9840A00F3D62F /* FindRoomVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRoomVCDataController.swift; sourceTree = "<group>"; };
 		04C7132C21C98AB800F3D62F /* Duration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Duration.swift; sourceTree = "<group>"; };
@@ -317,7 +317,7 @@
 				045520A0217548F60033D33B /* Assets.xcassets */,
 				045520A2217548F60033D33B /* LaunchScreen.storyboard */,
 				045520A5217548F60033D33B /* Info.plist */,
-				04A1741021A62438005D76D2 /* GoogleService-Info.plist */,
+				041B49BC21DE8078003C70B4 /* GoogleService-Info.plist */,
 			);
 			path = AirspaceManagementApp;
 			sourceTree = "<group>";
@@ -489,6 +489,7 @@
 				04552094217548F50033D33B /* Resources */,
 				B5ACD57054FD4E56CD04D847 /* [CP] Embed Pods Frameworks */,
 				EAC83B54BF60517BC7A586F6 /* [CP] Copy Pods Resources */,
+				041B49BE21DE8742003C70B4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -548,13 +549,13 @@
 				046D8BF321CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.xib in Resources */,
 				045520A4217548F60033D33B /* LaunchScreen.storyboard in Resources */,
 				04D8D69D2183F7380079380F /* BioTVCell.xib in Resources */,
-				04A1741121A62439005D76D2 /* GoogleService-Info.plist in Resources */,
 				04C7133F21CC50BD00F3D62F /* HourBookingCVC.xib in Resources */,
 				04C7133921CC3DC300F3D62F /* ConferenceRoomTVCell.xib in Resources */,
 				043CA251217FF236008703FC /* CarouselCVCell.xib in Resources */,
 				042AF99F21A6835A00E7048B /* SeeMoreTVC.xib in Resources */,
 				043CA24B217FF0F7008703FC /* CarouselTVCell.xib in Resources */,
 				042AF9AB21A759A100E7048B /* TextCVCell.xib in Resources */,
+				041B49BD21DE8078003C70B4 /* GoogleService-Info.plist in Resources */,
 				04E7FEDF2185578100AD4E79 /* QuickReserveCVCell.xib in Resources */,
 				045520A1217548F60033D33B /* Assets.xcassets in Resources */,
 				0455209F217548F50033D33B /* Main.storyboard in Resources */,
@@ -565,6 +566,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		041B49BE21DE8742003C70B4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
+		};
 		67442D5D80C9D02369F80FFB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -599,6 +618,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/JVFloatLabeledTextField/JVFloatLabeledTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
@@ -624,6 +644,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVFloatLabeledTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
@@ -914,6 +935,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AirspaceManagementApp/AirspaceManagementApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = JQ4K8EE77P;
 				INFOPLIST_FILE = AirspaceManagementApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

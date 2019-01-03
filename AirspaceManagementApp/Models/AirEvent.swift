@@ -17,6 +17,7 @@ class AirEvent: NSObject {
     var descriptionText: String?
     var address: String?
     var offices: [AirOffice]?
+    var imageURL: URL?
     
     public init?(dict: [String: Any]) {
         if let uid = dict["uid"] as? String {
@@ -72,6 +73,13 @@ class AirEvent: NSObject {
             self.offices = airOffices
         } else {
             print("No offices found for event")
+        }
+        
+        if let imageURLString = dict["imageURL"] as? String ,
+            let imageURL = URL(string: imageURLString) {
+            self.imageURL = imageURL
+        } else {
+            print("No imageURL found for air event")
         }
     }
 }
