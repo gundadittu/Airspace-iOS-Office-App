@@ -183,6 +183,7 @@ PODS:
   - SwiftDate (5.0.13)
   - SwiftPullToRefresh (3.0.1)
   - SwiftyButton (0.8.2)
+  - WhatsNewKit (1.1.5)
 
 DEPENDENCIES:
   - BetterSegmentedControl (~> 1.0)
@@ -206,6 +207,7 @@ DEPENDENCIES:
   - SwiftDate (~> 5.0)
   - SwiftPullToRefresh
   - SwiftyButton
+  - WhatsNewKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -249,6 +251,7 @@ SPEC REPOS:
     - SwiftDate
     - SwiftPullToRefresh
     - SwiftyButton
+    - WhatsNewKit
 
 EXTERNAL SOURCES:
   ChameleonFramework:
@@ -301,7 +304,8 @@ SPEC CHECKSUMS:
   SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
   SwiftPullToRefresh: 7949588ace920cc6898b57799d7f5cd5db9ea9a3
   SwiftyButton: 5b0ef314e9cf61cf8a83e456ddd1ea1f53f30598
+  WhatsNewKit: 4b1adc0955248667324120e98cd7640e01483b0a
 
-PODFILE CHECKSUM: 4bbf18a3ae6da831e49509818640b04085e4a0a7
+PODFILE CHECKSUM: 86c91b00ab06d718182a9bde4522b5fef5f0d13e
 
 COCOAPODS: 1.5.3

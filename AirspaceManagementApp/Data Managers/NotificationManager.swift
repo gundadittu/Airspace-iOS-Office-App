@@ -42,6 +42,11 @@ class NotificationManager {
     
     func requestPermission(_ showAllAlerts: Bool = false){
         
+        let defaults = UserDefaults.standard
+        if defaults.value(forKey: "showGeneralOnboarding") == nil {
+           return
+        }
+        
         if showAllAlerts == false {
             let defaults = UserDefaults.standard
             if defaults.value(forKey: "notificationRequestCount") == nil {
@@ -139,9 +144,21 @@ class NotificationManager {
                                               handler: { (action) in
                                                 
                                                 Analytics.logEvent("user-did-click-ask-me-now-for-notification-permissions", parameters: nil)
-                                                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
-                                                    return
+                                                
+                                                if #available(iOS 10.0, *) {
+                                                    // For iOS 10 display notification (sent via APNS)
+                                                    
+                                                    let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+                                                    UNUserNotificationCenter.current().requestAuthorization(
+                                                        options: authOptions,
+                                                        completionHandler: {_, _ in })
+                                                } else {
+                                                    let settings: UIUserNotificationSettings =
+                                                        UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+                                                   
+                                                     UIApplication.shared.registerUserNotificationSettings(settings)
                                                 }
+                                                UIApplication.shared.registerForRemoteNotifications()
                                                 
             })
             

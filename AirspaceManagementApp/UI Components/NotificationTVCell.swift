@@ -27,6 +27,10 @@ class NotificationTVCell: UITableViewCell {
             self.iconImageView.image = UIImage(named: "serv-req-icon")
         case .arrivedGuestUpdate:
             self.iconImageView.image = UIImage(named: "register-guest-icon")
+        case .newEvent:
+            self.iconImageView.image = UIImage(named: "events-icon")
+        case .announcement:
+            self.iconImageView.image = UIImage(named: "announcement-icon")
         }
     }
 

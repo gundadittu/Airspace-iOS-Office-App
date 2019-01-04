@@ -12,6 +12,7 @@ import NotificationBannerSwift
 import NVActivityIndicatorView
 import SwiftPullToRefresh
 import CFAlertViewController
+import WhatsNewKit
 
 class ProfileVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -53,10 +54,69 @@ class ProfileVC: UIViewController {
         self.tableView.spr_setTextHeader { [weak self] in
             self?.loadData()
         }
+        
+        self.showOnboarding()
     }
     
     func loadData(){
         self.dataController?.loadData()
+    }
+    
+    func showOnboarding() {
+        let defaults = UserDefaults.standard
+        if defaults.value(forKey: "showProfileOnboarding") == nil {
+            defaults.setValue(true, forKey: "showProfileOnboarding")
+        } else {
+            return
+        }
+        
+        var configuration = WhatsNewViewController.Configuration()
+        configuration.backgroundColor = .white
+        configuration.titleView.titleColor = globalColor
+        configuration.titleView.titleFont = UIFont(name: "AvenirNext-Medium", size: 40)!
+        configuration.itemsView.titleFont = UIFont(name: "AvenirNext-Medium", size: 18)!
+        configuration.itemsView.subtitleFont = UIFont(name: "AvenirNext-Regular", size: 15)!
+        configuration.itemsView.autoTintImage = false
+        configuration.completionButton.backgroundColor = globalColor
+        configuration.completionButton.titleFont = UIFont(name: "AvenirNext-Medium", size: 18)!
+        
+        let whatsNew = WhatsNew(
+            title: "Your Profile",
+            items: [
+                WhatsNew.Item(
+                    title: "Manage Your Bio",
+                    subtitle: "You can add your own profile image by just tapping on your picture. Reach out to your office manager to modify other items.",
+                    image: UIImage(named: "bio-icon")
+                ),
+                WhatsNew.Item(
+                    title: "Manage Your Room Reservations",
+                    subtitle: "You can see all your conference room reservations here, and update/cancel them.",
+                    image: UIImage(named: "reserve-icon")
+                ),
+                WhatsNew.Item(
+                    title: "Manage Your Desk Reservations",
+                    subtitle: "You can see all your hot desk reservations here, and update/cancel them.",
+                    image: UIImage(named: "table-icon")
+                ),
+                WhatsNew.Item(
+                    title: "Manage Your Service Requests",
+                    subtitle: "You can see all your service requests here, and cancel them.",
+                    image: UIImage(named: "serv-req-icon")
+                ),
+                WhatsNew.Item(
+                    title: "Manage Your Registered Guests",
+                    subtitle: "You can see all your registed guests here, and cancel them.",
+                    image: UIImage(named: "register-guest-icon")
+                )
+            ]
+        )
+        
+        let whatsNewViewController = WhatsNewViewController(
+            whatsNew: whatsNew,
+            configuration: configuration
+        )
+        
+        self.present(whatsNewViewController, animated: true)
     }
 }
 

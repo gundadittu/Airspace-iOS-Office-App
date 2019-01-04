@@ -130,8 +130,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zHa-W3-kW7" firstAttribute="leading" secondItem="XT8-nh-f7V" secondAttribute="leading" constant="20" id="FVP-wN-hWt"/>
-                            <constraint firstItem="hL7-3x-Cau" firstAttribute="bottom" secondItem="XT8-nh-f7V" secondAttribute="bottom" constant="30" id="GmR-bw-GeZ"/>
                             <constraint firstAttribute="trailing" secondItem="hL7-3x-Cau" secondAttribute="trailing" id="bRY-zz-311"/>
+                            <constraint firstAttribute="bottom" secondItem="hL7-3x-Cau" secondAttribute="bottom" constant="-30" id="csd-KA-Wqs"/>
                             <constraint firstItem="hL7-3x-Cau" firstAttribute="leading" secondItem="XT8-nh-f7V" secondAttribute="leading" id="fKL-ms-AOf"/>
                             <constraint firstItem="zHa-W3-kW7" firstAttribute="centerX" secondItem="Rbt-OE-PVz" secondAttribute="centerX" id="hAR-8Y-d1L"/>
                             <constraint firstItem="zHa-W3-kW7" firstAttribute="centerY" secondItem="Rbt-OE-PVz" secondAttribute="centerY" constant="-150" id="vll-1w-kDR"/>

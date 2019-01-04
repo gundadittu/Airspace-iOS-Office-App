@@ -12,6 +12,8 @@ import FirebaseFirestore
 enum AirNotificationType: String {
     case serviceRequestUpdate = "serviceRequestUpdate"
     case arrivedGuestUpdate = "arrivedGuestUpdate"
+    case newEvent = "newEvent"
+    case announcement = "announcement"
     
     var title: String {
         switch self {
@@ -19,6 +21,10 @@ enum AirNotificationType: String {
             return "Service request update"
         case .arrivedGuestUpdate:
             return "Your guest has arrived"
+        case .newEvent:
+            return "New Event"
+        case .announcement:
+            return "Announcement"
         }
     }
 }

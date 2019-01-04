@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import NVActivityIndicatorView
 import SwiftPullToRefresh
+import WhatsNewKit
 
 class MainVC: UIViewController {
     
@@ -47,6 +48,65 @@ class MainVC: UIViewController {
         self.tableView.spr_setTextHeader {
             self.dataController?.loadData()
         }
+        
+        self.showOnboarding()
+    }
+    
+    func showOnboarding() {
+        let defaults = UserDefaults.standard
+        if defaults.value(forKey: "showGeneralOnboarding") == nil {
+            defaults.setValue(true, forKey: "showGeneralOnboarding")
+        } else {
+            return
+        }
+        
+        var configuration = WhatsNewViewController.Configuration()
+        configuration.backgroundColor = .white
+        configuration.titleView.titleColor = globalColor
+        configuration.titleView.titleFont = UIFont(name: "AvenirNext-Medium", size: 40)!
+        configuration.itemsView.titleFont = UIFont(name: "AvenirNext-Medium", size: 18)!
+        configuration.itemsView.subtitleFont = UIFont(name: "AvenirNext-Regular", size: 15)!
+        configuration.itemsView.autoTintImage = false
+        configuration.completionButton.backgroundColor = globalColor
+        configuration.completionButton.titleFont = UIFont(name: "AvenirNext-Medium", size: 18)!
+
+        let whatsNew = WhatsNew(
+            title: "Getting Started",
+            items: [
+                WhatsNew.Item(
+                    title: "Reserve Rooms or Desks",
+                    subtitle: "See when conference rooms and hot desks are available and reserve them from your phone.",
+                    image: UIImage(named: "reserve-icon")
+                ),
+                WhatsNew.Item(
+                    title: "View Events",
+                    subtitle: "See what events/workshops are happening in your office. If you let us, we'll even notify you.",
+                    image: UIImage(named: "events-icon")
+                ),
+                WhatsNew.Item(
+                    title: "Submit Service Requests",
+                    subtitle: "Something broken? Let your office manager know and stay updated on your request's progress.",
+                    image: UIImage(named: "serv-req-icon")
+                ),
+                WhatsNew.Item(
+                    title: "Register Guests",
+                    subtitle: "You can register your guest in advance so they'll know where to come.",
+                    image: UIImage(named: "register-guest-icon")
+                ),
+                WhatsNew.Item(
+                    title: "See Space Info",
+                    subtitle: "Learn more about your office space.",
+                    image: UIImage(named: "space-info-icon")
+                )
+            ]
+        )
+        
+        let whatsNewViewController = WhatsNewViewController(
+            whatsNew: whatsNew,
+            configuration: configuration
+        )
+        
+        self.present(whatsNewViewController, animated: true)
     }
     
 //    func loadNearbyEatsData() {

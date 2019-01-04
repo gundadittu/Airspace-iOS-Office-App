@@ -26,5 +26,6 @@ target 'AirspaceManagementApp' do
   pod 'SwiftPullToRefresh'
   pod 'BetterSegmentedControl', '~> 1.0'
   pod 'SwiftDate', '~> 5.0'
+  pod 'WhatsNewKit'
   
 end
