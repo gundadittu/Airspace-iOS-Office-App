@@ -18,7 +18,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="471" height="97"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xAM-Ts-njL">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Uja-38-LZd">
+                        <rect key="frame" x="0.0" y="0.0" width="471" height="97"/>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xAM-Ts-njL">
                         <rect key="frame" x="15" y="5" width="441" height="87"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t69-sd-Bft">
@@ -41,15 +44,23 @@
                 <constraint firstItem="xAM-Ts-njL" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="5gd-Fh-C40"/>
                 <constraint firstAttribute="bottom" secondItem="xAM-Ts-njL" secondAttribute="bottom" constant="5" id="JE0-gR-NNQ"/>
                 <constraint firstAttribute="trailing" secondItem="xAM-Ts-njL" secondAttribute="trailing" constant="15" id="OK0-eS-CsF"/>
+                <constraint firstAttribute="trailing" secondItem="Uja-38-LZd" secondAttribute="trailing" id="THO-Sj-a3z"/>
                 <constraint firstItem="xAM-Ts-njL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="WO9-Gc-Syx"/>
+                <constraint firstAttribute="bottom" secondItem="Uja-38-LZd" secondAttribute="bottom" id="aOS-QC-cwF"/>
+                <constraint firstItem="Uja-38-LZd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="je6-51-j30"/>
+                <constraint firstItem="Uja-38-LZd" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="my6-Tk-UCp"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="471" height="97"/>
             <connections>
+                <outlet property="backgroundImage" destination="Uja-38-LZd" id="d45-zR-Ewg"/>
                 <outlet property="subtitleLabel" destination="3RD-F1-Fez" id="JOx-8S-nhW"/>
                 <outlet property="titleLabel" destination="t69-sd-Bft" id="BWb-pH-gbG"/>
             </connections>
             <point key="canvasLocation" x="474.39999999999998" y="174.06296851574214"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="gradient" width="414" height="896"/>
+    </resources>
 </document>
