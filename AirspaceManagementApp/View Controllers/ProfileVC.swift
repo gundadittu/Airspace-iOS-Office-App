@@ -139,6 +139,19 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if (section == ((self.sections.count)-1)) {
+            return CGFloat(50)
+        }
+        return CGFloat(20)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view 
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (section == 0) {
             return CGFloat(0)
@@ -159,13 +172,11 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
             if let type = self.sections[indexPath.section].type,
                 (type == .myRegisteredGuests || type == .myServiceRequests || type == .bioInfo) {
                 return CGFloat(140)
             }
             return CGFloat(180)
-        }
         return CGFloat(0)
     }
     
@@ -431,6 +442,9 @@ extension ProfileVC: CarouselTVCellDelegate {
         }
         return false
     }
+}
+
+extension ProfileVC {
     
     func didSelectCarouselCVCellItem(item: CarouselCVCellItem) {
         if let _ = item.data as? AirGuestRegistration {
@@ -443,9 +457,6 @@ extension ProfileVC: CarouselTVCellDelegate {
             self.performSegue(withIdentifier: "toDeskReservationVC", sender: reservation)
         }
     }
-}
-
-extension ProfileVC {
     
     func showImagePicker() {
         self.imagePicker.delegate = self
