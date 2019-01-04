@@ -30,6 +30,8 @@ class BioTVCell: UITableViewCell {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapImage(_:)))
         self.profileImg.isUserInteractionEnabled = true 
         self.profileImg.addGestureRecognizer(tapGesture)
+        
+        self.addEditLabel()
     }
     
     @objc func didTapImage(_ tapGesture: UITapGestureRecognizer) {
@@ -39,5 +41,28 @@ class BioTVCell: UITableViewCell {
     func setProfileImage(with image: UIImage?) {
         let image = image ?? UIImage(named: "user-placeholder")
         self.profileImg.image = image
+    }
+    
+    func addEditLabel() {
+        let string = "Edit"
+        let backgroundColor = UIColor.lightGray
+        let view = UIView()
+        let viewWidth = self.profileImg.frame.width
+        let viewHeight = self.profileImg.frame.height/4
+        let yPoint = (self.profileImg.frame.height) - viewHeight
+        view.frame = CGRect(x: CGFloat(0), y: yPoint, width: viewWidth, height: viewHeight)
+        view.backgroundColor = backgroundColor
+        view.roundCorners(corners: UIRectCorner.bottomRight, radius: CGFloat(10))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        label.textColor = .white
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        var localAttrs = globalWhiteTextAttrs
+        localAttrs[NSAttributedString.Key.paragraphStyle] = paragraph
+        let attributedString = NSMutableAttributedString(string: string, attributes: localAttrs)
+        label.attributedText = attributedString
+        view.addSubview(label)
+        self.profileImg.addSubview(view)
     }
 }
