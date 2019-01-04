@@ -16,7 +16,7 @@ import Firebase
 
 class ReserveVC: UIViewController {
     
-    @IBOutlet weak var topVIew: UIView!
+    @IBOutlet weak var topView: UIView!
     @IBOutlet weak var tableView: UITableView!
     var sections = [ReserveVCSection]()
     var roomSections = [ReserveVCSection(type: .quickReserveRoom), ReserveVCSection(type: .reserveRoom), ReserveVCSection(type: .allRooms)]
@@ -49,7 +49,7 @@ class ReserveVC: UIViewController {
         }
         
         let control = BetterSegmentedControl(
-            frame: CGRect(x: 0, y: 0, width: topVIew.frame.width, height: topVIew.frame.height),
+            frame: CGRect(x: 0, y: 0, width: (view.frame.width - CGFloat(20)), height: topView.frame.height),
             segments: LabelSegment.segments(withTitles: ["Conference Rooms", "Hot Desks"],
                                             normalFont: UIFont(name: "Avenir Next", size: 15.0)!,
                                             normalTextColor: .black,
@@ -61,7 +61,7 @@ class ReserveVC: UIViewController {
                       .cornerRadius(17.0)])
         
         control.addTarget(self, action: #selector(ReserveVC.controlValueChanged(_:)), for: .valueChanged)
-        topVIew.addSubview(control)
+        topView.addSubview(control)
         
         self.sections = self.roomSections
         

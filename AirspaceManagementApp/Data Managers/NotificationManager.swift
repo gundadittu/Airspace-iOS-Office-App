@@ -43,7 +43,7 @@ class NotificationManager {
     func requestPermission(_ showAllAlerts: Bool = false){
         
         let defaults = UserDefaults.standard
-        if defaults.value(forKey: "showGeneralOnboarding") == nil {
+        if defaults.value(forKey: "showProfileOnboarding") == nil {
            return
         }
         

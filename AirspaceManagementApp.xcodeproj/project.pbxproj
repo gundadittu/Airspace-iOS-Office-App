@@ -325,6 +325,8 @@
 		045C28E1217CD7AD0017C121 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				043D3BC321D7A98D00E833EF /* InitialVC.swift */,
+				04F6B6FE21D62C4400A05E9C /* InvalidUserVCViewController.swift */,
 				045520B72177C1300033D33B /* MainVC.swift */,
 				045520B121755A2B0033D33B /* ServiceRequestVC.swift */,
 				04E7FEDA2185540800AD4E79 /* ReserveVC.swift */,
@@ -346,12 +348,10 @@
 				04110D6921D4A67F00A07DB7 /* SpaceInfoTVC.swift */,
 				04F6B6F421D5E76B00A05E9C /* EventsTVC.swift */,
 				04F6B6FC21D6156A00A05E9C /* EventProfileTVC.swift */,
-				04F6B6FE21D62C4400A05E9C /* InvalidUserVCViewController.swift */,
 				040C548421D72C6700745CAB /* HotDeskProfileVC.swift */,
 				043D3BB921D753F400E833EF /* FindDeskVC.swift */,
 				043D3BBD21D75B0300E833EF /* DeskListVC.swift */,
 				043D3BBF21D77F1A00E833EF /* DeskReservationVC.swift */,
-				043D3BC321D7A98D00E833EF /* InitialVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
