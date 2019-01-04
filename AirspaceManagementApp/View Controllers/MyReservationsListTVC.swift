@@ -8,12 +8,21 @@
 
 import UIKit
 import DZNEmptyDataSet
+import SwiftPullToRefresh
+import NotificationBannerSwift
+
+enum MyReservationsListTVCType {
+    case conferenceRooms
+    case hotDesks
+    case none
+}
 
 class MyReservationsListTVC: UITableViewController {
     
     var upcoming = [AirReservation]()
     var past = [AirReservation]()
     var titleString: String?
+    var type: MyReservationsListTVCType = .none
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +35,57 @@ class MyReservationsListTVC: UITableViewController {
             self.title = "My Reservations"
         }
         
+        self.tableView.spr_setTextHeader {
+            self.loadData()
+        }
+    }
+    
+    func loadData() {
+        switch self.type {
+        case .conferenceRooms:
+            loadConferenceRoomReservations()
+        case .hotDesks:
+            loadHotDeskReservations()
+        case .none:
+            self.tableView.spr_endRefreshing()
+        }
+    }
+    
+    func loadConferenceRoomReservations() {
+        ReservationManager.shared.getAllConferenceRoomReservationsForUser { (upcoming, past, error) in
+            if let _ = error {
+                let banner = StatusBarNotificationBanner(title: "There was an issue loading your conference room reservations.", style: .danger)
+                banner.show()
+                return
+            }
+            
+            if let upcoming = upcoming {
+                self.upcoming = upcoming
+            }
+            if let past = past {
+                self.past = past
+            }
+            self.tableView.spr_endRefreshing()
+            self.tableView.reloadData()
+        }
+    }
+    
+    func loadHotDeskReservations() {
+        DeskReservationManager.shared.getAllHotDeskReservationsForUser { (upcoming, past, error) in
+            if let _ = error {
+                let banner = StatusBarNotificationBanner(title: "There was an issue loading your hot desk reservations.", style: .danger)
+                banner.show()
+                return
+            }
+            if let upcoming = upcoming {
+                self.upcoming = upcoming
+            }
+            if let past = past {
+                self.past = past
+            }
+            self.tableView.spr_endRefreshing()
+            self.tableView.reloadData()
+        }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -10,6 +10,7 @@ import UIKit
 import NotificationBannerSwift
 import NVActivityIndicatorView
 import DZNEmptyDataSet
+import SwiftPullToRefresh
 
 class MyGuestRegTVC: UITableViewController {
     let sections = [MyGuestRegTVCSection(title: "Upcoming", type: .upcoming), MyGuestRegTVCSection(title: "Past", type: .past)]
@@ -29,6 +30,9 @@ class MyGuestRegTVC: UITableViewController {
         self.tableView.emptyDataSetDelegate = self
         self.tableView.emptyDataSetSource = self
         
+        self.tableView.spr_setTextHeader {
+            self.loadData()
+        }
         self.loadData()
     }
 
@@ -118,6 +122,7 @@ class MyGuestRegTVC: UITableViewController {
         self.loadingIndicator?.startAnimating()
         RegisterGuestManager.shared.getUsersRegisteredGuests { (upcoming, past, error) in
             self.loadingIndicator?.stopAnimating()
+            self.tableView.spr_endRefreshing()
             if let _ = error {
                 let banner = NotificationBanner(title: "Oh no!", subtitle: "There was an issue loading your guests.", leftView: nil, rightView: nil, style: .danger, colors: nil)
                 banner.show()

@@ -10,6 +10,7 @@ import UIKit
 import NVActivityIndicatorView
 import NotificationBannerSwift
 import DZNEmptyDataSet
+import SwiftPullToRefresh
 
 class MyServReqTVC: UITableViewController {
     let sections = [MyServReqTVCSection(title: "Received", type: .open), MyServReqTVCSection(title: "In Progress", type: .pending), MyServReqTVCSection(title: "Finished", type: .closed)]
@@ -27,6 +28,9 @@ class MyServReqTVC: UITableViewController {
         self.loadingIndicator = loadingIndicator
         self.view.addSubview(loadingIndicator)
         
+        self.tableView.spr_setTextHeader {
+            self.loadData()
+        }
         self.loadData()
     }
     
@@ -119,7 +123,12 @@ class MyServReqTVC: UITableViewController {
         self.loadingIndicator?.startAnimating()
         ServiceRequestManager.shared.getAllServiceRequests { (open, pending, closed, error) in
             self.loadingIndicator?.stopAnimating()
-            //Handle error
+            self.tableView.spr_endRefreshing()
+            if let _ = error {
+                let banner = StatusBarNotificationBanner(title: "There was an issue loading your service requests.", style: .danger)
+                banner.show()
+                return
+            }
             if let open = open {
                 self.openSR = open
             }

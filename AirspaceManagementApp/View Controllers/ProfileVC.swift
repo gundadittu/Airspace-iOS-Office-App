@@ -353,10 +353,12 @@ extension ProfileVC: SeeMoreTVCDelegate {
                 destination.upcoming = self.dataController?.upcomingReservations ?? []
                 destination.past = self.dataController?.pastReservations ?? []
                 destination.titleString = "My Room Reservations"
+                destination.type = .conferenceRooms
             } else if identifier == "hotDesks" {
                 destination.upcoming = self.dataController?.upcomingDeskReservations ?? []
                 destination.past = self.dataController?.pastDeskReservations ?? []
                 destination.titleString = "My Desk Reservations"
+                destination.type = .hotDesks
             }
         } else if segue.identifier == "toDeskReservationVC",
             let destination = segue.destination as? DeskReservationVC,
