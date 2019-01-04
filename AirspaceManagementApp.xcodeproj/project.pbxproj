@@ -99,6 +99,8 @@
 		04C7133F21CC50BD00F3D62F /* HourBookingCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C7133D21CC50BD00F3D62F /* HourBookingCVC.xib */; };
 		04C7134121CC6C8700F3D62F /* AirConferenceRoomReservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7134021CC6C8700F3D62F /* AirConferenceRoomReservation.swift */; };
 		04C7134321CC864200F3D62F /* ReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7134221CC864200F3D62F /* ReservationManager.swift */; };
+		04CB553C21E01BAA00019BD0 /* TableSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CB553B21E01BAA00019BD0 /* TableSectionHeader.xib */; };
+		04CB553E21E01BD800019BD0 /* TableSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CB553D21E01BD800019BD0 /* TableSectionHeader.swift */; };
 		04CE40BC21D2427C002279DF /* RoomReservationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE40BB21D2427C002279DF /* RoomReservationVC.swift */; };
 		04CE40BE21D243EA002279DF /* RoomReservationVCDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE40BD21D243EA002279DF /* RoomReservationVCDataController.swift */; };
 		04CE40C021D2D8CC002279DF /* NavLoadingIndicatorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE40BF21D2D8CC002279DF /* NavLoadingIndicatorExtension.swift */; };
@@ -221,6 +223,8 @@
 		04C7133D21CC50BD00F3D62F /* HourBookingCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourBookingCVC.xib; sourceTree = "<group>"; };
 		04C7134021CC6C8700F3D62F /* AirConferenceRoomReservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirConferenceRoomReservation.swift; sourceTree = "<group>"; };
 		04C7134221CC864200F3D62F /* ReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationManager.swift; sourceTree = "<group>"; };
+		04CB553B21E01BAA00019BD0 /* TableSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableSectionHeader.xib; sourceTree = "<group>"; };
+		04CB553D21E01BD800019BD0 /* TableSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionHeader.swift; sourceTree = "<group>"; };
 		04CE40BB21D2427C002279DF /* RoomReservationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomReservationVC.swift; sourceTree = "<group>"; };
 		04CE40BD21D243EA002279DF /* RoomReservationVCDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomReservationVCDataController.swift; sourceTree = "<group>"; };
 		04CE40BF21D2D8CC002279DF /* NavLoadingIndicatorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavLoadingIndicatorExtension.swift; sourceTree = "<group>"; };
@@ -418,6 +422,8 @@
 				046CC9BB21D07EFF00DC1993 /* NotificationTVCell.xib */,
 				04F6B6F821D5EFAD00A05E9C /* EventsTVCell.swift */,
 				04F6B6F921D5EFAD00A05E9C /* EventsTVCell.xib */,
+				04CB553B21E01BAA00019BD0 /* TableSectionHeader.xib */,
+				04CB553D21E01BD800019BD0 /* TableSectionHeader.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -546,6 +552,7 @@
 				04F6B6FB21D5EFAD00A05E9C /* EventsTVCell.xib in Resources */,
 				046CC9BD21D07EFF00DC1993 /* NotificationTVCell.xib in Resources */,
 				040E988F21A3A7D400143CA5 /* FormTVCell.xib in Resources */,
+				04CB553C21E01BAA00019BD0 /* TableSectionHeader.xib in Resources */,
 				046D8BF321CCEE1F00F2C3B1 /* ConferenceRoomDetailedTVC.xib in Resources */,
 				045520A4217548F60033D33B /* LaunchScreen.storyboard in Resources */,
 				04D8D69D2183F7380079380F /* BioTVCell.xib in Resources */,
@@ -712,6 +719,7 @@
 				04C7133821CC3DC300F3D62F /* ConferenceRoomTVCell.swift in Sources */,
 				04C7132B21C9840A00F3D62F /* FindRoomVCDataController.swift in Sources */,
 				0407E0512184190500C516BC /* GlobalConstants.swift in Sources */,
+				04CB553E21E01BD800019BD0 /* TableSectionHeader.swift in Sources */,
 				0413D2CD21C8560900E2C5F3 /* AirServiceRequest.swift in Sources */,
 				0413D2C921C81ABD00E2C5F3 /* TextInputVC.swift in Sources */,
 				043CA237217E87C6008703FC /* NotificationsVC.swift in Sources */,

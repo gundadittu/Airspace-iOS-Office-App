@@ -61,7 +61,10 @@ class SettingsTVC: UITableViewController, MFMailComposeViewControllerDelegate {
                 present(vc, animated: true, completion: nil)
             }
         case .acknowledgments:
-            break
+            if let url = URL(string: "https://www.airspaceoffice.co/ios-app-acknowledgements") {
+                let vc = SFSafariViewController(url: url)
+                present(vc, animated: true, completion: nil)
+            }
         case .logOut:
             self.showLogOutAlert()
         case .version:

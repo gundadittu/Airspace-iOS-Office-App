@@ -40,7 +40,8 @@ class ProfileVC: UIViewController {
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "BioTVCell", bundle: nil), forCellReuseIdentifier: "BioTVCell")
         self.tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
-        self.tableView.register(UINib(nibName: "SeeMoreTVC", bundle: nil), forCellReuseIdentifier: "SeeMoreTVC")
+        let nib = UINib(nibName: "TableSectionHeader", bundle: nil)
+        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: "TableSectionHeader")
         self.tableView.allowsSelection = false
         
         if self.dataController == nil {
@@ -55,11 +56,17 @@ class ProfileVC: UIViewController {
             self?.loadData()
         }
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings")!, style: .plain, target: self, action: #selector(ProfileVC.didTapSave))
+        
         self.showOnboarding()
     }
     
     func loadData(){
         self.dataController?.loadData()
+    }
+    
+    @objc func didTapSave() {
+        self.performSegue(withIdentifier: "toSettingsTVC", sender: nil)
     }
     
     func showOnboarding() {
@@ -132,23 +139,25 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let currSection = sections[section]
-        return currSection.title
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.white
-    }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(30)
+        if (section == 0) {
+            return CGFloat(0)
+        }
+        return CGFloat(50)
     }
     
-    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.white
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableSectionHeader") as? TableSectionHeader else {
+            return UIView()
+        }
+        let currSection = sections[section]
+        let sectionTitle = currSection.title
+        cell.titleLabel.text = sectionTitle
+        cell.section = currSection
+        cell.delegate = self
+        return cell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             if let type = self.sections[indexPath.section].type,
@@ -156,9 +165,6 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 return CGFloat(140)
             }
             return CGFloat(180)
-        } else if indexPath.row == 1 {
-            // see more buttons 
-            return CGFloat(90)
         }
         return CGFloat(0)
     }
@@ -168,35 +174,23 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currSection = sections[indexPath.section]
         switch currSection.type {
         case .bioInfo?:
-            if indexPath.row == 0 {
                 var cell = BioTVCell()
                 if let tvCell = tableView.dequeueReusableCell(withIdentifier: "BioTVCell", for: indexPath) as? BioTVCell  {
                     cell = tvCell
-                } else {
-                    tableView.register(UINib(nibName: "BioTVCell", bundle: nil), forCellReuseIdentifier: "BioTVCell")
-                    cell = tableView.dequeueReusableCell(withIdentifier: "BioTVCell", for: indexPath) as! BioTVCell
                 }
                 cell.delegate = self
                 cell.setProfileImage(with: self.profileImage)
                 cell.mainLbl.text = UserAuth.shared.displayName
                 cell.subtitleLbl.text = UserAuth.shared.email
                 return cell
-            } else {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
-                    return UITableViewCell()
-                }
-                cell.configureCell(with: currSection, buttonTitle: "Settings", delegate: self)
-                return cell
-            }
         case .myRoomReservations?:
-            if indexPath.row == 0 {
                 var cell = CarouselTVCell()
                 if let tvCell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as? CarouselTVCell  {
                     cell = tvCell
@@ -215,15 +209,7 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.delegate = self
                 cell.setCarouselItems(with: carouselItems)
                 return cell
-            } else if indexPath.row == 1 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
-                    return UITableViewCell()
-                }
-                cell.configureCell(with: currSection, buttonTitle: currSection.seeMoreTitle ?? "More", delegate: self)
-                return cell
-            }
         case .myRegisteredGuests?:
-            if indexPath.row == 0 {
                 var cell = CarouselTVCell()
                 if let tvCell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as? CarouselTVCell  {
                     cell = tvCell
@@ -239,15 +225,7 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.delegate = self
                 cell.setCarouselItems(with: carouselItems)
                 return cell
-            } else if indexPath.row == 1 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
-                    return UITableViewCell()
-                }
-                cell.configureCell(with: currSection, buttonTitle: currSection.seeMoreTitle ?? "More", delegate: self)
-                return cell
-            }
         case .myDeskReservations?:
-            if indexPath.row == 0 {
                 var cell = CarouselTVCell()
                 if let tvCell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as? CarouselTVCell  {
                     cell = tvCell
@@ -266,16 +244,7 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 
                 cell.setCarouselItems(with: carouselItems)
                 return cell
-            } else if indexPath.row == 1 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
-                    return UITableViewCell()
-                }
-                cell.configureCell(with: currSection, buttonTitle: currSection.seeMoreTitle ?? "More", delegate: self)
-                return cell
-            }
         case .myServiceRequests?:
-            
-            if indexPath.row == 0 {
                 var cell = CarouselTVCell()
                 if let tvCell = tableView.dequeueReusableCell(withIdentifier: "CarouselTVCell", for: indexPath) as? CarouselTVCell  {
                     cell = tvCell
@@ -291,13 +260,6 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.delegate = self
                 cell.setCarouselItems(with: carouselItems)
                 return cell
-            } else if indexPath.row == 1 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeeMoreTVC", for: indexPath) as? SeeMoreTVC else {
-                    return UITableViewCell()
-                }
-                cell.configureCell(with: currSection, buttonTitle: currSection.seeMoreTitle ?? "More", delegate: self)
-                return cell
-            }
         case .none:
             break
         }
@@ -305,25 +267,7 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension ProfileVC: SeeMoreTVCDelegate {
-    func didSelectSeeMore(for section: PageSection) {
-        guard let section = section as? ProfileSection else { return }
-        switch section.type {
-        case .none:
-            return
-        case .some(.bioInfo):
-            // clicked on settings
-            self.performSegue(withIdentifier: "toSettingsTVC", sender: nil)
-        case .some(.myRoomReservations):
-            self.performSegue(withIdentifier: "toMyReservationsListTVC", sender: "conferenceRooms")
-        case .some(.myDeskReservations):
-            self.performSegue(withIdentifier: "toMyReservationsListTVC", sender: "hotDesks")
-        case .some(.myServiceRequests):
-            self.performSegue(withIdentifier: "ProfileVCtoMyServReqTVC", sender: nil)
-        case .some(.myRegisteredGuests):
-            self.performSegue(withIdentifier: "ProfileVCtoMyGuestRegTVC", sender: nil)
-        }
-    }
+extension ProfileVC {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ProfileVCtoMyGuestRegTVC",
@@ -566,5 +510,24 @@ extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDele
 extension ProfileVC: BioTVCellDelegate {
     func didTapImage() {
         self.showImagePicker()
+    }
+}
+
+extension ProfileVC: TableSectionHeaderDelegate {
+    func didSelectSectionHeader(with section: PageSection?) {
+        guard let section = section as? ProfileSection,
+            let type = section.type else { return }
+        switch type {
+        case .bioInfo:
+            return
+        case .myRoomReservations:
+            self.performSegue(withIdentifier: "toMyReservationsListTVC", sender: "conferenceRooms")
+        case .myDeskReservations:
+            self.performSegue(withIdentifier: "toMyReservationsListTVC", sender: "hotDesks")
+        case .myServiceRequests:
+            self.performSegue(withIdentifier: "ProfileVCtoMyServReqTVC", sender: nil)
+        case .myRegisteredGuests:
+            self.performSegue(withIdentifier: "ProfileVCtoMyGuestRegTVC", sender: nil)
+        }
     }
 }
