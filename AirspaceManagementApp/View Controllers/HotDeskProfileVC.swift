@@ -214,12 +214,10 @@ extension HotDeskProfileVC: ConferenceRoomDetailedTVCDelegate, HotDeskProfileDat
         if self.didPull == true {
             return
         }
-        self.showActivityIndicator()
         self.loadingIndicator?.startAnimating()
     }
     
     func stopLoadingIndicator() {
-        self.hideActivityIndicator()
         self.loadingIndicator?.stopAnimating()
         self.tableView.spr_endRefreshing()
     }

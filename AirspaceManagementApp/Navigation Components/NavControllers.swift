@@ -36,3 +36,8 @@ class ReserveNavController: BaseNavController {
     
 }
 
+class EventsNavController: BaseNavController {
+    
+}
+
+

@@ -33,8 +33,9 @@
                         </imageView>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="W81-te-cUk" firstAttribute="leading" secondItem="At4-Ob-sbT" secondAttribute="trailing" id="8Tl-e1-Eef"/>
+                        <constraint firstAttribute="trailing" secondItem="W81-te-cUk" secondAttribute="trailing" id="CZE-iR-nh2"/>
                         <constraint firstItem="At4-Ob-sbT" firstAttribute="leading" secondItem="2fn-B4-ttZ" secondAttribute="leading" id="LER-6D-Oq9"/>
-                        <constraint firstItem="W81-te-cUk" firstAttribute="leading" secondItem="At4-Ob-sbT" secondAttribute="trailing" id="YAO-eI-Eey"/>
                     </constraints>
                 </stackView>
             </subviews>

@@ -355,7 +355,7 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
     }
     
     func didUpdateCarouselData() {
-         self.didPull == false
+        self.didPull = false
         if let upcomingGuests = self.dataController?.upcomingGuests {
             self.upcomingGuests = upcomingGuests
             let sectionToReload = 4
@@ -425,11 +425,11 @@ extension ProfileVC: CarouselTVCellDelegate {
             if identifier == "myServiceRequests" {
                 return UIImage(named: "no-requests")!
             } else if identifier == "myDeskReservations" {
-                return UIImage(named: "no-reservations")!
+                return UIImage(named: "no-desk-reservations")!
             } else if identifier == "myRegisteredGuests" {
                 return UIImage(named: "no-guests")!
             } else if identifier == "myRoomReservations" {
-                return UIImage(named: "no-reservations")!
+                return UIImage(named: "no-room-reservations")!
             }
         }
         return UIImage()

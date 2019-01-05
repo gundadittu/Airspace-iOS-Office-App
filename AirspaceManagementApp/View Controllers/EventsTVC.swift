@@ -20,7 +20,12 @@ class EventsTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Events"
+        if (self != self.navigationController?.viewControllers[0])
+        {
+            self.title = "Events"
+        } else {
+            self.navigationController?.navigationBar.topItem?.title = "Events"
+        }
         self.tableView.register(UINib(nibName: "EventsTVCell", bundle: nil), forCellReuseIdentifier: "EventsTVCell")
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false
@@ -50,6 +55,7 @@ class EventsTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return events.count
     }
 
@@ -108,7 +114,7 @@ extension EventsTVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
         if self.dataController?.isLoading ?? false {
             return NSMutableAttributedString(string: "Loading...", attributes: globalBoldTextAttrs)
         }
-        return NSMutableAttributedString(string: "No upcoming events.", attributes: globalBoldTextAttrs)
+        return NSMutableAttributedString(string: "You're outta jam.", attributes: globalBoldTextAttrs)
     }
     
     
@@ -116,13 +122,13 @@ extension EventsTVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
         if self.dataController?.isLoading ?? false {
             return NSMutableAttributedString(string: "", attributes: globalTextAttrs)
         }
-        return NSMutableAttributedString(string: "Come back tomorrow.", attributes: globalTextAttrs)
+        return NSMutableAttributedString(string: "Check again later for new events.", attributes: globalTextAttrs)
     }
     
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         if self.dataController?.isLoading ?? false {
             return UIImage()
         }
-        return UIImage(named: "closed-icon")
+        return UIImage(named: "jam-icon")
     }
 }

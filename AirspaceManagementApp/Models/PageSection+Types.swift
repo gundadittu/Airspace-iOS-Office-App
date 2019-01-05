@@ -110,6 +110,7 @@ class ConferenceRoomProfileSection : PageSection {
 
 enum SettingsTVCSectionType {
     case notifications
+    case changePassword
     case contact
     case terms
     case privacyPolicy

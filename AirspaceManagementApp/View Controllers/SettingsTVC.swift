@@ -10,20 +10,27 @@ import UIKit
 import SafariServices
 import NotificationBannerSwift
 import MessageUI
+import NVActivityIndicatorView
+import FirebaseAuth
+import CFAlertViewController
 
 class SettingsTVC: UITableViewController, MFMailComposeViewControllerDelegate {
     var sections = [SettingsTVCSection]()
-    
+    var loadingIndicator: NVActivityIndicatorView?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
-        self.sections = [SettingsTVCSection(title: "Notification Settings", type: .notifications), SettingsTVCSection(title: "Get in touch with us", type: .contact),
+        self.sections = [SettingsTVCSection(title: "Notification Settings", type: .notifications), SettingsTVCSection(title: "Change Password", type: .changePassword), SettingsTVCSection(title: "Get in touch with us", type: .contact),
         SettingsTVCSection(title: "Terms of Use", type: .terms),
         SettingsTVCSection(title: "Privacy Policy", type: .privacyPolicy),
         SettingsTVCSection(title: "Acknowledgements", type: .acknowledgments),
         SettingsTVCSection(title: "Log Out", type: .logOut),
         SettingsTVCSection(title: "Version: "+(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? "N/A"), type: .version)]
         self.tableView.separatorStyle = .none
+        
+        self.loadingIndicator = getGlobalLoadingIndicator(in: self.view)
+        self.view.addSubview(self.loadingIndicator!)
     }
     
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
@@ -71,6 +78,8 @@ class SettingsTVC: UITableViewController, MFMailComposeViewControllerDelegate {
             break
         case .notifications:
             NotificationManager.shared.requestPermission(true)
+        case .changePassword:
+            self.changePassword()
         }
     }
     
@@ -80,6 +89,29 @@ class SettingsTVC: UITableViewController, MFMailComposeViewControllerDelegate {
         cell.configureCell(with: section)
         return cell
     }
+    
+    func changePassword() {
+        guard let email = UserAuth.shared.email else {
+            // handle error
+            return
+        }
+        self.loadingIndicator?.startAnimating()
+        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+            self.loadingIndicator?.stopAnimating()
+            if let _ = error {
+                let alertController = CFAlertViewController(title: "Oh no..", message: "We were unable to send you a link to change your password.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+                let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil, handler: nil)
+                alertController.addAction(action)
+                self.present(alertController, animated: true)
+            } else {
+                let alertController = CFAlertViewController(title: "Check your inbox!", message: "We've sent a link to change your password to your email.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
+                let action = CFAlertAction(title: "Thanks", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil, handler: nil)
+                alertController.addAction(action)
+                self.present(alertController, animated: true)
+            }
+        }
+    }
+
     
     func showLogOutAlert() {
         let alert = UIAlertController(title: "Logging Out", message: "Are you sure you want to log out?", preferredStyle: .alert)

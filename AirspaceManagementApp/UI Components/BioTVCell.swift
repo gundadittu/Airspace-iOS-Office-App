@@ -45,7 +45,8 @@ class BioTVCell: UITableViewCell {
     
     func addEditLabel() {
         let string = "Edit"
-        let backgroundColor = UIColor.lightGray
+        let backgroundColorOriginal = UIColor.flatWhite.darken(byPercentage: CGFloat(0.1))
+        let backgroundColor = backgroundColorOriginal?.withAlphaComponent(CGFloat(0.8))
         let view = UIView()
         let viewWidth = self.profileImg.frame.width
         let viewHeight = self.profileImg.frame.height/4
