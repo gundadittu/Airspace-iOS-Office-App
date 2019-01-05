@@ -41,7 +41,8 @@ class HotDeskProfileVC: UIViewController {
     var existingResDisplayStartDate = Date() // date used to display existing reservations for room
     var startDate: Date?
     var endDate: Date?
-
+    var didPull = false
+    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,7 @@ class HotDeskProfileVC: UIViewController {
         self.tableView.addSubview(self.loadingIndicator!)
         
         self.tableView.spr_setTextHeader { [weak self] in
+            self?.didPull = true
             self?.tableView.reloadData()
         }
         
@@ -209,6 +211,9 @@ extension HotDeskProfileVC: ConferenceRoomDetailedTVCDelegate, HotDeskProfileDat
     }
     
     func startLoadingIndicator() {
+        if self.didPull == true {
+            return
+        }
         self.showActivityIndicator()
         self.loadingIndicator?.startAnimating()
     }
@@ -232,6 +237,7 @@ extension HotDeskProfileVC: ConferenceRoomDetailedTVCDelegate, HotDeskProfileDat
     }
     
     func didFinishSubmittingData(withError error: Error?) {
+        self.didPull = false
         if let _ = error {
             let alertController = CFAlertViewController(title: "Oh no!🤯", message: "There was an issue reserving this desk.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
             

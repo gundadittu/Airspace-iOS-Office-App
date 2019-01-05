@@ -12,20 +12,20 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TableSectionHeader" customModule="AirspaceManagementApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="283" translatesAutoresizingMaskIntoConstraints="NO" id="2fn-B4-ttZ">
-                    <rect key="frame" x="10" y="22" width="355" height="20"/>
+                    <rect key="frame" x="15" y="323.5" width="345" height="20"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="At4-Ob-sbT">
-                            <rect key="frame" x="0.0" y="0.0" width="52" height="20"/>
+                            <rect key="frame" x="0.0" y="0.0" width="42" height="20"/>
                             <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="18"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron" translatesAutoresizingMaskIntoConstraints="NO" id="W81-te-cUk">
-                            <rect key="frame" x="335" y="0.0" width="20" height="20"/>
+                            <rect key="frame" x="325" y="0.0" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="20" id="e0D-Nh-j7W"/>
                                 <constraint firstAttribute="height" constant="20" id="tqT-QW-EFM"/>
@@ -40,12 +40,13 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="2fn-B4-ttZ" secondAttribute="trailing" constant="10" id="9oj-UB-VZ3"/>
-                <constraint firstItem="2fn-B4-ttZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="ZpM-ad-jle"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="2fn-B4-ttZ" secondAttribute="trailing" constant="15" id="9oj-UB-VZ3"/>
+                <constraint firstItem="2fn-B4-ttZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="ZpM-ad-jle"/>
                 <constraint firstItem="2fn-B4-ttZ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="vMl-Pz-nQq"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="chevronBtn" destination="W81-te-cUk" id="06Z-7b-GRn"/>
                 <outlet property="titleLabel" destination="At4-Ob-sbT" id="TpZ-FJ-YSH"/>
             </connections>
             <point key="canvasLocation" x="-87.200000000000003" y="-185.30734632683661"/>

@@ -23,6 +23,7 @@ class RoomReservationVC: UIViewController {
     var conferenceRoomReservation: AirConferenceRoomReservation?
     var existingResDisplayStartDate = Date() // date used to display existing reservations for room
     var modificationsAllowed = true
+    var didPull = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,7 @@ class RoomReservationVC: UIViewController {
         self.title = "My Room Reservation"
         
         self.tableView.spr_setTextHeader { [weak self] in
+            self?.didPull = true
             self?.tableView.reloadData()
         }
         
@@ -242,6 +244,7 @@ extension RoomReservationVC: UITableViewDelegate, UITableViewDataSource {
 
 extension RoomReservationVC: RoomReservationVCDataControllerDelegate {
     func didFinishSubmittingData(withError error: Error?) {
+        self.didPull = false
         if let _ = error {
             let banner = NotificationBanner(title: "Woops!", subtitle: "We are unable to modify your reservation currently. Try again later.", leftView: nil, rightView: nil, style: .warning, colors: nil)
             banner.show()
@@ -257,6 +260,9 @@ extension RoomReservationVC: RoomReservationVCDataControllerDelegate {
     }
     
     func startLoadingIndicator() {
+        if self.didPull == true {
+            return 
+        }
         self.showActivityIndicator()
         self.loadingIndicator?.startAnimating()
     }

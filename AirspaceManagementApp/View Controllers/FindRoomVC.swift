@@ -91,7 +91,17 @@ class FindRoomVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             }
         case .startTime:
             if let date = self.dataController?.selectedStartDate {
-                let dateString = date.localizedMedDateDescription+" at "+date.localizedDescriptionNoDate
+                var dateString = ""
+                if date.isToday {
+                    if date.timeIntervalSinceNow <= TimeInterval(5) {
+                        dateString = "Right now"
+
+                    } else {
+                        dateString = "Today at "+date.localizedDescriptionNoDate
+                    }
+                } else {
+                    dateString = date.localizedMedDateDescription+" at "+date.localizedDescriptionNoDate
+                }
                 section.selectedButtonTitle = dateString
             } else {
                 section.selectedButtonTitle = nil

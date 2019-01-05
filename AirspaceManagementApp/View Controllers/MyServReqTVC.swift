@@ -18,6 +18,7 @@ class MyServReqTVC: UITableViewController {
     var pendingSR = [AirServiceRequest]()
     var closedSR = [AirServiceRequest]()
     var loadingIndicator: NVActivityIndicatorView?
+    var didPull = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,11 @@ class MyServReqTVC: UITableViewController {
         self.loadingIndicator = loadingIndicator
         self.view.addSubview(loadingIndicator)
         
+        let nib = UINib(nibName: "TableSectionHeader", bundle: nil)
+        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: "TableSectionHeader")
+        
         self.tableView.spr_setTextHeader {
+            self.didPull = true
             self.loadData()
         }
         self.loadData()
@@ -52,18 +57,33 @@ class MyServReqTVC: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let currSection = sections[section]
-        return currSection.title
-    }
-    
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.white
-    }
-    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(30)
+        return CGFloat(50)
     }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableSectionHeader") as? TableSectionHeader else {
+            return UIView()
+        }
+        let currSection = sections[section]
+        let sectionTitle = currSection.title
+        cell.titleLabel.text = sectionTitle
+        cell.chevronBtn.isHidden = true
+        return cell
+    }
+    
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        let currSection = sections[section]
+//        return currSection.title
+//    }
+//
+//    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.white
+//    }
+//
+//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return CGFloat(30)
+//    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
@@ -120,8 +140,11 @@ class MyServReqTVC: UITableViewController {
     }
     
     func loadData() {
-        self.loadingIndicator?.startAnimating()
+        if self.didPull == false {
+            self.loadingIndicator?.startAnimating()
+        }
         ServiceRequestManager.shared.getAllServiceRequests { (open, pending, closed, error) in
+            self.didPull = false 
             self.loadingIndicator?.stopAnimating()
             self.tableView.spr_endRefreshing()
             if let _ = error {

@@ -24,7 +24,8 @@ class ProfileVC: UIViewController {
     var loadingIndicator: NVActivityIndicatorView?
     var profileImage: UIImage?
     var imagePicker = UIImagePickerController()
-
+    var didPull = false
+    
     var sections = [ProfileSection(title: "Bio", seeMoreTitle: "Edit Bio",type: .bioInfo),
                     ProfileSection(title: "My Reserved Rooms", seeMoreTitle: "See More", type: .myRoomReservations),
                     ProfileSection(title: "My Reserved Desks", seeMoreTitle: "See More", type: .myDeskReservations),
@@ -53,6 +54,7 @@ class ProfileVC: UIViewController {
         self.view.addSubview(loadingIndicator)
         
         self.tableView.spr_setTextHeader { [weak self] in
+            self?.didPull = true
             self?.loadData()
         }
         
@@ -139,18 +141,18 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if (section == ((self.sections.count)-1)) {
-            return CGFloat(50)
-        }
-        return CGFloat(20)
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view 
-    }
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        if (section == ((self.sections.count)-1)) {
+//            return CGFloat(50)
+//        }
+//        return CGFloat(20)
+//    }
+//    
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        let view = UIView()
+//        view.backgroundColor = .white
+//        return view 
+//    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (section == 0) {
@@ -177,7 +179,6 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
                 return CGFloat(140)
             }
             return CGFloat(180)
-        return CGFloat(0)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -347,10 +348,14 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
     }
     
     func startLoadingIndicator() {
+        if self.didPull == true {
+            return
+        }
         self.loadingIndicator?.startAnimating()
     }
     
     func didUpdateCarouselData() {
+         self.didPull == false
         if let upcomingGuests = self.dataController?.upcomingGuests {
             self.upcomingGuests = upcomingGuests
             let sectionToReload = 4

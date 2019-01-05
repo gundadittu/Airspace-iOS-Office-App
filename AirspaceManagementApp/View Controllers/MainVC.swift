@@ -25,6 +25,7 @@ class MainVC: UIViewController {
     var loadingIndicator: NVActivityIndicatorView?
     var reservationsToday = [AirReservation]()
     var dataController: MainVCDataController?
+    var didPull = false
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -36,6 +37,8 @@ class MainVC: UIViewController {
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
+        let nib = UINib(nibName: "TableSectionHeader", bundle: nil)
+        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: "TableSectionHeader")
         
         let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
         self.loadingIndicator = loadingIndicator
@@ -46,6 +49,7 @@ class MainVC: UIViewController {
         }
         
         self.tableView.spr_setTextHeader {
+            self.didPull = true
             self.dataController?.loadData()
         }
         
@@ -166,17 +170,20 @@ extension MainVC: UITableViewDataSource {
     }
     
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sectionObj = self.sections[section]
-        return sectionObj.title
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.white
-    }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(45)
+        return CGFloat(50)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableSectionHeader") as? TableSectionHeader else {
+            return UIView()
+        }
+        let currSection = sections[section]
+        let sectionTitle = currSection.title
+        cell.titleLabel.text = sectionTitle
+        cell.section = currSection
+        cell.chevronBtn.isHidden = true
+        return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -274,6 +281,7 @@ extension MainVC: MainVCDataControllerDelegate {
     
     func didUpdateReservationsToday(with error: Error?) {
         
+        self.didPull = false
         if let bool = self.dataController?.isLoading {
             if bool == false {
                 self.tableView.spr_endRefreshing()
@@ -292,6 +300,9 @@ extension MainVC: MainVCDataControllerDelegate {
     }
     
     func startLoadingIndicator() {
+        if self.didPull == true {
+            return 
+        }
         self.loadingIndicator?.startAnimating()
     }
     

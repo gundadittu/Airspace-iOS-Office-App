@@ -22,6 +22,7 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
     var existingResDisplayStartDate = Date() // date used to display existing reservations for room
     var startDate: Date?
     var endDate: Date?
+    var didPull = false
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -41,6 +42,7 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
         self.view.addSubview(loadingIndicator)
         
         self.tableView.spr_setTextHeader { [weak self] in
+            self?.didPull = true
             self?.tableView.reloadData()
         }
 
@@ -251,6 +253,7 @@ extension ConferenceRoomProfileTVC: FormTVCellDelegate {
 }
 extension ConferenceRoomProfileTVC: ConferenceRoomProfileDataControllerDelegate {
     func didFinishSubmittingData(withError error: Error?) {
+        self.didPull = false
         if let _ = error {
             let alertController = CFAlertViewController(title: "Oh no!🤯", message: "There was an issue reserving this room.", textAlignment: .left, preferredStyle: .alert, didDismissAlertHandler: nil)
             
@@ -311,6 +314,9 @@ extension ConferenceRoomProfileTVC: ConferenceRoomDetailedTVCDelegate {
     }
     
     func startLoadingIndicator() {
+        if self.didPull == true {
+            return
+        }
         self.showActivityIndicator()
         self.loadingIndicator?.startAnimating()
     }

@@ -17,6 +17,7 @@ class DeskListVC: UITableViewController {
     var startingDate = Date()
     var dataController: FindDeskVCDataController?
     var loadingIndicator: NVActivityIndicatorView?
+    var didPull = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,7 @@ class DeskListVC: UITableViewController {
         self.view.addSubview(loadingIndicator)
         
         self.tableView.spr_setTextHeader { [weak self] in
+            self?.didPull = true
             self?.dataController?.submitData()
         }
     }
@@ -94,6 +96,7 @@ extension DeskListVC: ConferenceRoomTVCellDelegate {
 
 extension DeskListVC: FindDeskVCDataControllerDelegate {
     func didFindAvailableDesks(desks: [AirDesk]?, error: Error?) {
+        self.didPull = false
         if let desks = desks {
             self.hotDesks = desks
             self.tableView.reloadData()
@@ -104,6 +107,9 @@ extension DeskListVC: FindDeskVCDataControllerDelegate {
     }
     
     func startLoadingIndicator() {
+        if self.didPull == true {
+            return 
+        }
         self.loadingIndicator?.startAnimating()
     }
     

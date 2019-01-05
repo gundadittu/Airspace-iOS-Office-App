@@ -16,6 +16,7 @@ class EventsTVC: UITableViewController {
     var events = [AirEvent]()
     var dataController: EventsTVCDataController?
     var loadingIndicator: NVActivityIndicatorView?
+    var didPull = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,7 @@ class EventsTVC: UITableViewController {
         self.tableView.emptyDataSetDelegate = self
         
         self.tableView.spr_setTextHeader {
+            self.didPull = true
             self.dataController?.loadData()
         }
         
@@ -63,6 +65,9 @@ class EventsTVC: UITableViewController {
 
 extension EventsTVC: EventsTVCDataControllerDelegate {
     func startLoadingIndicator() {
+        if self.didPull == true {
+            return
+        }
         self.loadingIndicator?.startAnimating()
     }
     
@@ -71,6 +76,7 @@ extension EventsTVC: EventsTVCDataControllerDelegate {
     }
     
     func didUpdateData(with error: Error?) {
+        self.didPull = false 
         self.tableView.spr_endRefreshing()
         if let _ = error {
             let banner = NotificationBanner(title: "Oh no!", subtitle: "There was an issue loading the events in your offices.", leftView: nil, rightView: nil, style: .danger, colors: nil)

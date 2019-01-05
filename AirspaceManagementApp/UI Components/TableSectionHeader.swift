@@ -14,6 +14,7 @@ protocol TableSectionHeaderDelegate {
 
 class TableSectionHeader: UITableViewHeaderFooterView {
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var chevronBtn: UIImageView!
     var delegate: TableSectionHeaderDelegate?
     var section: PageSection?
     

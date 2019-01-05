@@ -29,6 +29,7 @@ class ReserveVC: UIViewController {
     var allRoomsStartDate = Date()
     var allDesksStartDate = Date()
     var dataController: ReserveVCDataController?
+    var didPull = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +40,15 @@ class ReserveVC: UIViewController {
         self.tableView.register(UINib(nibName: "CarouselTVCell", bundle: nil), forCellReuseIdentifier: "CarouselTVCell")
         self.tableView.register(UINib(nibName: "SeeMoreTVC", bundle: nil), forCellReuseIdentifier: "SeeMoreTVC")
         self.tableView.register(UINib(nibName: "ConferenceRoomTVCell", bundle: nil), forCellReuseIdentifier: "ConferenceRoomTVCell")
+        let nib = UINib(nibName: "TableSectionHeader", bundle: nil)
+        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: "TableSectionHeader")
         
         if self.dataController == nil {
             self.dataController = ReserveVCDataController(delegate: self)
         }
         
         self.tableView.spr_setTextHeader { [weak self] in
+            self?.didPull = true
             self?.dataController?.loadData(for: self?.type)
         }
         
@@ -135,22 +139,45 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let currSectionType = sections[section].type else { return nil }
-        switch currSectionType {
-        case .quickReserveRoom:
-            return "Find a conference room today for:"
-        case .reserveDesk:
-            return nil
-        case .reserveRoom:
-            return nil
-        case .quickReserveDesk:
-            return "Find a hot desk today for:"
-        case .allRooms:
-            return "All Conference Rooms"
-        case .allDesks:
-            return "All Hot Desks"
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        guard let currSectionType = sections[section].type else { return nil }
+//        switch currSectionType {
+//        case .quickReserveRoom:
+//            return "Find a conference room today for:"
+//        case .reserveDesk:
+//            return nil
+//        case .reserveRoom:
+//            return nil
+//        case .quickReserveDesk:
+//            return "Find a hot desk today for:"
+//        case .allRooms:
+//            return "All Conference Rooms"
+//        case .allDesks:
+//            return "All Hot Desks"
+//        }
+//    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let currSection = self.sections[section]
+        guard let type = currSection.type else {
+            return CGFloat(0)
         }
+        if type == .reserveDesk || type == .reserveRoom {
+            return CGFloat(0)
+        }
+        return CGFloat(50)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableSectionHeader") as? TableSectionHeader else {
+            return UIView()
+        }
+        let currSection = sections[section]
+        let sectionTitle = currSection.title
+        cell.titleLabel.text = sectionTitle
+        cell.section = currSection
+        cell.chevronBtn.isHidden = true 
+        return cell
     }
 
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
@@ -197,10 +224,6 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
             let desk = self.allHotDesks[indexPath.row-1]
             self.performSegue(withIdentifier: "toHotDeskProfileVC", sender: desk)
         }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.white
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -423,6 +446,9 @@ extension ReserveVC: DateTimeInputVCDelegate {
 extension ReserveVC: ReserveVCDataControllerDelegate {
     
     func startLoadingIndicator() {
+        if self.didPull == true {
+            return
+        }
         self.loadingIndicator?.startAnimating()
     }
     
@@ -433,6 +459,7 @@ extension ReserveVC: ReserveVCDataControllerDelegate {
     }
     
     func didLoadData(allRooms: [AirConferenceRoom]?, allDesks: [AirDesk]?, with error: Error?) {
+        self.didPull = false 
         if let _ = error {
             let banner = NotificationBanner(title: "Zoinks!", subtitle: "We were unable to load your conference rooms and desk. Please try again later.", leftView: nil, rightView: nil, style: .danger, colors: nil)
             banner.show()
@@ -546,5 +573,11 @@ class ChooseDateCell: UITableViewCell {
     }
     @IBAction func didTapDateBtn(_ sender: Any) {
         self.delegate?.didTapChooseDateButton()
+    }
+}
+
+extension ReserveVC: TableSectionHeaderDelegate {
+    func didSelectSectionHeader(with section: PageSection?) {
+       return
     }
 }

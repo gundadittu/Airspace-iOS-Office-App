@@ -35,6 +35,9 @@ class MyReservationsListTVC: UITableViewController {
             self.title = "My Reservations"
         }
         
+        let nib = UINib(nibName: "TableSectionHeader", bundle: nil)
+        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: "TableSectionHeader")
+        
         self.tableView.spr_setTextHeader {
             self.loadData()
         }
@@ -88,14 +91,22 @@ class MyReservationsListTVC: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "Upcoming"
-        } else if section == 1 {
-            return "Past"
-        } else {
-            return nil
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat(50)
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableSectionHeader") as? TableSectionHeader else {
+            return UIView()
         }
+        if section == 0 {
+            cell.titleLabel.text = "Upcoming"
+        } else if section == 1 {
+             cell.titleLabel.text = "Past"
+        }
+        cell.chevronBtn.isHidden = true
+        return cell
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

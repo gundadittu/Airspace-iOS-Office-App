@@ -17,6 +17,7 @@ class RoomListTVC: UITableViewController {
     var startingDate = Date()
     var dataController: FindRoomVCDataController?
     var loadingIndicator: NVActivityIndicatorView?
+    var didPull = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,7 @@ class RoomListTVC: UITableViewController {
         self.view.addSubview(loadingIndicator)
         
         self.tableView.spr_setTextHeader { [weak self] in
+            self?.didPull = true
             self?.dataController?.submitData()
         }
     }
@@ -94,6 +96,7 @@ extension RoomListTVC: ConferenceRoomTVCellDelegate {
 
 extension RoomListTVC: FindRoomVCDataControllerDelegate {
     func didFindAvailableConferenceRooms(rooms: [AirConferenceRoom]?, error: Error?) {
+        self.didPull = false
         // handle error
         if let rooms = rooms {
             self.conferenceRooms = rooms
@@ -101,6 +104,9 @@ extension RoomListTVC: FindRoomVCDataControllerDelegate {
     }
     
     func startLoadingIndicator() {
+        if self.didPull == true {
+            return 
+        }
         self.loadingIndicator?.startAnimating()
     }
     

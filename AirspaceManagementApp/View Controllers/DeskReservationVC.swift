@@ -21,7 +21,7 @@ class DeskReservationVC: UIViewController {
     var hotDeskReservation: AirDeskReservation?
     var existingResDisplayStartDate = Date() // date used to display existing reservations for room
     var modificationsAllowed = true
-    
+    var didPull = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +42,7 @@ class DeskReservationVC: UIViewController {
         self.title = "My Desk Reservation"
         
         self.tableView.spr_setTextHeader { [weak self] in
+            self?.didPull = true
             self?.tableView.reloadData()
         }
         
@@ -278,6 +279,7 @@ extension DeskReservationVC: SeeMoreTVCDelegate {
 
 extension DeskReservationVC: DeskReservationVCDataControllerDelegate {
     func didFinishSubmittingData(withError error: Error?) {
+        self.didPull = false
         if let _ = error {
             let banner = NotificationBanner(title: "Woops!", subtitle: "We are unable to modify your reservation currently. Try again later.", leftView: nil, rightView: nil, style: .warning, colors: nil)
             banner.show()
@@ -293,6 +295,9 @@ extension DeskReservationVC: DeskReservationVCDataControllerDelegate {
     }
     
     func startLoadingIndicator() {
+        if self.didPull == true {
+            return 
+        }
         self.showActivityIndicator()
         self.loadingIndicator?.startAnimating()
     }

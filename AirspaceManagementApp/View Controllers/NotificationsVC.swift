@@ -19,6 +19,7 @@ class NotificationsVC: UIViewController {
     let reuseID = "NotificationTVCell"
     var dataController: NotificationVCDataController?
     var loadingIndicator: NVActivityIndicatorView?
+    var didPull = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,7 @@ class NotificationsVC: UIViewController {
         }
         
         self.tableView.spr_setTextHeader { [weak self] in
+            self?.didPull = true
             self?.dataController?.loadNotifications()
         }
     }
@@ -76,6 +78,8 @@ extension NotificationsVC: UITableViewDataSource {
 
 extension NotificationsVC: NotificationVCDataControllerDelegate {
     func didLoadNotifications(_ notifications: [AirNotification]?, with error: Error?) {
+        self.didPull = false
+        
         if let tableView = self.tableView {
             tableView.spr_endRefreshing()
         }
@@ -90,6 +94,9 @@ extension NotificationsVC: NotificationVCDataControllerDelegate {
     }
     
     func startLoadingIndicator() {
+        if self.didPull == true {
+            return
+        }
         self.loadingIndicator?.startAnimating()
     }
     

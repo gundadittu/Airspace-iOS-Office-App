@@ -105,13 +105,18 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         
         self.loadingIndicator?.startAnimating()
         UserAuth.shared.signInUser(email: email, password: password) { (user, error) in
-            if let _ = error {
+            if let error = error {
                 self.loadingIndicator?.stopAnimating()
-                let banner = NotificationBanner(title: "Oh no!", subtitle: "There was an issue logging you in. Please check your credentials and try again.", leftView: nil, rightView: nil, style: .danger, colors: nil)
-                banner.show()
-                return
+                self.handleError(error)
             }
             // if there is no error user will be taken to appropriate page automatically (listener active in App Delegate)
+        }
+    }
+    
+    func handleError(_ error: Error) {
+        if let errorCode = AuthErrorCode(rawValue: error._code) {
+            let banner = NotificationBanner(title: "Oh no!", subtitle: errorCode.errorMessage, leftView: nil, rightView: nil, style: .danger, colors: nil)
+            banner.show()
         }
     }
     
@@ -160,6 +165,29 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: text)
+    }
+}
+
+extension AuthErrorCode {
+    var errorMessage: String {
+        switch self {
+        case .emailAlreadyInUse:
+            return "The email is already in use with another account"
+        case .userNotFound:
+            return "Account not found for the specified user. Please check and try again"
+        case .userDisabled:
+            return "Your account has been disabled. Please contact support."
+        case .invalidEmail, .invalidSender, .invalidRecipientEmail:
+                 return "Please enter valid credentials, or use 'Forgot password' to reset your password."
+        case .networkError:
+            return "Network error. Please connect your phone to a network and try again."
+        case .weakPassword:
+            return "Your password is too weak. The password must be 6 characters long or more."
+        case .wrongPassword:
+            return "Please enter valid credentials, or use 'Forgot password' to reset your password."
+        default:
+            return "Unknown error occurred"
+        }
     }
 }
 

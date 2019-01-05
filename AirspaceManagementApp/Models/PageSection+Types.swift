@@ -271,17 +271,17 @@ enum ReserveVCSectionType {
     var description: String {
         switch self {
         case .quickReserveRoom:
-            return ""
+            return "Find a conference room today for"
         case .quickReserveDesk:
-            return ""
+            return "Find a hot desk today for"
         case .reserveDesk:
-            return "Find a Hot Desk"
+            return "Find a hot desk"
         case .reserveRoom:
-            return "Find a Conference Room"
+            return "Find a conference room"
         case .allRooms:
-            return ""
+            return "All Your Conference Rooms"
         case .allDesks:
-            return ""
+            return "All Your Hot Desks"
         }
     }
 }
