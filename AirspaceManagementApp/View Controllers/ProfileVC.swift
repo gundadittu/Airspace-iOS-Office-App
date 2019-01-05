@@ -325,6 +325,82 @@ extension ProfileVC {
 }
 
 extension ProfileVC: ProfileVCDataControllerDelegate {
+    func didLoadProfileImage() {
+        self.didPull = false
+        if let profileImage = self.dataController?.profileImage {
+            self.profileImage = profileImage
+            
+            let sectionToReload = 0
+            let indexSet: IndexSet = [sectionToReload]
+            self.reloadTableView(with: indexSet)
+        }
+        
+        if (self.dataController?.isLoading == false),
+            let tableView = self.tableView {
+            tableView.spr_endRefreshing()
+        }
+    }
+    
+    func didUpdateRoomReservations() {
+        self.didPull = false
+        if let upcomingRes = self.dataController?.upcomingReservations {
+            self.roomReservations = upcomingRes
+            let sectionToReload = 1
+            let indexSet: IndexSet = [sectionToReload]
+            self.reloadTableView(with: indexSet)
+        }
+        if (self.dataController?.isLoading == false),
+            let tableView = self.tableView {
+            tableView.spr_endRefreshing()
+        }
+    }
+    
+    func didUpdateDeskReservations() {
+        self.didPull = false
+        if let upcomingDeskRes = self.dataController?.upcomingDeskReservations {
+            self.deskReservations = upcomingDeskRes
+            let sectionToReload = 2
+            let indexSet: IndexSet = [sectionToReload]
+            self.reloadTableView(with: indexSet)
+        }
+        if (self.dataController?.isLoading == false),
+            let tableView = self.tableView {
+            tableView.spr_endRefreshing()
+        }
+    }
+    
+    func didUpdateServiceRequests() {
+        self.didPull = false
+        if let open = self.dataController?.openSR,
+            let pending = self.dataController?.closedSR {
+            var array = [AirServiceRequest]()
+            array.append(contentsOf: open)
+            array.append(contentsOf: pending)
+            self.serviceRequests = array
+            let sectionToReload = 3
+            let indexSet: IndexSet = [sectionToReload]
+            self.reloadTableView(with: indexSet)
+        }
+        if (self.dataController?.isLoading == false),
+            let tableView = self.tableView {
+            tableView.spr_endRefreshing()
+        }
+    }
+    
+    func didUpdateRegisteredGuests() {
+        self.didPull = false
+        if let upcomingGuests = self.dataController?.upcomingGuests {
+            self.upcomingGuests = upcomingGuests
+            let sectionToReload = 4
+            let indexSet: IndexSet = [sectionToReload]
+            self.reloadTableView(with: indexSet)
+        }
+        if (self.dataController?.isLoading == false),
+            let tableView = self.tableView {
+            tableView.spr_endRefreshing()
+        }
+    }
+    
     
     func didFinishUploadingNewImage(with error: Error?) {
         if let _ = error {
@@ -340,6 +416,14 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
             let action = CFAlertAction(title: "Sounds Good", style: .Default, alignment: .justified, backgroundColor: globalColor, textColor: nil, handler: nil)
             alertController.addAction(action)
             self.present(alertController, animated: true)
+            
+            if let profileImage = self.dataController?.profileImage {
+                self.profileImage = profileImage
+                
+                let sectionToReload = 0
+                let indexSet: IndexSet = [sectionToReload]
+                self.reloadTableView(with: indexSet)
+            }
         }
     }
     
@@ -352,52 +436,6 @@ extension ProfileVC: ProfileVCDataControllerDelegate {
             return
         }
         self.loadingIndicator?.startAnimating()
-    }
-    
-    func didUpdateCarouselData() {
-        self.didPull = false
-        if let upcomingGuests = self.dataController?.upcomingGuests {
-            self.upcomingGuests = upcomingGuests
-            let sectionToReload = 4
-            let indexSet: IndexSet = [sectionToReload]
-            self.reloadTableView(with: indexSet)
-        }
-        if let open = self.dataController?.openSR,
-            let pending = self.dataController?.closedSR {
-            var array = [AirServiceRequest]()
-            array.append(contentsOf: open)
-            array.append(contentsOf: pending)
-            self.serviceRequests = array
-            let sectionToReload = 3
-            let indexSet: IndexSet = [sectionToReload]
-            self.reloadTableView(with: indexSet)
-        }
-        if let upcomingRes = self.dataController?.upcomingReservations {
-            self.roomReservations = upcomingRes
-            let sectionToReload = 1
-            let indexSet: IndexSet = [sectionToReload]
-            self.reloadTableView(with: indexSet)
-        }
-        if let upcomingDeskRes = self.dataController?.upcomingDeskReservations {
-            self.deskReservations = upcomingDeskRes
-            let sectionToReload = 2
-            let indexSet: IndexSet = [sectionToReload]
-            self.reloadTableView(with: indexSet)
-        }
-        
-        if let profileImage = self.dataController?.profileImage {
-            self.profileImage = profileImage
-            
-            let sectionToReload = 0
-            let indexSet: IndexSet = [sectionToReload]
-            self.reloadTableView(with: indexSet)
-        }
-        
-        
-        if (self.dataController?.isLoading == false),
-            let tableView = self.tableView {
-            tableView.spr_endRefreshing()
-        }
     }
 }
 

@@ -78,7 +78,7 @@ class ProfileVCDataController {
             if let closed = closed {
                 self.closedSR = closed
             }
-            self.delegate?.didUpdateCarouselData()
+            self.delegate?.didUpdateServiceRequests()
         }
     }
     
@@ -95,7 +95,7 @@ class ProfileVCDataController {
             if let past = past {
                 self.pastGuests = past
             }
-            self.delegate?.didUpdateCarouselData()
+            self.delegate?.didUpdateRegisteredGuests()
         }
     }
     
@@ -108,8 +108,8 @@ class ProfileVCDataController {
             self.delegate?.stopLoadingIndicator()
             if let image = image {
                 self.profileImage = image
+                self.delegate?.didLoadProfileImage()
             }
-            self.delegate?.didUpdateCarouselData()
         }
     }
     
@@ -149,7 +149,7 @@ class ProfileVCDataController {
             if let past = past {
                 self.pastReservations = past
             }
-            self.delegate?.didUpdateCarouselData()
+            self.delegate?.didUpdateRoomReservations()
         }
     }
     
@@ -165,7 +165,7 @@ class ProfileVCDataController {
             if let past = past {
                 self.pastDeskReservations = past
             }
-            self.delegate?.didUpdateCarouselData()
+            self.delegate?.didUpdateDeskReservations()
         }
     }
 }

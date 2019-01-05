@@ -15,7 +15,11 @@ protocol RegisterGuestTVCDataControllerDelegate {
 }
 
 protocol ProfileVCDataControllerDelegate {
-    func didUpdateCarouselData()
+    func didLoadProfileImage()
+    func didUpdateRoomReservations()
+    func didUpdateDeskReservations()
+    func didUpdateServiceRequests()
+    func didUpdateRegisteredGuests()
     func didFinishUploadingNewImage(with error: Error?)
     func startLoadingIndicator()
     func stopLoadingIndicator()
@@ -70,5 +74,7 @@ protocol MainVCDataControllerDelegate {
 }
 
 protocol SpaceInfoTVCDataControllerDelegate {
-    
+    func didLoadData() 
+    func startLoadingIndicator()
+    func stopLoadingIndicator()
 }

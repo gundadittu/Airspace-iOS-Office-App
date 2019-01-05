@@ -25,6 +25,8 @@ class FormTVCell: UITableViewCell {
     }
     
     func configureCell(with section: SpaceInfoTVCSection, delegate: FormTVCellDelegate) {
+        self.delegate = delegate
+        self.sectionObject = section 
         self.titleLabel.text = section.title
         let attrs = [NSAttributedString.Key.underlineStyle : 1]
         let attributedString = NSMutableAttributedString(string: section.buttonTitle, attributes: attrs)

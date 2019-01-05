@@ -9,6 +9,8 @@
 import UIKit
 import SwiftPullToRefresh
 import NVActivityIndicatorView
+import SafariServices
+import NotificationBannerSwift
 
 enum SpaceInfoTVCSectionType: String {
     case officeOnboarding
@@ -32,12 +34,17 @@ class SpaceInfoTVCSection: PageSection {
 class SpaceInfoTVC: UITableViewController {
     
     var loadingIndicator: NVActivityIndicatorView?
+    var dataController: SpaceInfoTVCDataController?
+    var buildingDetails: URL?
+    var floorPlan: URL?
+    var onboardingURL: URL?
     var sections = [SpaceInfoTVCSection(title: "Building Details", buttonTitle: "View details", type: .buildingDetails), SpaceInfoTVCSection(title: "Floor plan", buttonTitle: "View floor plan", type: .floorplan), SpaceInfoTVCSection(title: "Office Onboarding", buttonTitle: "View onboarding", type: .officeOnboarding)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Space Info"
         self.tableView.separatorStyle = .none
+        self.tableView.allowsSelection = false
         
         let loadingIndicator = getGlobalLoadingIndicator(in: self.view)
         self.loadingIndicator = loadingIndicator
@@ -45,7 +52,11 @@ class SpaceInfoTVC: UITableViewController {
         
         self.tableView.register(UINib(nibName: "FormTVCell", bundle: nil), forCellReuseIdentifier: "FormTVCell")
         self.tableView.spr_setTextFooter {
-            return
+            self.dataController?.loadData()
+        }
+        
+        if self.dataController == nil {
+            self.dataController = SpaceInfoTVCDataController(delegate: self)
         }
     }
 
@@ -71,13 +82,56 @@ extension SpaceInfoTVC: FormTVCellDelegate {
         guard let object = object as? SpaceInfoTVCSection else { return }
         switch object.type {
         case .officeOnboarding:
-            break
+            if let url = self.onboardingURL {
+                let vc = SFSafariViewController(url: url)
+                present(vc, animated: true, completion: nil)
+            } else {
+                self.showError()
+            }
         case .floorplan:
-            break
+            if let url = self.floorPlan {
+                let vc = SFSafariViewController(url: url)
+                present(vc, animated: true, completion: nil)
+            } else {
+                self.showError()
+            }
         case .buildingDetails:
-            break
+            if let url = self.buildingDetails {
+                let vc = SFSafariViewController(url: url)
+                present(vc, animated: true, completion: nil)
+            } else {
+                self.showError()
+            }
         case .none:
-            break
+            self.showError()
         }
+    }
+    
+    func showError() {
+        let banner = StatusBarNotificationBanner(title: "There was an issue opening the relevant content.", style: .danger)
+        banner.show()
+    }
+}
+
+extension SpaceInfoTVC: SpaceInfoTVCDataControllerDelegate {
+    func didLoadData() {
+        if let buildingDetails = self.dataController?.buildingDetails {
+            self.buildingDetails = buildingDetails
+        }
+        if let floorPlan = self.dataController?.floorPlan {
+            self.floorPlan = floorPlan
+        }
+        if let onboardingURL = self.dataController?.onboardingURL {
+            self.onboardingURL = onboardingURL
+        }
+        self.tableView.reloadData()
+    }
+    
+    func startLoadingIndicator() {
+        self.loadingIndicator?.startAnimating()
+    }
+    
+    func stopLoadingIndicator() {
+        self.loadingIndicator?.stopAnimating()
     }
 }
