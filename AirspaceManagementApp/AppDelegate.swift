@@ -24,7 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Set up Firebase for app
         FirebaseApp.configure()
-        
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
+
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             var viewController: UIViewController? = nil
@@ -51,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 10) ??
             UIFont.systemFont(ofSize: 10)], for: .normal)
         
-        Messaging.messaging().delegate = self
         return true
     }
     
@@ -70,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Print full message.
         print(userInfo)
+        return
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
@@ -135,7 +137,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
 }
 
 extension AppDelegate : MessagingDelegate {
-    
     // Called whenever the firebase registration token changes
     // (Registration token is used to send push notifications to specific users)
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
