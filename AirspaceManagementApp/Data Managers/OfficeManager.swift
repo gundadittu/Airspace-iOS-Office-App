@@ -30,4 +30,33 @@ class OfficeManager {
             }
         }
     }
+    
+    public func getSpaceInfoForUser(completionHandler: @escaping (URL?, URL?, URL?, Error?) -> Void) {
+        functions.httpsCallable("getSpaceInfoForUser").call([:]) { (result, error) in
+            if let error = error {
+                completionHandler(nil, nil, nil, error)
+            } else if let resultData = result?.data as? [String:Any]  {
+                var onboardingURL: URL?
+                var floorplanURL: URL?
+                var buildingDetailsURL: URL?
+
+               if let string = resultData["onboardingURL"] as? String,
+                let url = URL(string: string) {
+                    onboardingURL = url
+                }
+                if let string = resultData["floorplanURL"] as? String,
+                    let url = URL(string: string) {
+                    floorplanURL = url
+                }
+                if let string = resultData["buildingDetailsURL"] as? String,
+                    let url = URL(string: string) {
+                    buildingDetailsURL = url
+                }
+                
+                completionHandler(onboardingURL, floorplanURL, buildingDetailsURL, nil)
+            } else {
+                completionHandler(nil, nil, nil, nil)
+            }
+        }
+    }
 }

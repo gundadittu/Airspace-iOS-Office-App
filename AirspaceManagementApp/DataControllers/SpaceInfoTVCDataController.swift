@@ -21,7 +21,12 @@ class SpaceInfoTVCDataController {
     
     func loadData() {
         self.delegate?.startLoadingIndicator()
-        self.delegate?.stopLoadingIndicator()
-        self.delegate?.didLoadData()
+        OfficeManager.shared.getSpaceInfoForUser { (onboardingURL, floorplanURL, buildingDetailsURL, error) in
+            self.delegate?.stopLoadingIndicator()
+            self.onboardingURL = onboardingURL
+            self.floorPlan = floorplanURL
+            self.buildingDetails = buildingDetailsURL
+            self.delegate?.didLoadData()
+        }
     }
 }

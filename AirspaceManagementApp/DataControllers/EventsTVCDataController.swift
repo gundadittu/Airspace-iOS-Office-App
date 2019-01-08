@@ -25,9 +25,7 @@ class EventsTVCDataController {
     }
     
     public func loadData() {
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-            self.delegate?.startLoadingIndicator()
-        }
+        self.delegate?.startLoadingIndicator()
         self.isLoading = true
         EventManager.shared.getUpcomingEventsForUser { (events, error) in
             self.isLoading = false

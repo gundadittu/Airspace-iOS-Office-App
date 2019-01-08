@@ -49,7 +49,7 @@ class BioTVCell: UITableViewCell {
         let backgroundColor = backgroundColorOriginal?.withAlphaComponent(CGFloat(0.8))
         let view = UIView()
         let viewWidth = self.profileImg.frame.width
-        let viewHeight = self.profileImg.frame.height/4
+        let viewHeight = self.profileImg.frame.height/5
         let yPoint = (self.profileImg.frame.height) - viewHeight
         view.frame = CGRect(x: CGFloat(0), y: yPoint, width: viewWidth, height: viewHeight)
         view.backgroundColor = backgroundColor
