@@ -77,7 +77,7 @@ class HomeTabBarController : UITabBarController {
         
         profileNav.tabBarItem =  UITabBarItem(title: "PROFILE", image: UIImage(named: "profile-icon"), selectedImage: nil)
         
-        let array: [UIViewController] = [mainNav, reserveNav, eventsNav, alertNav, profileNav]
+        let array: [UIViewController] = [mainNav, eventsNav, reserveNav, alertNav, profileNav]
         self.setViewControllers(array, animated: false)
     }
 }
