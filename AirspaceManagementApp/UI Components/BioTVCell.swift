@@ -21,7 +21,7 @@ class BioTVCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.profileImg.layer.cornerRadius = self.profileImg.frame.height/(2.2)
+        self.profileImg.layer.cornerRadius = self.profileImg.frame.height/2
         self.profileImg.layer.masksToBounds = false
         self.profileImg.clipsToBounds = true
         self.profileImg.layer.borderWidth = CGFloat(1)

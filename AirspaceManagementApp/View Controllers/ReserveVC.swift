@@ -86,7 +86,6 @@ class ReserveVC: UIViewController {
             self.type = .hotDesks
         }
         self.updateQuickReserveTimeRangeOptions()
-//        self.dataController?.loadData(for: self.type)
     }
     
     func updateQuickReserveTimeRangeOptions() {
@@ -138,24 +137,6 @@ extension ReserveVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        guard let currSectionType = sections[section].type else { return nil }
-//        switch currSectionType {
-//        case .quickReserveRoom:
-//            return "Find a conference room today for:"
-//        case .reserveDesk:
-//            return nil
-//        case .reserveRoom:
-//            return nil
-//        case .quickReserveDesk:
-//            return "Find a hot desk today for:"
-//        case .allRooms:
-//            return "All Conference Rooms"
-//        case .allDesks:
-//            return "All Hot Desks"
-//        }
-//    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let currSection = self.sections[section]
