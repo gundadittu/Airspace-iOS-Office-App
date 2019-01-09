@@ -314,7 +314,7 @@ extension MainVC: MainVCDataControllerDelegate {
 extension MainVC: CarouselTVCellDelegate {
     func descriptionForEmptyState(for identifier: String?) -> String {
         if identifier == "todayReservations" {
-            return "Dive into work!"
+            return "Try to beehave!"
         }
         return ""
     }
@@ -328,7 +328,7 @@ extension MainVC: CarouselTVCellDelegate {
     
     func imageForEmptyState(for identifier: String?) -> UIImage {
         if identifier == "todayReservations" {
-            return UIImage(named: "snorkel")!
+            return UIImage(named: "hive")!
         }
         return UIImage()
     }

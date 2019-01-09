@@ -84,6 +84,7 @@ extension SpaceInfoTVC: FormTVCellDelegate {
         case .officeOnboarding:
             if let url = self.onboardingURL {
                 let vc = SFSafariViewController(url: url)
+                vc.preferredControlTintColor = globalColor
                 present(vc, animated: true, completion: nil)
             } else {
                 self.showError()
@@ -91,6 +92,7 @@ extension SpaceInfoTVC: FormTVCellDelegate {
         case .floorplan:
             if let url = self.floorPlan {
                 let vc = SFSafariViewController(url: url)
+                vc.preferredControlTintColor = globalColor
                 present(vc, animated: true, completion: nil)
             } else {
                 self.showError()
@@ -98,6 +100,7 @@ extension SpaceInfoTVC: FormTVCellDelegate {
         case .buildingDetails:
             if let url = self.buildingDetails {
                 let vc = SFSafariViewController(url: url)
+                vc.preferredControlTintColor = globalColor
                 present(vc, animated: true, completion: nil)
             } else {
                 self.showError()
