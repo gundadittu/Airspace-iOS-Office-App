@@ -22,14 +22,15 @@ class HomeTabBarController : UITabBarController {
         
         switch UserAuth.shared.currUserType {
         case .admin?:
-            let vc = InvalidUserVCViewController()
-            UIApplication.shared.keyWindow?.rootViewController = vc
+            self.setTenantVCs()
         case .receptionist?:
             let vc = InvalidUserVCViewController()
             UIApplication.shared.keyWindow?.rootViewController = vc
         case .tenantEmployee?:
             self.setTenantVCs()
         case .tenantAdmin?:
+            self.setTenantVCs()
+        case .regular?:
             self.setTenantVCs()
         case .landlord?:
             let vc = InvalidUserVCViewController()

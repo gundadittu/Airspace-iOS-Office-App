@@ -16,6 +16,7 @@ enum UserType : String, CaseIterable {
     case landlord = "landlord"
     case tenantEmployee = "tenantEmployee"
     case tenantAdmin = "tenantAdmin"
+    case regular = "regular"
 }
 
 class UserAuth {
