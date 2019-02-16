@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseFunctions
 import FirebaseStorage
+import Sentry
 
 class FindDeskManager {
     static let shared = FindDeskManager()
@@ -18,6 +19,10 @@ class FindDeskManager {
     public func getAllHotDesksForUser(completionHandler: @escaping ([AirDesk]?, Error?) -> Void) {
         functions.httpsCallable("getAllHotDesksForUser").call { (result, error) in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, error)
             } else if let resultData = result?.data as? [[String: Any]] {
                 var desks = [AirDesk]()
@@ -28,6 +33,10 @@ class FindDeskManager {
                 }
                 completionHandler(desks, nil)
             } else {
+                let event = Event(level: .error)
+                event.message = "getAllHotDesksForUser error"
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, NSError())
             }
         }
@@ -39,9 +48,14 @@ class FindDeskManager {
         
         functions.httpsCallable("findAvailableHotDesks").call(["officeUID":officeUID, "startDate": dateString, "duration": duration?.rawValue]) { (result, error) in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, error)
                 return
             }
+            
             if let resultData = result?.data as? [[String:Any]] {
                 print(resultData)
                 let hotDesks = resultData.reduce([AirDesk](), { (result, item) -> [AirDesk] in
@@ -55,6 +69,11 @@ class FindDeskManager {
                 completionHandler(hotDesks, nil)
                 return
             }
+            
+            let event = Event(level: .error)
+            event.message = "findAvailableHotDesks error"
+            Client.shared?.send(event: event)
+            
             completionHandler(nil,NSError())
         }
     }

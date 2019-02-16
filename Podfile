@@ -14,7 +14,6 @@ target 'AirspaceManagementApp' do
   pod 'Firebase/Firestore'
   pod 'FirebaseUI/Storage'
   pod 'Fabric', '~> 1.9.0'
-  pod 'Crashlytics', '~> 3.12.0'
   pod 'Kingfisher', '~> 5.0'
   pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
   pod 'JVFloatLabeledTextField'
@@ -27,5 +26,6 @@ target 'AirspaceManagementApp' do
   pod 'BetterSegmentedControl', '~> 1.0'
   pod 'SwiftDate', '~> 5.0'
   pod 'WhatsNewKit'
+  pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '4.1.0'
   
 end

@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFunctions
+import Sentry
 
 enum UserType : String, CaseIterable {
     case admin = "admin"
@@ -28,7 +29,7 @@ class UserAuth {
         return Auth.auth().currentUser != nil
     }
     
-    var currUser: User? {
+    var currUser: FirebaseAuth.User? {
         return Auth.auth().currentUser
     }
     
@@ -55,18 +56,33 @@ class UserAuth {
                 self.currUserType = userType
                 completionHandler(userType)
             } else {
+                let event = Event(level: .error)
+                event.message = error?.localizedDescription ?? "populateUserType error"
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil)
             }
         }
     }
     
-    func signInUser(email: String, password: String, completionHandler: @escaping (User?, NSError?)->Void) {
+    
+    func signInUser(email: String, password: String, completionHandler: @escaping (FirebaseAuth.User?, NSError?)->Void) {
         Auth.auth().signIn(withEmail: email, password: password) { (userResult, error) in
             guard error == nil,
                 let user = userResult?.user else {
+                    let event = Event(level: .error)
+                    event.message = error?.localizedDescription ?? "signInUser error"
+                    Client.shared?.send(event: event)
+                    
                 completionHandler(nil, error! as NSError)
                 return
             }
+            
+            let userObj = User(userId: user.uid)
+            userObj.email = user.email
+            Client.shared?.user = userObj
+            Client.shared?.tags = ["iphone": "true"]
+            
             completionHandler(user, nil)
 
 //            self.populateUserType(completionHandler: { (type) in
@@ -84,6 +100,11 @@ class UserAuth {
             try Auth.auth().signOut()
             completionHandler(nil)
         } catch let signOutError as NSError {
+            
+            let event = Event(level: .error)
+            event.message = signOutError.localizedDescription
+            Client.shared?.send(event: event)
+            
             print ("Error signing out: %@", signOutError)
             completionHandler(signOutError)
         }

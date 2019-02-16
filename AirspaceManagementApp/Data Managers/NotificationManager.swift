@@ -11,6 +11,7 @@ import FirebaseAnalytics
 import FirebaseFunctions
 import CFAlertViewController
 import UserNotifications
+import Sentry
 
 class NotificationManager {
     static let shared = NotificationManager()
@@ -20,12 +21,19 @@ class NotificationManager {
     public func getUsersNotifications(completionHandler: @escaping ([AirNotification]?, Error?) -> Void) {
         functions.httpsCallable("getUsersNotifications").call { (result, error) in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, error)
                 return
             }
             
             guard let result = result,
                 let notificationData = result.data as? [[String: Any]]  else {
+                    let event = Event(level: .error)
+                    event.message = error?.localizedDescription ?? "getUsersNotifications error"
+                    Client.shared?.send(event: event)
                     completionHandler(nil, NSError())
                     return
             }

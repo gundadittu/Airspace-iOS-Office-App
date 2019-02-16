@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseFunctions
+import Sentry
 
 class RegisterGuestManager {
     
@@ -17,12 +18,22 @@ class RegisterGuestManager {
     func createRegisteredGuest(guestName: String, visitingOfficeUID: String, expectedVisitDate: Date, guestEmail: String?, completionHandler: @escaping (Error?) -> Void) {
         let dateString = expectedVisitDate.serverTimestampString
         functions.httpsCallable("createRegisteredGuest").call(["guestName": guestName, "guestEmail": guestEmail, "expectedVisitDate": dateString, "visitingOfficeUID": visitingOfficeUID]) { (_, error) in
+            if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+            }
             completionHandler(error)
         }
     }
     
     func cancelRegisteredGuest(registeredGuestUID: String, completionHandler: @escaping ((Error?) -> Void)) {
         functions.httpsCallable("cancelRegisteredGuest").call(["registeredGuestUID": registeredGuestUID]) { (_, error) in
+            if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+            }
             completionHandler(error)
         }
     }
@@ -30,6 +41,10 @@ class RegisterGuestManager {
     func getUsersRegisteredGuests(completionHandler: @escaping ([AirGuestRegistration]?,[AirGuestRegistration]?, Error?) -> Void) {
         functions.httpsCallable("getUsersRegisteredGuests").call { (result, error) in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, nil, error)
                 return
             }

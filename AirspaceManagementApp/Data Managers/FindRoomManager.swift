@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseFunctions
 import FirebaseStorage
+import Sentry
 
 class FindRoomManager {
     static let shared = FindRoomManager()
@@ -45,6 +46,10 @@ class FindRoomManager {
         }
         functions.httpsCallable("findAvailableConferenceRooms").call(["officeUID":officeUID, "startDate": dateString, "capacity": capacity, "duration": duration?.rawValue, "amenities": amenitiesStringArr]) { (result, error) in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, error)
                 return
             }
@@ -60,6 +65,11 @@ class FindRoomManager {
                 completionHandler(conferenceRooms, nil)
                 return
             }
+            
+            let event = Event(level: .error)
+            event.message = "findAvailableConferenceRooms error"
+            Client.shared?.send(event: event)
+            
             completionHandler(nil,NSError())
         }
     }

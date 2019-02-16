@@ -179,6 +179,9 @@ PODS:
   - SDWebImage (4.4.3):
     - SDWebImage/Core (= 4.4.3)
   - SDWebImage/Core (4.4.3)
+  - Sentry (4.1.0):
+    - Sentry/Core (= 4.1.0)
+  - Sentry/Core (4.1.0)
   - SnapKit (4.2.0)
   - SwiftDate (5.0.13)
   - SwiftPullToRefresh (3.0.1)
@@ -204,6 +207,7 @@ DEPENDENCIES:
   - Kingfisher (~> 5.0)
   - NotificationBannerSwift
   - NVActivityIndicatorView
+  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `4.1.0`)
   - SwiftDate (~> 5.0)
   - SwiftPullToRefresh
   - SwiftyButton
@@ -256,11 +260,17 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   ChameleonFramework:
     :git: https://github.com/ViccAlexander/Chameleon.git
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 4.1.0
 
 CHECKOUT OPTIONS:
   ChameleonFramework:
     :commit: 6dd284bde21ea2e7f9fd89bc36f40df16e16369d
     :git: https://github.com/ViccAlexander/Chameleon.git
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 4.1.0
 
 SPEC CHECKSUMS:
   BetterSegmentedControl: 4e3bd0bd517b0f6077c9e17f5663a01cff48e2c5
@@ -300,12 +310,13 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: ec34a7b88c51fab270004a1a1f32116e711010cd
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
+  Sentry: 44b85e768f435ede4d12ea279af588ff275c3939
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
   SwiftPullToRefresh: 7949588ace920cc6898b57799d7f5cd5db9ea9a3
   SwiftyButton: 5b0ef314e9cf61cf8a83e456ddd1ea1f53f30598
   WhatsNewKit: 4b1adc0955248667324120e98cd7640e01483b0a
 
-PODFILE CHECKSUM: 86c91b00ab06d718182a9bde4522b5fef5f0d13e
+PODFILE CHECKSUM: 18ad13e0220e521d70c3444e37ec23edcdb8e899
 
 COCOAPODS: 1.5.3

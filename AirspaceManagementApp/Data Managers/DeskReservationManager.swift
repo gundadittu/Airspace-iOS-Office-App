@@ -11,6 +11,7 @@ import Foundation
 import Foundation
 import FirebaseFunctions
 import FirebaseStorage
+import Sentry
 
 class DeskReservationManager {
     static let shared = DeskReservationManager()
@@ -25,6 +26,10 @@ class DeskReservationManager {
         let parameters = ["shouldCreateCalendarEvent": shouldCreateCalendarEvent, "startTime": startTimeString, "endTime": endTimeString, "hotDeskUID": hotDeskUID] as [String: Any]
         functions.httpsCallable("createHotDeskReservation").call(parameters) { (result, error) in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(error)
             } else {
                 completionHandler(nil)
@@ -35,6 +40,10 @@ class DeskReservationManager {
     func updateHotDeskReservation(reservationUID: String, startTime: Date, endTime: Date, completionHandler: @escaping (Error?) -> Void) {
         functions.httpsCallable("updateHotDeskReservation").call(["reservationUID": reservationUID, "startTime": startTime.serverTimestampString, "endTime": endTime.serverTimestampString]) { (result, error) in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(error)
             } else {
                 completionHandler(nil)
@@ -46,6 +55,10 @@ class DeskReservationManager {
     func getReservationsForHotDesk(startDate: Date, endDate: Date, deskUID: String, completionHandler: @escaping ([AirDeskReservation]?, Error?) -> Void) {
         functions.httpsCallable("getReservationsForHotDesk").call(["startDate":startDate.serverTimestampString,"endDate": endDate.serverTimestampString,"deskUID": deskUID]) { (result, error) in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, error)
             } else if let result = result,
                 let resultData = result.data as? [[String: Any]]  {
@@ -65,6 +78,10 @@ class DeskReservationManager {
     func getAllHotDeskReservationsForUser(completionHandler: @escaping ([AirDeskReservation]?, [AirDeskReservation]?, Error?) -> Void) {
         functions.httpsCallable("getAllHotDeskReservationsForUser").call { (result, error) in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, nil, error)
             } else if let result = result,
                 let resultData = result.data as? [String: Any],
@@ -87,6 +104,11 @@ class DeskReservationManager {
                 
                 completionHandler(upcomingReservations, pastReservations, nil)
             } else {
+                
+                let event = Event(level: .error)
+                event.message = "getAllHotDeskReservationsForUser error"
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, nil, NSError())
             }
         }
@@ -94,6 +116,13 @@ class DeskReservationManager {
     
     func cancelHotDeskReservation(reservationUID: String, completionHandler: @escaping (Error?)->Void) {
         functions.httpsCallable("cancelHotDeskReservation").call(["reservationUID":reservationUID]) { (result, error) in
+            
+            if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+            }
+            
             completionHandler(error)
         }
     }

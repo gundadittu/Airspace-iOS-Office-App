@@ -11,6 +11,7 @@ import Foundation
 import Foundation
 import FirebaseFunctions
 import FirebaseStorage
+import Sentry
 
 class ReservationManager {
     static let shared = ReservationManager()
@@ -31,8 +32,16 @@ class ReservationManager {
         let parameters = ["shouldCreateCalendarEvent": shouldCreateCalendarEvent,"reservationTitle": reservationTitle, "note":note, "startTime": startTimeString, "endTime": endTimeString, "conferenceRoomUID": conferenceRoomUID, "attendees": attendeesArray] as [String: Any]
         functions.httpsCallable("createConferenceRoomReservation").call(parameters) { (result, error) in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(error)
             } else {
+                let event = Event(level: .error)
+                event.message = "createConferenceRoomReservation error"
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil)
             }
         }
@@ -47,6 +56,11 @@ class ReservationManager {
         }
         functions.httpsCallable("updateConferenceRoomReservation").call(["reservationUID": reservationUID, "startTime": startTime.serverTimestampString, "endTime": endTime.serverTimestampString, "reservationTitle": reservationTitle, "note": note, "attendees": attendeesArray]) { (result, error) in
             if let error = error {
+                
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(error)
             } else {
                 completionHandler(nil)
@@ -57,6 +71,11 @@ class ReservationManager {
     func getReservationsForConferenceRoom(startDate: Date, endDate: Date, conferenceRoomUID: String, completionHandler: @escaping ([AirConferenceRoomReservation]?, Error?) -> Void) {
         functions.httpsCallable("getReservationsForConferenceRoom").call(["startDate":startDate.serverTimestampString,"endDate": endDate.serverTimestampString,"roomUID": conferenceRoomUID]) { (result, error) in
             if let error = error {
+                
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, error)
             } else if let result = result,
                 let resultData = result.data as? [[String: Any]]  {
@@ -68,6 +87,11 @@ class ReservationManager {
                 }
                 completionHandler(reservations, nil)
             } else {
+                
+                let event = Event(level: .error)
+                event.message = "getReservationsForConferenceRoom error"
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, NSError())
             }
         }
@@ -76,11 +100,15 @@ class ReservationManager {
     func getAllConferenceRoomReservationsForUser(completionHandler: @escaping ([AirConferenceRoomReservation]?, [AirConferenceRoomReservation]?, Error?) -> Void) {
         functions.httpsCallable("getAllConferenceRoomReservationsForUser").call { (result, error) in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, nil, error)
             } else if let result = result,
                 let resultData = result.data as? [String: Any],
-            let upcoming = resultData["upcoming"] as? [[String: Any]],
-            let past = resultData["past"] as? [[String: Any]]  {
+                let upcoming = resultData["upcoming"] as? [[String: Any]],
+                let past = resultData["past"] as? [[String: Any]]  {
                 
                 var upcomingReservations = [AirConferenceRoomReservation]()
                 for item in upcoming {
@@ -98,6 +126,11 @@ class ReservationManager {
                 
                 completionHandler(upcomingReservations, pastReservations, nil)
             } else {
+                
+                let event = Event(level: .error)
+                event.message = "getAllConferenceRoomReservationsForUser error"
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, nil, NSError())
             }
         }
@@ -108,6 +141,10 @@ class ReservationManager {
         let rangeEndString = Date().endOfDay.serverTimestampString
         functions.httpsCallable("getUsersReservationsForRange").call(["rangeStart": rangeStartString,"rangeEnd": rangeEndString]) { (result, error) in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, error)
             } else if let result = result,
                 let resultData = result.data as? [[String: Any]] {
@@ -123,6 +160,10 @@ class ReservationManager {
                 }
                 completionHandler(reservations, nil)
             } else {
+                let event = Event(level: .error)
+                event.message = "getUsersReservationsForToday error"
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, NSError())
             }
         }
@@ -130,6 +171,13 @@ class ReservationManager {
     
     func cancelRoomReservation(reservationUID: String, completionHandler: @escaping (Error?)->Void) {
         functions.httpsCallable("cancelRoomReservation").call(["reservationUID":reservationUID]) { (result, error) in
+            
+            if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+            }
+            
             completionHandler(error)
         }
     }

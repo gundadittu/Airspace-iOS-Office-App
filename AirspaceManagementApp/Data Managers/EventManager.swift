@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseFunctions
 import FirebaseStorage
+import Sentry
 
 class EventManager {
     static let shared = EventManager()
@@ -18,6 +19,11 @@ class EventManager {
     public func getUpcomingEventsForUser(completionHandler: @escaping ([AirEvent]?,Error?) -> Void) {
         functions.httpsCallable("getUpcomingEventsForUser").call { (result, error) in
             if let error = error {
+                
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, error)
             } else if let result = result,
                 let resultData = result.data as? [[String: Any]] {
@@ -29,6 +35,11 @@ class EventManager {
                 }
                 completionHandler(airEvents, nil)
             } else {
+                
+                let event = Event(level: .error)
+                event.message = "getUpcomingEventsForUser error"
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, NSError())
             }
         }
@@ -40,6 +51,10 @@ class EventManager {
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
         profileRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription
+                Client.shared?.send(event: event)
+
                 completionHandler(nil, error)
             } else if let data = data {
                 let image = UIImage(data: data)

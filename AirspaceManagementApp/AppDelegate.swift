@@ -12,7 +12,7 @@ import FirebaseAuth
 import FirebaseMessaging
 import UserNotifications
 import NotificationBannerSwift
-import Crashlytics
+import Sentry
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,7 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
        
-//        Crashlytics.sharedInstance().crash()
+        do {
+            Client.shared = try Client(dsn: "https://8825e624e2594f1d8ca77d056c8b56dd@sentry.io/1395312")
+            try Client.shared?.startCrashHandler()
+        } catch let error {
+            print("\(error)")
+        }
+        Client.shared?.enableAutomaticBreadcrumbTracking()
         
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)

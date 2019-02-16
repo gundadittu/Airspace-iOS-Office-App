@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseFunctions
 import FirebaseStorage
+import Sentry
 
 class ServiceRequestManager {
     static let shared = ServiceRequestManager()
@@ -18,6 +19,10 @@ class ServiceRequestManager {
     func createServiceRequest(officeUID: String, issueType: String, note: String?, image: UIImage?, completionHandler: @escaping (Error?) -> Void) {
         functions.httpsCallable("createServiceRequest").call(["officeUID":officeUID, "issueType": issueType, "note": note]) { (result, error) in
             if error != nil {
+                let event = Event(level: .error)
+                event.message = error?.localizedDescription ?? "createServiceRequest error"
+                Client.shared?.send(event: event)
+                
                 completionHandler(error)
                 return
             }
@@ -57,6 +62,10 @@ class ServiceRequestManager {
                 })
                 completionHandler(updatedOpen, updatedPending, updatedClosed, nil)
             } else {
+                let event = Event(level: .error)
+                event.message = error?.localizedDescription ?? "getAllServiceRequests error"
+                Client.shared?.send(event: event)
+                
                 completionHandler(nil, nil, nil, error)
             }
         }
@@ -64,6 +73,11 @@ class ServiceRequestManager {
     
     func cancelServiceRequest(serviceRequestID: String?,completionHandler: @escaping (Error?) -> Void) {
         functions.httpsCallable("cancelServiceRequest").call(["serviceRequestID": serviceRequestID]) { (_, error) in
+            if let error = error {
+                let event = Event(level: .error)
+                event.message = error.localizedDescription 
+                Client.shared?.send(event: event)
+            }
             completionHandler(error)
         }
     }
