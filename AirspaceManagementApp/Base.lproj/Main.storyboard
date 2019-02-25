@@ -18,21 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EIh-ZD-bl4">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="Zsc-MH-O45">
-                                <rect key="frame" x="20" y="132.5" width="335" height="302"/>
+                                <rect key="frame" x="20" y="116" width="335" height="335"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textLogo" translatesAutoresizingMaskIntoConstraints="NO" id="yiy-C6-wAQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="128"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle-logo" translatesAutoresizingMaskIntoConstraints="NO" id="yiy-C6-wAQ">
+                                        <rect key="frame" x="73" y="0.0" width="189" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="6w0-wj-cih"/>
+                                            <constraint firstAttribute="width" constant="189" id="yW8-o7-YR1"/>
                                         </constraints>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9XQ-Kn-EKC" customClass="JVFloatLabeledTextField">
-                                        <rect key="frame" x="17.5" y="151" width="300" height="30"/>
+                                        <rect key="frame" x="17.5" y="151" width="300" height="46.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="335" id="WT9-VH-kyi"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="zif-iz-hkA"/>
@@ -42,7 +39,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Wx-e0-8Xl" customClass="JVFloatLabeledTextField">
-                                        <rect key="frame" x="17.5" y="204" width="300" height="30"/>
+                                        <rect key="frame" x="17.5" y="220.5" width="300" height="46.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="Me9-V0-OpR"/>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="335" id="Tvd-GL-RiN"/>
@@ -52,7 +49,7 @@
                                         <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dgi-YQ-8ui" customClass="FlatButton" customModule="SwiftyButton">
-                                        <rect key="frame" x="17.5" y="257" width="300" height="45"/>
+                                        <rect key="frame" x="17.5" y="290" width="300" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="0Ko-P4-h99"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="5vg-ek-cMn"/>
@@ -73,7 +70,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYe-DA-K2b">
-                                <rect key="frame" x="118" y="449.5" width="139" height="36"/>
+                                <rect key="frame" x="118" y="466" width="139" height="36"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                 <state key="normal" title="Forgot password?"/>
                                 <connections>
@@ -93,7 +90,6 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="backgroundImageVIew" destination="EIh-ZD-bl4" id="wvZ-lf-d5K"/>
                         <outlet property="forgotPasswordBtn" destination="rYe-DA-K2b" id="9Tz-Lb-4do"/>
                         <outlet property="passwordTextField" destination="6Wx-e0-8Xl" id="xZ2-d8-QvM"/>
                         <outlet property="signInButton" destination="Dgi-YQ-8ui" id="bEf-94-2Sd"/>
@@ -112,41 +108,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="hL7-3x-Cau">
-                                <rect key="frame" x="0.0" y="-30" width="375" height="727"/>
-                            </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zHa-W3-kW7">
-                                <rect key="frame" x="20" y="119.5" width="335" height="128"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textLogo" translatesAutoresizingMaskIntoConstraints="NO" id="nLR-GW-MSy">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="128"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="128" id="FTe-85-jUs"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="nLR-GW-MSy" secondAttribute="trailing" id="9D6-fp-ZaT"/>
-                                    <constraint firstItem="nLR-GW-MSy" firstAttribute="leading" secondItem="zHa-W3-kW7" secondAttribute="leading" id="pKD-wV-w12"/>
-                                </constraints>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zHa-W3-kW7">
+                                <rect key="frame" x="20" y="119" width="335" height="129"/>
                             </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle-logo" translatesAutoresizingMaskIntoConstraints="NO" id="nLR-GW-MSy">
+                                <rect key="frame" x="93" y="269" width="189" height="129"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="129" id="FTe-85-jUs"/>
+                                    <constraint firstAttribute="width" constant="189" id="UV8-7b-Xey"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zHa-W3-kW7" firstAttribute="leading" secondItem="XT8-nh-f7V" secondAttribute="leading" constant="20" id="FVP-wN-hWt"/>
-                            <constraint firstAttribute="trailing" secondItem="hL7-3x-Cau" secondAttribute="trailing" id="bRY-zz-311"/>
-                            <constraint firstAttribute="bottom" secondItem="hL7-3x-Cau" secondAttribute="bottom" constant="-30" id="csd-KA-Wqs"/>
-                            <constraint firstItem="hL7-3x-Cau" firstAttribute="leading" secondItem="XT8-nh-f7V" secondAttribute="leading" id="fKL-ms-AOf"/>
+                            <constraint firstItem="nLR-GW-MSy" firstAttribute="centerX" secondItem="Rbt-OE-PVz" secondAttribute="centerX" id="QIi-iJ-lfa"/>
                             <constraint firstItem="zHa-W3-kW7" firstAttribute="centerX" secondItem="Rbt-OE-PVz" secondAttribute="centerX" id="hAR-8Y-d1L"/>
+                            <constraint firstItem="nLR-GW-MSy" firstAttribute="centerY" secondItem="Rbt-OE-PVz" secondAttribute="centerY" id="rmd-ku-BWg"/>
                             <constraint firstItem="zHa-W3-kW7" firstAttribute="centerY" secondItem="Rbt-OE-PVz" secondAttribute="centerY" constant="-150" id="vll-1w-kDR"/>
                             <constraint firstItem="XT8-nh-f7V" firstAttribute="trailing" secondItem="zHa-W3-kW7" secondAttribute="trailing" constant="20" id="xfM-bX-dvw"/>
-                            <constraint firstItem="hL7-3x-Cau" firstAttribute="top" secondItem="Rbt-OE-PVz" secondAttribute="top" constant="-30" id="y8y-wI-AHO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XT8-nh-f7V"/>
                     </view>
-                    <connections>
-                        <outlet property="backgroundImage" destination="hL7-3x-Cau" id="v9V-Z7-xTG"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1kQ-vn-V6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1226,8 +1209,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gradient" width="414" height="896"/>
-        <image name="textLogo" width="353" height="197"/>
+        <image name="circle-logo" width="568" height="522"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="1Pu-07-iuP"/>

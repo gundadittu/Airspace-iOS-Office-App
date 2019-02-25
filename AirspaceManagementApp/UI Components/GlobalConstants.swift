@@ -11,7 +11,7 @@ import UIKit
 import ChameleonFramework
 import NVActivityIndicatorView
 
-let globalColor = UIColor(hexString: "f07c94")!
+let globalColor = UIColor(hexString: "FC588F")!
 
 // https://github.com/ninjaprox/NVActivityIndicatorView
 func getGlobalLoadingIndicator(in view: UIView, with color: UIColor = globalColor, and size: CGFloat = 60) ->  NVActivityIndicatorView {

@@ -14,9 +14,9 @@ class InitialVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let loadingIndicator = getGlobalLoadingIndicator(in: self.view, with: .white)
-        self.view.addSubview(loadingIndicator)
-        loadingIndicator.startAnimating()
+//        let loadingIndicator = getGlobalLoadingIndicator(in: self.view, with: .white)
+//        self.view.addSubview(loadingIndicator)
+//        loadingIndicator.startAnimating()
     }
     
 }

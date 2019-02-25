@@ -17,36 +17,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="d3l-zy-9Cm">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="697"/>
-                            </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dsF-zw-nac">
-                                <rect key="frame" x="20" y="119.5" width="335" height="128"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textLogo" translatesAutoresizingMaskIntoConstraints="NO" id="4DW-hO-ZxC">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="128"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="128" id="9pD-iU-FRa"/>
-                                            <constraint firstAttribute="height" constant="128" id="rv2-G8-DfB"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle-logo" translatesAutoresizingMaskIntoConstraints="NO" id="4DW-hO-ZxC">
+                                <rect key="frame" x="93" y="269" width="189" height="129"/>
                                 <constraints>
-                                    <constraint firstItem="4DW-hO-ZxC" firstAttribute="leading" secondItem="dsF-zw-nac" secondAttribute="leading" id="cZ3-OS-Vig"/>
-                                    <constraint firstAttribute="trailing" secondItem="4DW-hO-ZxC" secondAttribute="trailing" id="wDw-Qg-dfg"/>
+                                    <constraint firstAttribute="height" constant="129" id="YBa-Qe-3Cx"/>
+                                    <constraint firstAttribute="width" constant="189" id="ffa-hc-bED"/>
                                 </constraints>
-                            </stackView>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="d3l-zy-9Cm" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="M2b-QC-5au"/>
-                            <constraint firstItem="dsF-zw-nac" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-150" id="QcY-53-GOn"/>
-                            <constraint firstAttribute="trailing" secondItem="dsF-zw-nac" secondAttribute="trailing" constant="20" id="RuE-Dt-BC3"/>
-                            <constraint firstAttribute="bottom" secondItem="d3l-zy-9Cm" secondAttribute="bottom" constant="-30" id="b5w-Gj-Ahx"/>
-                            <constraint firstItem="d3l-zy-9Cm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="i1h-6Y-Zjf"/>
-                            <constraint firstItem="d3l-zy-9Cm" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="qka-UJ-sYh"/>
-                            <constraint firstItem="dsF-zw-nac" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="uWj-Uh-cCA"/>
-                            <constraint firstItem="dsF-zw-nac" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="zNd-rL-zXV"/>
+                            <constraint firstItem="4DW-hO-ZxC" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5ty-PT-28W"/>
+                            <constraint firstItem="4DW-hO-ZxC" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="bUw-zB-Gun"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -57,7 +39,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gradient" width="414" height="896"/>
-        <image name="textLogo" width="353" height="197"/>
+        <image name="circle-logo" width="568" height="522"/>
     </resources>
 </document>

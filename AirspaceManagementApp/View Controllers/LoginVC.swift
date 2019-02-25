@@ -33,15 +33,15 @@ class LoginVC : UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         usernameTextField.tintColor = globalColor
         passwordTextField.tintColor = globalColor
-        forgotPasswordBtn.setTitleColor(.white, for: .normal)
+        forgotPasswordBtn.setTitleColor(.black, for: .normal)
         passwordTextField.isSecureTextEntry = true
-        signInButton.setTitleColor(globalColor, for: .normal)
-        signInButton.color = .white
+        signInButton.setTitleColor(.white, for: .normal)
+        signInButton.color = .black
         signInButton.cornerRadius = 0
         signInButton.highlightedColor = globalColor
         
-        self.backgroundImageVIew.image = UIImage(named: "gradient")!
-        self.backgroundImageVIew.frame = self.view.frame
+//        self.backgroundImageVIew.image = UIImage(named: "gradient")!
+//        self.backgroundImageVIew.frame = self.view.frame
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem, queue: .main) { _ in
             self.player?.seek(to: CMTime.zero)
             self.player?.play()

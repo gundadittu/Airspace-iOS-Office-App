@@ -11,7 +11,7 @@ import NotificationBannerSwift
 
 class FindRoomVCDataController {
     var selectedOffice: AirOffice?
-    var selectedDuration: Duration? = .fifteen
+    var selectedDuration: Duration? = .thirty
     var selectedStartDate: Date? = Date()
     var selectedCapacity: Int?
     var selectedAmenities: [RoomAmenity]?

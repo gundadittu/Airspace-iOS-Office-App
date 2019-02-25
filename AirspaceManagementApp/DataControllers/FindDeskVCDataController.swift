@@ -11,7 +11,7 @@ import NotificationBannerSwift
 
 class FindDeskVCDataController {
     var selectedOffice: AirOffice?
-    var selectedDuration: Duration? = .fifteen
+    var selectedDuration: Duration? = .thirty
     var selectedStartDate: Date? = Date()
     var shouldAutomaticallySubmit = false
     var isLoading = false
