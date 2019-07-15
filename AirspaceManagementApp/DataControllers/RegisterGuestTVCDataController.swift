@@ -65,7 +65,8 @@ class RegisterGuestTVCDataController {
         // call didFinishSubmittingData(withError: Error?) when done
         guard let guestName = self.guestName,
             let officeUID = self.selectedOffice?.uid,
-            let guestVisitDate = self.guestVisitDate else {
+            let guestVisitDate = self.guestVisitDate,
+            let guestEmail = self.guestEmail else {
                 let error = DataSubmissionError.missingRequiredInput
                 self.delegate?.didFinishSubmittingData(withError: error)
                 return

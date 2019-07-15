@@ -37,6 +37,8 @@ class DateTimeInputVC: UIViewController {
         
         self.dateTimePicker.date = self.initialDate ?? Date()
         
+        self.dateTimePicker.minuteInterval = 15
+        
         if let minimumDate = self.minimumDate  {
             self.dateTimePicker.minimumDate = minimumDate
         } else if let initialDate = self.initialDate {

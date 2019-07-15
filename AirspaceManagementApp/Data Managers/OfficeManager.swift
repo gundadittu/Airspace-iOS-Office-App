@@ -21,10 +21,11 @@ class OfficeManager {
                 event.message = error.localizedDescription
                 Client.shared?.send(event: event)
                 completionHandler(nil,error)
-            } else if let resultData = result?.data as? [[String:Any]]  {
+            } else if let resultData = result?.data as? [AnyObject]  {
                 var employees = [AirUser]()
                 for item in resultData {
-                    if let user = AirUser(dictionary: item) {
+                    if let item = item as? [String: AnyObject],
+                        let user = AirUser(dictionary: item) {
                         employees.append(user)
                     }
                 }

@@ -15,7 +15,8 @@ import CFAlertViewController
 
 class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var sections = [ConferenceRoomProfileSection(title: "Bio", buttonTitle: nil, type: .bio), ConferenceRoomProfileSection(title: "", buttonTitle: nil, type: .createCalendarEvent), ConferenceRoomProfileSection(title: "Add Event Name (optional)", buttonTitle: "Enter Name", type: .eventName), ConferenceRoomProfileSection(title: "Add Event Description (optional)", buttonTitle: "Enter Description", type: .eventDescription), ConferenceRoomProfileSection(title: "Invite Others (optional)", buttonTitle: "Choose Attendees", type: .inviteOthers), ConferenceRoomProfileSection(title: "Reserve Room", buttonTitle: "Reserve Room", type: .submit)]
+    // ConferenceRoomProfileSection(title: "", buttonTitle: nil, type: .createCalendarEvent),
+    var sections = [ConferenceRoomProfileSection(title: "Bio", buttonTitle: nil, type: .bio),  ConferenceRoomProfileSection(title: "Add Event Name (optional)", buttonTitle: "Enter Name", type: .eventName), ConferenceRoomProfileSection(title: "Add Event Description (optional)", buttonTitle: "Enter Description", type: .eventDescription), ConferenceRoomProfileSection(title: "Invite Others (optional)", buttonTitle: "Choose Attendees", type: .inviteOthers), ConferenceRoomProfileSection(title: "Reserve Room", buttonTitle: "Reserve Room", type: .submit)]
     var loadingIndicator: NVActivityIndicatorView?
     var dataController: ConferenceRoomProfileDataController?
     var conferenceRoom: AirConferenceRoom?
@@ -72,7 +73,7 @@ class ConferenceRoomProfileTVC: UIViewController, UITableViewDataSource, UITable
             destination.identifier = identifier
 
             if (identifier == "chooseReservationDate") {
-                destination.mode = .date
+//                destination.mode = .date
                 destination.minimumDate = Date()
                 destination.initialDate = self.existingResDisplayStartDate
             } else if (identifier == "chooseStartDate") {

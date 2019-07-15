@@ -13,10 +13,11 @@ import NVActivityIndicatorView
 import CFAlertViewController
 
 class RegisterGuestVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var sections = [RegisterGuestVCSection(title: "I have a guest visiting", buttonTitle: "Choose Office", type: .office),RegisterGuestVCSection(title: "Their name is", buttonTitle: "Enter Name", type: .name), RegisterGuestVCSection(title: "They are visiting", buttonTitle: "Choose Date & Time", type: .dateTime), RegisterGuestVCSection(title: "Their email is (optional)", buttonTitle: "Enter Email", type: .email),
+    var sections = [RegisterGuestVCSection(title: "I have a guest visiting", buttonTitle: "Choose Office", type: .office),RegisterGuestVCSection(title: "Their name is", buttonTitle: "Enter Name", type: .name), RegisterGuestVCSection(title: "They are visiting", buttonTitle: "Choose Date & Time", type: .dateTime), RegisterGuestVCSection(title: "Their email is", buttonTitle: "Enter Email", type: .email),
         RegisterGuestVCSection(title: "Register Guest", buttonTitle: "Register Guest", type: .submit)]
     var dataController: RegisterGuestTVCDataController?
     let datePicker: UIDatePicker = UIDatePicker()
+    
     let tempInput = UITextField( frame:CGRect.zero )
     var loadingIndicator: NVActivityIndicatorView?
     
@@ -25,6 +26,7 @@ class RegisterGuestVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Register a Guest"
+        datePicker.minuteInterval = 15
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
